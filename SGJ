@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sergio Garduño Jardón — CV</title>
+  <meta name="description" content="CV web de Sergio Garduño Jardón: mecatrónica, IoT, datos, sostenibilidad y tecnología aplicada al medio ambiente." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --primary:#004f90;
+      --accent:#18a957;
+      --ink:#1f2937;
+      --muted:#6b7280;
+      --bg:#f8fafc;
+      --card:#ffffff;
+      --ring:rgba(0,79,144,.15);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.55}
+    a{color:var(--primary);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:1040px;margin:32px auto;padding:0 20px}
+    header{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;margin-bottom:18px}
+    .title h1{font-size:clamp(26px,4vw,36px);margin:0 0 4px 0;font-weight:800;color:var(--primary)}
+    .subtitle{color:var(--muted);font-weight:500}
+    .badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .badge{background:#e7f3ff;color:var(--primary);padding:6px 10px;border-radius:999px;font-size:12px;font-weight:600}
+    .contact{display:flex;flex-wrap:wrap;gap:12px;color:var(--ink)}
+    .contact a{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;background:var(--card);border:1px solid #e5e7eb;box-shadow:0 1px 0 rgba(0,0,0,.03)}
+    .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:22px}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+    section{margin:18px 0}
+    .section-title{display:flex;align-items:center;gap:10px;margin:18px 0 10px 0}
+    .section-title h2{margin:0;font-size:20px;color:var(--primary);font-weight:800}
+    .section-title .rule{height:1px;background:#dbeafe;flex:1}
+    .card{background:var(--card);border:1px solid #e5e7eb;border-radius:16px;padding:18px;box-shadow:0 2px 0 rgba(0,0,0,.03)}
+    .stack{display:flex;flex-direction:column;gap:12px}
+    .item h3{margin:0 0 4px 0;font-size:16px}
+    .item .meta{color:var(--muted);font-size:14px}
+    ul.clean{margin:8px 0 0 18px;padding:0}
+    ul.clean li{margin:4px 0}
+    .pill{display:inline-block;background:#eef7f1;color:#0e7a3b;border:1px solid #d9f0e2;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:600}
+    .skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    @media (max-width:700px){.skills-grid{grid-template-columns:1fr}}
+    .skill-card{background:var(--card);border:1px solid #e5e7eb;border-radius:14px;padding:14px}
+    .footer{margin:28px 0 40px;color:var(--muted);font-size:14px;text-align:center}
+    .highlight{border-left:4px solid var(--accent);padding-left:12px;background:linear-gradient(90deg,rgba(24,169,87,.06),transparent);border-radius:8px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="title">
+        <h1>Sergio Garduño Jardón</h1>
+        <div class="subtitle">Ingeniero mecatrónico orientado a la sostenibilidad y los sistemas inteligentes</div>
+        <div class="badges">
+          <span class="badge">IoT &amp; Hardware</span>
+          <span class="badge">Análisis de datos</span>
+          <span class="badge">Energías renovables</span>
+          <span class="badge">Automatización</span>
+        </div>
+      </div>
+      <nav class="contact">
+        <a href="mailto:sgj.cheko@gmail.com">📧 sgj.cheko@gmail.com</a>
+        <a href="mailto:sgardunoj1400@alumno.ipn.mx">🎓 sgardunoj1400@alumno.ipn.mx</a>
+        <a href="tel:+525586864746">📱 55 8686 4746</a>
+        <a href="https://ecogaiasos.github.io/web/convocatorias.html" target="_blank" rel="noopener">🌐 Eco Gaia SOS</a>
+      </nav>
+    </header>
+
+    <div class="grid">
+      <main>
+        <section>
+          <div class="section-title"><h2>Perfil</h2><div class="rule"></div></div>
+          <div class="card highlight">
+            Ingeniero mecatrónico con enfoque en <strong>IoT, análisis de datos y automatización</strong> aplicada a la sostenibilidad. Experiencia en diseño de sistemas inteligentes para monitoreo térmico, energía solar, hardware programable y plataformas web.  
+            <br><br>
+            Comprometido con la <strong>innovación tecnológica sustentable</strong> y la integración de herramientas digitales para la gestión de proyectos ambientales y sociales.
+          </div>
+        </section>
+
+        <section>
+          <div class="section-title"><h2>Experiencia y proyectos</h2><div class="rule"></div></div>
+          <div class="stack">
+
+            <div class="card item">
+              <h3>Eco Gaia SOS — Proyecto independiente</h3>
+              <div class="meta">2024 – Presente · Ciudad de México · <span class="pill">Web &amp; Datos</span></div>
+              <ul class="clean">
+                <li>Plataforma web de apoyo y visibilización para actores ambientales de la CDMX.</li>
+                <li>Recopilación, análisis y publicación de información sobre convocatorias y proyectos verdes.</li>
+                <li>Diseño visual y estructuración de contenido para interacción ciudadana.</li>
+              </ul>
+            </div>
+
+            <div class="card item">
+              <h3>Sistema IoT para techos verdes — Desarrollo independiente</h3>
+              <div class="meta">2024–2025 · IoT, datos y energía</div>
+              <ul class="clean">
+                <li>Desarrollo de un sistema de monitoreo ambiental con sensores múltiples y envío de datos a la nube.</li>
+                <li>Validación en campo de reducción térmica en techos verdes extensivos.</li>
+                <li>Integración de panel solar, batería y comunicación remota.</li>
+              </ul>
+            </div>
+
+            <div class="card item">
+              <h3>Sr. Planta — Colaboración en innovación sostenible</h3>
+              <div class="meta">2024–2025 · Prototipado y electrónica</div>
+              <ul class="clean">
+                <li>Apoyo en desarrollo de kioscos solares para economía circular.</li>
+                <li>Integración electrónica, pruebas funcionales y diseño de hardware.</li>
+              </ul>
+            </div>
+
+            <div class="card item">
+              <h3>Robodacta — Diseño, gestión y desarrollo tecnológico</h3>
+              <div class="meta">2022–2024 · Educación tecnológica y ventas</div>
+              <ul class="clean">
+                <li>Diseño de un kit electrónico educativo para niños.</li>
+                <li>Creación de empaques, materiales publicitarios y cursos en línea.</li>
+                <li>Gestión de ventas, marketing digital y logística con proveedores.</li>
+              </ul>
+            </div>
+
+            <div class="card item">
+              <h3>Negocio propio de reparación de celulares</h3>
+              <div class="meta">2018–2020 · Emprendimiento independiente</div>
+              <ul class="clean">
+                <li>Diagnóstico y reparación de diversos dispositivos electrónicos.</li>
+                <li>Compra, venta e instalación de refacciones.</li>
+                <li>Gestión de inventarios y atención al cliente en servicio técnico.</li>
+              </ul>
+            </div>
+
+            <div class="card item">
+              <h3>Proyecto de publicidad — Comunicación visual y producción</h3>
+              <div class="meta">2021–2022 · Producción e instalación</div>
+              <ul class="clean">
+                <li>Diseño y producción de lonas, banners y viniles publicitarios.</li>
+                <li>Compra de materiales, instalación y atención al cliente.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <aside>
+        <section>
+          <div class="section-title"><h2>Formación</h2><div class="rule"></div></div>
+          <div class="card stack">
+            <div class="item">
+              <h3>Ingeniería Mecatrónica</h3>
+              <div class="meta">UPIITA — Instituto Politécnico Nacional</div>
+              <ul class="clean">
+                <li>IoT, automatización y energías renovables.</li>
+                <li>Seminario: Diseño de la Automatización de la Manufactura e Integración de Dispositivos Programables.</li>
+              </ul>
+            </div>
+            <div class="item">
+              <h3>Administración de Empresas</h3>
+              <div class="meta">CECyT 13 “Ricardo Flores Magón”</div>
+              <ul class="clean">
+                <li>Gestión, planeación estratégica y liderazgo.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-title"><h2>Habilidades técnicas</h2><div class="rule"></div></div>
+          <div class="skills-grid">
+            <div class="skill-card">
+              <strong>Programación</strong>
+              <ul class="clean"><li>C++/Arduino</li><li>Python</li><li>Google Apps Script</li></ul>
+            </div>
+            <div class="skill-card">
+              <strong>IoT y Hardware</strong>
+              <ul class="clean"><li>ESP32, sensores múltiples</li><li>Diseño de PCB</li><li>Sistemas embebidos</li></ul>
+            </div>
+            <div class="skill-card">
+              <strong>Datos &amp; Automatización</strong>
+              <ul class="clean"><li>SQL, Excel avanzado</li><li>Dashboards y reportes</li><li>Automatización en nube</li></ul>
+            </div>
+            <div class="skill-card">
+              <strong>Energía &amp; Sostenibilidad</strong>
+              <ul class="clean"><li>Paneles solares y baterías</li><li>Monitoreo ambiental</li></ul>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-title"><h2>Habilidades blandas</h2><div class="rule"></div></div>
+          <div class="card">
+            <ul class="clean">
+              <li>Liderazgo</li>
+              <li>Creatividad e innovación</li>
+              <li>Planeación y gestión de proyectos</li>
+              <li>Trabajo en equipo</li>
+              <li>Adaptabilidad</li>
+            </ul>
+          </div>
+        </section>
+      </aside>
+    </div>
+
+    <footer class="footer">
+      © <script>document.write(new Date().getFullYear())</script> Sergio Garduño Jardón — Última actualización 2025 • CV web
+    </footer>
+  </div>
+</body>
+</html>
