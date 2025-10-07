@@ -1,81 +1,215 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Portafolio profesional de Sergio Garduño Jardón, Ingeniero Mecatrónico orientado a la sostenibilidad y la tecnología.">
-  <title>Sergio Garduño Jardón | Ingeniero Mecatrónico</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sergio Garduño Jardón — CV & Portfolio</title>
 
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font & icons (FontAwesome free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
-    body { scroll-behavior: smooth; }
+    /* ===== Reset básico y tipografía ===== */
+    :root{
+      --bg:#0b0b0b;      /* negro profundo */
+      --fg:#f5f5f5;      /* texto claro */
+      --accent:#a7a7a7;  /* gris para líneas */
+      --muted:#bfbfbf;
+      --maxw:980px;
+      --radius:10px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: "Source Sans Pro", Arial, sans-serif;
+      background:var(--bg);
+      color:var(--fg);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding:36px 18px;
+    }
+    .wrap{max-width:var(--maxw);margin:0 auto;position:relative;}
+
+    /* ===== header ===== */
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      margin-bottom:22px;
+    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{
+      width:64px;height:64px;border-radius:10px;
+      background:#fff url("assets/haku-logo.png") center/cover no-repeat;
+      flex:0 0 64px;
+      box-shadow:0 6px 18px rgba(0,0,0,.6);
+    }
+    .name{font-size:20px;font-weight:700;letter-spacing:0.2px;color:var(--fg)}
+    .sub{font-size:12px;color:var(--muted)}
+
+    /* ===== hero/profile ===== */
+    .hero{
+      display:grid;
+      grid-template-columns: 1fr 320px;
+      gap:28px;
+      align-items:start;
+      margin-bottom:28px;
+    }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.04);
+      padding:22px;
+      border-radius:10px;
+    }
+    .profile-title{font-size:18px;font-weight:700;margin-bottom:8px;color:var(--fg)}
+    .profile-text{color:var(--fg);opacity:0.95;font-size:14px}
+
+    /* small right column */
+    .right{
+      display:flex;flex-direction:column;gap:14px;
+    }
+    .contact-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+    .contact-list a{color:var(--fg);text-decoration:none;font-size:14px;display:inline-flex;gap:10px;align-items:center}
+    .contact-list a .ico{width:22px;text-align:center;color:var(--muted)}
+
+    /* ===== sections ===== */
+    section{margin-bottom:24px}
+    h2.section-title{
+      font-size:16px;color:var(--fg);margin:0 0 12px 0;padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,0.06)
+    }
+    ul.roles{padding-left:18px;margin:4px 0 0;color:var(--fg);opacity:.95}
+    ul.roles li{margin:6px 0}
+
+    /* ===== plant overlay (subtle) ===== */
+    .plant-overlay{
+      position:absolute;right:12px;top:60px;
+      width:280px;height:360px;opacity:0.08;
+      background:url("assets/plant-overlay.svg") center/contain no-repeat;
+      pointer-events:none;
+      filter:grayscale(100%);
+    }
+
+    /* ===== footer ===== */
+    footer{margin-top:32px;color:var(--muted);font-size:13px;text-align:center}
+
+    /* ===== Responsive ===== */
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr}
+      .plant-overlay{display:none}
+      .logo{width:56px;height:56px}
+    }
   </style>
 </head>
+<body>
+  <div class="wrap">
 
-<body class="bg-gray-50 text-gray-800 font-sans">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <div class="name">Sergio Garduño Jardón</div>
+          <div class="sub">Ingeniero mecatrónico orientado a sostenibilidad y sistemas inteligentes</div>
+        </div>
+      </div>
 
-  <!-- HEADER -->
-  <header class="bg-blue-900 text-white py-10 text-center">
-    <h1 class="text-4xl font-bold mb-2">Sergio Garduño Jardón</h1>
-    <p class="text-lg mb-4">Ingeniero Mecatrónico orientado a la sostenibilidad y sistemas inteligentes</p>
-    <div class="flex justify-center gap-4">
-      <a href="mailto:sgj.cheko@gmail.com" class="bg-white text-blue-900 px-4 py-2 rounded-md font-semibold hover:bg-gray-200">Correo</a>
-      <a href="https://www.linkedin.com/in/tuusuario" target="_blank" class="border border-white px-4 py-2 rounded-md hover:bg-white hover:text-blue-900">LinkedIn</a>
-      <a href="assets/CV-Sergio-Garduno-Jardon.pdf" target="_blank" class="border border-white px-4 py-2 rounded-md hover:bg-white hover:text-blue-900">Descargar CV</a>
+      <nav aria-label="contacto">
+        <div class="sub" style="text-align:right">
+          <div style="font-weight:600">Contacto</div>
+          <div class="sub" style="margin-top:6px">
+            <span style="display:inline-block;margin-right:8px"><i class="fa-solid fa-envelope"></i> sgj.cheko@gmail.com</span><br/>
+            <span style="display:inline-block;margin-right:8px"><i class="fa-solid fa-phone"></i> +52 55 8686 4746</span>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- subtle decorative plant -->
+    <div class="plant-overlay" aria-hidden="true"></div>
+
+    <div class="hero">
+      <!-- main profile -->
+      <div class="card">
+        <div class="profile-title">Perfil</div>
+        <div class="profile-text">
+          Soy Ingeniero Mecatrónico especializado en IoT y soluciones sostenibles. Diseño, desarrollo y despliego sistemas de monitoreo ambiental que integran hardware (ESP32, sensores), energía renovable (paneles solares + baterías) y pipelines de datos (Google Sheets/SQL, dashboards). Trabajo con Python, C++/Arduino y Google Apps Script para automatizar procesos y desarrollar modelos analíticos enfocados en optimización de recursos y toma de decisión basada en datos.
+          <br><br>
+          Busco roles en los que pueda combinar diseño de hardware y análisis de datos para proyectos con impacto ambiental y operacional. Actualmente en proceso de certificación de Inglés (B2).
+        </div>
+      </div>
+
+      <!-- right column: contactos + quick links -->
+      <aside class="right">
+        <div class="card">
+          <div style="font-weight:700;margin-bottom:8px">Contacto rápido</div>
+          <ul class="contact-list">
+            <li><a href="mailto:sgj.cheko@gmail.com"><span class="ico"><i class="fa-regular fa-envelope"></i></span> sgj.cheko@gmail.com</a></li>
+            <li><a href="mailto:sgardunoj1400@alumno.ipn.mx"><span class="ico"><i class="fa-regular fa-envelope"></i></span> sgardunoj1400@alumno.ipn.mx</a></li>
+            <li><a href="https://wa.me/5215586864746" target="_blank" rel="noopener"><span class="ico"><i class="fa-brands fa-whatsapp"></i></span> WhatsApp</a></li>
+            <li><a href="https://www.facebook.com/tuPerfil" target="_blank" rel="noopener"><span class="ico"><i class="fa-brands fa-facebook"></i></span> Facebook</a></li>
+            <li><a href="https://instagram.com/tuUsuario" target="_blank" rel="noopener"><span class="ico"><i class="fa-brands fa-instagram"></i></span> Instagram</a></li>
+            <li><a href="https://sgj369.github.io/cv-sergio-gardu-o-jardon/Index.html" target="_blank" rel="noopener"><span class="ico"><i class="fa-solid fa-link"></i></span> Portfolio web</a></li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div style="font-weight:700;margin-bottom:8px">Accesos</div>
+          <div style="font-size:13px;color:var(--muted)"><strong>Descargas:</strong> PDF del CV / Propuesta financiera (cuando estén disponibles).</div>
+        </div>
+      </aside>
     </div>
-  </header>
 
-  <!-- PERFIL -->
-  <section id="perfil" class="max-w-4xl mx-auto p-6">
-    <h2 class="text-2xl font-bold text-blue-900 mb-2">Perfil</h2>
-    <p class="text-justify leading-relaxed">
-      Ingeniero Mecatrónico (UPIITA-IPN) con experiencia en análisis de datos, optimización y programación, orientado a la sostenibilidad y la toma de decisiones estratégicas. Ha desarrollado proyectos enfocados en IoT, energía renovable y automatización inteligente con impacto ambiental positivo.
-    </p>
-  </section>
-
-  <!-- EXPERIENCIA -->
-  <section id="experiencia" class="bg-white py-10">
-    <div class="max-w-4xl mx-auto p-6">
-      <h2 class="text-2xl font-bold text-blue-900 mb-4">Experiencia profesional</h2>
-      
-      <div class="border-l-4 border-blue-900 pl-4 mb-6">
-        <h3 class="text-xl font-semibold">Eco Gaia SOS</h3>
-        <p class="italic text-gray-600">Proyecto independiente (2023–Presente)</p>
-        <p>Desarrollo web y recopilación de datos ambientales para la Ciudad de México. Enfocado en la difusión de información ecológica y colaboración con actores locales.</p>
-        <a href="https://ecogaiasos.github.io/web/convocatorias.html" target="_blank" class="text-blue-700 underline">Visitar proyecto</a>
+    <!-- Sections: formación, experiencia, proyectos -->
+    <section>
+      <h2 class="section-title">Formación académica</h2>
+      <div class="card">
+        <strong>Ingeniero Mecatrónico</strong> — UPIITA, IPN<br/>
+        <small style="color:var(--muted)">Proyecto independiente: sistema IoT para análisis de temperatura en techos verdes; integración con panel solar y almacenamiento.</small>
       </div>
+    </section>
 
-      <div class="border-l-4 border-blue-900 pl-4 mb-6">
-        <h3 class="text-xl font-semibold">RoboDacta</h3>
-        <p class="italic text-gray-600">Desarrollador y Gestor de Proyectos (2021–2023)</p>
-        <p>Diseño de kits electrónicos educativos, desarrollo de cursos en línea, gestión de ventas, publicidad y empaques. Amplia experiencia en atención al cliente y estrategias de marketing digital.</p>
+    <section>
+      <h2 class="section-title">Experiencia relevante</h2>
+      <div class="card">
+        <ul class="roles">
+          <li><strong>Desarrollo IoT y monitoreo:</strong> Diseño de dispositivos con ESP32, sensorización y envío de datos a la nube.</li>
+          <li><strong>Programación y análisis:</strong> Python (pandas), C++/Arduino, Google Apps Script, SQL; dashboards para toma de decisiones.</li>
+          <li><strong>Gestión de proyectos y ventas:</strong> Experiencia en prototipado, comercialización (Robodacta) y operación de servicios.</li>
+        </ul>
       </div>
+    </section>
 
-      <div class="border-l-4 border-blue-900 pl-4">
-        <h3 class="text-xl font-semibold">Negocio propio de reparación electrónica</h3>
-        <p class="italic text-gray-600">Técnico y gestor (2018–2020)</p>
-        <p>Reparación de dispositivos móviles y electrónicos. Gestión de compra de refacciones, negociación con proveedores y atención personalizada a clientes.</p>
+    <section>
+      <h2 class="section-title">Proyectos</h2>
+      <div class="card">
+        <strong>Eco Gaia SOS</strong> — Proyecto web y recopilación de datos para apoyo a actores locales (plataforma de convocatorias y recursos). <br>
+        <a href="https://ecogaiasos.github.io/web/convocatorias.html" target="_blank" rel="noopener" style="color:var(--fg);text-decoration:underline">Ver sitio</a>
+        <hr style="border:none;border-top:1px dashed rgba(255,255,255,0.04);margin:12px 0">
+        <strong>Kiosko solar (Sr. Planta)</strong> — Diseño de kioskos solares y prototipos para economía circular; integración electrónica y pruebas de campo.
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- EDUCACIÓN -->
-  <section id="educacion" class="max-w-4xl mx-auto p-6">
-    <h2 class="text-2xl font-bold text-blue-900 mb-2">Formación académica</h2>
-    <ul class="list-disc ml-6">
-      <li><strong>Ingeniería Mecatrónica</strong> — UPIITA, IPN (2019–2025)</li>
-      <li><strong>Técnico en Administración de Empresas</strong> — CECyT 13 “Ricardo Flores Magón”</li>
-      <li>Seminario: Diseño y automatización de la manufactura e integración de dispositivos programables</li>
-      <li>Certificación en proceso: Inglés B2</li>
-    </ul>
-  </section>
+    <section>
+      <h2 class="section-title">Habilidades técnicas</h2>
+      <div class="card">
+        <ul class="roles">
+          <li><strong>Data & ML:</strong> Excel avanzado, Python (pandas, numpy), visualización, conocimientos básicos de ML.</li>
+          <li><strong>Programación y hardware:</strong> C++/Arduino, ESP32, diseño e impresión de PCB.</li>
+          <li><strong>Energía:</strong> Paneles solares, gestión de baterías, soluciones autónomas.</li>
+        </ul>
+      </div>
+    </section>
 
-  <!-- CONTACTO -->
-  <footer class="bg-blue-900 text-white py-8 text-center">
-    <p>© 2025 Sergio Garduño Jardón — Todos los derechos reservados</p>
-  </footer>
+    <footer>
+      © <span id="year"></span> Sergio Garduño Jardón — Contacto: sgj.cheko@gmail.com
+    </footer>
 
+  </div>
+
+  <script>
+    // year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
