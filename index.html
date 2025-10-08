@@ -6,13 +6,12 @@
   <title>Sergio Garduño Jardón — CV & Portfolio</title>
   <meta name="description" content="Ingeniero mecatrónico orientado a la sostenibilidad y sistemas inteligentes. IoT, datos, energía solar y proyectos ambientales." />
 
-  <!-- favicon (archivo en la raíz) -->
+  <!-- favicon -->
   <link rel="icon" href="favicon.ico" type="image/x-icon">
 
-  <!-- FontAwesome (iconos) -->
+  <!-- FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <!-- Estilos -->
   <style>
     :root{
       --bg-dark:#080808;
@@ -20,7 +19,7 @@
       --muted:#bdbdbd;
       --accent-green: #63b96f;
       --card:#0f1113;
-      --maxw:1024px;
+      --maxw:1100px;
       --radius:12px;
     }
     *{box-sizing:border-box}
@@ -28,7 +27,7 @@
     body{
       font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
       background:
-        linear-gradient(180deg, rgba(4,6,8,0.88), rgba(8,8,10,0.96)),
+        linear-gradient(180deg, rgba(4,6,8,0.92), rgba(8,8,10,0.96)),
         url('fondo.jpg') center/cover no-repeat fixed;
       color:var(--fg);
       -webkit-font-smoothing:antialiased;
@@ -38,29 +37,14 @@
     }
     .wrap{max-width:var(--maxw);margin:0 auto;position:relative}
 
-    /* Plant overlay (decorativo) */
-    .plant-overlay{
-      position:absolute;
-      right:14px;
-      top:120px;
-      width:300px;
-      height:420px;
-      background: url('plant-overlay.png') center/contain no-repeat;
-      opacity:0.12;
-      pointer-events:none;
-      filter: hue-rotate(10deg) saturate(.95) contrast(.98);
-    }
-    @media (max-width:900px){ .plant-overlay{ display:none } }
-
     /* Header */
     header{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:22px}
     .brand{display:flex;align-items:center;gap:14px}
-    .logo{
-      width:72px;height:72px;border-radius:12px;background:#fff center/cover no-repeat;flex:0 0 72px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
-      overflow:hidden;
+    .avatar{
+      width:86px;height:86px;border-radius:12px;overflow:hidden;border:2px solid rgba(255,255,255,0.06);
+      box-shadow:0 8px 28px rgba(0,0,0,0.6);
     }
-    .logo img{width:100%;height:100%;object-fit:cover;display:block}
+    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
     .title{font-weight:800;font-size:20px}
     .subtitle{color:var(--muted);font-size:13px;margin-top:4px}
 
@@ -73,7 +57,7 @@
     .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:10px;color:var(--fg);text-decoration:none}
 
     /* Hero / grid */
-    .hero{display:grid;grid-template-columns:1fr 340px;gap:28px;align-items:start;margin-bottom:28px}
+    .hero{display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:start;margin-bottom:28px}
     @media (max-width:980px){ .hero{grid-template-columns:1fr; padding-bottom:8px} }
 
     .card{
@@ -103,20 +87,26 @@
     @media (max-width:600px){ .skills{grid-template-columns:1fr} }
     .skill-pill{background:rgba(255,255,255,0.03);padding:8px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
 
-    footer{text-align:center;color:var(--muted);font-size:13px;padding:26px 0 10px}
+    /* gallery */
+    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    @media (max-width:800px){ .gallery{grid-template-columns:repeat(2,1fr)} }
+    .gallery img{width:100%;height:160px;object-fit:cover;border-radius:8px;border:1px solid rgba(255,255,255,0.04)}
+
+    footer{text-align:center;color:var(--muted);font-size:13px;padding:26px 0 10px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .footer-brand{display:flex;align-items:center;gap:8px}
+    .sello{width:40px;height:40px;border-radius:8px;overflow:hidden}
+    .sello img{width:100%;height:100%;object-fit:cover}
   </style>
 </head>
 <body>
   <div class="wrap">
 
-    <!-- plant overlay (decor) -->
-    <div class="plant-overlay" aria-hidden="true"></div>
-
     <!-- Header -->
     <header>
       <div class="brand">
-        <div class="logo" aria-hidden="true">
-          <img src="perfil.png" alt="perfil - logo">
+        <div class="avatar" title="Foto de Sergio">
+          <!-- aquí va profile.png -->
+          <img src="perfil.png" alt="Sergio Garduño Jardón">
         </div>
         <div>
           <div class="title">Sergio Garduño Jardón</div>
@@ -164,6 +154,21 @@
           </div>
 
           <div class="card" style="margin-bottom:12px">
+            <strong>METAMORFOZIZ — Publicidad y producción</strong> <div class="contact-small">2021 – 2022</div>
+            <ul class="clean">
+              <li>Diseño gráfico, producción de lonas y banners, gestión de materiales y procesos de impresión.</li>
+              <li>Aprendí sobre logística de impresión, montaje y atención a clientes en proyectos de comunicación visual.</li>
+            </ul>
+          </div>
+
+          <div class="card" style="margin-bottom:12px">
+            <strong>Ventas (local) — Coyoacán</strong> <div class="contact-small">2021 – 2022</div>
+            <ul class="clean">
+              <li>Atención directa a clientes, gestión de ventas B2C y B2B, manejo de caja y control de inventario; aprendizaje clave de trato con clientes y negociación.</li>
+            </ul>
+          </div>
+
+          <div class="card" style="margin-bottom:12px">
             <strong>Robodacta — Diseño y ventas</strong> <div class="contact-small">2022 – 2024</div>
             <ul class="clean">
               <li>Diseño de kits educativos, empaques, cursos online y material audiovisual; gestión de proveedores y ventas.</li>
@@ -179,13 +184,38 @@
         </section>
 
         <section>
-          <h2 class="section">Logros y participación</h2>
+          <h2 class="section">Logros</h2>
           <div class="card">
             <ul class="clean">
-              <li>Participé como apoyo técnico en el Congreso Nacional de Biotecnología (Oaxaca, 2025).</li>
               <li>Prototipo IoT validado en campo para monitoreo térmico y energético.</li>
-              <li>Desarrollo y mantenimiento de la plataforma Eco Gaia SOS.</li>
+              <li>Participación técnica en el Congreso Nacional de Biotecnología (Oaxaca, 2025).</li>
+              <li>Implementación de plataforma Eco Gaia SOS con crecimiento de visitas y consultas.</li>
             </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="section">Cursos y certificados</h2>
+          <div class="card">
+            <ul class="clean">
+              <li>Seminario: Diseño de la automatización de la manufactura e integración de dispositivos programables.</li>
+              <li>Curso/autoformación: Python para análisis de datos (pandas) — autodidacta / proyectos prácticos.</li>
+              <li>Certificación en proceso: Inglés B2.</li>
+              <!-- Si tienes archivos de certificados: súbelos y nómbralos certificate1.jpg, certificate2.jpg, etc., y enlázalos aquí -->
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="section">Galería / Proyectos (imágenes)</h2>
+          <div class="card">
+            <div class="gallery">
+              <!-- Subir imágenes a la raíz (o carpeta), por ejemplo project1.jpg, project2.jpg, project3.jpg -->
+              <img src="project1.jpg" alt="Proyecto 1 (subir archivo project1.jpg)">
+              <img src="project2.jpg" alt="Proyecto 2 (subir archivo project2.jpg)">
+              <img src="project3.jpg" alt="Proyecto 3 (subir archivo project3.jpg)">
+            </div>
+            <div style="margin-top:10px;color:var(--muted);font-size:13px">Haz clic en las imágenes en el futuro para ver detalles o descarga (pendiente de implementar modal).</div>
           </div>
         </section>
       </main>
@@ -231,7 +261,11 @@
     </div>
 
     <footer>
-      © <span id="year"></span> Sergio Garduño Jardón · Hecho con GitHub Pages
+      <div class="footer-brand">
+        <div class="sello"><img src="haku-logo.png" alt="Haku"></div>
+        <div style="color:var(--muted);font-size:13px">© <span id="year"></span> Sergio Garduño Jardón · Hecho con GitHub Pages</div>
+      </div>
+      <div style="color:var(--muted);font-size:13px">Contacto: sgj.cheko@gmail.com</div>
     </footer>
 
   </div>
