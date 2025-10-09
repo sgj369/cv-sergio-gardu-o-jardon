@@ -103,25 +103,33 @@
 
     <!-- Header -->
     <header>
-      <div class="brand">
-        <div class="avatar" title="Foto de Sergio">
-          <!-- aquí va perfil.png -->
-          <img src="perfil.png" alt="Sergio Garduño Jardón">
-        </div>
-        <div>
-          <div class="title">Sergio Garduño Jardón</div>
-          <div class="subtitle">Ingeniero mecatrónico orientado a la sostenibilidad y los sistemas inteligentes</div>
+  <div class="brand">
+    <div class="avatar" title="Foto de Sergio">
+      <img src="perfil.png" alt="Sergio Garduño Jardón">
+    </div>
+
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <div class="title">Sergio Garduño Jardón</div>
+
+        <!-- Botones de CV arriba, junto al nombre -->
+        <div style="display:flex;gap:8px;">
+          <a class="btn-ghost" href="cv_pagina_web.pdf" target="_blank" rel="noopener" title="Abrir CV en el navegador">👁️ Ver CV</a>
+          <a class="btn-ghost" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" title="Descargar CV como PDF">⬇ Descargar CV</a>
         </div>
       </div>
 
-      <div class="contact-quick">
-        <a class="btn-white" href="mailto:sgj.cheko@gmail.com">✉ sgj.cheko@gmail.com</a>
-        <a class="btn-white" href="mailto:sgardunoj1400@alumno.ipn.mx">🎓 sgardunoj1400@alumno.ipn.mx</a>
-        <a class="btn-ghost" href="https://wa.me/5215586864746" target="_blank" rel="noopener">💬 WhatsApp</a>
-        <a class="btn-ghost" href="CV-Sergio-Garduno-Jardon.pdf" target="_blank" rel="noopener">⬇ Descargar CV (PDF)</a>
-      </div>
-    </header>
+      <div class="subtitle">Ingeniero mecatrónico orientado a la sostenibilidad y los sistemas inteligentes</div>
+    </div>
+  </div>
 
+  <div class="contact-quick">
+    <a class="btn-white" href="mailto:sgj.cheko@gmail.com">✉ sgj.cheko@gmail.com</a>
+    <a class="btn-white" href="mailto:sgardunoj1400@alumno.ipn.mx">🎓 sgardunoj1400@alumno.ipn.mx</a>
+    <a class="btn-ghost" href="https://wa.me/5215586864746" target="_blank" rel="noopener">💬 WhatsApp</a>
+  </div>
+</header>
+  
     <!-- Hero -->
     <div class="hero">
       <!-- left: perfil -->
@@ -129,43 +137,38 @@
         <div class="card">
           <div class="profile-title">Perfil</div>
           <div class="profile-text">
-            Soy Ingeniero Mecatrónico especializado en IoT y soluciones sostenibles. Diseño, desarrollo y despliego sistemas de monitoreo ambiental que integran hardware (ESP32 y sensores), energía renovable (paneles solares y baterías) y pipelines de datos (Google Sheets / SQL, dashboards). Programo en Python, C++/Arduino y Google Apps Script para automatizar procesos y crear modelos analíticos orientados a optimizar recursos y apoyar la toma de decisiones. Actualmente estoy certificándome en Inglés (B2). Me interesa colaborar en proyectos que unan tecnología y naturaleza para generar impacto ambiental positivo.
+            Ingeniero Mecatrónico especializado en IoT y soluciones sostenibles. Diseño, desarrollo y despliego sistemas de monitoreo ambiental que integran hardware (ESP32 y sensores), energía renovable (paneles solares y baterías) y pipelines de datos (Google Sheets / SQL, dashboards). Programo en Python, C++/Arduino y Google Apps Script para automatizar procesos y crear modelos analíticos orientados a optimizar recursos y apoyar la toma de decisiones. Actualmente estoy certificándome en Inglés (B2). Me interesa colaborar en proyectos que unan tecnología y naturaleza para generar impacto ambiental positivo.
           </div>
         </div>
 
-        <!-- IoT section moved here -->
-        <!-- ================ Sección: Proyecto IoT - Techo Verde ================ -->
-        <section id="iot" style="margin:36px 0;padding:22px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.04);">
-          <h2 style="color:#63b96f;margin:0 0 8px 0;font-size:18px;font-weight:800;">Proyecto IoT — Techo Verde</h2>
-          <p style="color:#d6d6d6;margin:0 0 14px;font-size:14px;max-width:780px;">
-            Sistema de monitoreo ambiental con ESP32 y sensores múltiples. Aquí puedes ver el tablero en tiempo real, la hoja de datos y descargar la tesis completa.
-          </p>
+        <!-- IoT section moved here -->     
+<!-- ==== Sección: Proyecto IoT - Techo Verde (actualizada) ==== -->
+<section id="iot" style="margin:36px 0;padding:22px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.04);">
+  <h2 style="color:#63b96f;margin:0 0 8px 0;font-size:18px;font-weight:800;">Proyecto IoT — Techo Verde</h2>
 
-          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
-            <a href="https://hugonogueron2607.github.io/Techo_Verde/" target="_blank" rel="noopener" style="background:#63b96f;color:#03120a;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(99,185,111,0.08);">
-              🌐 Ver dashboard (datos en tiempo real)
-            </a>
+  <p style="color:#d6d6d6;margin:0 0 14px;font-size:14px;max-width:780px;">
+    Sistema de monitoreo ambiental con ESP32 y sensores múltiples. En los siguientes enlaces puedes ver el tablero en tiempo real y la hoja de datos; la tesis completa está disponible para consulta en línea.
+  </p>
 
-            <!-- Reemplaza SHEET_URL por la URL pública de tu Google Sheet -->
-            <a href="https://docs.google.com/spreadsheets/d/1Mu0mfmwoWRI_kJ8EweGpJT1g608t6EQixtfevX0z0ac/edit?usp=drivesdk" target="_blank" rel="noopener" style="background:#0b66c2;color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(11,102,194,0.06);">
-              📊 Ver hoja de datos (Google Sheets)
-            </a>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
+    <a href="https://hugonogueron2607.github.io/Techo_Verde/" target="_blank" rel="noopener" style="background:#63b96f;color:#03120a;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;">
+      🌐 Ver dashboard (datos en tiempo real)
+    </a>
 
-            <!-- Enlace a tu PDF de la tesis subido al repo -->
-            <a href="tesis_med_techo_verde.pdf" target="_blank" rel="noopener" style="background:#222;color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;border:1px solid rgba(255,255,255,0.04);">
-              📘 Descargar tesis (PDF)
-            </a>
+    <a href="https://docs.google.com/spreadsheets/d/1Mu0mfmwoWRI_kJ8EweGpJT1g608t6EQixtfevX0z0ac/edit?usp=sharing" target="_blank" rel="noopener" style="background:#0b66c2;color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;">
+      📊 Ver hoja de datos (Google Sheets)
+    </a>
 
-            <!-- Enlace al PDF del CV o documentación adicional -->
-            <a href="cv_pagina_web.pdf" target="_blank" rel="noopener" style="background:transparent;border:1px solid rgba(255,255,255,0.06);color:#d6d6d6;padding:10px 14px;border-radius:10px;text-decoration:none;">
-              📎 Documento: CV (PDF)
-            </a>
-          </div>
+    <!-- Tesis: abrir en navegador (vista). Para forzar descarga usar attribute download (ver nota abajo). -->
+    <a href="tesis_Med_techo_verde.pdf" target="_blank" rel="noopener" style="background:#222;color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;border:1px solid rgba(255,255,255,0.04);">
+      📘 Ver tesis (PDF)
+    </a>
+  </div>
 
-          <p style="color:#9ea0a2;font-size:13px;margin:0;">
-            Si deseas que la hoja de datos sea pública, ve a Google Sheets → Compartir → "Cualquiera con el enlace" → Ver. Luego pega aquí la URL pública (SHEET_URL).
-          </p>
-        </section>
+  <p style="color:#9ea0a2;font-size:13px;margin:0;">
+    Nota: para que la hoja de datos sea pública, ve a Google Sheets → Compartir → "Cualquiera con el enlace" → Ver.
+  </p>
+</section>
         <!-- ================= fin sección IoT ================= -->
 
         <!-- Experiencia resumida -->
