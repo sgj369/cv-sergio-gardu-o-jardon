@@ -103,35 +103,25 @@
 
     <!-- Header -->
     <header>
-  <div class="brand">
-    <div class="avatar" title="Foto de Sergio">
-      <img src="perfil.png" alt="Sergio Garduño Jardón">
-    </div>
-    
-<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-  <div class="title">Sergio Garduño Jardón</div>
+      <div class="brand">
+        <div class="avatar" title="Foto de Sergio">
+          <!-- aquí va profile.png -->
+          <img src="profile.png" alt="Sergio Garduño Jardón">
+        </div>
+        <div>
+          <div class="title">Sergio Garduño Jardón</div>
+          <div class="subtitle">Ingeniero mecatrónico orientado a la sostenibilidad y los sistemas inteligentes</div>
+        </div>
+      </div>
 
-  <!-- Botones de CV (aparecen junto al nombre) -->
-  <div style="display:flex;gap:8px;">
-    <!-- Abre página que incrusta PDF del CV -->
-    <a class="btn-ghost" href="cv_pagina_web.pdf" target="_blank" rel="noopener" title="Ver CV en línea">👁️ Ver CV</a>
+      <div class="contact-quick">
+        <a class="btn-white" href="mailto:sgj.cheko@gmail.com">✉ sgj.cheko@gmail.com</a>
+        <a class="btn-white" href="mailto:sgardunoj1400@alumno.ipn.mx">🎓 sgardunoj1400@alumno.ipn.mx</a>
+        <a class="btn-ghost" href="https://wa.me/5215586864746" target="_blank" rel="noopener">💬 WhatsApp</a>
+        <a class="btn-ghost" href="CV-Sergio-Garduno-Jardon.pdf" target="_blank" rel="noopener">⬇ Descargar CV (PDF)</a>
+      </div>
+    </header>
 
-    <!-- Botón de descarga directa (opcional) -->
-    <a class="btn-ghost" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" title="Descargar CV">⬇ Descargar CV</a>
-  </div>
-</div>
-
-      <div class="subtitle">Ingeniero mecatrónico orientado a la sostenibilidad y los sistemas inteligentes</div>
-    </div>
-  </div>
-
-  <div class="contact-quick">
-    <a class="btn-white" href="mailto:sgj.cheko@gmail.com">✉ sgj.cheko@gmail.com</a>
-    <a class="btn-white" href="mailto:sgardunoj1400@alumno.ipn.mx">🎓 sgardunoj1400@alumno.ipn.mx</a>
-    <a class="btn-ghost" href="https://wa.me/5215586864746" target="_blank" rel="noopener">💬 WhatsApp</a>
-  </div>
-</header>
-  
     <!-- Hero -->
     <div class="hero">
       <!-- left: perfil -->
@@ -139,34 +129,9 @@
         <div class="card">
           <div class="profile-title">Perfil</div>
           <div class="profile-text">
-            Ingeniero Mecatrónico especializado en IoT y soluciones sostenibles. Diseño, desarrollo y despliego sistemas de monitoreo ambiental que integran hardware (ESP32 y sensores), energía renovable (paneles solares y baterías) y pipelines de datos (Google Sheets / SQL, dashboards). Programo en Python, C++/Arduino y Google Apps Script para automatizar procesos y crear modelos analíticos orientados a optimizar recursos y apoyar la toma de decisiones. Actualmente estoy certificándome en Inglés (B2). Me interesa colaborar en proyectos que unan tecnología y naturaleza para generar impacto ambiental positivo.
+            Soy Ingeniero Mecatrónico especializado en IoT y soluciones sostenibles. Diseño, desarrollo y despliego sistemas de monitoreo ambiental que integran hardware (ESP32 y sensores), energía renovable (paneles solares y baterías) y pipelines de datos (Google Sheets / SQL, dashboards). Programo en Python, C++/Arduino y Google Apps Script para automatizar procesos y crear modelos analíticos orientados a optimizar recursos y apoyar la toma de decisiones. Actualmente estoy certificándome en Inglés (B2). Me interesa colaborar en proyectos que unan tecnología y naturaleza para generar impacto ambiental positivo.
           </div>
         </div>
-
-        <!-- IoT section moved here -->     
-<!-- ==== Sección: Proyecto IoT - Techo Verde (actualizada) ==== -->
-<section id="iot" style="margin:36px 0;padding:22px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.04);">
-  <h2 style="color:#63b96f;margin:0 0 8px 0;font-size:18px;font-weight:800;">Proyecto IoT — Techo Verde</h2>
-
-  <p style="color:#d6d6d6;margin:0 0 14px;font-size:14px;max-width:780px;">
-    Sistema de monitoreo ambiental con ESP32 y sensores múltiples. En los siguientes enlaces puedes ver el tablero en tiempo real y la hoja de datos; la tesis completa está disponible para consulta en línea.
-  </p>
-
-  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
-    <a href="https://hugonogueron2607.github.io/Techo_Verde/" target="_blank" rel="noopener" style="background:#63b96f;color:#03120a;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;">
-      🌐 Ver dashboard (datos en tiempo real)
-    </a>
-
-    <a href="https://docs.google.com/spreadsheets/d/1Mu0mfmwoWRI_kJ8EweGpJT1g608t6EQixtfevX0z0ac/edit?usp=sharing" target="_blank" rel="noopener" style="background:#0b66c2;color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;">
-      📊 Ver hoja de datos (Google Sheets)
-    </a>
-
-    <!-- Botón para abrir la vista de la tesis -->
-<a class="btn-ghost" href="tesis_viewer.html" target="_blank" rel="noopener" title="Ver tesis en línea">📘 Ver tesis</a>
-  </div>
-
-</section>
-        <!-- ================= fin sección IoT ================= -->
 
         <!-- Experiencia resumida -->
         <section>
@@ -180,15 +145,118 @@
             </ul>
           </div>
 
-          <!-- ... resto del contenido (sin cambios) ... -->
+          <div class="card" style="margin-bottom:12px">
+            <strong>Sistema IoT para techos verdes — Independiente</strong> <div class="contact-small">2024 – 2025 · Validado en campo</div>
+            <ul class="clean">
+              <li>Análisis térmico de techos verdes extensivos con ESP32 y sensores; transmisión a la nube y dashboards.</li>
+              <li>Autonomía energética: panel solar + batería; validación de reducción térmica.</li>
+            </ul>
+          </div>
 
+          <div class="card" style="margin-bottom:12px">
+            <strong>METAMORFOZIZ — Publicidad y producción</strong> <div class="contact-small">2021 – 2022</div>
+            <ul class="clean">
+              <li>Diseño gráfico, producción de lonas y banners, gestión de materiales y procesos de impresión.</li>
+              <li>Aprendí sobre logística de impresión, montaje y atención a clientes en proyectos de comunicación visual.</li>
+            </ul>
+          </div>
+
+          <div class="card" style="margin-bottom:12px">
+            <strong>Ventas (local) — Coyoacán</strong> <div class="contact-small">2021 – 2022</div>
+            <ul class="clean">
+              <li>Atención directa a clientes, gestión de ventas B2C y B2B, manejo de caja y control de inventario; aprendizaje clave de trato con clientes y negociación.</li>
+            </ul>
+          </div>
+
+          <div class="card" style="margin-bottom:12px">
+            <strong>Robodacta — Diseño y ventas</strong> <div class="contact-small">2022 – 2024</div>
+            <ul class="clean">
+              <li>Diseño de kits educativos, empaques, cursos online y material audiovisual; gestión de proveedores y ventas.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <strong>Servicio técnico (negocio propio)</strong> <div class="contact-small">2018 – 2020</div>
+            <ul class="clean">
+              <li>Reparación de dispositivos electrónicos, compra y venta de refacciones, control de inventario y atención al cliente.</li>
+            </ul>
+          </div>
         </section>
 
+        <section>
+          <h2 class="section">Logros</h2>
+          <div class="card">
+            <ul class="clean">
+              <li>Prototipo IoT validado en campo para monitoreo térmico y energético.</li>
+              <li>Participación técnica en el Congreso Nacional de Biotecnología (Oaxaca, 2025).</li>
+              <li>Implementación de plataforma Eco Gaia SOS con crecimiento de visitas y consultas.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="section">Cursos y certificados</h2>
+          <div class="card">
+            <ul class="clean">
+              <li>Seminario: Diseño de la automatización de la manufactura e integración de dispositivos programables.</li>
+              <li>Curso/autoformación: Python para análisis de datos (pandas) — autodidacta / proyectos prácticos.</li>
+              <li>Certificación en proceso: Inglés B2.</li>
+              <!-- Si tienes archivos de certificados: súbelos y nómbralos certificate1.jpg, certificate2.jpg, etc., y enlázalos aquí -->
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="section">Galería / Proyectos (imágenes)</h2>
+          <div class="card">
+            <div class="gallery">
+              <!-- Subir imágenes a la raíz (o carpeta), por ejemplo project1.jpg, project2.jpg, project3.jpg -->
+              <img src="project1.jpg" alt="Proyecto 1 (subir archivo project1.jpg)">
+              <img src="project2.jpg" alt="Proyecto 2 (subir archivo project2.jpg)">
+              <img src="project3.jpg" alt="Proyecto 3 (subir archivo project3.jpg)">
+            </div>
+            <div style="margin-top:10px;color:var(--muted);font-size:13px">Haz clic en las imágenes en el futuro para ver detalles o descarga (pendiente de implementar modal).</div>
+          </div>
+        </section>
       </main>
 
-      <!-- right: contacto / skills (sin cambios) -->
+      <!-- right: contacto / skills -->
       <aside class="side">
-        <!-- ... contacto, habilidades, etc. ... -->
+        <div class="card">
+          <div style="font-weight:800;margin-bottom:8px">Contacto</div>
+          <ul class="contact-list">
+            <li><a href="mailto:sgj.cheko@gmail.com"><i class="fa-regular fa-envelope"></i> sgj.cheko@gmail.com</a></li>
+            <li><a href="mailto:sgardunoj1400@alumno.ipn.mx"><i class="fa-regular fa-envelope"></i> sgardunoj1400@alumno.ipn.mx</a></li>
+            <li><a href="https://wa.me/5215586864746" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a></li>
+            <li><a href="https://www.facebook.com/share/19FgjAa3ai/" target="_blank" rel="noopener"><i class="fa-brands fa-facebook"></i> Facebook</a></li>
+            <li><a href="https://www.instagram.com/cheko_sgj?igsh=amV1aTVwZ3VpeTBi" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i> Instagram</a></li>
+            <li><a href="https://www.linkedin.com/in/gardu%C3%B1o-jardon-sergio-264b582b0?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin"></i> LinkedIn</a></li>
+            <li><a href="https://www.tiktok.com/@chekup00" target="_blank" rel="noopener"><i class="fa-brands fa-tiktok"></i> TikTok</a></li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div style="font-weight:800;margin-bottom:8px">Habilidades técnicas</div>
+          <div class="skills">
+            <div class="skill-pill">C++ / Arduino</div>
+            <div class="skill-pill">Python (pandas)</div>
+            <div class="skill-pill">ESP32 & sensores</div>
+            <div class="skill-pill">SQL & Google Sheets</div>
+            <div class="skill-pill">Paneles solares & baterías</div>
+            <div class="skill-pill">Google Apps Script</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="font-weight:800;margin-bottom:8px">Habilidades blandas</div>
+          <ul class="clean">
+            <li>Liderazgo</li>
+            <li>Creatividad e innovación</li>
+            <li>Planeación y gestión de proyectos</li>
+            <li>Trabajo en equipo</li>
+            <li>Adaptabilidad</li>
+          </ul>
+        </div>
       </aside>
     </div>
 
