@@ -16,20 +16,21 @@
   <style>
   :root{
     --bg-dark: #072d16;
-    --bg-green-overlay: rgba(99,185,111,0.08);
-    --fg:#eef1f0;
-    --muted:#cbd5cb;
-    --accent-green:#63b96f;
-    --card-bg-dark: rgba(0,0,0,0.45);
-    --card-border: rgba(255,255,255,0.04);
-    --maxw:1100px;
-    --radius:12px;
+    --bg-green-overlay: rgba(99,185,111,0.06);
+    --fg: #eef1f0;
+    --muted: #cbd5cb;
+    --accent-green: #63b96f;
+    --card-bg: rgba(255,255,255,0.06);     /* card slightly light for contrast */
+    --card-border: rgba(255,255,255,0.08);
+    --maxw: 1100px;
+    --radius: 14px;
     --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   }
 
+  /* Prevent white flash on load */
+  html { background-color: var(--bg-dark); }
   *{box-sizing:border-box}
   html,body{height:100%;margin:0;padding:0}
-  html { background-color: var(--bg-dark); } /* evita flash blanco */
   body{
     font-family:var(--font-sans);
     background:
@@ -50,7 +51,7 @@
   .brand{display:flex;align-items:center;gap:14px}
   .avatar{
     width:86px;height:86px;border-radius:12px;overflow:hidden;border:2px solid rgba(255,255,255,0.06);
-    box-shadow:0 8px 28px rgba(0,0,0,0.6);
+    box-shadow:0 10px 32px rgba(0,0,0,0.5);
   }
   .avatar img{width:100%;height:100%;object-fit:cover;display:block}
   .title{font-weight:800;font-size:20px}
@@ -69,14 +70,19 @@
   @media (max-width:980px){ .hero{grid-template-columns:1fr; padding-bottom:8px} }
 
   .card{
-    background: var(--card-bg-dark);
+    background: var(--card-bg);
     border:1px solid var(--card-border);
-    padding:20px;border-radius:12px;box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+    padding:20px;border-radius:var(--radius);box-shadow: 0 8px 30px rgba(0,0,0,0.25);
     color:var(--fg);
   }
 
   .profile-title{font-size:16px;font-weight:800;color:var(--fg);margin-bottom:8px}
-  .profile-text{color:var(--fg);opacity:0.95;font-size:14px}
+  .profile-text{
+    color:var(--fg);
+    opacity:0.98;
+    font-size:15px;
+    line-height:1.6;
+  }
 
   /* Right column (contact + quick info) */
   .side{display:flex;flex-direction:column;gap:12px}
@@ -91,18 +97,30 @@
   ul.clean{margin:6px 0 0 18px;padding:0;color:var(--fg)}
   ul.clean li{margin:6px 0;font-size:14px}
 
-  /* skills grid */
+  /* skill pills */
   .skills{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
   @media (max-width:600px){ .skills{grid-template-columns:1fr} }
   .skill-pill{background:rgba(255,255,255,0.03);padding:8px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
 
-  /* gallery removed on request */
+  /* IoT block styles */
+  .iot-block{margin:36px 0;padding:22px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02)}
+  .iot-block h3{color:var(--accent-green);margin:0 0 10px 0;font-size:18px;font-weight:800}
+  .iot-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+  .btn-accent{background:var(--accent-green);color:#03120a;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(99,185,111,0.06)}
+  .btn-primary{background:#0b66c2;color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(11,102,194,0.06)}
+  .btn-dark{background:#111;color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;border:1px solid rgba(255,255,255,0.04)}
 
   footer{text-align:center;color:var(--muted);font-size:13px;padding:26px 0 10px;display:flex;align-items:center;justify-content:space-between;gap:10px}
   .footer-brand{display:flex;align-items:center;gap:8px}
   .sello{width:40px;height:40px;border-radius:8px;overflow:hidden}
   .sello img{width:100%;height:100%;object-fit:cover}
-</style>
+
+  /* responsive tweaks */
+  @media (max-width:980px){
+    .contact-quick { justify-content:flex-start }
+    header { align-items:flex-start; flex-direction:column; gap:12px }
+  }
+  </style>
 </head>
 <body>
   <div class="wrap">
@@ -120,10 +138,10 @@
             <!-- Botones de CV arriba, junto al nombre -->
             <div style="display:flex;gap:8px;">
               <!-- Abre el viewer (cv_viewer.html) -->
-        <a class="btn-ghost" href="cv_viewer.html" target="_blank" rel="noopener" title="Abrir CV en el navegador">👁️ Ver CV</a>
-        <!-- Descargar CV (si quieres mantener descarga) -->
-        <a class="btn-ghost" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" title="Descargar CV como PDF">⬇ Descargar CV</a>
-              </div>
+              <a class="btn-ghost" href="cv_viewer.html" target="_blank" rel="noopener" title="Abrir CV en el navegador">👁️ Ver CV</a>
+              <!-- Descargar CV (si quieres mantener descarga) -->
+              <a class="btn-ghost" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" title="Descargar CV como PDF">⬇ Descargar CV</a>
+            </div>
           </div>
 
           <div class="subtitle">Ingeniero mecatrónico orientado a la sostenibilidad y los sistemas inteligentes</div>
@@ -169,33 +187,33 @@
           </div>
 
           <!-- ================ Sección: Proyecto IoT - Techo Verde ================ -->
-          <section id="iot" style="margin:36px 0;padding:22px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border:1px solid rgba(255,255,255,0.02);">
-            <h2 style="color:var(--accent-green);margin:0 0 8px 0;font-size:18px;font-weight:800;">Proyecto IoT — Techo Verde</h2>
+          <div class="iot-block">
+            <h3>Proyecto IoT — Techo Verde</h3>
             <p style="color:var(--muted);margin:0 0 14px;font-size:14px;max-width:780px;">
-              Sistema de monitoreo ambiental con ESP32 y sensores múltiples. En los siguientes enlaces puedes ver el tablero en tiempo real y la hoja de datos; la tesis completa está disponible para consulta en línea.
+              Sistema de monitoreo ambiental con ESP32 y sensores múltiples. En los enlaces siguientes puedes abrir el tablero en tiempo real y la hoja de datos; la tesis completa se puede visualizar en el sitio.
             </p>
-          
-            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
+
+            <div class="iot-actions">
               <!-- Dashboard (sitio externo) -->
-              <a href="https://hugonogueron2607.github.io/Techo_Verde/" target="_blank" rel="noopener" style="background:var(--accent-green);color:#03120a;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(99,185,111,0.08);">
+              <a class="btn-accent" href="https://hugonogueron2607.github.io/Techo_Verde/" target="_blank" rel="noopener">
                 🌐 Ver dashboard (datos en tiempo real)
               </a>
-          
-              <!-- Google Sheet público (ya pusiste la URL pública) -->
-              <a href="https://docs.google.com/spreadsheets/d/1Mu0mfmwoWRI_kJ8EweGpJT1g608t6EQixtfevX0z0ac/edit?usp=sharing" target="_blank" rel="noopener" style="background:#0b66c2;color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(11,102,194,0.06);">
+
+              <!-- Google Sheet público (URL pública) -->
+              <a class="btn-primary" href="https://docs.google.com/spreadsheets/d/1Mu0mfmwoWRI_kJ8EweGpJT1g608t6EQixtfevX0z0ac/edit?usp=sharing" target="_blank" rel="noopener">
                 📊 Ver hoja de datos (Google Sheets)
               </a>
-          
+
               <!-- Viewer que incrusta el PDF en una página del mismo sitio -->
-              <a href="tesis_viewer.html" target="_blank" rel="noopener" style="background:#222;color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;border:1px solid rgba(255,255,255,0.04);">
+              <a class="btn-dark" href="tesis_viewer.html" target="_blank" rel="noopener">
                 📘 Ver tesis (PDF)
               </a>
             </div>
-          
+
             <p style="color:var(--muted);font-size:13px;margin:0;">
-              Nota: para que la hoja de datos sea pública, ve a Google Sheets → Compartir → "Cualquiera con el enlace" → Ver. 
+              Nota: para que la hoja de datos sea pública, ve a Google Sheets → Compartir → "Cualquiera con el enlace" → Ver.
             </p>
-          </section>
+          </div>
           <!-- ================= fin sección IoT ================= -->
 
           <div class="card" style="margin-bottom:12px">
@@ -215,7 +233,7 @@
           <div class="card" style="margin-bottom:12px">
             <strong>Ventas (local) — Coyoacán</strong> <div class="contact-small">2021 – 2022</div>
             <ul class="clean">
-              <li>Atención directa a clientes, gestión de ventas B2C y B2B, manejo de caja y control de inventario; aprendizaje clave de trato con clientes y negociación.</li>
+              <li>Atención directa a clientes, gestión de ventas B2C y B2B, manejo de caja y control de inventario.</li>
             </ul>
           </div>
 
@@ -243,21 +261,9 @@
           <div class="card">
             <ul class="clean">
               <li>Seminario: Diseño de la automatización de la manufactura e integración de dispositivos programables.</li>
-              <li>Curso/autoformación: Python para análisis de datos (pandas) — autodidacta / proyectos prácticos.</li>
+              <li>Curso/autoformación: Python para análisis de datos (pandas) — proyectos prácticos.</li>
               <li>Certificación en proceso: Inglés B2.</li>
             </ul>
-          </div>
-        </section>
-
-        <section>
-          <h2 class="section">Galería / Proyectos (imágenes)</h2>
-          <div class="card">
-            <div class="gallery">
-              <img src="project1.jpg" alt="Proyecto 1 (subir archivo project1.jpg)">
-              <img src="project2.jpg" alt="Proyecto 2 (subir archivo project2.jpg)">
-              <img src="project3.jpg" alt="Proyecto 3 (subir archivo project3.jpg)">
-            </div>
-            <div style="margin-top:10px;color:var(--muted);font-size:13px">Haz clic en las imágenes en el futuro para ver detalles o descarga (pendiente de implementar modal).</div>
           </div>
         </section>
       </main>
