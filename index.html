@@ -107,17 +107,19 @@
     <div class="avatar" title="Foto de Sergio">
       <img src="perfil.png" alt="Sergio Garduño Jardón">
     </div>
+    
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+  <div class="title">Sergio Garduño Jardón</div>
 
-    <div>
-      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-        <div class="title">Sergio Garduño Jardón</div>
+  <!-- Botones de CV (aparecen junto al nombre) -->
+  <div style="display:flex;gap:8px;">
+    <!-- Abre página que incrusta PDF del CV -->
+    <a class="btn-ghost" href="cv_viewer.html" target="_blank" rel="noopener" title="Ver CV en línea">👁️ Ver CV</a>
 
-        <!-- Botones de CV arriba, junto al nombre -->
-        <div style="display:flex;gap:8px;">
-          <a class="btn-ghost" href="cv_pagina_web.pdf" target="_blank" rel="noopener" title="Abrir CV en el navegador">👁️ Ver CV</a>
-          <a class="btn-ghost" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" title="Descargar CV como PDF">⬇ Descargar CV</a>
-        </div>
-      </div>
+    <!-- Botón de descarga directa (opcional) -->
+    <a class="btn-ghost" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" title="Descargar CV">⬇ Descargar CV</a>
+  </div>
+</div>
 
       <div class="subtitle">Ingeniero mecatrónico orientado a la sostenibilidad y los sistemas inteligentes</div>
     </div>
@@ -159,15 +161,10 @@
       📊 Ver hoja de datos (Google Sheets)
     </a>
 
-    <!-- Tesis: abrir en navegador (vista). Para forzar descarga usar attribute download (ver nota abajo). -->
-    <a href="tesis_Med_techo_verde.pdf" target="_blank" rel="noopener" style="background:#222;color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;border:1px solid rgba(255,255,255,0.04);">
-      📘 Ver tesis (PDF)
-    </a>
+    <!-- Botón para abrir la vista de la tesis -->
+<a class="btn-ghost" href="tesis_viewer.html" target="_blank" rel="noopener" title="Ver tesis en línea">📘 Ver tesis</a>
   </div>
 
-  <p style="color:#9ea0a2;font-size:13px;margin:0;">
-    Nota: para que la hoja de datos sea pública, ve a Google Sheets → Compartir → "Cualquiera con el enlace" → Ver.
-  </p>
 </section>
         <!-- ================= fin sección IoT ================= -->
 
