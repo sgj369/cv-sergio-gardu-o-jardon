@@ -1,670 +1,318 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="IMJC, Front End Developer">
-  <meta name="keywords" content="Front-End, Developer, Gamer, Pianist">
-	<meta name="author" content="https://blayneraptor.github.io/CV_Couso_Web/">
-	<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-266DZQ4V2R"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sergio Garduño Jardón — CV & Portfolio</title>
+  <meta name="description" content="Ingeniero mecatrónico orientado a la sostenibilidad y sistemas inteligentes. IoT, datos, energía solar y proyectos ambientales." />
 
-  gtag('config', 'G-266DZQ4V2R');
-</script>
+  <!-- favicon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
 
-	<title>JoseCouso – Front-End Developer</title>
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <!-- Web Fonts -->
-  <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
-	<!-- Bootstrap core CSS -->
-	<link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-	<!-- Font Awesome CSS -->
-	<link href="assets/css/font-awesome.min.css" rel="stylesheet" media="screen">
-	<!-- Animate css -->
-  <link href="assets/css/animate.css" rel="stylesheet">
-  <!-- Magnific css -->
-	<link href="assets/css/magnific-popup.css" rel="stylesheet">
-	<!-- Custom styles CSS -->
-	<link href="assets/css/style.css" rel="stylesheet" media="screen">
-  <!-- Responsive CSS -->
-  <link href="assets/css/responsive.css" rel="stylesheet">
+  <style>
+    :root{
+      --bg-green-overlay: rgba(99,185,111,0.15);
+      --fg:#0b0b0b;
+      --muted:#3b3b3b;
+      --accent-green:#63b96f;
+      --card-bg: rgba(255,255,255,0.03);
+      --maxw:1100px;
+      --radius:12px;
+      --glass-border: rgba(255,255,255,0.04);
+      --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
 
-  <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;height:100%}
+    body{
+      font-family:var(--font-sans);
+      /* Fondo: imagen + ligera capa verde para dar tono natural (no negro) */
+      background:
+        linear-gradient(180deg, var(--bg-green-overlay), rgba(0,0,0,0.05)),
+        url('fondo.jpg') center/cover no-repeat fixed;
+      color:#f4f6f5;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      padding:28px;
+    }
+    .wrap{max-width:var(--maxw);margin:0 auto;position:relative}
 
+    /* Header */
+    header{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:22px}
+    .brand{display:flex;align-items:center;gap:14px}
+    .avatar{
+      width:86px;height:86px;border-radius:12px;overflow:hidden;border:2px solid rgba(255,255,255,0.08);
+      box-shadow:0 8px 28px rgba(0,0,0,0.35);
+      background:rgba(255,255,255,0.02);
+    }
+    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+    .title{font-weight:800;font-size:20px;color:#fff}
+    .subtitle{color:var(--muted);font-size:13px;margin-top:4px}
 
-  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    /* Contact quick */
+    .contact-quick{display:flex;gap:8px;flex-wrap:wrap}
+    .btn-white{
+      background:#ffffff;color:#0b0b0b;padding:8px 12px;border-radius:10px;font-weight:700;text-decoration:none;
+      display:inline-flex;gap:8px;align-items:center;border:1px solid rgba(0,0,0,0.08)
+    }
+    .btn-ghost{
+      background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:10px;color:#fff;text-decoration:none;font-weight:700;
+    }
 
+    /* Hero / grid */
+    .hero{display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:start;margin-bottom:28px}
+    @media (max-width:980px){ .hero{grid-template-columns:1fr; padding-bottom:8px} }
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid var(--glass-border);
+      padding:20px;border-radius:12px;box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+    }
+
+    .profile-title{font-size:16px;font-weight:800;color:#fff;margin-bottom:8px}
+    .profile-text{color:#eef1f0;opacity:0.95;font-size:14px}
+
+    /* Right column (contact + quick info) */
+    .side{display:flex;flex-direction:column;gap:12px}
+    .side .card{padding:14px}
+    .contact-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+    .contact-list a{color:#fff;text-decoration:none;display:inline-flex;gap:10px;align-items:center;font-weight:600}
+    .contact-small{color:var(--muted);font-size:13px}
+
+    /* Sections */
+    section{margin-bottom:18px}
+    h2.section{font-size:15px;color:#fff;margin:0 0 10px 0;font-weight:800}
+    ul.clean{margin:6px 0 0 18px;padding:0;color:#eef1f0}
+    ul.clean li{margin:6px 0;font-size:14px}
+
+    /* skills grid */
+    .skills{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    @media (max-width:600px){ .skills{grid-template-columns:1fr} }
+    .skill-pill{background:rgba(255,255,255,0.03);padding:8px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);color:#fff}
+
+    /* gallery */
+    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    @media (max-width:800px){ .gallery{grid-template-columns:repeat(2,1fr)} }
+    .gallery img{width:100%;height:160px;object-fit:cover;border-radius:8px;border:1px solid rgba(255,255,255,0.04)}
+
+    footer{text-align:center;color:var(--muted);font-size:13px;padding:26px 0 10px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .footer-brand{display:flex;align-items:center;gap:8px}
+    .sello{width:40px;height:40px;border-radius:8px;overflow:hidden}
+    .sello img{width:100%;height:100%;object-fit:cover}
+  </style>
 </head>
-
 <body>
-	<!-- Preloader -->
+  <div class="wrap">
 
+    <header>
+      <div class="brand">
+        <div class="avatar" title="Foto de Sergio">
+          <img src="perfil.png" alt="Sergio Garduño Jardón">
+        </div>
 
-	<!-- Home Section -->
-	<section id="home" class="tt-fullHeight" data-stellar-vertical-offset="50" data-stellar-background-ratio="0.2">
-		<div class="intro">
-			<div class="intro-sub">I am Jose Couso Pérez</div>
-			<h1>Front-End <span>Developer</span></h1>
-			<p>Desarrollador Front-End creativo.<br>Apasionado de la tecnología.<br>Contáctame para proyectos o colaboraciones.</p>
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+            <div class="title">Sergio Garduño Jardón</div>
 
-      <div class="social-icons">
-        <ul class="list-inline">
-          <li><a href="https://github.com/Blayneraptor" target="_blank"><i class="fa fa-github"></i></a></li>
-          <li><a href="https://www.linkedin.com/in/jose-couso-perez/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
-        </ul>
-      </div> <!-- /.social-icons -->
-		</div>
-
-		<div class="mouse-icon">
-			<div class="wheel"></div>
-		</div>
-	</section><!-- End Home Section -->
-
-
-
-
-	<!-- Navigation -->
-	<header class="header">
-		<nav class="navbar navbar-custom" role="navigation">
-			<div class="container">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#custom-collapse">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="index.html"><img src="assets/images/logo2.png" alt=""></a>
-				</div>
-
-				<div class="collapse navbar-collapse" id="custom-collapse">
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#home">Inicio</a></li>
-						<li><a href="#about">Sobre mí</a></li>
-						<li><a href="#resume">Resumen</a></li>
-						<li><a href="#skills">Skills</a></li>
-            <li><a href="#contact">Contacto</a></li>
-					</ul>
-				</div>
-			</div><!-- .container -->
-		</nav>
-	</header><!-- End Navigation -->
-
-
-    <!-- About Section -->
-    <section id="about" class="about-section section-padding">
-      <div class="container">
-        <h2 class="section-title wow fadeInUp">Sobre mí</h2>
-
-        <div class="row">
-
-          <div class="col-md-4 col-md-push-8">
-            <div class="biography">
-              <div class="myphoto">
-                <img src="assets/images/myphoto.png" alt="">
-              </div>
-              <ul>
-                <li><strong>Nombre:</strong> Jose Pascual Couso Pérez</li>
-                <li><strong>Dirección:</strong> Madrid, España</li>
-                <li><strong>Nacionalidad:</strong> Español</li>
-                <li><strong>Teléfono:</strong> +34 645 448 914</li>
-                <li><strong>Email:</strong> cousoworks@gmail.com</li>
-              </ul>
-            </div>
-          </div> <!-- col-md-4 -->
-
-          <div class="col-md-8 col-md-pull-4">
- <div class="short-info wow fadeInUp">
-  <h3>Biografía</h3>
-  <p><strong>Desarrollador Full Stack</strong> con experiencia en la creación de soluciones que combinan <strong>frontend, backend y gestión de datos</strong>. Me muevo en proyectos donde no basta con escribir código: hay que entender la <strong>arquitectura completa</strong>, elegir las <strong>herramientas adecuadas</strong> y garantizar que cada pieza encaje en un <strong>sistema sólido y escalable</strong>.</p>
-  <br>
-  <p>Trabajo con <strong>Python (Django), SQL (MariaDB/MySQL), React, Vue, TailwindCSS, HTML5, CSS y Docker</strong>, aplicándolos tanto en el desarrollo de interfaces como en la integración de datos y la <strong>automatización de procesos</strong>. Me interesa especialmente la <strong>optimización de flujos de información</strong> y la <strong>transformación de datos a gran escala</strong> para que lleguen de forma eficiente y segura a los sistemas que los necesitan.</p>
-  <br>
-  <p>Tras más de <strong>diez años en el Ejército</strong>, aporto <strong>disciplina, visión estratégica</strong> y capacidad de <strong>responder bajo presión</strong>. Ahora aplico esa experiencia al mundo del desarrollo, con un enfoque en construir <strong>soluciones prácticas</strong> que funcionen de principio a fin.</p>
-  <br>
-  <p>Mi objetivo es unirme a un equipo donde pueda aportar valor tanto en la <strong>ejecución técnica</strong> como en la <strong>planificación de proyectos</strong>, aprendiendo de profesionales con más recorrido y contribuyendo a diseñar productos que sean <strong>robustos, eficientes y sostenibles</strong> en el tiempo.</p>
-</div>
-
-
-            <div class="download-button">
-              <a class="btn btn-info btn-lg" href="#contact"><i class="fa fa-paper-plane"></i>Envíame un mensaje</a>
-              <a class="btn btn-primary btn-lg" href="CV_JoseCouso.pdf" download><i class="fa fa-download"></i>Descarga mi cv</a>
+            <!-- Botones de CV arriba, junto al nombre -->
+            <div style="display:flex;gap:8px;">
+              <!-- Abre el viewer (cv_viewer.html) -->
+              <a class="btn-ghost" href="cv_viewer.html" target="_blank" rel="noopener" title="Ver CV en el navegador">👁️ Ver CV</a>
+              <!-- Descarga (opcional) -->
+              <a class="btn-ghost" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" title="Descargar CV como PDF">⬇ Descargar CV</a>
             </div>
           </div>
 
-
-        </div> <!-- /.row -->
-      </div> <!-- /.container -->
-    </section><!-- End About Section -->
-
-    <!-- Resume Section -->
-    <section id="resume" class="resume-section section-padding">
-        <div class="container">
-            <h2 class="section-title wow fadeInUp">Resumen</h2>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="resume-title">
-                        <h3>Educación</h3>
-                    </div>
-                    <div class="resume">
-                        <ul class="timeline">
-                            <li>
-                                <div class="posted-date">
-                                    <span class="month">2023-Actualidad</span>
-                                </div><!-- /posted-date -->
-
-                                <div class="timeline-panel wow fadeInUp">
-                                    <div class="timeline-content">
-                                        <div class="timeline-heading">
-                                            <h3>CFGS Desarrollo de Aplicaciones Multiplataformas</h3>
-                                            <span>DigitechFP Madrid, España.</span>
-                                        </div><!-- /timeline-heading -->
-
-                                        <div class="timeline-body">
-                                            <p>1er año con nota media de 9,2.</p>
-
-                                        </div><!-- /timeline-body -->
-                                    </div> <!-- /timeline-content -->
-                                </div><!-- /timeline-panel -->
-                            </li>
-
-                            <li class="timeline-inverted">
-                              <div class="posted-date">
-                                  <span class="month">2014-2016</span>
-                              </div><!-- /posted-date -->
-
-                              <div class="timeline-panel wow fadeInUp">
-                                  <div class="timeline-content">
-                                      <div class="timeline-heading">
-                                          <h3>Bachillerato CC.SS</h3>
-                                          <span>IES Isla de León, Cádiz, España.</span>
-                                      </div><!-- /timeline-heading -->
-
-                                      <div class="timeline-body">
-                                          <p></p>
-                                      </div><!-- /timeline-body -->
-                                  </div> <!-- /timeline-content -->
-                              </div> <!-- /timeline-panel -->
-                          </li>
-                          <li>
-                            <div class="posted-date">
-                                <span class="month">2010-2014</span>
-                            </div><!-- /posted-date -->
-
-                            <div class="timeline-panel wow fadeInUp">
-                                <div class="timeline-content">
-                                    <div class="timeline-heading">
-                                        <h3>Graduado Escolar E.S.O</h3>
-                                        <span>IES Pérez de Guzmán (Málaga), España.</span>
-                                    </div><!-- /timeline-heading -->
-                                    <div class="timeline-body">                                      
-                                    </div><!-- /timeline-body -->
-                                </div> <!-- /timeline-content -->
-                            </div><!-- /timeline-panel -->
-                        </li>                          
-                        </ul>
-                    </div>
-                </div>
-            </div><!-- /row -->
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="resume-title">
-                        <h3>Experiencia</h3>
-                    </div>
-                    <div class="resume">
-                        <ul class="timeline">
-                          <li class="timeline-inverted">
-  <div class="posted-date">
-    <span class="month">09/2025 – Actualidad</span>
-  </div><!-- /posted-date -->
-
-  <div class="timeline-panel wow fadeInUp">
-      <div class="timeline-content">
-          <div class="timeline-heading">
-              <h3>Full Stack Developer | Cybersecurity Data & Web App</h3>
-              <span>EUROCYBCAR · Contrato de prácticas · Madrid, España · Híbrido</span>
-          </div><!-- /timeline-heading -->
-
-          <div class="timeline-body">
-              <ul>
-                <li>Desarrollo de aplicación web Full Stack en Django con frontend moderno para análisis de datos de ciberseguridad automotriz.</li>
-                <li>Gestión e integración de grandes volúmenes de datos en SQL y automatización de procesos con Python.</li>
-                <li>Implementación de motor de búsqueda eficiente y visualizaciones con Jupyter Notebooks.</li>
-                <li>Uso de Git/GitHub para control de versiones, colaboración y despliegue ágil.</li>
-                <li>Participación en sprints Agile/Scrum, aplicando buenas prácticas de desarrollo y optimización de escalabilidad.</li>
-              </ul>
-          </div><!-- /timeline-body -->
-      </div> <!-- /timeline-content -->
-  </div><!-- /timeline-panel -->
-</li>
-
-<li>
-  <div class="posted-date">
-    <span class="month">07/2025 – 09/2025</span>
-  </div><!-- /posted-date -->
-
-  <div class="timeline-panel wow fadeInUp">
-      <div class="timeline-content">
-          <div class="timeline-heading">
-              <h3>Funcionario Administrativo</h3>
-              <span>Subdelegación de Defensa, Madrid, España · En remoto</span>
-          </div><!-- /timeline-heading -->
-
-          <div class="timeline-body">
-              <ul>
-                <li>Gestión administrativa militar y asignación de destinos para nuevas funciones operativas.</li>
-                <li>Coordinación de procesos internos para asegurar el correcto flujo de información y documentación.</li>
-              </ul>
-          </div><!-- /timeline-body -->
-      </div> <!-- /timeline-content -->
-  </div><!-- /timeline-panel -->
-</li>
-
-                            <li class="timeline-inverted">
-                                <div class="posted-date">
-                                  <span class="month">2022-Actualidad</span>
-                                </div><!-- /posted-date -->
-
-                                <div class="timeline-panel wow fadeInUp">
-                                    <div class="timeline-content">
-                                        <div class="timeline-heading">
-                                          <h3>Guardia Real</h3>
-                                            <h3>Control Militar Seguridad Próxima</h3>
-                                            <span>Guardia Real, Cuartel "El Rey"(El Pardo) Madrid</span>
-                                        </div><!-- /timeline-heading -->
-
-                                        <div class="timeline-body">
-                                            <p></p>
-                                            <ul>
-                                              <li>Proporcionar el servicio de guardia militar en el
-                                                Palacio de la Zarzuela a sus majestades SS.MM.</li>
-                                              <li>Dispositivos de seguridad en el Palacio Real y el
-                                                Palacio de El Pardo.</li>
-                                              <li>Servicio de guardia y escolta para Presidentes de
-                                                Estados Internacionales.
-                                                </li>
-                                            </ul>
-                                        </div><!-- /timeline-body -->
-                                    </div> <!-- /timeline-content -->
-                                </div> <!-- /timeline-panel -->
-                            </li>
-
-                            <li>
-                              
-                              <div class="posted-date">
-                                <span class="month">2021-2022</span>
-                              </div><!-- /posted-date -->
-
-                              <div class="timeline-panel wow fadeInUp">
-                                  <div class="timeline-content">
-                                      <div class="timeline-heading">
-                                          <h3>Seguridad Inmediata Grupo Escolta</h3>
-                                          <span>Guardia Real, Cuartel "La Princesa"(El Pardo) Madrid</span>
-                                      </div><!-- /timeline-heading -->
-
-                                      <div class="timeline-body">
-                                          <p></p>
-                                          <ul>
-                                            <li>Servicio de guardia y escolta solemne a S. M. el Rey
-                                              y la Familia Real en actos oficiales.
-                                              </li>
-                                            <li>Prestación del servicio de guardia y seguridad en el
-                                              Palacio de Marivent durante las estancias estivales
-                                              de SS.MM.</li>                                           
-                                          </ul>
-                                      </div><!-- /timeline-body -->
-                                  </div> <!-- /timeline-content -->
-                              </div><!-- /timeline-panel -->
-                          </li>
-
-                            <li>
-                              <div class="posted-date">
-                                <span class="month">2019-2021</span>
-                              </div><!-- /posted-date -->
-
-                              <div class="timeline-panel wow fadeInUp">
-                                  <div class="timeline-content">
-                                      <div class="timeline-heading">
-                                          <h3>Escuadron de Escolta Real</h3>
-                                          <span>Guardia Real, Cuartel "La Reina"(El Pardo) Madrid</span>
-                                      </div><!-- /timeline-heading -->
-
-                                      <div class="timeline-body">
-                                          <p></p>
-                                          <ul>
-                                            <li>Miembro del Escuadron de Escolta Real a caballo.</li>
-                                            <li>Supervisión y vigilancia en el Palacio de la Zarzuela</li>
-                                            <li>Manejo y cuidado de caballos, incluyendo
-                                              formaciones, entrenamientos, exhibiciones.</li>
-                                          </ul>
-                                      </div><!-- /timeline-body -->
-                                  </div> <!-- /timeline-content -->
-                              </div><!-- /timeline-panel -->
-                          </li>
-
-                            <li>
-                              <li class="timeline-inverted">
-                                <div class="posted-date">
-                                  <span class="month">2015-2019</span>
-                                </div><!-- /posted-date -->
-
-                                <div class="timeline-panel wow fadeInUp">
-                                    <div class="timeline-content">
-                                        <div class="timeline-heading">
-                                            <h3>Caballero Legionario GCLAC II</h3>
-                                            <span>Tercio Alejandro Farnesio IV (Ronda), Málaga</span>
-                                        </div><!-- /timeline-heading -->
-
-                                        <div class="timeline-body">
-                                            <p></p>
-                                            <ul>
-                                              <li>Manejo y mantenimiento de carros de combate
-                                                acorazados y vehículos blindados</li>
-                                              <li>Participación en maniobras y desfiles: ejercicios
-                                                tácticos y operativos.</li>
-                                              <li>Defensa personal, armamento diferentes calibres,
-                                                entrenamiento físico.
-                                                </li>
-                                              <li>Guardias de seguridad, orden y protección en
-                                                instalaciones militares.</li>
-                                            </ul>
-                                        </div><!-- /timeline-body -->
-                                    </div> <!-- /timeline-content -->
-                                </div><!-- /timeline-panel -->
-                            </li>
-                          </li>
-                        </ul>
-                    </div>
-                </div>
-            </div><!-- /row -->
-        </div><!-- /.container -->
-    </section><!-- End Resume Section -->
-
-
-    <!-- Skills Section -->
-    <section id="skills" class="skills-section section-padding">
-      <div class="container">
-        <h2 class="section-title wow fadeInUp">HARD Skills</h2>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="skill-progress">
-              <div class="skill-title"><h3>React</h3></div> 
-              <div class="progress">
-                <div class="progress-bar six-sec-ease-in-out" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" ><span>85%</span>
-                </div>
-              </div><!-- /.progress -->
-            </div><!-- /.skill-progress -->
-
-            <div class="skill-progress">
-              <div class="skill-title"><h3>JavaScript</h3></div> 
-              <div class="progress">
-                <div class="progress-bar six-sec-ease-in-out" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" ><span>80%</span>
-                </div>
-              </div><!-- /.progress -->
-            </div><!-- /.skill-progress -->
-            <div class="skill-progress">
-              <div class="skill-title"><h3>HTML5</h3></div>  
-              <div class="progress">
-                <div class="progress-bar six-sec-ease-in-out" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" ><span>95%</span>
-                </div>
-              </div><!-- /.progress -->
-            </div><!-- /.skill-progress -->
-            <div class="skill-progress">
-              <div class="skill-title"><h3>Python</h3></div>  
-              <div class="progress">
-                <div class="progress-bar six-sec-ease-in-out" role="progressbar" aria-valuenow="82" aria-valuemin="0" aria-valuemax="100" ><span>82%</span>
-                </div>
-              </div><!-- /.progress -->
-            </div><!-- /.skill-progress -->
-          </div><!-- /.col-md-6 -->
-
-          <div class="col-md-6">
-            <div class="skill-progress">
-              <div class="skill-title"><h3>CSS</h3></div> 
-              <div class="progress">
-                <div class="progress-bar six-sec-ease-in-out" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" ><span>90%</span>
-                </div>
-              </div><!-- /.progress -->
-            </div><!-- /.skill-progress -->
-            <div class="skill-progress">
-              <div class="skill-title"><h3>Java</h3></div> 
-              <div class="progress">
-                <div class="progress-bar six-sec-ease-in-out" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100" ><span>88%</span>
-                </div>
-              </div><!-- /.progress -->
-            </div><!-- /.skill-progress -->
-            <div class="skill-progress">
-              <div class="skill-title"><h3>Vue</h3></div>  
-              <div class="progress">
-                <div class="progress-bar six-sec-ease-in-out" role="progressbar" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100" ><span>83%</span>
-                </div>
-              </div><!-- /.progress -->
-            </div><!-- /.skill-progress -->
-          </div><!-- /.col-md-6 -->
-        </div><!-- /.row -->
-
-        <div class="skill-chart text-center">
-          <h3>Soft skills</h3>
-        </div>
-          
-        <div class="row more-skill text-center mb-4">
-          <div class="col-xs-12 col-sm-6 col-md-3">
-              <div class="chart" data-percent="91" data-color="e74c3c">
-                    <span class="percent"></span>
-                    <div class="chart-text">
-                      <span>Liderazgo</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-3">
-              <div class="chart" data-percent="80" data-color="2ecc71">
-                    <span class="percent"></span>
-                    <div class="chart-text">
-                      <span>Creatividad</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-3">
-              <div class="chart" data-percent="75" data-color="9b59b6">
-                    <span class="percent"></span>
-                    <div class="chart-text">
-                      <span>Organización</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-3">
-              <div class="chart" data-percent="90" data-color="f1c40f">
-                    <span class="percent"></span>
-                    <div class="chart-text">
-                      <span>Integridad</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row more-skill text-center">
-            <div class="col-xs-12 col-sm-6 col-md-3">
-              <div class="chart" data-percent="100" data-color="3498db">
-                    <span class="percent"></span>
-                    <div class="chart-text">
-                      <span>Adaptabilidad</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-3">
-              <div class="chart" data-percent="100" data-color="e67e22">
-                    <span class="percent"></span>
-                    <div class="chart-text">
-                      <span>Motivación</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-3">
-              <div class="chart" data-percent="90" data-color="1abc9c">
-                    <span class="percent"></span>
-                    <div class="chart-text">
-                      <span>Comunicación</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-3">
-              <div class="chart" data-percent="100" data-color="34495e">
-                    <span class="percent"></span>
-                    <div class="chart-text">
-                      <span>Aprendizaje rápido</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-      </div><!-- /.container -->
-    </section><!-- End Skills Section -->
-
-
-    
-
-
-    <!-- Facts Section -->
-    <section id="facts" class="facts-section text-center" data-stellar-vertical-offset="50" data-stellar-background-ratio="0.2">
-      <div class="tt-overlay-bg">
-        <div class="container">
-        </div><!-- /.container -->
-      </div>
-    </section> <!-- End Facts Section -->
-
-    <!-- Contact Section
-    <section id="contact" class="contact-section section-padding">
-      <div class="container">
-        <h2 class="section-title wow fadeInUp">Ponte en contacto</h2>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="contact-form">
-              <strong>Envíame un mensaje</strong>
-              <form name="contact-form" id="contactForm" action="sendemail.php" method="POST">
-
-                <div class="form-group">
-                  <label for="name">Nombre</label>
-                  <input type="text" name="name" class="form-control" id="name" required="">
-                </div>
-
-                <div class="form-group">
-                  <label for="email">Email</label>
-                  <input type="email" name="email" class="form-control" id="email" required="">
-                </div>
-
-                <div class="form-group">
-                  <label for="subject">Asunto</label>
-                  <input type="text" name="subject" class="form-control" id="subject">
-                </div>
-
-                <div class="form-group">
-                  <label for="message">Mensaje</label>
-                  <textarea name="message" class="form-control" id="message" rows="5" required=""></textarea>
-                </div>
-
-                <button type="submit" name="submit" class="btn btn-primary">Enviar Mensaje</button>
-              </form>
-            </div><!-- /.contact-form -->
-          </div><!-- /.col-md-6 -->
-
-          </div>
-        </div><!-- /.row -->
-      </div><!-- /.container -->
-    </section><!-- End Contact Section -->
-
-    <section id="contact" class="contact-section section-padding">
-      <div class="container">
-        <h2 class="section-title wow fadeInUp">Ponte en contacto</h2>
-    
-        <div class="row">
-          <div class="col-md-6">
-            <div class="contact-form">
-              <strong>Envíame un mensaje</strong>
-              <form name="contact-form" id="contactForm" action="https://formspree.io/f/xannaejy" method="POST" onsubmit="handleSubmit()">
-    
-                <div class="form-group">
-                  <label for="name">Nombre</label>
-                  <input type="text" name="name" class="form-control" id="name" required="">
-                </div>
-    
-                <div class="form-group">
-                  <label for="email">Email</label>
-                  <input type="email" name="email" class="form-control" id="email" required="">
-                </div>
-    
-                <div class="form-group">
-                  <label for="subject">Asunto</label>
-                  <input type="text" name="subject" class="form-control" id="subject">
-                </div>
-    
-                <div class="form-group">
-                  <label for="message">Mensaje</label>
-                  <textarea name="message" class="form-control" id="message" rows="5" required=""></textarea>
-                </div>
-    
-                <button type="submit" name="submit" class="btn btn-primary">Enviar Mensaje</button>
-              </form>
-            </div><!-- /.contact-form -->
-          </div><!-- /.col-md-6 -->
-        </div><!-- /.row -->
-      </div><!-- /.container -->
-    </section><!-- End Contact Section -->
-    
-    <script>
-      // Función que muestra un mensaje después de que el formulario se envíe
-      function handleSubmit() {
-        // Muestra una alerta de éxito
-        alert("Mensaje enviado con éxito");
-      }
-    </script>
-    
-    
-    
-
-
-	<!-- Footer Section -->
-    <footer class="footer-wrapper">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="copyright text-center">
-              <p>&copy; cousoworks - 2025. Todos los derechos reservados.</p>
-            </div>
-          </div>
+          <div class="subtitle">Ingeniero mecatrónico orientado a la sostenibilidad y los sistemas inteligentes</div>
         </div>
       </div>
-    </footer><!-- End Footer Section -->
 
+      <div class="contact-quick">
+        <a class="btn-white" href="mailto:sgj.cheko@gmail.com">✉ sgj.cheko@gmail.com</a>
+        <a class="btn-white" href="mailto:sgardunoj1400@alumno.ipn.mx">🎓 sgardunoj1400@alumno.ipn.mx</a>
+        <a class="btn-ghost" href="https://wa.me/5215586864746" target="_blank" rel="noopener">💬 WhatsApp</a>
+      </div>
+    </header>
 
-	<!-- Scroll-up -->
-	<div class="scroll-up">
-		<a href="#home"><i class="fa fa-angle-up"></i></a>
-	</div>
+    <!-- Hero -->
+    <div class="hero">
+      <!-- left: perfil -->
+      <main>
+        <div class="card">
+          <div class="profile-title">Perfil</div>
+          <div class="profile-text">
+            Soy Ingeniero Mecatrónico especializado en IoT y soluciones sostenibles. Diseño, desarrollo y despliego sistemas de monitoreo ambiental que integran hardware (ESP32 y sensores), energía renovable (paneles solares y baterías) y pipelines de datos (Google Sheets / SQL, dashboards). Programo en Python, C++/Arduino y Google Apps Script para automatizar procesos y crear modelos analíticos orientados a optimizar recursos y apoyar la toma de decisiones. Actualmente estoy certificándome en Inglés (B2). Me interesa colaborar en proyectos que unan tecnología y naturaleza para generar impacto ambiental positivo.
+          </div>
+        </div>
 
-	<!-- Javascript files -->
-	<script src="assets/js/jquery.js"></script>
-	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
-  <script src="assets/js/jquery.stellar.min.js"></script>
-	<script src="assets/js/jquery.sticky.js"></script>
-  <script src="assets/js/smoothscroll.js"></script>
-	<script src="assets/js/wow.min.js"></script>
-  <script src="assets/js/jquery.countTo.js"></script>
-  <script src="assets/js/jquery.inview.min.js"></script> 
-  <script src="assets/js/jquery.easypiechart.js"></script>
-  <script src="assets/js/jquery.shuffle.min.js"></script>
-  <script src="assets/js/jquery.magnific-popup.min.js"></script>
-  <script src="http://a.vimeocdn.com/js/froogaloop2.min.js"></script>
-  <script src="assets/js/jquery.fitvids.js"></script>
-  <script src="assets/js/scripts.js?v=2"></script>
+        <!-- Experiencia resumida -->
+        <section>
+          <h2 class="section">Experiencia y proyectos</h2>
+
+          <div class="card" style="margin-bottom:12px">
+            <strong>Eco Gaia SOS — Proyecto independiente</strong> <div class="contact-small">2024 – Presente · CDMX</div>
+            <ul class="clean">
+              <li>Desarrollo y mantenimiento de plataforma web para recopilar y difundir convocatorias y proyectos ambientales.</li>
+              <li>Organización de datos, visualización y soporte para actores locales.</li>
+            </ul>
+          </div>
+
+          <div class="card" style="margin-bottom:12px">
+            <strong>Sistema IoT para techos verdes — Independiente</strong> <div class="contact-small">2023 – 2025 · Validado en campo</div>
+            <ul class="clean">
+              <li>Análisis térmico de techos verdes extensivos con ESP32 y sensores; transmisión a la nube y dashboards.</li>
+              <li>Autonomía energética: panel solar + batería; validación de reducción térmica.</li>
+            </ul>
+          </div>
+
+          <!-- ==== Sección: Proyecto IoT - Techo Verde (actualizada) ==== -->
+          <section id="iot" style="margin:18px 0 24px 0;padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid var(--glass-border);">
+            <h3 style="color:var(--accent-green);margin:0 0 8px 0;font-size:18px;font-weight:800;">Proyecto IoT — Techo Verde</h3>
+
+            <p style="color:#e9eceb;margin:0 0 14px;font-size:14px;max-width:780px;">
+              Sistema de monitoreo ambiental con ESP32 y sensores múltiples. En los siguientes enlaces puedes ver el tablero en tiempo real y la hoja de datos; la tesis completa está disponible para consulta en línea.
+            </p>
+
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
+              <a href="https://hugonogueron2607.github.io/Techo_Verde/" target="_blank" rel="noopener" style="background:var(--accent-green);color:#06210b;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;">
+                🌐 Ver dashboard (datos en tiempo real)
+              </a>
+
+              <a href="https://docs.google.com/spreadsheets/d/1Mu0mfmwoWRI_kJ8EweGpJT1g608t6EQixtfevX0z0ac/edit?usp=sharing" target="_blank" rel="noopener" style="background:#0b66c2;color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;">
+                📊 Ver hoja de datos (Google Sheets)
+              </a>
+
+              <!-- Ver tesis en viewer -->
+              <a href="tesis_viewer.html" target="_blank" rel="noopener" style="background:#222;color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;border:1px solid rgba(255,255,255,0.04);">
+                📘 Ver tesis (PDF)
+              </a>
+            </div>
+
+            <p style="color:#9ea0a2;font-size:13px;margin:0;">
+              Nota: para que la hoja de datos sea pública, ve a Google Sheets → Compartir → "Cualquiera con el enlace" → Ver.
+            </p>
+          </section>
+
+          <div class="card" style="margin-bottom:12px">
+            <strong>Robodacta — Diseño y ventas</strong> <div class="contact-small">2022 – 2024</div>
+            <ul class="clean">
+              <li>Diseño de kits educativos, empaques, cursos online y material audiovisual; gestión de proveedores y ventas.</li>
+            </ul>
+          </div>
+
+          <div class="card" style="margin-bottom:12px">
+            <strong>METAMORFOZIZ — Publicidad y producción</strong> <div class="contact-small">2021 – 2022</div>
+            <ul class="clean">
+              <li>Diseño gráfico, producción de lonas y banners, gestión de materiales y procesos de impresión.</li>
+            </ul>
+          </div>
+
+          <div class="card" style="margin-bottom:12px">
+            <strong>Ventas (local) — Coyoacán</strong> <div class="contact-small">2021 – 2022</div>
+            <ul class="clean">
+              <li>Atención directa a clientes, gestión de ventas B2C y B2B, manejo de caja y control de inventario; aprendizaje clave de trato con clientes y negociación.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <strong>Servicio técnico (negocio propio)</strong> <div class="contact-small">2018 – 2020</div>
+            <ul class="clean">
+              <li>Reparación de dispositivos electrónicos, compra y venta de refacciones, control de inventario y atención al cliente.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="section">Logros</h2>
+          <div class="card">
+            <ul class="clean">
+              <li>Prototipo IoT validado en campo para monitoreo térmico y energético.</li>
+              <li>Participación técnica en el Congreso Nacional de Biotecnología (Oaxaca, 2025).</li>
+              <li>Implementación de plataforma Eco Gaia SOS con crecimiento de visitas y consultas.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="section">Cursos y certificados</h2>
+          <div class="card">
+            <ul class="clean">
+              <li>Seminario: Diseño de la automatización de la manufactura e integración de dispositivos programables.</li>
+              <li>Curso/autoformación: Python para análisis de datos (pandas) — autodidacta / proyectos prácticos.</li>
+              <li>Certificación en proceso: Inglés B2.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="section">Galería / Proyectos (imágenes)</h2>
+          <div class="card">
+            <div class="gallery">
+              <img src="project1.jpg" alt="Proyecto 1 (subir archivo project1.jpg)">
+              <img src="project2.jpg" alt="Proyecto 2 (subir archivo project2.jpg)">
+              <img src="project3.jpg" alt="Proyecto 3 (subir archivo project3.jpg)">
+            </div>
+            <div style="margin-top:10px;color:var(--muted);font-size:13px">Haz clic en las imágenes en el futuro para ver detalles o descarga (pendiente de implementar modal).</div>
+          </div>
+        </section>
+      </main>
+
+      <!-- right: contacto / skills -->
+      <aside class="side">
+        <div class="card">
+          <div style="font-weight:800;margin-bottom:8px">Contacto</div>
+          <ul class="contact-list">
+            <li><a href="mailto:sgj.cheko@gmail.com"><i class="fa-regular fa-envelope"></i> sgj.cheko@gmail.com</a></li>
+            <li><a href="mailto:sgardunoj1400@alumno.ipn.mx"><i class="fa-regular fa-envelope"></i> sgardunoj1400@alumno.ipn.mx</a></li>
+            <li><a href="https://wa.me/5215586864746" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a></li>
+            <li><a href="https://www.facebook.com/share/19FgjAa3ai/" target="_blank" rel="noopener"><i class="fa-brands fa-facebook"></i> Facebook</a></li>
+            <li><a href="https://www.instagram.com/cheko_sgj?igsh=amV1aTVwZ3VpeTBi" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i> Instagram</a></li>
+            <li><a href="https://www.linkedin.com/in/gardu%C3%B1o-jardon-sergio-264b582b0" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin"></i> LinkedIn</a></li>
+            <li><a href="https://www.tiktok.com/@chekup00" target="_blank" rel="noopener"><i class="fa-brands fa-tiktok"></i> TikTok</a></li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div style="font-weight:800;margin-bottom:8px">Habilidades técnicas</div>
+          <div class="skills">
+            <div class="skill-pill">C++ / Arduino</div>
+            <div class="skill-pill">Python (pandas)</div>
+            <div class="skill-pill">ESP32 & sensores</div>
+            <div class="skill-pill">SQL & Google Sheets</div>
+            <div class="skill-pill">Paneles solares & baterías</div>
+            <div class="skill-pill">Google Apps Script</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="font-weight:800;margin-bottom:8px">Habilidades blandas</div>
+          <ul class="clean">
+            <li>Liderazgo</li>
+            <li>Creatividad e innovación</li>
+            <li>Planeación y gestión de proyectos</li>
+            <li>Trabajo en equipo</li>
+            <li>Adaptabilidad</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      <div class="footer-brand">
+        <div class="sello"><img src="haku-logo.png" alt="Haku"></div>
+        <div style="color:var(--muted);font-size:13px">© <span id="year"></span> Sergio Garduño Jardón · Hecho con GitHub Pages</div>
+      </div>
+      <div style="color:var(--muted);font-size:13px">Contacto: sgj.cheko@gmail.com</div>
+    </footer>
+
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
