@@ -14,12 +14,11 @@
   <style>
   :root{
     --bg-dark: #072d16;
-    --bg-green-overlay: rgba(99,185,111,0.06);
+    --bg-gray-salt: rgba(68, 68, 68, 0.8); /* Gris Sal y Pimienta con transparencia */
     --fg: #eef1f0;
     --muted: #cbd5cb;
     --accent-green: #63b96f;
-    /* REVERTIDO: Vuelve al color oscuro anterior, pero ajustado para ser más profundo */
-    --card-bg: rgba(0,0,0,0.7);     
+    --card-bg: rgba(0,0,0,0.85); /* Tarjetas muy oscuras para buen contraste */
     --card-border: rgba(255,255,255,0.1); 
     --maxw: 1100px;
     --radius: 14px;
@@ -27,15 +26,13 @@
   }
 
   /* Prevent white flash on load */
-  html { background-color: var(--bg-dark); }
+  html { background-color: #111; }
   *{box-sizing:border-box}
   html,body{height:100%;margin:0;padding:0}
   body{
     font-family:var(--font-sans);
-    /* REVERTIDO Y AJUSTADO: Se usa un overlay más fuerte y el fondo fijo. */
-    background:
-      linear-gradient(180deg, rgba(7, 45, 22, 0.7), rgba(0,0,0,0.5)),
-      url('fondo.jpg') center/cover no-repeat fixed;
+    /* Nuevo Fondo: Grisáceo/Sal y Pimienta con transparencia */
+    background-color: var(--bg-gray-salt);
     color:var(--fg);
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
@@ -43,6 +40,7 @@
     padding:28px;
     transition: background-color .25s ease;
   }
+  /* Quitamos la imagen de fondo y dejamos el color gris sólido/transparente */
 
   .wrap{max-width:var(--maxw);margin:0 auto;position:relative}
 
@@ -54,10 +52,8 @@
     box-shadow:0 10px 32px rgba(0,0,0,0.5);
   }
   .avatar img{width:100%;height:100%;object-fit:cover;display:block}
-  /* Mantenido: Tamaño de nombre más grande */
-  .title{font-weight:800;font-size:24px;} 
-  /* Mantenido: Tamaño de subtítulo más grande */
-  .subtitle{color:var(--muted);font-size:16px;margin-top:4px} 
+  .title{font-weight:800;font-size:24px;} /* Nombre más grande */
+  .subtitle{color:var(--muted);font-size:16px;margin-top:4px} /* Subtítulo más grande */
 
   /* Contact quick */
   .contact-quick{display:flex;gap:8px;flex-wrap:wrap}
@@ -83,7 +79,7 @@
   @media (max-width:980px){ .hero{grid-template-columns:1fr; padding-bottom:8px} }
 
   .card{
-    background: var(--card-bg); /* Usa el color más oscuro/negro semi-transparente */
+    background: var(--card-bg); /* Tarjetas oscuras */
     border:1px solid var(--card-border);
     padding:20px;border-radius:var(--radius);box-shadow: 0 8px 30px rgba(0,0,0,0.25);
     color:var(--fg);
@@ -115,7 +111,7 @@
   @media (max-width:600px){ .skills{grid-template-columns:1fr} }
   .skill-pill{background:rgba(255,255,255,0.03);padding:8px;border-radius:10px;border:1px solid rgba(255,255,255,0.03); text-align:center;}
 
-  /* REVERTIDO Y MEJORADO: Estilo original del IoT block */
+  /* IoT block styles */
   .iot-block{margin:36px 0;padding:22px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02)}
   .iot-block h3{color:var(--accent-green);margin:0 0 10px 0;font-size:18px;font-weight:800}
   .iot-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px; margin-top: 14px;}
@@ -151,14 +147,8 @@
             <div style="display:flex;gap:8px;">
                   <a class="btn-ghost" href="cv_viewer.html" target="_blank" rel="noopener" title="Abrir CV en el navegador"><i class="fa-solid fa-eye"></i> Ver CV</a>
                   <a class="btn-ghost" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" title="Descargar CV como PDF"><i class="fa-solid fa-download"></i> Descargar CV</a>
-              </div>
-          </div>
-
-          <div class="subtitle">Ingeniero mecatrónico orientado a la sostenibilidad y los sistemas inteligentes</div>
-        </div>
-      </div>
-
-      <div class="contact-quick">
+              </div> </div> <div class="subtitle">Ingeniero mecatrónico orientado a la sostenibilidad y los sistemas inteligentes</div>
+        </div> </div> <div class="contact-quick">
         <a class="btn-white" href="mailto:sgj.cheko@gmail.com">✉ sgj.cheko@gmail.com</a>
         <a class="btn-white" href="mailto:sgardunoj1400@alumno.ipn.mx">🎓 sgardunoj1400@alumno.ipn.mx</a>
         <a class="btn-ghost" href="https://wa.me/5215586864746" target="_blank" rel="noopener">💬 WhatsApp</a>
