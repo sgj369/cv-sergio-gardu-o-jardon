@@ -14,25 +14,25 @@
   <style>
   :root{
     --bg-dark: #072d16;
-    --bg-gray-salt: rgba(68, 68, 68, 0.8); /* Gris Sal y Pimienta con transparencia */
+    --bg-uniform: #222; /* Nuevo fondo uniforme gris oscuro */
     --fg: #eef1f0;
     --muted: #cbd5cb;
     --accent-green: #63b96f;
-    --card-bg: rgba(0,0,0,0.85); /* Tarjetas muy oscuras para buen contraste */
+    --card-bg: rgba(0,0,0,0.85); 
     --card-border: rgba(255,255,255,0.1); 
     --maxw: 1100px;
     --radius: 14px;
     --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   }
 
-  /* Prevent white flash on load */
-  html { background-color: #111; }
+  /* FIX: Fondo uniforme */
+  html { background-color: var(--bg-uniform); }
   *{box-sizing:border-box}
   html,body{height:100%;margin:0;padding:0}
   body{
     font-family:var(--font-sans);
-    /* Nuevo Fondo: Grisáceo/Sal y Pimienta con transparencia */
-    background-color: var(--bg-gray-salt);
+    /* Fondo limpio y uniforme */
+    background: var(--bg-uniform);
     color:var(--fg);
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
@@ -40,9 +40,16 @@
     padding:28px;
     transition: background-color .25s ease;
   }
-  /* Quitamos la imagen de fondo y dejamos el color gris sólido/transparente */
 
-  .wrap{max-width:var(--maxw);margin:0 auto;position:relative}
+  /* CREATIVO: Líneas laterales */
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    position:relative;
+    border-left: 1px solid rgba(255,255,255,0.05);
+    border-right: 1px solid rgba(255,255,255,0.05);
+    padding: 0 10px; /* Pequeño padding para que el contenido no pegue a la línea */
+  }
 
   /* Header */
   header{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:22px}
@@ -52,8 +59,8 @@
     box-shadow:0 10px 32px rgba(0,0,0,0.5);
   }
   .avatar img{width:100%;height:100%;object-fit:cover;display:block}
-  .title{font-weight:800;font-size:24px;} /* Nombre más grande */
-  .subtitle{color:var(--muted);font-size:16px;margin-top:4px} /* Subtítulo más grande */
+  .title{font-weight:800;font-size:24px;} 
+  .subtitle{color:var(--muted);font-size:16px;margin-top:4px} 
 
   /* Contact quick */
   .contact-quick{display:flex;gap:8px;flex-wrap:wrap}
@@ -79,7 +86,7 @@
   @media (max-width:980px){ .hero{grid-template-columns:1fr; padding-bottom:8px} }
 
   .card{
-    background: var(--card-bg); /* Tarjetas oscuras */
+    background: var(--card-bg);
     border:1px solid var(--card-border);
     padding:20px;border-radius:var(--radius);box-shadow: 0 8px 30px rgba(0,0,0,0.25);
     color:var(--fg);
@@ -92,7 +99,7 @@
     font-size:15px;
     line-height:1.6;
   }
-
+  
   /* Right column (contact + quick info) */
   .side{display:flex;flex-direction:column;gap:12px}
   .side .card{padding:14px}
@@ -102,9 +109,13 @@
 
   /* Sections */
   section{margin-bottom:18px}
-  h2.section{font-size:15px;color:var(--fg);margin:0 0 10px 0;font-weight:800}
+  /* CREATIVO: Color a los títulos de sección */
+  h2.section{font-size:15px;color:var(--accent-green);margin:0 0 10px 0;font-weight:800; border-bottom: 2px solid rgba(99,185,111,0.2); padding-bottom: 4px;}
   ul.clean{margin:6px 0 0 18px;padding:0;color:var(--fg)}
   ul.clean li{margin:6px 0;font-size:14px}
+  /* Estilo para enlaces en el contenido */
+  main a { color: var(--accent-green); text-decoration: none; border-bottom: 1px dotted var(--accent-green); }
+
 
   /* skill pills */
   .skills{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
@@ -128,6 +139,7 @@
   @media (max-width:980px){
     .contact-quick { justify-content:flex-start }
     header { align-items:flex-start; flex-direction:column; gap:12px }
+    .wrap { padding: 0; border-left: none; border-right: none; }
   }
   </style>
 </head>
@@ -147,8 +159,14 @@
             <div style="display:flex;gap:8px;">
                   <a class="btn-ghost" href="cv_viewer.html" target="_blank" rel="noopener" title="Abrir CV en el navegador"><i class="fa-solid fa-eye"></i> Ver CV</a>
                   <a class="btn-ghost" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" title="Descargar CV como PDF"><i class="fa-solid fa-download"></i> Descargar CV</a>
-              </div> </div> <div class="subtitle">Ingeniero mecatrónico orientado a la sostenibilidad y los sistemas inteligentes</div>
-        </div> </div> <div class="contact-quick">
+              </div>
+          </div>
+
+          <div class="subtitle">Ingeniero mecatrónico orientado a la sostenibilidad y los sistemas inteligentes</div>
+        </div>
+      </div>
+
+      <div class="contact-quick">
         <a class="btn-white" href="mailto:sgj.cheko@gmail.com">✉ sgj.cheko@gmail.com</a>
         <a class="btn-white" href="mailto:sgardunoj1400@alumno.ipn.mx">🎓 sgardunoj1400@alumno.ipn.mx</a>
         <a class="btn-ghost" href="https://wa.me/5215586864746" target="_blank" rel="noopener">💬 WhatsApp</a>
@@ -168,7 +186,7 @@
           <h2 class="section">Experiencia y proyectos</h2>
 
           <div class="card" style="margin-bottom:12px">
-            <strong>Eco Gaia SOS — Plataforma de impacto ambiental</strong> <div class="contact-small">2024 – Presente · CDMX</div>
+            <strong><a href="https://sgj369.github.io/cv-sergio-gardu-o-jardon/" target="_blank" rel="noopener">Eco Gaia SOS — Plataforma de impacto ambiental</a></strong> <div class="contact-small">2024 – Presente · CDMX</div>
             <ul class="clean">
               <li>Desarrollo e implementación de la plataforma web para **gestión y difusión de convocatorias y proyectos ambientales**.</li>
               <li>Responsable de la organización de datos, visualización y soporte a actores locales.</li>
