@@ -18,9 +18,9 @@
     --fg: #eef1f0;
     --muted: #cbd5cb;
     --accent-green: #63b96f;
-    /* FIX 2: Negro semi-transparente para todas las tarjetas */
-    --card-bg: rgba(0,0,0,0.85);     
-    --card-border: rgba(255,255,255,0.15); 
+    /* REVERTIDO: Vuelve al color oscuro anterior, pero ajustado para ser más profundo */
+    --card-bg: rgba(0,0,0,0.7);     
+    --card-border: rgba(255,255,255,0.1); 
     --maxw: 1100px;
     --radius: 14px;
     --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
@@ -32,29 +32,16 @@
   html,body{height:100%;margin:0;padding:0}
   body{
     font-family:var(--font-sans);
-    /* FIX 1: Fondo fijo que usa la imagen para todo, eliminando el color verde de fallback */
-    background-image: url('fondo.jpg');
-    background-size: cover;
-    background-attachment: fixed;
-    background-color: #111; /* Color de fallback oscuro */
+    /* REVERTIDO Y AJUSTADO: Se usa un overlay más fuerte y el fondo fijo. */
+    background:
+      linear-gradient(180deg, rgba(7, 45, 22, 0.7), rgba(0,0,0,0.5)),
+      url('fondo.jpg') center/cover no-repeat fixed;
     color:var(--fg);
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
     line-height:1.5;
     padding:28px;
     transition: background-color .25s ease;
-  }
-  /* FIX 1 (continuación): Overlay oscuro para asegurar contraste, sin que sea un gradiente que cambie */
-  body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.45); /* Capa oscura uniforme */
-    pointer-events: none; /* Permite hacer click a través de ella */
-    z-index: -1; /* Detrás del contenido */
   }
 
   .wrap{max-width:var(--maxw);margin:0 auto;position:relative}
@@ -67,9 +54,9 @@
     box-shadow:0 10px 32px rgba(0,0,0,0.5);
   }
   .avatar img{width:100%;height:100%;object-fit:cover;display:block}
-  /* Tamaño de nombre más grande */
+  /* Mantenido: Tamaño de nombre más grande */
   .title{font-weight:800;font-size:24px;} 
-  /* Tamaño de subtítulo más grande */
+  /* Mantenido: Tamaño de subtítulo más grande */
   .subtitle{color:var(--muted);font-size:16px;margin-top:4px} 
 
   /* Contact quick */
@@ -96,7 +83,7 @@
   @media (max-width:980px){ .hero{grid-template-columns:1fr; padding-bottom:8px} }
 
   .card{
-    background: var(--card-bg); /* Usa el nuevo negro semi-transparente */
+    background: var(--card-bg); /* Usa el color más oscuro/negro semi-transparente */
     border:1px solid var(--card-border);
     padding:20px;border-radius:var(--radius);box-shadow: 0 8px 30px rgba(0,0,0,0.25);
     color:var(--fg);
@@ -128,8 +115,10 @@
   @media (max-width:600px){ .skills{grid-template-columns:1fr} }
   .skill-pill{background:rgba(255,255,255,0.03);padding:8px;border-radius:10px;border:1px solid rgba(255,255,255,0.03); text-align:center;}
 
-  /* IoT block styles (Ajustado para ser parte de la tarjeta de experiencia) */
-  .iot-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+  /* REVERTIDO Y MEJORADO: Estilo original del IoT block */
+  .iot-block{margin:36px 0;padding:22px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02)}
+  .iot-block h3{color:var(--accent-green);margin:0 0 10px 0;font-size:18px;font-weight:800}
+  .iot-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px; margin-top: 14px;}
   .btn-accent{background:var(--accent-green);color:#03120a;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(99,185,111,0.06)}
   .btn-primary{background:#0b66c2;color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(11,102,194,0.06)}
   .btn-dark{background:#111;color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;border:1px solid rgba(255,255,255,0.04)}
@@ -160,7 +149,7 @@
             <div class="title">Sergio Garduño Jardón</div>
 
             <div style="display:flex;gap:8px;">
-              <a class="btn-ghost" href="cv_pagina_web.pdf" target="_blank" rel="noopener" title="Abrir CV en el navegador"><i class="fa-solid fa-eye"></i> Ver CV</a>
+              <a class="btn-ghost" href="cv_viewer.html" target="_blank" rel="noopener" title="Abrir CV en el navegador"><i class="fa-solid fa-eye"></i> Ver CV</a>
               <a class="btn-ghost" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" title="Descargar CV como PDF"><i class="fa-solid fa-download"></i> Descargar CV</a>
             </div>
           </div>
@@ -198,9 +187,16 @@
 
           <div class="card" style="margin-bottom:12px">
             <strong>Sistema IoT para techos verdes — Proyecto de tesis</strong> <div class="contact-small">2023 – 2025 · Validado en campo</div>
-            
-            <p style="color:var(--fg); margin: 0 0 8px; font-size:15px;">
-              Sistema de monitoreo térmico autónomo con ESP32 y sensores múltiples, alimentado por energía solar. Se desarrolló un *pipeline* de datos y dashboard para la validación de la reducción térmica en techos verdes.
+            <ul class="clean">
+              <li>Diseño y despliegue de sistema de **monitoreo térmico autónomo** con ESP32, sensores y **alimentación solar**.</li>
+              <li>Desarrollo de *pipeline* de datos y dashboard para la validación de **reducción térmica** en techos verdes.</li>
+            </ul>
+          </div>
+
+          <div class="iot-block">
+            <h3>Proyecto IoT — Techo Verde</h3>
+            <p style="color:var(--muted);margin:0 0 14px;font-size:14px;max-width:780px;">
+              Sistema de monitoreo ambiental con ESP32 y sensores múltiples. En los enlaces siguientes puedes abrir el tablero en tiempo real y la hoja de datos.
             </p>
 
             <div class="iot-actions">
@@ -212,12 +208,15 @@
                 📊 Hoja de datos (Google Sheets)
               </a>
 
-              <a class="btn-dark" href="tesis_Med_techo_verde.pdf" target="_blank" rel="noopener">
+              <a class="btn-dark" href="tesis_viewer.html" target="_blank" rel="noopener">
                 📘 Ver tesis (PDF)
               </a>
             </div>
+            
+            <p style="color:var(--muted);font-size:13px;margin:0;">
+              Nota: Asegúrate de que los archivos `cv_viewer.html` y `tesis_viewer.html` funcionen correctamente con un visor de PDF.
+            </p>
           </div>
-
           <div class="card">
             <strong>Experiencia Transversal (Comercial y Operativa)</strong> <div class="contact-small">2018 – 2024</div>
             <ul class="clean">
