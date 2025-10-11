@@ -23,7 +23,7 @@
     --accent-blue: #0077b6; 
     --accent-yellow: #ffc300; 
     --accent-purple: #9933cc; 
-    --accent-gold: #FFD700; /* Nuevo color: Dorado */
+    --accent-gold: #FFD700; /* Dorado para destacar el header */
 
     --card-bg: rgba(0,0,0,0.88); /* Tarjetas muy oscuras */
     --card-border: rgba(255,255,255,0.1); 
@@ -58,28 +58,28 @@
     padding: 0 10px;
   }
 
-  /* FIX: Estilo de Tarjeta para todo el Header/Principal - Diseño de experto */
+  /* Estilo de Tarjeta para todo el Header/Principal */
   .main-header-card {
     background: var(--card-bg);
-    border: 1px solid var(--card-border); 
+    border: 1px solid rgba(255, 255, 255, 0.1); 
     padding: 20px;
     border-radius: var(--radius);
     box-shadow: 0 10px 30px rgba(0,0,0,0.4);
     margin-bottom: 22px;
     display: flex;
-    flex-wrap: wrap; /* Permitir que los elementos se envuelvan en pantallas pequeñas */
-    justify-content: space-between; /* Espaciar el bloque de marca y los contactos */
-    align-items: center; /* Alineación vertical */
-    gap: 20px; /* Espacio entre los bloques */
+    flex-wrap: wrap; 
+    justify-content: flex-start; /* Alineación a la izquierda */
+    align-items: center; 
+    gap: 20px; 
   }
   
   header{
     display:flex;
-    flex-direction: column; /* Apila el brand y los botones de CV */
-    align-items: flex-start; /* Alinea a la izquierda dentro de su bloque */
-    gap: 15px; /* Espacio entre el brand y los botones de CV */
+    flex-direction: column; 
+    align-items: flex-start; 
+    gap: 15px; 
     margin-bottom:0;
-    flex-shrink: 0; /* Evita que este bloque se encoja */
+    flex-shrink: 0; 
   }
   .brand{
     display:flex;
@@ -89,27 +89,29 @@
   }
   .avatar{
     width:90px; height:90px; border-radius:12px; overflow:hidden;
-    border:3px solid var(--accent-gold); /* Marco dorado para la foto */
-    box-shadow:0 0 15px rgba(255, 215, 0, 0.5); /* Sombra dorada */
+    border:3px solid var(--accent-gold); 
+    box-shadow:0 0 15px rgba(255, 215, 0, 0.5); 
   }
   .avatar img{width:100%;height:100%;object-fit:cover;display:block}
   
-  /* Nombre Dorado con contorno blanco brillante */
+  /* FIX: Nombre Blanco con contorno dorado */
   .title{
     font-weight:900;
     font-size:28px;
-    color: var(--accent-gold); /* Color Dorado */
+    color: var(--fg); /* Blanco puro */
     text-shadow: 
-        -1px -1px 0 #fff,  
-        1px -1px 0 #fff,
-        -1px 1px 0 #fff,
-        1px 1px 0 #fff,
-        0 0 10px rgba(255, 215, 0, 0.8); /* Brillo dorado más intenso */
+        -1px -1px 0 var(--accent-gold),  
+        1px -1px 0 var(--accent-gold),
+        -1px 1px 0 var(--accent-gold),
+        1px 1px 0 var(--accent-gold),
+        0 0 10px rgba(255, 215, 0, 0.5); 
   } 
 
-  /* Botones de CV y Contacto Limpio (Outline/Outline) */
-  .btn-clean-primary, .btn-clean-secondary {
+  /* FIX: Botones de CV con diseño Dorado (Outline) para máxima cohesión */
+  .btn-clean-gold {
     background: transparent;
+    border: 2px solid var(--accent-gold);
+    color: var(--accent-gold);
     padding:8px 12px;
     border-radius:10px;
     font-weight:700;
@@ -120,37 +122,57 @@
     transition: background-color 0.15s;
     flex-shrink: 0;
   }
+  .btn-clean-gold:hover { background: rgba(255, 215, 0, 0.1); }
+  
+  /* Botones de Contacto Rápido y otros mantienen el estilo base pero no se usan en el header */
   .btn-clean-primary {
+    background: transparent;
     border: 2px solid var(--btn-primary);
     color: var(--btn-primary);
+    padding:8px 12px;
+    border-radius:10px;
+    font-weight:700;
+    text-decoration:none;
+    display:inline-flex;
+    gap:8px;
+    align-items:center;
+    transition: background-color 0.15s;
+    flex-shrink: 0;
   }
   .btn-clean-primary:hover { background: rgba(99, 185, 111, 0.1); }
-
   .btn-clean-secondary {
+    background: transparent;
     border: 2px solid var(--btn-secondary);
     color: var(--btn-secondary);
+    padding:8px 12px;
+    border-radius:10px;
+    font-weight:700;
+    text-decoration:none;
+    display:inline-flex;
+    gap:8px;
+    align-items:center;
+    transition: background-color 0.15s;
+    flex-shrink: 0;
   }
   .btn-clean-secondary:hover { background: rgba(0, 119, 182, 0.1); }
   
-  /* FIX: Organización de botones de contacto en el encabezado - Diseño de experto */
   .header-main-buttons { /* Contiene "Ver CV" y "Descargar CV" */
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
   }
-  .header-contact-buttons { /* Contiene los correos y WhatsApp */
-    display: flex;
-    flex-direction: column; /* Vertical */
-    gap: 8px;
-    align-items: flex-end; /* Alinea a la derecha dentro de su bloque */
+  .header-contact-buttons { /* Anteriormente correos/WhatsApp - Ahora se elimina del HTML */
+    display: none;
   }
 
-  @media (max-width:980px){ /* Ajustes responsivos para el encabezado */
-    .main-header-card { flex-direction: column; align-items: flex-start; gap: 15px; }
-    header { width: 100%; }
-    .header-contact-buttons { align-items: flex-start; width: 100%; }
+  /* Estilo base de tarjeta */
+  .card{
+    background: var(--card-bg);
+    border:1px solid var(--card-border);
+    padding:20px;border-radius:var(--radius);box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+    color:var(--fg);
+    transition: all 0.2s ease;
   }
-
   .card:hover { box-shadow: 0 0 15px rgba(255,255,255,0.1); }
 
   /* Títulos de tarjeta internos (Eco Gaia, IoT, etc.) */
@@ -172,15 +194,14 @@
   main .card:nth-of-type(9) { border-left: 5px solid var(--accent-purple); } /* Cursos */
 
 
-  /* Colores de títulos internos de tarjeta */
+  /* FIX: Colores de títulos internos de tarjeta */
   main .card:nth-of-type(1) .profile-title { color: var(--accent-blue); }
-  main .card:nth-of-type(2) strong { color: var(--accent-gold); } /* FIX: Eco Gaia en dorado */
+  main .card:nth-of-type(2) strong { color: var(--accent-gold); } /* Eco Gaia en Dorado */
   main .card:nth-of-type(3) strong { color: var(--accent-yellow); } 
   main .card:nth-of-type(4) strong { color: var(--accent-purple); }
   main .card:nth-of-type(5) strong { color: var(--accent-blue); }
   main .card:nth-of-type(6) strong { color: var(--accent-green); }
   main .card:nth-of-type(7) strong { color: var(--accent-yellow); }
-
 
   .profile-title{font-size:16px;font-weight:800;margin-bottom:8px}
   .profile-text{color:var(--fg);opacity:1;font-size:15px;line-height:1.6;}
@@ -192,24 +213,20 @@
   /* Contacto - Título verde */
   aside .card:nth-of-type(1) div:first-child { color: var(--accent-green); }
   
-  /* FIX: Ajuste para que las habilidades y contacto vuelvan a la derecha */
-  .hero{display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:start;margin-bottom:28px}
-  @media (max-width:980px){ .hero{grid-template-columns:1fr; padding-bottom:8px} }
-  
   /* Columna Derecha (ASIDE) - Orden de colores */
   aside .card:nth-of-type(1) { border-left: 5px solid var(--accent-green); } /* Contacto */
   aside .card:nth-of-type(2) { border-left: 5px solid var(--accent-blue); } /* Hard Skills */
-  aside .card:nth-of-type(3) { border-left: 5px solid var(--accent-yellow); } /* Soft Skills */
+  aside .card:nth-of-type(3) { border-left: 5px solid var(--accent-gold); } /* Soft Skills */
 
   aside .card:nth-of-type(1) div:first-child { color: var(--accent-green); } /* Título Contacto */
   aside .card:nth-of-type(2) div:first-child { color: var(--accent-blue); } /* Título Habilidades Técnicas */
-  aside .card:nth-of-type(3) div:first-child { color: var(--accent-gold); } /* FIX: Título Habilidades Blandas Dorado */
+  aside .card:nth-of-type(3) div:first-child { color: var(--accent-gold); } /* Título Habilidades Blandas Dorado */
 
 
-  /* Color de texto de los enlaces de contacto y habilidades técnicas */
-  .contact-list a { color: var(--fg); text-decoration: none; display: flex; align-items: center; } /* FIX: display flex para que los iconos y texto estén alineados */
+  /* FIX: Color de texto de los enlaces de contacto y habilidades técnicas */
+  .contact-list a { color: var(--fg); text-decoration: none; display: flex; align-items: center; } 
   .contact-list a i { margin-right: 8px; font-size: 1.1em; } 
-  .contact-list li { margin: 8px 0; } /* Espaciado entre elementos de la lista */
+  .contact-list li { margin: 8px 0; overflow-wrap: break-word; } /* FIX: Permite que el correo largo se rompa en la línea */
   .contact-list li:nth-child(1) a i { color: var(--accent-green); }
   .contact-list li:nth-child(2) a i { color: var(--accent-green); }
   .contact-list li:nth-child(3) a i { color: var(--accent-yellow); }
@@ -218,7 +235,6 @@
   .contact-list li:nth-child(6) a i { color: var(--accent-red); }
   .contact-list li:nth-child(7) a i { color: var(--accent-green); }
   .contact-list li:nth-child(8) a i { color: var(--accent-yellow); }
-
 
   /* Sections */
   section{margin-bottom:18px}
@@ -263,10 +279,9 @@
   @media (max-width:980px){
     .main-header-card { flex-direction: column; align-items: flex-start; gap: 15px; }
     header { flex-direction: column; align-items: flex-start; gap: 10px; }
-    .header-buttons-group { justify-content: flex-start; width: 100%; }
-    .header-buttons-group > div { flex-wrap: wrap; }
+    .header-contact-buttons { align-items: flex-start; width: 100%; }
     .wrap { padding: 0; border-left: none; border-right: none; }
-    .hero { grid-template-columns: 1fr; } /* Columna única en móvil */
+    .hero { grid-template-columns: 1fr; } 
   }
   </style>
 </head>
@@ -283,20 +298,14 @@
                     <div class="title">Sergio Garduño Jardón</div>
                 </div>
             </div>
+            
+            <div class="header-main-buttons">
+                <a class="btn-clean-gold" href="cv_viewer.html" target="_blank" rel="noopener" title="Abrir CV en el navegador"><i class="fa-solid fa-eye"></i> Ver CV</a>
+                <a class="btn-clean-gold" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" title="Descargar CV como PDF"><i class="fa-solid fa-download"></i> Descargar CV</a>
+            </div>
         </header>
 
-        <div class="header-buttons-group">
-            <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                <a class="btn-clean-primary" href="cv_viewer.html" target="_blank" rel="noopener" title="Abrir CV en el navegador"><i class="fa-solid fa-eye"></i> Ver CV</a>
-                <a class="btn-clean-secondary" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" title="Descargar CV como PDF"><i class="fa-solid fa-download"></i> Descargar CV</a>
-            </div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                <a class="btn-clean-primary" href="mailto:sgj.cheko@gmail.com">✉ sgj.cheko@gmail.com</a>
-                <a class="btn-clean-secondary" href="mailto:sgardunoj1400@alumno.ipn.mx">🎓 sgardunoj1400@alumno.ipn.mx</a>
-                <a class="btn-clean-primary" href="https://wa.me/5215586864746" target="_blank" rel="noopener">💬 WhatsApp</a>
-            </div>
         </div>
-    </div>
 
     <div class="hero">
       <main>
@@ -311,7 +320,10 @@
           <h2 class="section">Experiencia y proyectos</h2>
 
           <div class="card" style="margin-bottom:12px">
-            <strong>Eco Gaia SOS — Plataforma de impacto ambiental</strong> <div class="contact-small">2024 – Presente · CDMX</div>
+            <strong>
+              <img src="ecogaiasos.png" alt="Logo EcoGaiaSOS" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+              Eco Gaia SOS — Plataforma de impacto ambiental
+            </strong> <div class="contact-small">2024 – Presente · CDMX</div>
             <ul class="clean">
               <li>Desarrollo e implementación de la plataforma web para **gestión y difusión de convocatorias y proyectos ambientales**.</li>
               <li>Responsable de la organización de datos, visualización y soporte a actores locales.</li>
@@ -419,7 +431,6 @@
         <div class="card">
           <div style="font-weight:800;margin-bottom:8px">Habilidades técnicas</div>
           <div class="skills">
-            
             <div class="skill-pill">C++ / Arduino</div>
             <div class="skill-pill">Python (pandas)</div>
             <div class="skill-pill">ESP32 & sensores</div>
