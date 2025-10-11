@@ -23,6 +23,7 @@
     --accent-blue: #0077b6; 
     --accent-yellow: #ffc300; 
     --accent-purple: #9933cc; 
+    --accent-gold: #FFD700; /* Nuevo color: Dorado */
 
     --card-bg: rgba(0,0,0,0.88); /* Tarjetas muy oscuras */
     --card-border: rgba(255,255,255,0.1); 
@@ -65,37 +66,45 @@
     border-radius: var(--radius);
     box-shadow: 0 10px 30px rgba(0,0,0,0.4);
     margin-bottom: 22px;
+    display: flex; /* Para organizar el contenido interno */
+    align-items: center; /* Alineación vertical */
+    gap: 20px; /* Espacio entre la marca y los botones de contacto */
   }
   
-  header{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:0}
-  .brand{display:flex;align-items:center;gap:14px;}
+  header{
+    display:flex;
+    align-items:center; /* Alineación vertical de avatar y texto */
+    gap:18px;
+    margin-bottom:0;
+    flex-grow: 1; /* Permite que esta sección ocupe el espacio disponible */
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    flex-shrink: 0; /* Evita que la marca se encoja */
+  }
   .avatar{
     width:90px; height:90px; border-radius:12px; overflow:hidden;
-    border:3px solid var(--accent-yellow); 
-    box-shadow:0 0 15px rgba(255, 195, 0, 0.3);
+    border:3px solid var(--accent-gold); /* FIX: Marco dorado para la foto */
+    box-shadow:0 0 15px rgba(255, 215, 0, 0.5); /* Sombra dorada */
   }
   .avatar img{width:100%;height:100%;object-fit:cover;display:block}
   
-  /* FIX: Nombre con contorno blanco brillante */
+  /* FIX: Nombre Dorado con contorno blanco brillante */
   .title{
     font-weight:900;
     font-size:28px;
-    color: var(--accent-red); 
+    color: var(--accent-gold); /* Color Dorado */
     text-shadow: 
         -1px -1px 0 #fff,  
         1px -1px 0 #fff,
         -1px 1px 0 #fff,
         1px 1px 0 #fff,
-        0 0 8px rgba(255, 51, 102, 0.7); /* Brillo más intenso */
+        0 0 10px rgba(255, 215, 0, 0.8); /* Brillo dorado más intenso */
   } 
-  /* FIX: Subtítulo en blanco puro */
-  .subtitle{
-    color:var(--fg); 
-    font-size:16px;
-    margin-top:4px;
-    font-weight: 600;
-    text-shadow: 0 0 3px rgba(255, 255, 255, 0.3);
-  } 
+  /* FIX: Subtítulo "Ingeniero Mecatrónico" ELIMINADO del HTML, el CSS ya no es necesario */
+  /* .subtitle{} */
 
   /* Botones de CV y Contacto Limpio (Outline/Outline) */
   .btn-clean-primary {
@@ -110,6 +119,7 @@
     gap:8px;
     align-items:center;
     transition: background-color 0.15s;
+    flex-shrink: 0; /* Evita que los botones se encojan */
   }
   .btn-clean-primary:hover { background: rgba(99, 185, 111, 0.1); }
 
@@ -125,12 +135,24 @@
     gap:8px;
     align-items:center;
     transition: background-color 0.15s;
+    flex-shrink: 0; /* Evita que los botones se encojan */
   }
   .btn-clean-secondary:hover { background: rgba(0, 119, 182, 0.1); }
   
-  /* Botones de Contacto Rápido usando el nuevo estilo limpio */
-  .contact-quick{display:flex;gap:8px;flex-wrap:wrap; margin-top: 10px;}
-  
+  /* FIX: Organización de botones de contacto en el encabezado */
+  .header-buttons-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px; /* Espacio entre los botones */
+    justify-content: flex-end; /* Alinea a la derecha */
+    align-items: center;
+    flex-grow: 1; /* Permite que este grupo ocupe el espacio */
+  }
+  .header-buttons-group > div { /* Contenedor para los de CV */
+    display: flex;
+    gap: 8px;
+  }
+
   /* Estilo base de tarjeta */
   .card{
     background: var(--card-bg);
@@ -160,21 +182,20 @@
   main .card:nth-of-type(9) { border-left: 5px solid var(--accent-purple); } /* Cursos */
 
 
-  /* FIX: Colores de títulos internos de tarjeta */
+  /* Colores de títulos internos de tarjeta */
   main .card:nth-of-type(1) .profile-title { color: var(--accent-blue); }
-  main .card:nth-of-type(2) strong { color: var(--accent-green); } /* Eco Gaia en verde */
-  main .card:nth-of-type(3) strong { color: var(--accent-yellow); } /* Techos Verdes en amarillo */
+  main .card:nth-of-type(2) strong { color: var(--accent-gold); } /* FIX: Eco Gaia en dorado */
+  main .card:nth-of-type(3) strong { color: var(--accent-yellow); } 
   main .card:nth-of-type(4) strong { color: var(--accent-purple); }
   main .card:nth-of-type(5) strong { color: var(--accent-blue); }
   main .card:nth-of-type(6) strong { color: var(--accent-green); }
   main .card:nth-of-type(7) strong { color: var(--accent-yellow); }
-  /* Logros y Cursos usan h2.section, no strong */
 
 
   .profile-title{font-size:16px;font-weight:800;margin-bottom:8px}
   .profile-text{color:var(--fg);opacity:1;font-size:15px;line-height:1.6;}
 
-  /* FIX: Habilidades - Título azul, Texto interno blanco (FG) */
+  /* Habilidades - Título azul, Texto interno blanco (FG) */
   aside .card:nth-of-type(2) div:first-child { color: var(--accent-blue); }
   .skill-pill { color: var(--fg); }
   
@@ -192,12 +213,13 @@
 
   aside .card:nth-of-type(1) div:first-child { color: var(--accent-green); } /* Título Contacto */
   aside .card:nth-of-type(2) div:first-child { color: var(--accent-blue); } /* Título Habilidades Técnicas */
-  aside .card:nth-of-type(3) div:first-child { color: var(--accent-yellow); } /* Título Habilidades Blandas */
+  aside .card:nth-of-type(3) div:first-child { color: var(--accent-gold); } /* FIX: Título Habilidades Blandas Dorado */
 
 
-  /* FIX: Color de texto de los enlaces de contacto y habilidades técnicas */
-  .contact-list a { color: var(--fg); text-decoration: none; }
-  .contact-list a i { margin-right: 5px; } /* Iconos en color */
+  /* Color de texto de los enlaces de contacto y habilidades técnicas */
+  .contact-list a { color: var(--fg); text-decoration: none; display: flex; align-items: center; } /* FIX: display flex para que los iconos y texto estén alineados */
+  .contact-list a i { margin-right: 8px; font-size: 1.1em; } 
+  .contact-list li { margin: 8px 0; } /* Espaciado entre elementos de la lista */
   .contact-list li:nth-child(1) a i { color: var(--accent-green); }
   .contact-list li:nth-child(2) a i { color: var(--accent-green); }
   .contact-list li:nth-child(3) a i { color: var(--accent-yellow); }
@@ -249,8 +271,10 @@
 
   /* responsive tweaks */
   @media (max-width:980px){
-    .contact-quick { justify-content:flex-start }
-    header { align-items:flex-start; flex-direction:column; gap:12px }
+    .main-header-card { flex-direction: column; align-items: flex-start; gap: 15px; }
+    header { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .header-buttons-group { justify-content: flex-start; width: 100%; }
+    .header-buttons-group > div { flex-wrap: wrap; }
     .wrap { padding: 0; border-left: none; border-right: none; }
     .hero { grid-template-columns: 1fr; } /* Columna única en móvil */
   }
@@ -260,33 +284,30 @@
   <div class="wrap">
 
     <div class="main-header-card">
-      <header>
-        <div class="brand">
-          <div class="avatar" title="Foto de Sergio">
-            <img src="perfil.png" alt="Sergio Garduño Jardón">
-          </div>
+        <header>
+            <div class="brand">
+                <div class="avatar" title="Foto de Sergio">
+                    <img src="perfil.png" alt="Sergio Garduño Jardón">
+                </div>
+                <div>
+                    <div class="title">Sergio Garduño Jardón</div>
+                </div>
+            </div>
+        </header>
 
-          <div>
-            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-              <div class="title">Sergio Garduño Jardón</div>
-
-              <div style="display:flex;gap:8px;">
+        <div class="header-buttons-group">
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
                 <a class="btn-clean-primary" href="cv_viewer.html" target="_blank" rel="noopener" title="Abrir CV en el navegador"><i class="fa-solid fa-eye"></i> Ver CV</a>
                 <a class="btn-clean-secondary" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" title="Descargar CV como PDF"><i class="fa-solid fa-download"></i> Descargar CV</a>
-              </div>
             </div>
-
-            <div class="subtitle">Ingeniero mecatrónico orientado a la sostenibilidad y los sistemas inteligentes</div>
-          </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <a class="btn-clean-primary" href="mailto:sgj.cheko@gmail.com">✉ sgj.cheko@gmail.com</a>
+                <a class="btn-clean-secondary" href="mailto:sgardunoj1400@alumno.ipn.mx">🎓 sgardunoj1400@alumno.ipn.mx</a>
+                <a class="btn-clean-primary" href="https://wa.me/5215586864746" target="_blank" rel="noopener">💬 WhatsApp</a>
+            </div>
         </div>
-
-        <div class="contact-quick">
-          <a class="btn-clean-primary" href="mailto:sgj.cheko@gmail.com">✉ sgj.cheko@gmail.com</a>
-          <a class="btn-clean-secondary" href="mailto:sgardunoj1400@alumno.ipn.mx">🎓 sgardunoj1400@alumno.ipn.mx</a>
-          <a class="btn-clean-primary" href="https://wa.me/5215586864746" target="_blank" rel="noopener">💬 WhatsApp</a>
-        </div>
-      </header>
     </div>
+
     <div class="hero">
       <main>
         <div class="card">
