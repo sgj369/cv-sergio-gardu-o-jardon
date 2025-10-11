@@ -6,11 +6,9 @@
   <title>Sergio Garduño Jardón — CV & Portfolio</title>
   <meta name="description" content="Ingeniero mecatrónico orientado a la sostenibilidad y sistemas inteligentes. IoT, datos, energía solar y proyectos ambientales." />
 
-  <!-- favicon -->
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <meta name="theme-color" content="#072d16">
 
-  <!-- FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
@@ -20,8 +18,8 @@
     --fg: #eef1f0;
     --muted: #cbd5cb;
     --accent-green: #63b96f;
-    --card-bg: rgba(255,255,255,0.06);     /* card slightly light for contrast */
-    --card-border: rgba(255,255,255,0.08);
+    --card-bg: rgba(255,255,255,0.08);     /* card ligeramente más opaca para mejor contraste */
+    --card-border: rgba(255,255,255,0.1);
     --maxw: 1100px;
     --radius: 14px;
     --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
@@ -34,7 +32,8 @@
   body{
     font-family:var(--font-sans);
     background:
-      linear-gradient(180deg, var(--bg-green-overlay), rgba(0,0,0,0.06)),
+      /* Aumenta la opacidad para mejorar el contraste del texto sobre el fondo */
+      linear-gradient(180deg, rgba(7, 45, 22, 0.4), rgba(0,0,0,0.2)),
       url('fondo.jpg') center/cover no-repeat fixed;
     color:var(--fg);
     -webkit-font-smoothing:antialiased;
@@ -63,23 +62,41 @@
     background:#ffffff;color:var(--bg-dark);padding:8px 12px;border-radius:10px;font-weight:700;text-decoration:none;
     display:inline-flex;gap:8px;align-items:center;border:1px solid rgba(0,0,0,0.08)
   }
-  .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.08);padding:8px 12px;border-radius:10px;color:var(--fg);text-decoration:none}
+  .btn-ghost{
+    background:transparent;
+    border:1px solid rgba(255,255,255,0.08);
+    padding:8px 12px;
+    border-radius:10px;
+    color:var(--fg);
+    text-decoration:none;
+    display:inline-flex; /* Añadido para alinear el icono */
+    gap: 8px; /* Espacio entre icono y texto */
+    align-items:center;
+  }
+  .btn-ghost i { font-size: 14px; } /* Ajuste de tamaño de icono */
 
   /* Hero / grid */
   .hero{display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:start;margin-bottom:28px}
   @media (max-width:980px){ .hero{grid-template-columns:1fr; padding-bottom:8px} }
 
   .card{
+    /* Ligeramente más opaca para mejorar contraste sobre el fondo */
     background: var(--card-bg);
     border:1px solid var(--card-border);
     padding:20px;border-radius:var(--radius);box-shadow: 0 8px 30px rgba(0,0,0,0.25);
     color:var(--fg);
   }
+  
+  /* Ajuste específico para la tarjeta de perfil para mayor contraste */
+  main .card:first-of-type {
+    background: rgba(7, 45, 22, 0.9); /* Un fondo más sólido pero manteniendo el color */
+    border: 1px solid rgba(99,185,111,0.2);
+  }
 
   .profile-title{font-size:16px;font-weight:800;color:var(--fg);margin-bottom:8px}
   .profile-text{
     color:var(--fg);
-    opacity:0.98;
+    opacity:1; /* Asegurar que la opacidad del texto sea 1 */
     font-size:15px;
     line-height:1.6;
   }
@@ -100,7 +117,7 @@
   /* skill pills */
   .skills{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
   @media (max-width:600px){ .skills{grid-template-columns:1fr} }
-  .skill-pill{background:rgba(255,255,255,0.03);padding:8px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
+  .skill-pill{background:rgba(255,255,255,0.03);padding:8px;border-radius:10px;border:1px solid rgba(255,255,255,0.03); text-align:center;}
 
   /* IoT block styles */
   .iot-block{margin:36px 0;padding:22px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02)}
@@ -135,12 +152,9 @@
           <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
             <div class="title">Sergio Garduño Jardón</div>
 
-            <!-- Botones de CV arriba, junto al nombre -->
             <div style="display:flex;gap:8px;">
-              <!-- Abre el viewer (cv_viewer.html) -->
-              <a class="btn-ghost" href="cv_viewer.html" target="_blank" rel="noopener" title="Abrir CV en el navegador">👁️ Ver CV</a>
-              <!-- Descargar CV (si quieres mantener descarga) -->
-              <a class="btn-ghost" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" title="Descargar CV como PDF">⬇ Descargar CV</a>
+              <a class="btn-ghost" href="cv_viewer.html" target="_blank" rel="noopener" title="Abrir CV en el navegador"><i class="fa-solid fa-eye"></i> Ver CV</a>
+              <a class="btn-ghost" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" title="Descargar CV como PDF"><i class="fa-solid fa-download"></i> Descargar CV</a>
             </div>
           </div>
 
@@ -155,92 +169,63 @@
       </div>
     </header>
 
-    <!-- Hero -->
     <div class="hero">
-      <!-- left: perfil -->
       <main>
         <div class="card">
           <div class="profile-title">Perfil</div>
           <div class="profile-text">
-            Soy Ingeniero Mecatrónico especializado en IoT y soluciones sostenibles. Diseño, desarrollo y despliego sistemas de monitoreo ambiental que integran hardware (ESP32 y sensores), energía renovable (paneles solares y baterías) y pipelines de datos (Google Sheets / SQL, dashboards). Programo en Python, C++/Arduino y Google Apps Script para automatizar procesos y crear modelos analíticos orientados a optimizar recursos y apoyar la toma de decisiones. Actualmente estoy certificándome en Inglés (B2). Me interesa colaborar en proyectos que unan tecnología y naturaleza para generar impacto ambiental positivo.
+            Soy Ingeniero Mecatrónico especializado en **IoT, datos y soluciones sostenibles**. Diseño, desarrollo y despliego sistemas de monitoreo ambiental que integran **hardware (ESP32 y sensores)**, **energía renovable (paneles solares y baterías)** y pipelines de datos (**Google Sheets / SQL**, dashboards). Programo en **Python**, **C++/Arduino** y **Google Apps Script** para automatizar procesos y crear modelos analíticos orientados a optimizar recursos y apoyar la toma de decisiones. Me interesa colaborar en proyectos que unan tecnología y naturaleza para generar impacto ambiental positivo.
           </div>
         </div>
 
-        <!-- Experiencia resumida -->
         <section>
           <h2 class="section">Experiencia y proyectos</h2>
 
           <div class="card" style="margin-bottom:12px">
-            <strong>Eco Gaia SOS — Proyecto independiente</strong> <div class="contact-small">2024 – Presente · CDMX</div>
+            <strong>Eco Gaia SOS — Plataforma de impacto ambiental</strong> <div class="contact-small">2024 – Presente · CDMX</div>
             <ul class="clean">
-              <li>Desarrollo y mantenimiento de plataforma web para recopilar y difundir convocatorias y proyectos ambientales.</li>
-              <li>Organización de datos, visualización y soporte para actores locales.</li>
+              <li>Desarrollo e implementación de la plataforma web para **gestión y difusión de convocatorias y proyectos ambientales**.</li>
+              <li>Responsable de la organización de datos, visualización y soporte a actores locales.</li>
             </ul>
           </div>
 
           <div class="card" style="margin-bottom:12px">
-            <strong>Sistema IoT para techos verdes — Independiente</strong> <div class="contact-small">2023 – 2025 · Validado en campo</div>
+            <strong>Sistema IoT para techos verdes — Proyecto de tesis</strong> <div class="contact-small">2023 – 2025 · Validado en campo</div>
             <ul class="clean">
-              <li>Análisis térmico de techos verdes extensivos con ESP32 y sensores; transmisión a la nube y dashboards.</li>
-              <li>Autonomía energética: panel solar + batería; validación de reducción térmica.</li>
+              <li>Diseño y despliegue de sistema de **monitoreo térmico autónomo** con ESP32, sensores y **alimentación solar**.</li>
+              <li>Desarrollo de *pipeline* de datos y dashboard para la validación de **reducción térmica** en techos verdes.</li>
             </ul>
           </div>
 
-          <!-- ================ Sección: Proyecto IoT - Techo Verde ================ -->
           <div class="iot-block">
             <h3>Proyecto IoT — Techo Verde</h3>
             <p style="color:var(--muted);margin:0 0 14px;font-size:14px;max-width:780px;">
-              Sistema de monitoreo ambiental con ESP32 y sensores múltiples. En los enlaces siguientes puedes abrir el tablero en tiempo real y la hoja de datos; la tesis completa se puede visualizar en el sitio.
+              Sistema de monitoreo ambiental con ESP32 y sensores múltiples. En los enlaces siguientes puedes abrir el tablero en tiempo real y la hoja de datos.
             </p>
 
             <div class="iot-actions">
-              <!-- Dashboard (sitio externo) -->
               <a class="btn-accent" href="https://hugonogueron2607.github.io/Techo_Verde/" target="_blank" rel="noopener">
                 🌐 Ver dashboard (datos en tiempo real)
               </a>
 
-              <!-- Google Sheet público (URL pública) -->
               <a class="btn-primary" href="https://docs.google.com/spreadsheets/d/1Mu0mfmwoWRI_kJ8EweGpJT1g608t6EQixtfevX0z0ac/edit?usp=sharing" target="_blank" rel="noopener">
                 📊 Ver hoja de datos (Google Sheets)
               </a>
 
-              <!-- Viewer que incrusta el PDF en una página del mismo sitio -->
               <a class="btn-dark" href="tesis_viewer.html" target="_blank" rel="noopener">
                 📘 Ver tesis (PDF)
               </a>
             </div>
 
             <p style="color:var(--muted);font-size:13px;margin:0;">
-              Nota: para que la hoja de datos sea pública, ve a Google Sheets → Compartir → "Cualquiera con el enlace" → Ver.
+              Nota: el viewer requiere que el archivo `tesis_viewer.html` esté en la raíz de tu sitio.
             </p>
           </div>
-          <!-- ================= fin sección IoT ================= -->
-
-          <div class="card" style="margin-bottom:12px">
-            <strong>Robodacta — Diseño y ventas</strong> <div class="contact-small">2022 – 2024</div>
-            <ul class="clean">
-              <li>Diseño de kits educativos, empaques, cursos online y material audiovisual; gestión de proveedores y ventas.</li>
-            </ul>
-          </div>
-
-          <div class="card" style="margin-bottom:12px">
-            <strong>METAMORFOZIZ — Publicidad y producción</strong> <div class="contact-small">2021 – 2022</div>
-            <ul class="clean">
-              <li>Diseño gráfico, producción de lonas y banners, gestión de materiales y procesos de impresión.</li>
-            </ul>
-          </div>
-
-          <div class="card" style="margin-bottom:12px">
-            <strong>Ventas (local) — Coyoacán</strong> <div class="contact-small">2021 – 2022</div>
-            <ul class="clean">
-              <li>Atención directa a clientes, gestión de ventas B2C y B2B, manejo de caja y control de inventario.</li>
-            </ul>
-          </div>
-
           <div class="card">
-            <strong>Servicio técnico (negocio propio)</strong> <div class="contact-small">2018 – 2020</div>
+            <strong>Experiencia Transversal (Comercial y Operativa)</strong> <div class="contact-small">2018 – 2024</div>
             <ul class="clean">
-              <li>Reparación de dispositivos electrónicos, compra y venta de refacciones, control de inventario y atención al cliente.</li>
+              <li>**Diseño y Marketing:** Creación de kits educativos, material audiovisual y diseño gráfico para kits y publicidad (Robodacta / METAMORFOZIZ).</li>
+              <li>**Ventas y Operación:** Atención directa a clientes (B2C/B2B), manejo de caja, control de inventario y reparación de dispositivos electrónicos (Ventas Coyoacán / Negocio Propio).</li>
             </ul>
           </div>
         </section>
@@ -249,9 +234,9 @@
           <h2 class="section">Logros</h2>
           <div class="card">
             <ul class="clean">
-              <li>Prototipo IoT validado en campo para monitoreo térmico y energético.</li>
+              <li>Prototipo IoT validado en campo para monitoreo térmico y energético (**Tesis**).</li>
               <li>Participación técnica en el Congreso Nacional de Biotecnología (Oaxaca, 2025).</li>
-              <li>Implementación de plataforma Eco Gaia SOS con crecimiento de visitas y consultas.</li>
+              <li>Implementación y desarrollo de la plataforma Eco Gaia SOS.</li>
             </ul>
           </div>
         </section>
@@ -268,7 +253,6 @@
         </section>
       </main>
 
-      <!-- right: contacto / skills -->
       <aside class="side">
         <div class="card">
           <div style="font-weight:800;margin-bottom:8px">Contacto</div>
@@ -276,6 +260,7 @@
             <li><a href="mailto:sgj.cheko@gmail.com"><i class="fa-regular fa-envelope"></i> sgj.cheko@gmail.com</a></li>
             <li><a href="mailto:sgardunoj1400@alumno.ipn.mx"><i class="fa-regular fa-envelope"></i> sgardunoj1400@alumno.ipn.mx</a></li>
             <li><a href="https://wa.me/5215586864746" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a></li>
+            <li><a href="https://sgj369.github.io/cv-sergio-gardu-o-jardon/" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a></li>
             <li><a href="https://www.facebook.com/share/19FgjAa3ai/" target="_blank" rel="noopener"><i class="fa-brands fa-facebook"></i> Facebook</a></li>
             <li><a href="https://www.instagram.com/cheko_sgj?igsh=amV1aTVwZ3VpeTBi" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i> Instagram</a></li>
             <li><a href="https://www.linkedin.com/in/gardu%C3%B1o-jardon-sergio-264b582b0" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin"></i> LinkedIn</a></li>
@@ -303,6 +288,7 @@
             <li>Planeación y gestión de proyectos</li>
             <li>Trabajo en equipo</li>
             <li>Adaptabilidad</li>
+            <li>Certificación Inglés B2 (en proceso)</li>
           </ul>
         </div>
       </aside>
