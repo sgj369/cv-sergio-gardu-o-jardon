@@ -14,24 +14,24 @@
   <style>
   :root{
     --bg-dark: #072d16;
-    --bg-uniform: #222; /* Nuevo fondo uniforme gris oscuro */
+    --bg-uniform: #222; /* Fondo gris oscuro */
     --fg: #eef1f0;
-    --muted: #cbd5cb;
+    --muted: #a3a3a3;
     --accent-green: #63b96f;
-    --card-bg: rgba(0,0,0,0.85); 
+    --accent-blue: #0077b6;
+    --accent-orange: #ff6f61;
+    --card-bg: rgba(0,0,0,0.85); /* Base para tarjetas oscuras */
     --card-border: rgba(255,255,255,0.1); 
     --maxw: 1100px;
     --radius: 14px;
     --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   }
 
-  /* FIX: Fondo uniforme */
   html { background-color: var(--bg-uniform); }
   *{box-sizing:border-box}
   html,body{height:100%;margin:0;padding:0}
   body{
     font-family:var(--font-sans);
-    /* Fondo limpio y uniforme */
     background: var(--bg-uniform);
     color:var(--fg);
     -webkit-font-smoothing:antialiased;
@@ -48,7 +48,7 @@
     position:relative;
     border-left: 1px solid rgba(255,255,255,0.05);
     border-right: 1px solid rgba(255,255,255,0.05);
-    padding: 0 10px; /* Pequeño padding para que el contenido no pegue a la línea */
+    padding: 0 10px;
   }
 
   /* Header */
@@ -59,7 +59,13 @@
     box-shadow:0 10px 32px rgba(0,0,0,0.5);
   }
   .avatar img{width:100%;height:100%;object-fit:cover;display:block}
-  .title{font-weight:800;font-size:24px;} 
+  /* CREATIVO: Estilo de nombre más llamativo */
+  .title{
+    font-weight:900;
+    font-size:28px; /* Más grande */
+    color: var(--accent-green); /* Color principal */
+    text-shadow: 0 0 5px rgba(99,185,111,0.5); /* Sombra para resaltar */
+  } 
   .subtitle{color:var(--muted);font-size:16px;margin-top:4px} 
 
   /* Contact quick */
@@ -85,35 +91,49 @@
   .hero{display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:start;margin-bottom:28px}
   @media (max-width:980px){ .hero{grid-template-columns:1fr; padding-bottom:8px} }
 
+  /* CREATIVO: Asignación de colores a las tarjetas por posición */
   .card{
     background: var(--card-bg);
     border:1px solid var(--card-border);
     padding:20px;border-radius:var(--radius);box-shadow: 0 8px 30px rgba(0,0,0,0.25);
     color:var(--fg);
+    transition: all 0.2s ease;
   }
+  .card:hover {
+      box-shadow: 0 0 15px rgba(99,185,111,0.3); /* Efecto al pasar el mouse */
+  }
+
+  /* Tarjetas de Experiencia (Columna Izquierda) */
+  main .card:nth-of-type(1) { border-left: 5px solid var(--accent-blue); } /* Perfil */
+  main .card:nth-of-type(3) { border-left: 5px solid var(--accent-green); } /* Eco Gaia */
+  main .card:nth-of-type(4) { border-left: 5px solid var(--accent-orange); } /* Techos Verdes */
+  /* Los demás proyectos seguirán un ciclo de colores */
+
+  /* Tarjetas de Contacto/Skills (Columna Derecha) */
+  aside .card:nth-of-type(1) { border-left: 5px solid var(--accent-green); } /* Contacto */
+  aside .card:nth-of-type(2) { border-left: 5px solid var(--accent-blue); } /* Hard Skills */
+  aside .card:nth-of-type(3) { border-left: 5px solid var(--accent-orange); } /* Soft Skills */
   
-  .profile-title{font-size:16px;font-weight:800;color:var(--fg);margin-bottom:8px}
+  .profile-title{font-size:16px;font-weight:800;color:var(--accent-blue);margin-bottom:8px}
   .profile-text{
     color:var(--fg);
     opacity:1;
     font-size:15px;
     line-height:1.6;
   }
-  
+
   /* Right column (contact + quick info) */
   .side{display:flex;flex-direction:column;gap:12px}
   .side .card{padding:14px}
   .contact-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
   .contact-list a{color:var(--fg);text-decoration:none;display:inline-flex;gap:10px;align-items:center;font-weight:600}
   .contact-small{color:var(--muted);font-size:13px}
-
+  
   /* Sections */
   section{margin-bottom:18px}
-  /* CREATIVO: Color a los títulos de sección */
-  h2.section{font-size:15px;color:var(--accent-green);margin:0 0 10px 0;font-weight:800; border-bottom: 2px solid rgba(99,185,111,0.2); padding-bottom: 4px;}
+  h2.section{font-size:18px;color:var(--accent-orange);margin:0 0 10px 0;font-weight:800; border-bottom: 2px solid rgba(255,111,97,0.3); padding-bottom: 4px;}
   ul.clean{margin:6px 0 0 18px;padding:0;color:var(--fg)}
   ul.clean li{margin:6px 0;font-size:14px}
-  /* Estilo para enlaces en el contenido */
   main a { color: var(--accent-green); text-decoration: none; border-bottom: 1px dotted var(--accent-green); }
 
 
@@ -122,9 +142,14 @@
   @media (max-width:600px){ .skills{grid-template-columns:1fr} }
   .skill-pill{background:rgba(255,255,255,0.03);padding:8px;border-radius:10px;border:1px solid rgba(255,255,255,0.03); text-align:center;}
 
-  /* IoT block styles */
-  .iot-block{margin:36px 0;padding:22px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02)}
-  .iot-block h3{color:var(--accent-green);margin:0 0 10px 0;font-size:18px;font-weight:800}
+  /* IoT block styles (Ahora integrado en el card) */
+  .iot-block{
+    padding:0; /* Quitamos padding y border para que se vea unificado */
+    background: transparent;
+    border: none;
+    margin: 0;
+  }
+  .iot-block h3{color:var(--accent-green);margin:16px 0 10px 0;font-size:18px;font-weight:800; text-shadow: 0 0 2px rgba(99,185,111,0.5);}
   .iot-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px; margin-top: 14px;}
   .btn-accent{background:var(--accent-green);color:#03120a;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(99,185,111,0.06)}
   .btn-primary{background:#0b66c2;color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(11,102,194,0.06)}
@@ -186,7 +211,7 @@
           <h2 class="section">Experiencia y proyectos</h2>
 
           <div class="card" style="margin-bottom:12px">
-            <strong><a href="https://sgj369.github.io/cv-sergio-gardu-o-jardon/" target="_blank" rel="noopener">Eco Gaia SOS — Plataforma de impacto ambiental</a></strong> <div class="contact-small">2024 – Presente · CDMX</div>
+            <strong><a href="https://ecogaiasos.github.io/web/index.html" target="_blank" rel="noopener">Eco Gaia SOS — Plataforma de impacto ambiental</a></strong> <div class="contact-small">2024 – Presente · CDMX</div>
             <ul class="clean">
               <li>Desarrollo e implementación de la plataforma web para **gestión y difusión de convocatorias y proyectos ambientales**.</li>
               <li>Responsable de la organización de datos, visualización y soporte a actores locales.</li>
@@ -195,41 +220,55 @@
 
           <div class="card" style="margin-bottom:12px">
             <strong>Sistema IoT para techos verdes — Proyecto de tesis</strong> <div class="contact-small">2023 – 2025 · Validado en campo</div>
+            
             <ul class="clean">
               <li>Diseño y despliegue de sistema de **monitoreo térmico autónomo** con ESP32, sensores y **alimentación solar**.</li>
               <li>Desarrollo de *pipeline* de datos y dashboard para la validación de **reducción térmica** en techos verdes.</li>
             </ul>
-          </div>
 
-          <div class="iot-block">
-            <h3>Proyecto IoT — Techo Verde</h3>
-            <p style="color:var(--muted);margin:0 0 14px;font-size:14px;max-width:780px;">
-              Sistema de monitoreo ambiental con ESP32 y sensores múltiples. En los enlaces siguientes puedes abrir el tablero en tiempo real y la hoja de datos.
-            </p>
-
-            <div class="iot-actions">
-              <a class="btn-accent" href="https://hugonogueron2607.github.io/Techo_Verde/" target="_blank" rel="noopener">
-                🌐 Dashboard (datos en tiempo real)
-              </a>
-
-              <a class="btn-primary" href="https://docs.google.com/spreadsheets/d/1Mu0mfmwoWRI_kJ8EweGpJT1g608t6EQixtfevX0z0ac/edit?usp=sharing" target="_blank" rel="noopener">
-                📊 Hoja de datos (Google Sheets)
-              </a>
-
-              <a class="btn-dark" href="tesis_viewer.html" target="_blank" rel="noopener">
-                📘 Ver tesis (PDF)
-              </a>
+            <div class="iot-block">
+              <h3 style="margin-top:0;">Enlaces del Proyecto Techo Verde</h3>
+              
+              <div class="iot-actions">
+                <a class="btn-accent" href="https://hugonogueron2607.github.io/Techo_Verde/" target="_blank" rel="noopener">
+                  🌐 Dashboard (datos en tiempo real)
+                </a>
+  
+                <a class="btn-primary" href="https://docs.google.com/spreadsheets/d/1Mu0mfmwoWRI_kJ8EweGpJT1g608t6EQixtfevX0z0ac/edit?usp=sharing" target="_blank" rel="noopener">
+                  📊 Hoja de datos (Google Sheets)
+                </a>
+  
+                <a class="btn-dark" href="tesis_viewer.html" target="_blank" rel="noopener">
+                  📘 Ver tesis (PDF)
+                </a>
+              </div>
             </div>
-            
-            <p style="color:var(--muted);font-size:13px;margin:0;">
-              Nota: Asegúrate de que los archivos `cv_viewer.html` y `tesis_viewer.html` funcionen correctamente con un visor de PDF.
-            </p>
           </div>
-          <div class="card">
-            <strong>Experiencia Transversal (Comercial y Operativa)</strong> <div class="contact-small">2018 – 2024</div>
+          <div class="card" style="margin-bottom:12px">
+            <strong>Robodacta — Diseño y ventas</strong> <div class="contact-small">2022 – 2024</div>
             <ul class="clean">
-              <li>**Diseño y Marketing:** Creación de kits educativos, material audiovisual y diseño gráfico para kits y publicidad (Robodacta / METAMORFOZIZ).</li>
-              <li>**Ventas y Operación:** Atención directa a clientes (B2C/B2B), manejo de caja, control de inventario y reparación de dispositivos electrónicos (Ventas Coyoacán / Negocio Propio).</li>
+              <li>Diseño de kits educativos, empaques, cursos online y material audiovisual; gestión de proveedores y ventas.</li>
+            </ul>
+          </div>
+
+          <div class="card" style="margin-bottom:12px">
+            <strong>METAMORFOZIZ — Publicidad y producción</strong> <div class="contact-small">2021 – 2022</div>
+            <ul class="clean">
+              <li>Diseño gráfico, producción de lonas y banners, gestión de materiales y procesos de impresión.</li>
+            </ul>
+          </div>
+
+          <div class="card" style="margin-bottom:12px">
+            <strong>Ventas (local) — Coyoacán</strong> <div class="contact-small">2021 – 2022</div>
+            <ul class="clean">
+              <li>Atención directa a clientes, gestión de ventas B2C y B2B, manejo de caja y control de inventario.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <strong>Servicio técnico (negocio propio)</strong> <div class="contact-small">2018 – 2020</div>
+            <ul class="clean">
+              <li>Reparación de dispositivos electrónicos, compra y venta de refacciones, control de inventario y atención al cliente.</li>
             </ul>
           </div>
         </section>
