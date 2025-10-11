@@ -13,9 +13,9 @@
 
   <style>
   :root{
-    --bg-uniform: #333; /* FIX: Fondo gris oscuro, más claro que el #222 */
-    --fg: #eef1f0;
-    --muted: #a3a3a3;
+    --bg-uniform: #333; /* Fondo gris oscuro */
+    --fg: #eef1f0; /* Blanco suave para texto principal */
+    --muted: #a3a3a3; /* Gris para texto secundario */
     
     /* Paleta de Acentos Final */
     --accent-red: #ff3366; 
@@ -76,22 +76,28 @@
   }
   .avatar img{width:100%;height:100%;object-fit:cover;display:block}
   
-  /* FIX: Nombre sin contorno blanco para limpieza */
+  /* FIX: Nombre con contorno blanco brillante */
   .title{
     font-weight:900;
     font-size:28px;
     color: var(--accent-red); 
-    text-shadow: 0 0 5px rgba(255, 51, 102, 0.5); 
+    text-shadow: 
+        -1px -1px 0 #fff,  
+        1px -1px 0 #fff,
+        -1px 1px 0 #fff,
+        1px 1px 0 #fff,
+        0 0 8px rgba(255, 51, 102, 0.7); /* Brillo más intenso */
   } 
+  /* FIX: Subtítulo en blanco puro */
   .subtitle{
-    color:var(--accent-yellow); 
+    color:var(--fg); 
     font-size:16px;
     margin-top:4px;
     font-weight: 600;
-    text-shadow: 0 0 3px rgba(255, 195, 0, 0.3);
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.3);
   } 
 
-  /* FIX: Estilo de Botones Limpio (Outline/Outline) */
+  /* Botones de CV y Contacto Limpio (Outline/Outline) */
   .btn-clean-primary {
     background: transparent;
     border: 2px solid var(--btn-primary);
@@ -141,38 +147,57 @@
     font-size: 16px;
   }
 
-  /* Estilos de Color (Tarjetas) - Se mantienen los colores vibrantes aquí */
-  main .card:nth-of-type(1) { border-left: 5px solid var(--accent-blue); } 
-  main .card:nth-of-type(2) { border-left: 5px solid var(--accent-green); } 
-  main .card:nth-of-type(3) { border-left: 5px solid var(--accent-yellow); } 
-  main .card:nth-of-type(4) { border-left: 5px solid var(--accent-purple); } 
-  main .card:nth-of-type(5) { border-left: 5px solid var(--accent-blue); } 
-  main .card:nth-of-type(6) { border-left: 5px solid var(--accent-green); }
-  main .card:nth-of-type(7) { border-left: 5px solid var(--accent-yellow); }
-  main .card:nth-of-type(8) { border-left: 5px solid var(--accent-purple); }
-  main .card:nth-of-type(9) { border-left: 5px solid var(--accent-blue); } 
-  main .card:nth-of-type(10) { border-left: 5px solid var(--accent-green); } 
+  /* Estilos de Color (Tarjetas) */
+  /* El orden es importante para el ciclo de colores */
+  main .card:nth-of-type(1) { border-left: 5px solid var(--accent-blue); } /* Perfil */
+  main .card:nth-of-type(2) { border-left: 5px solid var(--accent-green); } /* Eco Gaia */
+  main .card:nth-of-type(3) { border-left: 5px solid var(--accent-yellow); } /* Techos Verdes */
+  main .card:nth-of-type(4) { border-left: 5px solid var(--accent-purple); } /* Robodacta */
+  main .card:nth-of-type(5) { border-left: 5px solid var(--accent-blue); } /* Metamorfoziz */
+  main .card:nth-of-type(6) { border-left: 5px solid var(--accent-green); } /* Ventas */
+  main .card:nth-of-type(7) { border-left: 5px solid var(--accent-yellow); } /* Servicio Tecnico */
+  main .card:nth-of-type(8) { border-left: 5px solid var(--accent-red); } /* Logros */
+  main .card:nth-of-type(9) { border-left: 5px solid var(--accent-purple); } /* Cursos */
 
-  /* Columna Derecha (ASIDE) */
-  aside .card:nth-of-type(1) { border-left: 5px solid var(--accent-green); } 
-  aside .card:nth-of-type(2) { border-left: 5px solid var(--accent-blue); } 
-  aside .card:nth-of-type(3) { border-left: 5px solid var(--accent-yellow); } 
 
-  /* Colores de títulos internos de tarjeta */
+  /* FIX: Colores de títulos internos de tarjeta */
   main .card:nth-of-type(1) .profile-title { color: var(--accent-blue); }
-  main .card:nth-of-type(2) strong { color: var(--accent-green); }
-  main .card:nth-of-type(3) strong { color: var(--accent-yellow); }
+  main .card:nth-of-type(2) strong { color: var(--accent-green); } /* Eco Gaia en verde */
+  main .card:nth-of-type(3) strong { color: var(--accent-yellow); } /* Techos Verdes en amarillo */
   main .card:nth-of-type(4) strong { color: var(--accent-purple); }
   main .card:nth-of-type(5) strong { color: var(--accent-blue); }
   main .card:nth-of-type(6) strong { color: var(--accent-green); }
   main .card:nth-of-type(7) strong { color: var(--accent-yellow); }
-  main .card:nth-of-type(8) strong { color: var(--accent-purple); }
-  main .card:nth-of-type(9) h2 { color: var(--accent-blue); border-bottom-color: rgba(0, 119, 182, 0.3); }
-  main .card:nth-of-type(10) h2 { color: var(--accent-green); border-bottom-color: rgba(99, 185, 111, 0.3); }
+  /* Logros y Cursos usan h2.section, no strong */
+
+
+  .profile-title{font-size:16px;font-weight:800;margin-bottom:8px}
+  .profile-text{color:var(--fg);opacity:1;font-size:15px;line-height:1.6;}
+
+  /* FIX: Habilidades - Título azul, Texto interno blanco (FG) */
+  aside .card:nth-of-type(2) div:first-child { color: var(--accent-blue); }
+  .skill-pill { color: var(--fg); }
+  
+  /* Contacto - Título verde */
+  aside .card:nth-of-type(1) div:first-child { color: var(--accent-green); }
+  
+  /* FIX: Ajuste para que las habilidades y contacto vuelvan a la derecha */
+  .hero{display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:start;margin-bottom:28px}
+  @media (max-width:980px){ .hero{grid-template-columns:1fr; padding-bottom:8px} }
+  
+  /* Columna Derecha (ASIDE) - Orden de colores */
+  aside .card:nth-of-type(1) { border-left: 5px solid var(--accent-green); } /* Contacto */
+  aside .card:nth-of-type(2) { border-left: 5px solid var(--accent-blue); } /* Hard Skills */
+  aside .card:nth-of-type(3) { border-left: 5px solid var(--accent-yellow); } /* Soft Skills */
+
+  aside .card:nth-of-type(1) div:first-child { color: var(--accent-green); } /* Título Contacto */
+  aside .card:nth-of-type(2) div:first-child { color: var(--accent-blue); } /* Título Habilidades Técnicas */
+  aside .card:nth-of-type(3) div:first-child { color: var(--accent-yellow); } /* Título Habilidades Blandas */
+
 
   /* FIX: Color de texto de los enlaces de contacto y habilidades técnicas */
   .contact-list a { color: var(--fg); text-decoration: none; }
-  .contact-list a i { color: var(--accent-yellow); margin-right: 5px; } /* Iconos en color */
+  .contact-list a i { margin-right: 5px; } /* Iconos en color */
   .contact-list li:nth-child(1) a i { color: var(--accent-green); }
   .contact-list li:nth-child(2) a i { color: var(--accent-green); }
   .contact-list li:nth-child(3) a i { color: var(--accent-yellow); }
@@ -181,17 +206,6 @@
   .contact-list li:nth-child(6) a i { color: var(--accent-red); }
   .contact-list li:nth-child(7) a i { color: var(--accent-green); }
   .contact-list li:nth-child(8) a i { color: var(--accent-yellow); }
-  .contact-list li:nth-child(9) a i { color: var(--accent-purple); }
-
-  .profile-title{font-size:16px;font-weight:800;margin-bottom:8px}
-  .profile-text{color:var(--fg);opacity:1;font-size:15px;line-height:1.6;}
-
-  /* Habilidades - Título azul, Texto interno blanco (FG) */
-  aside .card:nth-of-type(2) div:first-child { color: var(--accent-blue); }
-  .skill-pill { color: var(--fg); }
-  
-  /* Contacto - Título verde */
-  aside .card:nth-of-type(1) div:first-child { color: var(--accent-green); }
 
 
   /* Sections */
@@ -238,6 +252,7 @@
     .contact-quick { justify-content:flex-start }
     header { align-items:flex-start; flex-direction:column; gap:12px }
     .wrap { padding: 0; border-left: none; border-right: none; }
+    .hero { grid-template-columns: 1fr; } /* Columna única en móvil */
   }
   </style>
 </head>
@@ -291,7 +306,7 @@
               <li>Responsable de la organización de datos, visualización y soporte a actores locales.</li>
             </ul>
             <div class="iot-block" style="margin-top: 14px;">
-              <a class="btn-secondary-color" href="https://ecogaiasos.github.io/web/index.html" target="_blank" rel="noopener" style="margin: 0;">
+              <a class="btn-clean-secondary" href="https://ecogaiasos.github.io/web/index.html" target="_blank" rel="noopener" style="margin: 0;">
                 🌐 Visitar Eco Gaia SOS
               </a>
             </div>
