@@ -58,40 +58,43 @@
     padding: 0 10px;
   }
 
-  /* Estilo de Tarjeta para todo el Header/Principal */
+  /* FIX: Estilo de Tarjeta para todo el Header/Principal - Diseño de experto */
   .main-header-card {
     background: var(--card-bg);
-    border: 1px solid rgba(255, 255, 255, 0.1); 
+    border: 1px solid var(--card-border); 
     padding: 20px;
     border-radius: var(--radius);
     box-shadow: 0 10px 30px rgba(0,0,0,0.4);
     margin-bottom: 22px;
-    display: flex; /* Para organizar el contenido interno */
+    display: flex;
+    flex-wrap: wrap; /* Permitir que los elementos se envuelvan en pantallas pequeñas */
+    justify-content: space-between; /* Espaciar el bloque de marca y los contactos */
     align-items: center; /* Alineación vertical */
-    gap: 20px; /* Espacio entre la marca y los botones de contacto */
+    gap: 20px; /* Espacio entre los bloques */
   }
   
   header{
     display:flex;
-    align-items:center; /* Alineación vertical de avatar y texto */
-    gap:18px;
+    flex-direction: column; /* Apila el brand y los botones de CV */
+    align-items: flex-start; /* Alinea a la izquierda dentro de su bloque */
+    gap: 15px; /* Espacio entre el brand y los botones de CV */
     margin-bottom:0;
-    flex-grow: 1; /* Permite que esta sección ocupe el espacio disponible */
+    flex-shrink: 0; /* Evita que este bloque se encoja */
   }
   .brand{
     display:flex;
     align-items:center;
     gap:14px;
-    flex-shrink: 0; /* Evita que la marca se encoja */
+    flex-shrink: 0;
   }
   .avatar{
     width:90px; height:90px; border-radius:12px; overflow:hidden;
-    border:3px solid var(--accent-gold); /* FIX: Marco dorado para la foto */
+    border:3px solid var(--accent-gold); /* Marco dorado para la foto */
     box-shadow:0 0 15px rgba(255, 215, 0, 0.5); /* Sombra dorada */
   }
   .avatar img{width:100%;height:100%;object-fit:cover;display:block}
   
-  /* FIX: Nombre Dorado con contorno blanco brillante */
+  /* Nombre Dorado con contorno blanco brillante */
   .title{
     font-weight:900;
     font-size:28px;
@@ -103,14 +106,10 @@
         1px 1px 0 #fff,
         0 0 10px rgba(255, 215, 0, 0.8); /* Brillo dorado más intenso */
   } 
-  /* FIX: Subtítulo "Ingeniero Mecatrónico" ELIMINADO del HTML, el CSS ya no es necesario */
-  /* .subtitle{} */
 
   /* Botones de CV y Contacto Limpio (Outline/Outline) */
-  .btn-clean-primary {
+  .btn-clean-primary, .btn-clean-secondary {
     background: transparent;
-    border: 2px solid var(--btn-primary);
-    color: var(--btn-primary);
     padding:8px 12px;
     border-radius:10px;
     font-weight:700;
@@ -119,48 +118,39 @@
     gap:8px;
     align-items:center;
     transition: background-color 0.15s;
-    flex-shrink: 0; /* Evita que los botones se encojan */
+    flex-shrink: 0;
+  }
+  .btn-clean-primary {
+    border: 2px solid var(--btn-primary);
+    color: var(--btn-primary);
   }
   .btn-clean-primary:hover { background: rgba(99, 185, 111, 0.1); }
 
   .btn-clean-secondary {
-    background: transparent;
     border: 2px solid var(--btn-secondary);
     color: var(--btn-secondary);
-    padding:8px 12px;
-    border-radius:10px;
-    font-weight:700;
-    text-decoration:none;
-    display:inline-flex;
-    gap:8px;
-    align-items:center;
-    transition: background-color 0.15s;
-    flex-shrink: 0; /* Evita que los botones se encojan */
   }
   .btn-clean-secondary:hover { background: rgba(0, 119, 182, 0.1); }
   
-  /* FIX: Organización de botones de contacto en el encabezado */
-  .header-buttons-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px; /* Espacio entre los botones */
-    justify-content: flex-end; /* Alinea a la derecha */
-    align-items: center;
-    flex-grow: 1; /* Permite que este grupo ocupe el espacio */
-  }
-  .header-buttons-group > div { /* Contenedor para los de CV */
+  /* FIX: Organización de botones de contacto en el encabezado - Diseño de experto */
+  .header-main-buttons { /* Contiene "Ver CV" y "Descargar CV" */
     display: flex;
     gap: 8px;
+    flex-wrap: wrap;
+  }
+  .header-contact-buttons { /* Contiene los correos y WhatsApp */
+    display: flex;
+    flex-direction: column; /* Vertical */
+    gap: 8px;
+    align-items: flex-end; /* Alinea a la derecha dentro de su bloque */
   }
 
-  /* Estilo base de tarjeta */
-  .card{
-    background: var(--card-bg);
-    border:1px solid var(--card-border);
-    padding:20px;border-radius:var(--radius);box-shadow: 0 8px 30px rgba(0,0,0,0.25);
-    color:var(--fg);
-    transition: all 0.2s ease;
+  @media (max-width:980px){ /* Ajustes responsivos para el encabezado */
+    .main-header-card { flex-direction: column; align-items: flex-start; gap: 15px; }
+    header { width: 100%; }
+    .header-contact-buttons { align-items: flex-start; width: 100%; }
   }
+
   .card:hover { box-shadow: 0 0 15px rgba(255,255,255,0.1); }
 
   /* Títulos de tarjeta internos (Eco Gaia, IoT, etc.) */
@@ -429,6 +419,7 @@
         <div class="card">
           <div style="font-weight:800;margin-bottom:8px">Habilidades técnicas</div>
           <div class="skills">
+            
             <div class="skill-pill">C++ / Arduino</div>
             <div class="skill-pill">Python (pandas)</div>
             <div class="skill-pill">ESP32 & sensores</div>
