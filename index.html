@@ -23,7 +23,7 @@
     --accent-blue: #0077b6; 
     --accent-yellow: #ffc300; 
     --accent-purple: #9933cc; 
-    --accent-gold: #FFD700; /* Dorado para destacar el header */
+    --accent-gold: #FFD700; /* Dorado para destacar el header y elementos clave */
 
     --card-bg: rgba(0,0,0,0.88); /* Tarjetas muy oscuras */
     --card-border: rgba(255,255,255,0.1); 
@@ -31,10 +31,11 @@
     --radius: 14px;
     --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 
-    --btn-primary: var(--accent-green);
-    --btn-secondary: var(--accent-blue);
+    --btn-primary: var(--accent-green); /* Botón principal, ej. "Ver CV" en algunos contextos */
+    --btn-secondary: var(--accent-blue); /* Botón secundario, ej. "Descargar CV" en algunos contextos */
   }
 
+  /* Estilos Base */
   html { background-color: var(--bg-uniform); }
   *{box-sizing:border-box}
   html,body{height:100%;margin:0;padding:0}
@@ -58,18 +59,22 @@
     padding: 0 10px;
   }
 
-  /* ESTILOS DEL ENCABEZADO PRINCIPAL (HEADER CARD) */
+  /* ESTILOS DEL ENCABEZADO PRINCIPAL (HEADER CARD) - CON MARCO DORADO */
   .main-header-card {
     background: var(--card-bg);
     border: 1px solid rgba(255, 255, 255, 0.1); 
-    padding: 20px;
+    /* Bordes dorados específicos en el recuadro general */
+    border-top: 2px solid var(--accent-gold); 
+    border-bottom: 2px solid var(--accent-gold); 
+    border-right: 2px solid var(--accent-gold); 
     border-radius: var(--radius);
     box-shadow: 0 10px 30px rgba(0,0,0,0.4);
     margin-bottom: 22px;
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between; /* Espacia el bloque de marca y los botones de CV */
     align-items: center; 
     gap: 20px; 
+    padding: 20px;
   }
   
   header{
@@ -93,7 +98,7 @@
   }
   .avatar img{width:100%;height:100%;object-fit:cover;display:block}
   
-  /* Nombre Blanco con contorno dorado */
+  /* Nombre en Blanco con contorno dorado */
   .title{
     font-weight:900;
     font-size:28px;
@@ -106,7 +111,7 @@
         0 0 10px rgba(255, 215, 0, 0.8); 
   } 
 
-  /* Botones de CV con diseño Dorado (Outline) */
+  /* Estilo de Botones de CV (Ver CV, Descargar CV) */
   .btn-clean-gold {
     background: transparent;
     border: 2px solid var(--accent-gold);
@@ -123,21 +128,16 @@
   }
   .btn-clean-gold:hover { background: rgba(255, 215, 0, 0.1); }
   
-  /* Contenedor de botones de CV con marco dorado */
+  /* Contenedor de botones de CV */
   .header-main-buttons { 
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
     align-items: center;
-    padding: 8px 10px; 
-    /* Marco dorado superior e inferior */
-    border-top: 2px solid var(--accent-gold); 
-    border-bottom: 2px solid var(--accent-gold); 
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+    /* NO necesita padding o bordes extra, ya el padre (main-header-card) los tiene */
   }
   
-  /* Botones de Contacto Rápido y otros */
+  /* Botones de Contacto Rápido y otros (Estilos genéricos, no se usan en el header principal ahora) */
   .btn-clean-primary {
     background: transparent;
     border: 2px solid var(--btn-primary);
@@ -169,31 +169,39 @@
   }
   .btn-clean-secondary:hover { background: rgba(0, 119, 182, 0.1); }
   
-  /* HERO Y TARJETAS DE CONTENIDO */
-  .hero{display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:start;margin-bottom:28px}
-  @media (max-width:980px){ .hero{grid-template-columns:1fr; padding-bottom:8px} }
+  /* ESTILOS DEL CUERPO PRINCIPAL (MAIN CONTENT & ASIDE) */
+  .hero{
+    display:grid;
+    grid-template-columns:1fr 360px; /* Columna principal y barra lateral */
+    gap:28px;
+    align-items:start;
+    margin-bottom:28px;
+  }
 
+  /* Estilos base para todas las tarjetas de contenido */
   .card{
     background: var(--card-bg);
     border:1px solid var(--card-border);
-    padding:20px;border-radius:var(--radius);box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+    padding:20px;
+    border-radius:var(--radius);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
     color:var(--fg);
     transition: all 0.2s ease;
   }
   .card:hover { box-shadow: 0 0 15px rgba(255,255,255,0.1); }
 
-  /* Colores de las líneas y títulos de las tarjetas */
-  main .card:nth-of-type(1) { border-left: 5px solid var(--accent-blue); } 
-  main .card:nth-of-type(2) { border-left: 5px solid var(--accent-green); } 
-  main .card:nth-of-type(3) { border-left: 5px solid var(--accent-yellow); } 
-  main .card:nth-of-type(4) { border-left: 5px solid var(--accent-purple); } 
-  main .card:nth-of-type(5) { border-left: 5px solid var(--accent-blue); } 
-  main .card:nth-of-type(6) { border-left: 5px solid var(--accent-green); }
-  main .card:nth-of-type(7) { border-left: 5px solid var(--accent-yellow); }
-  main .card:nth-of-type(8) { border-left: 5px solid var(--accent-red); } 
-  main .card:nth-of-type(9) { border-left: 5px solid var(--accent-purple); } 
+  /* Colores de las líneas laterales y títulos de las tarjetas de la sección principal (main) */
+  main .card:nth-of-type(1) { border-left: 5px solid var(--accent-blue); } /* Perfil */
+  main .card:nth-of-type(2) { border-left: 5px solid var(--accent-green); } /* Eco Gaia */
+  main .card:nth-of-type(3) { border-left: 5px solid var(--accent-yellow); } /* Techos Verdes */
+  main .card:nth-of-type(4) { border-left: 5px solid var(--accent-purple); } /* Robodacta */
+  main .card:nth-of-type(5) { border-left: 5px solid var(--accent-blue); } /* Metamorfoziz */
+  main .card:nth-of-type(6) { border-left: 5px solid var(--accent-green); } /* Ventas */
+  main .card:nth-of-type(7) { border-left: 5px solid var(--accent-yellow); } /* Servicio Tecnico */
+  main .card:nth-of-type(8) { border-left: 5px solid var(--accent-red); } /* Logros */
+  main .card:nth-of-type(9) { border-left: 5px solid var(--accent-purple); } /* Cursos */
 
-  /* Colores de títulos internos de tarjeta */
+  /* Colores de los Títulos FUERTES (<strong>) dentro de las tarjetas de la sección principal (main) */
   main .card:nth-of-type(1) .profile-title { color: var(--accent-blue); }
   main .card:nth-of-type(2) strong { color: var(--accent-gold); } /* Eco Gaia en Dorado */
   main .card:nth-of-type(3) strong { color: var(--accent-yellow); } 
@@ -202,7 +210,7 @@
   main .card:nth-of-type(6) strong { color: var(--accent-green); }
   main .card:nth-of-type(7) strong { color: var(--accent-yellow); }
 
-  /* Columna Derecha (ASIDE) - Orden de colores */
+  /* COLUMNA LATERAL (ASIDE) - Orden y Colores */
   aside .card:nth-of-type(1) { border-left: 5px solid var(--accent-green); } /* Contacto */
   aside .card:nth-of-type(2) { border-left: 5px solid var(--accent-blue); } /* Hard Skills */
   aside .card:nth-of-type(3) { border-left: 5px solid var(--accent-gold); } /* Soft Skills */
@@ -211,36 +219,104 @@
   aside .card:nth-of-type(2) div:first-child { color: var(--accent-blue); } /* Título Habilidades Técnicas */
   aside .card:nth-of-type(3) div:first-child { color: var(--accent-gold); } /* Título Habilidades Blandas Dorado */
 
-  /* Estilos varios */
+  /* ESTILOS ESPECÍFICOS PARA ELEMENTOS VARIOS */
   .profile-title{font-size:16px;font-weight:800;margin-bottom:8px}
   .profile-text{color:var(--fg);opacity:1;font-size:15px;line-height:1.6;}
+
+  /* Restauración de Colores para la lista de Contactos */
   .contact-list a { color: var(--fg); text-decoration: none; display: flex; align-items: center; } 
   .contact-list a i { margin-right: 8px; font-size: 1.1em; } 
   .contact-list li { margin: 8px 0; overflow-wrap: break-word; } 
-  .skill-pill { color: var(--fg); } /* FIX: C++ / Arduino y otros en blanco */
+  .contact-list li:nth-child(1) a i { color: var(--accent-green); } /* Email 1 */
+  .contact-list li:nth-child(2) a i { color: var(--accent-green); } /* Email 2 */
+  .contact-list li:nth-child(3) a i { color: var(--accent-yellow); } /* WhatsApp */
+  .contact-list li:nth-child(4) a i { color: var(--accent-purple); } /* GitHub */
+  .contact-list li:nth-child(5) a i { color: var(--accent-blue); } /* Facebook */
+  .contact-list li:nth-child(6) a i { color: var(--accent-red); } /* Instagram */
+  .contact-list li:nth-child(7) a i { color: var(--accent-green); } /* LinkedIn */
+  .contact-list li:nth-child(8) a i { color: var(--accent-yellow); } /* TikTok */
+
+  /* Habilidades Técnicas (Skill Pills) - Texto blanco */
+  .skill-pill { 
+    background: rgba(255,255,255,0.08); 
+    color: var(--fg); /* Texto blanco */
+    padding: 6px 10px; 
+    border-radius: 6px; 
+    margin: 4px; 
+    display: inline-block; 
+    font-size: 14px;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .skills { display: flex; flex-wrap: wrap; margin-top: 10px; }
+
+  /* Títulos de sección (Experiencia, Logros, Cursos) */
   h2.section{
-    font-size:18px; color:var(--accent-red); margin:0 0 10px 0; font-weight:800; 
-    border-bottom: 2px solid rgba(255, 51, 102, 0.3); padding-bottom: 4px;
+    font-size:18px; 
+    color:var(--accent-red); 
+    margin:0 0 10px 0; 
+    font-weight:800; 
+    border-bottom: 2px solid rgba(255, 51, 102, 0.3); 
+    padding-bottom: 4px;
+  }
+  ul.clean{margin:6px 0 0 18px;padding:0;color:var(--fg)}
+  ul.clean li{margin:6px 0;font-size:14px}
+  main a { color: var(--accent-green); text-decoration: none; border-bottom: 1px dotted var(--accent-green); }
+
+  /* Estilos específicos de los bloques IoT (Tesis) */
+  .iot-block{
+    margin-top: 14px;
+    padding:0;
+    background: transparent;
+    border: none;
   }
   .iot-block h3{
-    color:var(--accent-purple); margin:16px 0 10px 0; font-size:18px; font-weight:800; 
+    color:var(--accent-purple); 
+    margin:16px 0 10px 0; 
+    font-size:18px; 
+    font-weight:800; 
     text-shadow: 0 0 2px rgba(153, 51, 204, 0.5);
   }
   .iot-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px; margin-top: 14px;}
-  .iot-actions a { color: #fff; text-decoration: none; }
+  .btn-accent{background:var(--accent-green);color:#03120a;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(99,185,111,0.06)}
+  .btn-primary{background:var(--accent-blue);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(11,102,194,0.06)}
+  .btn-dark{background:var(--accent-purple);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;border:1px solid rgba(153, 51, 204, 0.4)}
+  .iot-actions a { color: #fff; text-decoration: none; } /* Asegura que los enlaces dentro de iot-actions sean blancos */
+
+  /* FOOTER */
+  footer{text-align:center;color:var(--muted);font-size:13px;padding:26px 0 10px;display:flex;align-items:center;justify-content:space-between;gap:10px}
   .footer-brand{display:flex;align-items:center;gap:8px}
   .sello{width:40px;height:40px;border-radius:8px;overflow:hidden}
   .sello img{width:100%;height:100%;object-fit:cover}
 
+  /* RESPONSIVE TWEAKS (PARA MÓVILES) */
   @media (max-width:980px){
-    .main-header-card { flex-direction: column; align-items: flex-start; gap: 15px; }
-    header { flex-direction: column; align-items: flex-start; gap: 10px; }
-    .header-main-buttons { width: 100%; justify-content: flex-start; padding: 10px 0; }
+    /* Encabezado */
+    .main-header-card { 
+      flex-direction: column; 
+      align-items: flex-start; 
+      gap: 15px;
+      /* En móvil, el borde del encabezado puede ser más simple */
+      border-top: 1px solid rgba(255, 255, 255, 0.1); 
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    header { width: 100%; flex-direction: column; align-items: flex-start; gap: 10px; }
+    .header-main-buttons { 
+      width: 100%; 
+      justify-content: flex-start; 
+      padding: 10px 0; /* Sin bordes dorados en móvil para este contenedor, el padre ya los tiene */
+      border-top: none; 
+      border-bottom: none; 
+      border-right: none;
+      box-shadow: none;
+    }
+    
+    /* Diseño general */
     .wrap { padding: 0; border-left: none; border-right: none; }
     .hero { grid-template-columns: 1fr; } 
   }
   </style>
-  </head>
+</head>
 <body>
   <div class="wrap">
 
@@ -260,22 +336,21 @@
             <a class="btn-clean-gold" href="cv_viewer.html" target="_blank" rel="noopener" title="Abrir CV en el navegador"><i class="fa-solid fa-eye"></i> Ver CV</a>
             <a class="btn-clean-gold" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" title="Descargar CV como PDF"><i class="fa-solid fa-download"></i> Descargar CV</a>
         </div>
-        </div>
+    </div>
     <div class="hero">
       <main>
         <div class="card">
           <div class="profile-title">Perfil</div>
           <div class="profile-text">
-            Soy Ingeniero Mecatrónico especializado en **IoT, datos y soluciones sostenibles**. Diseño, desarrollo y despliego sistemas de monitoreo ambiental que integran **hardware (ESP32 y sensores)**, **energía renovable (paneles solares y baterías)** y pipelines de datos (**Google Sheets / SQL**, dashboards). Programo en **Python**, **C++/Arduino** y **Google Apps Script** para automatizar procesos y crear modelos analíticos orientados a optimizar recursos y apoyar la toma de decisiones. Me interesa colaborar en proyectos que unan tecnología y naturaleza para generar impacto ambiental positivo.
+            Soy Ingeniero Mecatrónico especializado en **IoT, datos y soluciones sostenibles**. Diseño, desarrollo y despliego sistemas de monitoreo ambiental ambiental que integran **hardware (ESP32 y sensores)**, **energía renovable (paneles solares y baterías)** y pipelines de datos (**Google Sheets / SQL**, dashboards). Programo en **Python**, **C++/Arduino** y **Google Apps Script** para automatizar procesos y crear modelos analíticos orientados a optimizar recursos y apoyar la toma de decisiones. Me interesa colaborar en proyectos que unan tecnología y naturaleza para generar impacto ambiental positivo.
           </div>
         </div>
-
         <section>
           <h2 class="section">Experiencia y proyectos</h2>
 
           <div class="card" style="margin-bottom:12px">
             <strong>
-              <img src="ECOGAIASOS.png" alt="Logo EcoGaiaSOS" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+              <img src="ecogaiasos.png" alt="Logo EcoGaiaSOS" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
               Eco Gaia SOS — Plataforma de impacto ambiental
             </strong> <div class="contact-small">2024 – Presente · CDMX</div>
             <ul class="clean">
@@ -287,8 +362,7 @@
                 🌐 Visitar Eco Gaia SOS
               </a>
             </div>
-            </div>
-
+          </div>
           <div class="card" style="margin-bottom:12px">
             <strong>Sistema IoT para techos verdes — Proyecto de tesis</strong> <div class="contact-small">2023 – 2025 · Validado en campo</div>
             
@@ -321,28 +395,25 @@
               <li>Diseño de kits educativos, empaques, cursos online y material audiovisual; gestión de proveedores y ventas.</li>
             </ul>
           </div>
-
           <div class="card" style="margin-bottom:12px">
             <strong>METAMORFOZIZ — Publicidad y producción</strong> <div class="contact-small">2021 – 2022</div>
             <ul class="clean">
               <li>Diseño gráfico, producción de lonas y banners, gestión de materiales y procesos de impresión.</li>
             </ul>
           </div>
-
           <div class="card" style="margin-bottom:12px">
             <strong>Ventas (local) — Coyoacán</strong> <div class="contact-small">2021 – 2022</div>
             <ul class="clean">
               <li>Atención directa a clientes, gestión de ventas B2C y B2B, manejo de caja y control de inventario.</li>
             </ul>
           </div>
-
           <div class="card">
             <strong>Servicio técnico (negocio propio)</strong> <div class="contact-small">2018 – 2020</div>
             <ul class="clean">
               <li>Reparación de dispositivos electrónicos, compra y venta de refacciones, control de inventario y atención al cliente.</li>
             </ul>
           </div>
-        </section>
+          </section>
 
         <section>
           <h2 class="section">Logros</h2>
@@ -381,7 +452,6 @@
             <li><a href="https://www.tiktok.com/@chekup00" target="_blank" rel="noopener"><i class="fa-brands fa-tiktok"></i> TikTok</a></li>
           </ul>
         </div>
-
         <div class="card">
           <div style="font-weight:800;margin-bottom:8px">Habilidades técnicas</div>
           <div class="skills">
@@ -393,7 +463,6 @@
             <div class="skill-pill">Google Apps Script</div>
           </div>
         </div>
-
         <div class="card">
           <div style="font-weight:800;margin-bottom:8px">Habilidades blandas</div>
           <ul class="clean">
@@ -405,7 +474,7 @@
             <li>Certificación Inglés B2 (en proceso)</li>
           </ul>
         </div>
-      </aside>
+        </aside>
       </div>
     <footer>
       <div class="footer-brand">
