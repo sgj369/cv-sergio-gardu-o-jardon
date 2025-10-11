@@ -13,16 +13,16 @@
 
   <style>
   :root{
-    --bg-uniform: #222; /* Fondo gris oscuro */
+    --bg-uniform: #333; /* FIX: Fondo gris oscuro, más claro que el #222 */
     --fg: #eef1f0;
     --muted: #a3a3a3;
     
     /* Paleta de Acentos Final */
-    --accent-red: #ff3366; /* Títulos Principales */
-    --accent-green: #63b96f; /* Sostenibilidad/Primario */
-    --accent-blue: #0077b6; /* Tecnología/Secundario */
-    --accent-yellow: #ffc300; /* Terciario */
-    --accent-purple: #9933cc; /* Cuaternario */
+    --accent-red: #ff3366; 
+    --accent-green: #63b96f; 
+    --accent-blue: #0077b6; 
+    --accent-yellow: #ffc300; 
+    --accent-purple: #9933cc; 
 
     --card-bg: rgba(0,0,0,0.88); /* Tarjetas muy oscuras */
     --card-border: rgba(255,255,255,0.1); 
@@ -57,10 +57,10 @@
     padding: 0 10px;
   }
 
-  /* FIX: Estilo de Tarjeta para todo el Header/Principal */
+  /* Estilo de Tarjeta para todo el Header/Principal */
   .main-header-card {
     background: var(--card-bg);
-    border: 5px solid rgba(255, 255, 255, 0.1); /* Borde destacado */
+    border: 1px solid rgba(255, 255, 255, 0.1); 
     padding: 20px;
     border-radius: var(--radius);
     box-shadow: 0 10px 30px rgba(0,0,0,0.4);
@@ -71,34 +71,31 @@
   .brand{display:flex;align-items:center;gap:14px;}
   .avatar{
     width:90px; height:90px; border-radius:12px; overflow:hidden;
-    border:3px solid var(--accent-yellow); /* Color distintivo para la foto */
+    border:3px solid var(--accent-yellow); 
     box-shadow:0 0 15px rgba(255, 195, 0, 0.3);
   }
   .avatar img{width:100%;height:100%;object-fit:cover;display:block}
   
+  /* FIX: Nombre sin contorno blanco para limpieza */
   .title{
     font-weight:900;
     font-size:28px;
-    color: var(--accent-red); /* Color de nombre nuevo */
-    text-shadow: 
-        -1px -1px 0 #fff,  
-        1px -1px 0 #fff,
-        -1px 1px 0 #fff,
-        1px 1px 0 #fff,
-        0 0 5px rgba(255, 51, 102, 0.5); 
+    color: var(--accent-red); 
+    text-shadow: 0 0 5px rgba(255, 51, 102, 0.5); 
   } 
   .subtitle{
-    color:var(--accent-yellow); /* Subtítulo resaltado en amarillo */
+    color:var(--accent-yellow); 
     font-size:16px;
     margin-top:4px;
     font-weight: 600;
     text-shadow: 0 0 3px rgba(255, 195, 0, 0.3);
   } 
 
-  /* Botones de Contacto/CV Estilizados */
-  .btn-accent-color {
-    background: var(--btn-primary);
-    color: #000;
+  /* FIX: Estilo de Botones Limpio (Outline/Outline) */
+  .btn-clean-primary {
+    background: transparent;
+    border: 2px solid var(--btn-primary);
+    color: var(--btn-primary);
     padding:8px 12px;
     border-radius:10px;
     font-weight:700;
@@ -106,11 +103,14 @@
     display:inline-flex;
     gap:8px;
     align-items:center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: background-color 0.15s;
   }
-  .btn-secondary-color {
-    background: var(--btn-secondary);
-    color: #fff;
+  .btn-clean-primary:hover { background: rgba(99, 185, 111, 0.1); }
+
+  .btn-clean-secondary {
+    background: transparent;
+    border: 2px solid var(--btn-secondary);
+    color: var(--btn-secondary);
     padding:8px 12px;
     border-radius:10px;
     font-weight:700;
@@ -118,14 +118,13 @@
     display:inline-flex;
     gap:8px;
     align-items:center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: background-color 0.15s;
   }
+  .btn-clean-secondary:hover { background: rgba(0, 119, 182, 0.1); }
+  
+  /* Botones de Contacto Rápido usando el nuevo estilo limpio */
   .contact-quick{display:flex;gap:8px;flex-wrap:wrap; margin-top: 10px;}
-
-  /* Hero / grid */
-  .hero{display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:start;margin-bottom:28px}
-  @media (max-width:980px){ .hero{grid-template-columns:1fr; padding-bottom:8px} }
-
+  
   /* Estilo base de tarjeta */
   .card{
     background: var(--card-bg);
@@ -142,8 +141,7 @@
     font-size: 16px;
   }
 
-  /* CREATIVO: Asignación de colores para las líneas de tarjeta (Border-left) y títulos internos */
-  /* Columna Izquierda (MAIN) */
+  /* Estilos de Color (Tarjetas) - Se mantienen los colores vibrantes aquí */
   main .card:nth-of-type(1) { border-left: 5px solid var(--accent-blue); } 
   main .card:nth-of-type(2) { border-left: 5px solid var(--accent-green); } 
   main .card:nth-of-type(3) { border-left: 5px solid var(--accent-yellow); } 
@@ -172,6 +170,18 @@
   main .card:nth-of-type(9) h2 { color: var(--accent-blue); border-bottom-color: rgba(0, 119, 182, 0.3); }
   main .card:nth-of-type(10) h2 { color: var(--accent-green); border-bottom-color: rgba(99, 185, 111, 0.3); }
 
+  /* FIX: Color de texto de los enlaces de contacto y habilidades técnicas */
+  .contact-list a { color: var(--fg); text-decoration: none; }
+  .contact-list a i { color: var(--accent-yellow); margin-right: 5px; } /* Iconos en color */
+  .contact-list li:nth-child(1) a i { color: var(--accent-green); }
+  .contact-list li:nth-child(2) a i { color: var(--accent-green); }
+  .contact-list li:nth-child(3) a i { color: var(--accent-yellow); }
+  .contact-list li:nth-child(4) a i { color: var(--accent-purple); }
+  .contact-list li:nth-child(5) a i { color: var(--accent-blue); }
+  .contact-list li:nth-child(6) a i { color: var(--accent-red); }
+  .contact-list li:nth-child(7) a i { color: var(--accent-green); }
+  .contact-list li:nth-child(8) a i { color: var(--accent-yellow); }
+  .contact-list li:nth-child(9) a i { color: var(--accent-purple); }
 
   .profile-title{font-size:16px;font-weight:800;margin-bottom:8px}
   .profile-text{color:var(--fg);opacity:1;font-size:15px;line-height:1.6;}
@@ -246,8 +256,8 @@
               <div class="title">Sergio Garduño Jardón</div>
 
               <div style="display:flex;gap:8px;">
-                <a class="btn-accent-color" href="cv_viewer.html" target="_blank" rel="noopener" title="Abrir CV en el navegador"><i class="fa-solid fa-eye"></i> Ver CV</a>
-                <a class="btn-secondary-color" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" title="Descargar CV como PDF"><i class="fa-solid fa-download"></i> Descargar CV</a>
+                <a class="btn-clean-primary" href="cv_viewer.html" target="_blank" rel="noopener" title="Abrir CV en el navegador"><i class="fa-solid fa-eye"></i> Ver CV</a>
+                <a class="btn-clean-secondary" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" title="Descargar CV como PDF"><i class="fa-solid fa-download"></i> Descargar CV</a>
               </div>
             </div>
 
@@ -256,9 +266,9 @@
         </div>
 
         <div class="contact-quick">
-          <a class="btn-accent-color" href="mailto:sgj.cheko@gmail.com">✉ sgj.cheko@gmail.com</a>
-          <a class="btn-secondary-color" href="mailto:sgardunoj1400@alumno.ipn.mx">🎓 sgardunoj1400@alumno.ipn.mx</a>
-          <a class="btn-accent-color" href="https://wa.me/5215586864746" target="_blank" rel="noopener">💬 WhatsApp</a>
+          <a class="btn-clean-primary" href="mailto:sgj.cheko@gmail.com">✉ sgj.cheko@gmail.com</a>
+          <a class="btn-clean-secondary" href="mailto:sgardunoj1400@alumno.ipn.mx">🎓 sgardunoj1400@alumno.ipn.mx</a>
+          <a class="btn-clean-primary" href="https://wa.me/5215586864746" target="_blank" rel="noopener">💬 WhatsApp</a>
         </div>
       </header>
     </div>
