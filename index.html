@@ -174,17 +174,24 @@
   }
   .card:hover { box-shadow: 0 0 15px rgba(255,255,255,0.1); }
 
-  /* INICIO: LÍNEA DECORATIVA DERECHA (::after) - AHORA CON CURVATURA */
+    /* INICIO: LÍNEA DECORATIVA DERECHA (::after) - AJUSTE PARA CUBRIR ESQUINA */
   .card::after {
       content: '';
       position: absolute;
-      top: 0;
-      right: 0;
-      width: 5px; /* Ancho del decorativo */
-      height: 30px; /* Longitud del decorativo */
-      /* Esto hace que la línea siga la curva del border-radius de la tarjeta */
+      /* Ajustar top y right para que la línea comience un poco 'fuera' de la esquina */
+      top: -10px;    /* Sube un poco más */
+      right: -10px;  /* Se extiende un poco más a la derecha */
+      
+      width: 40px;   /* Longitud de la 'línea' */
+      height: 10px;  /* Grosor de la línea */
+      
+      /* Rotamos para crear un efecto diagonal */
+      transform: rotate(45deg); 
+      transform-origin: top right; /* Punto de pivote para la rotación */
+      
+      /* Asegura que la curva sea suave si el radius lo permite */
       border-top-right-radius: var(--radius); 
-      border-bottom-right-radius: var(--radius); 
+      border-bottom-left-radius: 5px; /* Un poco de curvatura en la otra esquina si lo deseas */
   }
   /* FIN: LÍNEA DECORATIVA DERECHA (::after) */
 
