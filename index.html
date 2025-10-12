@@ -100,8 +100,8 @@
   /* Nombre en Blanco con contorno dorado */
   .title{
     font-weight:900;
-    font-size:36px; /* AUMENTADO */
-    color: var(--fg); /* Blanco puro */
+    font-size:36px; 
+    color: var(--fg); 
     text-shadow: 
         -1px -1px 0 var(--accent-gold),  
         1px -1px 0 var(--accent-gold),
@@ -162,6 +162,7 @@
 
   /* Estilos base para todas las tarjetas de contenido */
   .card{
+    position: relative; /* CLAVE para el ::after */
     background: var(--card-bg);
     border:1px solid var(--card-border);
     padding:20px;
@@ -169,41 +170,67 @@
     box-shadow: 0 8px 30px rgba(0,0,0,0.25);
     color:var(--fg);
     transition: all 0.2s ease;
+    overflow: hidden; /* Asegura que la línea decorativa no cause scrollbars */
   }
   .card:hover { box-shadow: 0 0 15px rgba(255,255,255,0.1); }
 
-  /* Colores de las líneas laterales y títulos de las tarjetas de la sección principal (main) */
-  main .card:nth-of-type(1) { border-left: 5px solid var(--accent-blue); } /* Perfil */
-  main .card:nth-of-type(2) { border-left: 5px solid var(--accent-green); } /* Eco Gaia */
-  main .card:nth-of-type(3) { border-left: 5px solid var(--accent-yellow); } /* Techos Verdes */
-  main .card:nth-of-type(4) { border-left: 5px solid var(--accent-purple); } /* Robodacta */
-  main .card:nth-of-type(5) { border-left: 5px solid var(--accent-blue); } /* Metamorfoziz */
-  main .card:nth-of-type(6) { border-left: 5px solid var(--accent-green); } /* Ventas */
-  main .card:nth-of-type(7) { border-left: 5px solid var(--accent-yellow); } /* Servicio Tecnico */
-  main .card:nth-of-type(8) { border-left: 5px solid var(--accent-red); } /* Logros */
-  main .card:nth-of-type(9) { border-left: 5px solid var(--accent-purple); } /* Cursos */
+  /* INICIO: LÍNEA DECORATIVA DERECHA (::after) */
+  .card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 5px; /* Ancho del decorativo */
+      height: 30px; /* Longitud del decorativo */
+  }
+  /* FIN: LÍNEA DECORATIVA DERECHA (::after) */
 
-  /* Colores de los Títulos FUERTES (<strong>) dentro de las tarjetas de la sección principal (main) */
+  /* Colores de las líneas laterales (border-left) */
+  main .card:nth-of-type(1) { border-left: 5px solid var(--accent-blue); } 
+  main .card:nth-of-type(2) { border-left: 5px solid var(--accent-green); } 
+  main .card:nth-of-type(3) { border-left: 5px solid var(--accent-yellow); } 
+  main .card:nth-of-type(4) { border-left: 5px solid var(--accent-purple); } 
+  main .card:nth-of-type(5) { border-left: 5px solid var(--accent-blue); } 
+  main .card:nth-of-type(6) { border-left: 5px solid var(--accent-green); } 
+  main .card:nth-of-type(7) { border-left: 5px solid var(--accent-yellow); } 
+  main .card:nth-of-type(8) { border-left: 5px solid var(--accent-red); } 
+  main .card:nth-of-type(9) { border-left: 5px solid var(--accent-purple); } 
+  
+  /* Asignación del color del ::after (derecha) para que coincida con el border-left */
+  main .card:nth-of-type(1)::after { background: var(--accent-blue); }
+  main .card:nth-of-type(2)::after { background: var(--accent-green); }
+  main .card:nth-of-type(3)::after { background: var(--accent-yellow); }
+  main .card:nth-of-type(4)::after { background: var(--accent-purple); }
+  main .card:nth-of-type(5)::after { background: var(--accent-blue); }
+  main .card:nth-of-type(6)::after { background: var(--accent-green); }
+  main .card:nth-of-type(7)::after { background: var(--accent-yellow); }
+  main .card:nth-of-type(8)::after { background: var(--accent-red); }
+  main .card:nth-of-type(9)::after { background: var(--accent-purple); }
+
+  /* ASIDE Colores y ::after */
+  aside .card:nth-of-type(1) { border-left: 5px solid var(--accent-purple); } 
+  aside .card:nth-of-type(1)::after { background: var(--accent-purple); } /* Formación Académica */
+  aside .card:nth-of-type(2) { border-left: 5px solid var(--accent-green); } 
+  aside .card:nth-of-type(2)::after { background: var(--accent-green); } /* Contacto */
+  aside .card:nth-of-type(3) { border-left: 5px solid var(--accent-blue); } 
+  aside .card:nth-of-type(3)::after { background: var(--accent-blue); } /* Hard Skills */
+  aside .card:nth-of-type(4) { border-left: 5px solid var(--accent-gold); } 
+  aside .card:nth-of-type(4)::after { background: var(--accent-gold); } /* Soft Skills */
+
+  /* Colores de los Títulos FUERTES (<strong>) y otros elementos internos */
   main .card:nth-of-type(1) .profile-title { color: var(--accent-blue); }
-  main .card:nth-of-type(2) strong { color: var(--accent-gold); } /* Eco Gaia en Dorado */
+  main .card:nth-of-type(2) strong { color: var(--accent-gold); } 
   main .card:nth-of-type(3) strong { color: var(--accent-yellow); } 
   main .card:nth-of-type(4) strong { color: var(--accent-purple); }
   main .card:nth-of-type(5) strong { color: var(--accent-blue); }
   main .card:nth-of-type(6) strong { color: var(--accent-green); }
   main .card:nth-of-type(7) strong { color: var(--accent-yellow); }
 
-  /* COLUMNA LATERAL (ASIDE) - Orden y Colores */
-  aside .card:nth-of-type(1) { border-left: 5px solid var(--accent-purple); } /* Formación Académica */
-  aside .card:nth-of-type(2) { border-left: 5px solid var(--accent-green); } /* Contacto */
-  aside .card:nth-of-type(3) { border-left: 5px solid var(--accent-blue); } /* Hard Skills */
-  aside .card:nth-of-type(4) { border-left: 5px solid var(--accent-gold); } /* Soft Skills */
-
   aside .card:nth-of-type(1) div:first-child { color: var(--accent-purple); } /* Título Formación Académica Púrpura */
   aside .card:nth-of-type(2) div:first-child { color: var(--accent-green); } /* Título Contacto */
   aside .card:nth-of-type(3) div:first-child { color: var(--accent-blue); } /* Título Habilidades Técnicas */
   aside .card:nth-of-type(4) div:first-child { color: var(--accent-gold); } /* Título Habilidades Blandas Dorado */
 
-  /* ESTILOS ESPECÍFICOS PARA ELEMENTOS VARIOS */
   .profile-title{font-size:16px;font-weight:800;margin-bottom:8px}
   .profile-text{color:var(--fg);opacity:1;font-size:15px;line-height:1.6;}
 
@@ -211,78 +238,28 @@
   .contact-list a { color: var(--fg); text-decoration: none; display: flex; align-items: center; } 
   .contact-list a i { margin-right: 8px; font-size: 1.1em; } 
   .contact-list li { margin: 8px 0; overflow-wrap: break-word; } 
-  .contact-list li:nth-child(1) a i { color: var(--accent-green); } 
-  .contact-list li:nth-child(2) a i { color: var(--accent-green); } 
-  .contact-list li:nth-child(3) a i { color: var(--accent-yellow); } 
-  .contact-list li:nth-child(4) a i { color: var(--accent-purple); } 
-  .contact-list li:nth-child(5) a i { color: var(--accent-blue); } 
-  .contact-list li:nth-child(6) a i { color: var(--accent-red); } 
-  .contact-list li:nth-child(7) a i { color: var(--accent-green); } 
-  .contact-list li:nth-child(8) a i { color: var(--accent-yellow); } 
-
-  /* Habilidades Técnicas (Skill Pills) - Texto blanco */
-  .skill-pill { 
-    background: rgba(255,255,255,0.08); 
-    color: var(--fg); /* Texto blanco */
-    padding: 6px 10px; 
-    border-radius: 6px; 
-    margin: 4px; 
-    display: inline-block; 
-    font-size: 14px;
-    border: 1px solid rgba(255,255,255,0.15);
-  }
+  .skill-pill { color: var(--fg); padding: 6px 10px; border-radius: 6px; margin: 4px; display: inline-block; font-size: 14px; border: 1px solid rgba(255,255,255,0.15); }
   .skills { display: flex; flex-wrap: wrap; margin-top: 10px; }
 
   /* Títulos de sección (Experiencia, Logros, Cursos) */
   h2.section{
-    font-size:18px; 
-    color:var(--accent-red); 
-    margin: 20px 0 15px 0; /* FIX: AUMENTADO ESPACIADO SUPERIOR */
-    font-weight:800; 
-    border-bottom: 2px solid rgba(255, 51, 102, 0.3); 
-    padding-bottom: 4px;
-    cursor: pointer; 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    font-size:18px; color:var(--accent-red); margin: 20px 0 15px 0; font-weight:800; 
+    border-bottom: 2px solid rgba(255, 51, 102, 0.3); padding-bottom: 4px;
+    cursor: pointer; display: flex; justify-content: space-between; align-items: center;
   }
-  h2.section::after {
-    content: '\25BC'; 
-    font-size: 14px;
-    margin-left: 10px;
-    transition: transform 0.2s;
-  }
-  details[open] h2.section::after {
-    content: '\25B2'; 
-  }
-
-  /* Ocultar la flecha por defecto de <details> en navegadores que la muestran */
+  h2.section::after { content: '\25BC'; font-size: 14px; margin-left: 10px; transition: transform 0.2s; }
+  details[open] h2.section::after { content: '\25B2'; }
   details summary::-webkit-details-marker { display: none; }
   details summary { list-style: none; } 
-
-  /* Contenedor de contenido desplegable (para aplicar margen uniforme) */
-  .section-content {
-    padding-top: 10px;
-  }
+  .section-content { padding-top: 10px; }
 
   ul.clean{margin:6px 0 0 18px;padding:0;color:var(--fg)}
   ul.clean li{margin:6px 0;font-size:14px}
   main a { color: var(--accent-green); text-decoration: none; border-bottom: 1px dotted var(--accent-green); }
 
   /* Estilos específicos de los bloques IoT (Tesis) */
-  .iot-block{
-    margin-top: 14px;
-    padding:0;
-    background: transparent;
-    border: none;
-  }
-  .iot-block h3{
-    color:var(--accent-purple); 
-    margin:16px 0 10px 0; 
-    font-size:18px; 
-    font-weight:800; 
-    text-shadow: 0 0 2px rgba(153, 51, 204, 0.5);
-  }
+  .iot-block{margin-top: 14px; padding:0; background: transparent; border: none;}
+  .iot-block h3{color:var(--accent-purple); margin:16px 0 10px 0; font-size:18px; font-weight:800; text-shadow: 0 0 2px rgba(153, 51, 204, 0.5);}
   .iot-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px; margin-top: 14px;}
   .btn-accent{background:var(--accent-green);color:#03120a;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(99,185,111,0.06)}
   .btn-primary{background:var(--accent-blue);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(11,102,194,0.06)}
@@ -318,7 +295,8 @@
 <body>
   <div class="wrap">
 
-    <div class="main-header-card">
+    
+<div class="main-header-card">
         <header>
             <div class="brand">
                 <div class="avatar" title="Foto de Sergio">
@@ -479,7 +457,7 @@
             2015 – 2018
         </div>
     </div>
-        </div>
+    </div>
         <div class="card">
           <div style="font-weight:800;margin-bottom:8px">Contacto</div>
           <ul class="contact-list">
