@@ -160,7 +160,7 @@
     margin-bottom:28px;
   }
 
-  /* Estilos base para todas las tarjetas de contenido */
+    /* Estilos base para todas las tarjetas de contenido */
   .card{
     position: relative; /* CLAVE para el ::after */
     background: var(--card-bg);
@@ -170,43 +170,33 @@
     box-shadow: 0 8px 30px rgba(0,0,0,0.25);
     color:var(--fg);
     transition: all 0.2s ease;
-    overflow: hidden; /* Asegura que la línea decorativa no cause scrollbars */
+    /* QUITAMOS overflow: hidden; temporalmente por si está ocultando la línea */
   }
   .card:hover { box-shadow: 0 0 15px rgba(255,255,255,0.1); }
 
-      /* Estilos base para todas las tarjetas de contenido */
-  .card{
-    position: relative; /* CLAVE para el ::after */
-    background: var(--card-bg);
-    border:1px solid var(--card-border);
-    padding:20px;
-    border-radius:var(--radius);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
-    color:var(--fg);
-    transition: all 0.2s ease;
-    overflow: hidden; 
-  }
-  .card:hover { box-shadow: 0 0 15px rgba(255,255,255,0.1); }
-
-  /* INICIO: LÍNEA DECORATIVA DERECHA (::after) - CORRECCIÓN VISIBLE */
+  /* INICIO: LÍNEA DECORATIVA DERECHA (::after) - CORRECCIÓN VISIBLE Y MÁS GRANDE */
   .card::after {
       content: '';
       position: absolute;
-      /* Posicionamiento para que nazca en la esquina superior derecha */
-      top: -1px; 
-      right: -1px; 
       
-      width: 45px; /* Longitud aumentada */
-      height: 6px; /* Grosor visible */
+      /* Aumentamos el desplazamiento negativo para asegurar que la punta esté visible */
+      top: -15px; 
+      right: -15px; 
+      
+      /* Aumentamos la longitud (width) para que cubra mejor la esquina */
+      width: 60px; 
+      height: 8px; /* Un poco más gruesa */
       
       /* Rotamos para crear el efecto diagonal de la esquina */
       transform: rotate(45deg); 
       transform-origin: top right; 
       
       /* Aseguramos que siga la curva de la tarjeta */
-      border-top-right-radius: var(--radius); 
+      border-top-right-radius: 5px; /* Un valor fijo para la curva de la línea */
+      z-index: 1; /* Asegura que la línea esté por encima del contenido de la tarjeta */
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Sombra para resaltar la línea */
   }
-  /* FIN: LÍNEA DECORATIVA DERECHA (::after) */
+  /* FIN: LÍNEA DECORATIVA DERECHA (::after) *
     
   /* Colores de las líneas laterales (border-left) */
   main .card:nth-of-type(1) { border-left: 5px solid var(--accent-blue); } 
