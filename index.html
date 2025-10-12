@@ -174,27 +174,40 @@
   }
   .card:hover { box-shadow: 0 0 15px rgba(255,255,255,0.1); }
 
-    /* INICIO: LÍNEA DECORATIVA DERECHA (::after) - AJUSTE PARA CUBRIR ESQUINA */
+      /* Estilos base para todas las tarjetas de contenido */
+  .card{
+    position: relative; /* CLAVE para el ::after */
+    background: var(--card-bg);
+    border:1px solid var(--card-border);
+    padding:20px;
+    border-radius:var(--radius);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+    color:var(--fg);
+    transition: all 0.2s ease;
+    overflow: hidden; 
+  }
+  .card:hover { box-shadow: 0 0 15px rgba(255,255,255,0.1); }
+
+  /* INICIO: LÍNEA DECORATIVA DERECHA (::after) - CORRECCIÓN VISIBLE */
   .card::after {
       content: '';
       position: absolute;
-      /* Ajustar top y right para que la línea comience un poco 'fuera' de la esquina */
-      top: -10px;    /* Sube un poco más */
-      right: -10px;  /* Se extiende un poco más a la derecha */
+      /* Posicionamiento para que nazca en la esquina superior derecha */
+      top: -1px; 
+      right: -1px; 
       
-      width: 40px;   /* Longitud de la 'línea' */
-      height: 10px;  /* Grosor de la línea */
+      width: 45px; /* Longitud aumentada */
+      height: 6px; /* Grosor visible */
       
-      /* Rotamos para crear un efecto diagonal */
+      /* Rotamos para crear el efecto diagonal de la esquina */
       transform: rotate(45deg); 
-      transform-origin: top right; /* Punto de pivote para la rotación */
+      transform-origin: top right; 
       
-      /* Asegura que la curva sea suave si el radius lo permite */
+      /* Aseguramos que siga la curva de la tarjeta */
       border-top-right-radius: var(--radius); 
-      border-bottom-left-radius: 5px; /* Un poco de curvatura en la otra esquina si lo deseas */
   }
   /* FIN: LÍNEA DECORATIVA DERECHA (::after) */
-
+    
   /* Colores de las líneas laterales (border-left) */
   main .card:nth-of-type(1) { border-left: 5px solid var(--accent-blue); } 
   main .card:nth-of-type(2) { border-left: 5px solid var(--accent-green); } 
