@@ -59,10 +59,10 @@
     padding: 0 10px;
   }
 
-  /* ESTILOS DEL SELECTOR DE IDIOMA */
+  /* ESTILOS DEL SELECTOR DE IDIOMA - FIX: BAJADO */
   .lang-switcher {
     position: absolute;
-    top: -25px; 
+    top: 5px; /* Bajado a 5px para estar más visible */
     right: 10px; /* Alineado al borde del wrap */
     z-index: 1000;
     display: flex;
@@ -89,7 +89,7 @@
     background: rgba(255, 51, 102, 0.1);
   }
 
-  /* ESTILOS DEL ENCABEZADO PRINCIPAL (HEADER CARD) - CON MARCO DORADO */
+  /* ESTILOS DEL ENCABEZADO PRINCIPAL (HEADER CARD) */
   .main-header-card {
     background: var(--card-bg);
     border: 1px solid rgba(255, 255, 255, 0.1); 
@@ -165,7 +165,7 @@
     align-items: center;
   }
   
-  /* Botones de Contacto Rápido y otros */
+  /* Botones de Contacto Rápido y otros - RESTAURADOS */
   .btn-clean-primary {
     background: transparent; border: 2px solid var(--btn-primary); color: var(--btn-primary);
     padding:8px 12px; border-radius:10px; font-weight:700; text-decoration:none;
@@ -192,7 +192,7 @@
 
   /* Estilos base para todas las tarjetas de contenido */
   .card{
-    position: relative; /* CLAVE para el ::after */
+    position: relative; 
     background: var(--card-bg);
     border:1px solid var(--card-border);
     padding:20px;
@@ -266,6 +266,15 @@
   details summary::-webkit-details-marker { display: none; }
   details summary { list-style: none; } 
   .section-content { padding-top: 10px; }
+
+  /* IoT block styles - RESTAURADOS */
+  .iot-block{margin-top: 14px; padding:0; background: transparent; border: none;}
+  .iot-block h3{color:var(--accent-purple); margin:16px 0 10px 0; font-size:18px; font-weight:800; text-shadow: 0 0 2px rgba(153, 51, 204, 0.5);}
+  .iot-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px; margin-top: 14px;}
+  .btn-accent{background:var(--accent-green);color:#03120a;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(99,185,111,0.06)}
+  .btn-primary{background:var(--accent-blue);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(11,102,194,0.06)}
+  .btn-dark{background:var(--accent-purple);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;border:1px solid rgba(153, 51, 204, 0.4)}
+  .iot-actions a { color: #fff; text-decoration: none; } 
 
   /* FOOTER - FIX: Arreglar el tamaño del logo */
   footer{text-align:center;color:var(--muted);font-size:13px;padding:26px 0 10px;display:flex;align-items:center;justify-content:space-between;gap:10px}
@@ -599,19 +608,16 @@
 
         document.querySelectorAll('[data-lang]').forEach(element => {
             const key = element.getAttribute('data-lang');
-            const translation = t[key];
             
             // Si la traducción para el idioma seleccionado existe, úsala.
-            if (translation) {
-                applyText(element, translation);
+            if (t[key]) {
+                applyText(element, t[key]);
             } else if (lang === 'es') {
-                // Si estamos volviendo al español, tenemos que forzar la restauración
-                // NOTA: Para el español, el texto original ya está en el HTML, pero lo cargamos si existe una traducción específica para el español.
-                const originalContent = element.innerHTML.replace(/<b>(.*?)<\/b>/g, '**$1**'); // Eliminar tags HTML para obtener el texto original con **
-                
-                // Usamos el texto del HTML original (en español) si no hay traducción específica en 't'
-                // Esto es crucial para la reversión
-                applyText(element, element.getAttribute('data-es-original') || originalContent); 
+                // Si volvemos al español, usamos el texto original que guardamos
+                const originalText = element.getAttribute('data-es-original');
+                if (originalText) {
+                    applyText(element, originalText);
+                }
             }
         });
 
@@ -630,19 +636,16 @@
 
     // Inicialización al cargar: Guarda el texto original en español
     document.addEventListener('DOMContentLoaded', () => {
-        // FIX: Guarda el texto original del HTML para la reversión al español
+        // 1. Guardar el texto original del HTML para la reversión al español
         document.querySelectorAll('[data-lang]').forEach(element => {
             if (!element.getAttribute('data-es-original')) {
                  // Guarda el contenido del HTML como referencia para el idioma ES
                  element.setAttribute('data-es-original', element.innerHTML); 
             }
         });
-
-        // Si hay una preferencia guardada, cárgala
-        // const savedLang = localStorage.getItem('language') || 'es';
-        // if (savedLang !== 'es') {
-        //     translatePage(savedLang);
-        // }
+        
+        // 2. Inicializa el estado de la bandera (ES por defecto)
+        document.getElementById('flag-es').classList.add('active');
     });
   </script>
   </body>
