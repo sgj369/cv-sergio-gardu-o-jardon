@@ -247,7 +247,7 @@
   aside .card:nth-of-type(4)::after { background: var(--accent-gold); } 
 
   /* Títulos y Contenido */
-  main .card:nth-of-type(2) strong { color: var(--accent-gold); } 
+  main .card:nth-of-type(2) strong span{ color: var(--accent-gold); } 
   main .card:nth-of-type(3) strong { color: var(--accent-yellow); } 
   main .card:nth-of-type(4) strong { color: var(--accent-purple); }
   main .card:nth-of-type(5) strong { color: var(--accent-blue); }
@@ -374,10 +374,11 @@
         </summary>
         <div class="section-content">
             <div class="card" style="margin-bottom:12px">
-            <strong>
-              <img src="ECOGAIASOS.png" alt="Logo EcoGaiaSOS" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
-              <span data-lang="ecogaia-role">Eco Gaia SOS — Plataforma de impacto ambiental</span>
+            <strong data-lang="ecogaia-role">
+                <img src="ECOGAIASOS.png" alt="Logo EcoGaiaSOS" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+                <span class="ecogaia-text-to-translate">Eco Gaia SOS — Plataforma de impacto ambiental</span>
             </strong> <div class="contact-small" data-lang="ecogaia-dates">2024 – Presente · CDMX</div>
+            </div>
             <ul class="clean">
               <li data-lang="ecogaia-l1">Desarrollo e implementación de la plataforma web para **gestión y difusión de convocatorias y proyectos ambientales**.</li>
               <li data-lang="ecogaia-l2">Responsable de la organización de datos, visualización y soporte a actores locales.</li>
@@ -556,8 +557,8 @@
     const translations = {
         'en': {
             'profile-title': 'Profile',
-            'profile-p1': 'I am a **Mechatronics Engineer** specializing in **IoT, data, and sustainable solutions**. I design, develop, and deploy environmental monitoring systems that integrate hardware (**ESP32 and sensors**), renewable energy (**solar panels and batteries**), and data pipelines (**Google Sheets / SQL**, dashboards).',
-            'profile-p2': 'I program in **Python**, **C++/Arduino**, and **Google Apps Script** to automate processes and create analytical models aimed at optimizing resources and supporting decision-making. I am interested in collaborating on projects that unite technology and nature to generate a positive environmental impact.',
+            'profile-p1': 'Mechatronics Engineer specializing in IoT systems, data, and sustainable solutions. I design, develop, and deploy environmental monitoring systems that integrate hardware (ESP32 and sensors), renewable energy, and data pipelines (Google Sheets / SQL, dashboards).',
+            'profile-p2': 'Programming expertise in Python, C++/Arduino, and Google Apps Script to automate processes and create analytical models focused on optimizing resources and supporting decision-making. I seek to collaborate on projects that merge technology and nature to generate a positive environmental impact.',
             'btn-view-cv-text': 'View CV',
             'btn-download-cv-text': 'Download CV',
             'exp-title': 'Experience & Projects',
