@@ -59,7 +59,7 @@
     padding: 0 10px;
   }
 
-  /* ESTILOS DEL SELECTOR DE IDIOMA - FIX: BAJADO */
+  /* ESTILOS DEL SELECTOR DE IDIOMA */
   .lang-switcher {
     position: absolute;
     top: 5px; /* Bajado a 5px para estar más visible */
@@ -89,7 +89,7 @@
     background: rgba(255, 51, 102, 0.1);
   }
 
-  /* ESTILOS DEL ENCABEZADO PRINCIPAL (HEADER CARD) */
+  /* ESTILOS DEL ENCABEZADO PRINCIPAL (HEADER CARD) - CON MARCO DORADO */
   .main-header-card {
     background: var(--card-bg);
     border: 1px solid rgba(255, 255, 255, 0.1); 
@@ -165,7 +165,7 @@
     align-items: center;
   }
   
-  /* Botones de Contacto Rápido y otros - RESTAURADOS */
+  /* Botones de Contacto Rápido y otros */
   .btn-clean-primary {
     background: transparent; border: 2px solid var(--btn-primary); color: var(--btn-primary);
     padding:8px 12px; border-radius:10px; font-weight:700; text-decoration:none;
@@ -192,7 +192,7 @@
 
   /* Estilos base para todas las tarjetas de contenido */
   .card{
-    position: relative; 
+    position: relative; /* CLAVE para el ::after */
     background: var(--card-bg);
     border:1px solid var(--card-border);
     padding:20px;
@@ -267,7 +267,20 @@
   details summary { list-style: none; } 
   .section-content { padding-top: 10px; }
 
-  /* IoT block styles - RESTAURADOS */
+  /* RESTAURACIÓN: Colores de los íconos de contacto */
+  .contact-list a { color: var(--fg); text-decoration: none; display: flex; align-items: center; } 
+  .contact-list a i { margin-right: 8px; font-size: 1.1em; } 
+  .contact-list li { margin: 8px 0; overflow-wrap: break-word; } 
+  .contact-list li:nth-child(1) a i { color: var(--accent-green); } 
+  .contact-list li:nth-child(2) a i { color: var(--accent-green); } 
+  .contact-list li:nth-child(3) a i { color: var(--accent-yellow); } 
+  .contact-list li:nth-child(4) a i { color: var(--accent-purple); } 
+  .contact-list li:nth-child(5) a i { color: var(--accent-blue); } 
+  .contact-list li:nth-child(6) a i { color: var(--accent-red); } 
+  .contact-list li:nth-child(7) a i { color: var(--accent-green); } 
+  .contact-list li:nth-child(8) a i { color: var(--accent-yellow); } 
+
+  /* RESTAURACIÓN: Estilos específicos de los bloques IoT (Tesis) */
   .iot-block{margin-top: 14px; padding:0; background: transparent; border: none;}
   .iot-block h3{color:var(--accent-purple); margin:16px 0 10px 0; font-size:18px; font-weight:800; text-shadow: 0 0 2px rgba(153, 51, 204, 0.5);}
   .iot-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px; margin-top: 14px;}
@@ -276,12 +289,12 @@
   .btn-dark{background:var(--accent-purple);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;border:1px solid rgba(153, 51, 204, 0.4)}
   .iot-actions a { color: #fff; text-decoration: none; } 
 
-  /* FOOTER - FIX: Arreglar el tamaño del logo */
+
+  /* FOOTER */
   footer{text-align:center;color:var(--muted);font-size:13px;padding:26px 0 10px;display:flex;align-items:center;justify-content:space-between;gap:10px}
   .footer-brand{display:flex;align-items:center;gap:8px}
   .sello{width:40px;height:40px;border-radius:8px;overflow:hidden}
   .sello img{width:100%;height:100%;object-fit:cover}
-
 
   /* RESPONSIVE TWEAKS (PARA MÓVILES) */
   @media (max-width:980px){
@@ -591,14 +604,13 @@
             'footer-contact': 'Contact: sgj.cheko@gmail.com'
         },
         'es': {
-            // Se puede dejar vacío si el HTML original es en español y solo se necesita sobrescribir
+            // No necesita traducción si el HTML original es el de referencia
         }
     };
 
     let currentLanguage = 'es';
 
     function applyText(element, text) {
-        // Aplica el texto y maneja las negritas (**)
         let processedText = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>'); 
         element.innerHTML = processedText;
     }
