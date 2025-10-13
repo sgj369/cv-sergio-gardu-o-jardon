@@ -24,7 +24,6 @@
     --accent-yellow: #ffc300; 
     --accent-purple: #9933cc; 
     --accent-gold: #FFD700; /* Dorado para destacar el header y elementos clave */
-    --accent-guinda: #660033; /* Nuevo color: Guinda para IPN */
 
     --card-bg: rgba(0,0,0,0.88); /* Tarjetas muy oscuras */
     --card-border: rgba(255,255,255,0.1); 
@@ -63,8 +62,8 @@
   /* ESTILOS DEL SELECTOR DE IDIOMA */
   .lang-switcher {
     position: absolute;
-    top: 5px; 
-    right: 10px; 
+    top: 5px; /* Bajado a 5px para estar más visible */
+    right: 10px; /* Alineado al borde del wrap */
     z-index: 1000;
     display: flex;
     gap: 10px;
@@ -90,7 +89,7 @@
     background: rgba(255, 51, 102, 0.1);
   }
 
-  /* ESTILOS DEL ENCABEZADO PRINCIPAL (HEADER CARD) */
+  /* ESTILOS DEL ENCABEZADO PRINCIPAL (HEADER CARD) - CON MARCO DORADO */
   .main-header-card {
     background: var(--card-bg);
     border: 1px solid rgba(255, 255, 255, 0.1); 
@@ -219,7 +218,6 @@
   /* FIN: LÍNEA DECORATIVA DERECHA (::after) */
     
   /* Colores de las líneas laterales y ::after */
-  /* --- MAIN (Experiencia y Proyectos) --- */
   main .card:nth-of-type(1) { border-left: 5px solid var(--accent-blue); } 
   main .card:nth-of-type(1)::after { background: var(--accent-blue); } 
   main .card:nth-of-type(2) { border-left: 5px solid var(--accent-green); } 
@@ -238,8 +236,6 @@
   main .card:nth-of-type(8)::after { background: var(--accent-red); } 
   main .card:nth-of-type(9) { border-left: 5px solid var(--accent-purple); } 
   main .card:nth-of-type(9)::after { background: var(--accent-purple); } 
-
-  /* --- ASIDE (Barra Lateral) --- */
   aside .card:nth-of-type(1) { border-left: 5px solid var(--accent-purple); } 
   aside .card:nth-of-type(1)::after { background: var(--accent-purple); } 
   aside .card:nth-of-type(2) { border-left: 5px solid var(--accent-green); } 
@@ -249,44 +245,13 @@
   aside .card:nth-of-type(4) { border-left: 5px solid var(--accent-gold); } 
   aside .card:nth-of-type(4)::after { background: var(--accent-gold); } 
 
-  /* --- ASIGNACIÓN DE COLOR A TÍTULOS DE TARJETA (Cohesión de Estilo) --- */
-  /* Títulos de Tarjeta (Main) */
-  main .card:nth-of-type(1) .profile-title { color: var(--accent-blue); }
+  /* Títulos y Contenido */
   main .card:nth-of-type(2) strong { color: var(--accent-gold); } 
   main .card:nth-of-type(3) strong { color: var(--accent-yellow); } 
-  main .card:nth-of-type(4) strong { color: var(--accent-purple); }
-  main .card:nth-of-type(5) strong { color: var(--accent-blue); }
-  main .card:nth-of-type(6) strong { color: var(--accent-green); }
-  main .card:nth-of-type(7) strong { color: var(--accent-yellow); }
+  aside .card:nth-of-type(3) div:first-child { color: var(--accent-blue); } 
   
-  /* Títulos de Tarjeta (Aside) */
-  aside .card:nth-of-type(1) div:first-child { color: var(--accent-purple); } /* Formación Académica */
-  aside .card:nth-of-type(2) div:first-child { color: var(--accent-green); } /* Contacto */
-  aside .card:nth-of-type(3) div:first-child { color: var(--accent-blue); } /* Habilidades Técnicas */
-  aside .card:nth-of-type(4) div:first-child { color: var(--accent-gold); } /* Habilidades Blandas */
-  
-  /* FIX: Título IPN Politécnico en Guinda */
-  .ipn-title {
-      color: var(--accent-guinda);
-  }
-
   .profile-title{font-size:16px;font-weight:800;margin-bottom:8px}
   .profile-text{color:var(--fg);opacity:1;font-size:15px;line-height:1.6;}
-
-  /* Restauración de Colores para la lista de Contactos (Aside) */
-  .contact-list a { color: var(--fg); text-decoration: none; display: flex; align-items: center; } 
-  .contact-list a i { margin-right: 8px; font-size: 1.1em; } 
-  .contact-list li { margin: 8px 0; overflow-wrap: break-word; } 
-  /* Colores de los íconos de contacto - RESTAURADOS */
-  .contact-list li:nth-child(1) a i { color: var(--accent-green); } 
-  .contact-list li:nth-child(2) a i { color: var(--accent-green); } 
-  .contact-list li:nth-child(3) a i { color: var(--accent-yellow); } 
-  .contact-list li:nth-child(4) a i { color: var(--accent-purple); } 
-  .contact-list li:nth-child(5) a i { color: var(--accent-blue); } 
-  .contact-list li:nth-child(6) a i { color: var(--accent-red); } 
-  .contact-list li:nth-child(7) a i { color: var(--accent-green); } 
-  .contact-list li:nth-child(8) a i { color: var(--accent-yellow); } 
-  
   .skill-pill { color: var(--fg); padding: 6px 10px; border-radius: 6px; margin: 4px; display: inline-block; font-size: 14px; border: 1px solid rgba(255,255,255,0.15); }
   .skills { display: flex; flex-wrap: wrap; margin-top: 10px; }
 
@@ -301,6 +266,29 @@
   details summary::-webkit-details-marker { display: none; }
   details summary { list-style: none; } 
   .section-content { padding-top: 10px; }
+
+  /* RESTAURACIÓN: Colores de los íconos de contacto */
+  .contact-list a { color: var(--fg); text-decoration: none; display: flex; align-items: center; } 
+  .contact-list a i { margin-right: 8px; font-size: 1.1em; } 
+  .contact-list li { margin: 8px 0; overflow-wrap: break-word; } 
+  .contact-list li:nth-child(1) a i { color: var(--accent-green); } 
+  .contact-list li:nth-child(2) a i { color: var(--accent-green); } 
+  .contact-list li:nth-child(3) a i { color: var(--accent-yellow); } 
+  .contact-list li:nth-child(4) a i { color: var(--accent-purple); } 
+  .contact-list li:nth-child(5) a i { color: var(--accent-blue); } 
+  .contact-list li:nth-child(6) a i { color: var(--accent-red); } 
+  .contact-list li:nth-child(7) a i { color: var(--accent-green); } 
+  .contact-list li:nth-child(8) a i { color: var(--accent-yellow); } 
+
+  /* RESTAURACIÓN: Estilos específicos de los bloques IoT (Tesis) */
+  .iot-block{margin-top: 14px; padding:0; background: transparent; border: none;}
+  .iot-block h3{color:var(--accent-purple); margin:16px 0 10px 0; font-size:18px; font-weight:800; text-shadow: 0 0 2px rgba(153, 51, 204, 0.5);}
+  .iot-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px; margin-top: 14px;}
+  .btn-accent{background:var(--accent-green);color:#03120a;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(99,185,111,0.06)}
+  .btn-primary{background:var(--accent-blue);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(11,102,194,0.06)}
+  .btn-dark{background:var(--accent-purple);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;border:1px solid rgba(153, 51, 204, 0.4)}
+  .iot-actions a { color: #fff; text-decoration: none; } 
+
 
   /* FOOTER */
   footer{text-align:center;color:var(--muted);font-size:13px;padding:26px 0 10px;display:flex;align-items:center;justify-content:space-between;gap:10px}
@@ -407,7 +395,7 @@
   
                 <a class="btn-dark" href="tesis_viewer.html" target="_blank" rel="noopener" data-lang="iot-btn3">
                   📘 Ver tesis (PDF)
-                </a
+                </a>
               </div>
             </div>
           </div>
