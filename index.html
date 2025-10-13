@@ -1,3 +1,16 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sergio Garduño Jardón — CV & Portfolio</title>
+  <meta name="description" content="Ingeniero mecatrónico orientado a la sostenibilidad y sistemas inteligentes. IoT, datos, energía solar y proyectos ambientales." />
+
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <meta name="theme-color" content="#072d16">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   <style>
   :root{
     --bg-uniform: #333; /* Fondo gris oscuro */
@@ -11,7 +24,7 @@
     --accent-yellow: #ffc300; 
     --accent-purple: #9933cc; 
     --accent-gold: #FFD700; /* Dorado para destacar el header y elementos clave */
-    --accent-guinda: #900030; /* Nuevo color: Guinda/Borgoña para IPN */
+    --accent-guinda: #900030; /* Guinda/Borgoña para el título IPN */
 
     --card-bg: rgba(0,0,0,0.88); /* Tarjetas muy oscuras */
     --card-border: rgba(255,255,255,0.1); 
@@ -50,8 +63,8 @@
   /* ESTILOS DEL SELECTOR DE IDIOMA */
   .lang-switcher {
     position: absolute;
-    top: 5px; 
-    right: 10px; 
+    top: 5px; /* Bajado a 5px para estar más visible */
+    right: 10px; /* Alineado al borde del wrap */
     z-index: 1000;
     display: flex;
     gap: 10px;
@@ -205,7 +218,7 @@
   }
   /* FIN: LÍNEA DECORATIVA DERECHA (::after) */
     
-  /* Colores de las líneas laterales (border-left) y ::after */
+  /* Colores de las líneas laterales y ::after */
   main .card:nth-of-type(1) { border-left: 5px solid var(--accent-blue); } 
   main .card:nth-of-type(1)::after { background: var(--accent-blue); } 
   main .card:nth-of-type(2) { border-left: 5px solid var(--accent-green); } 
@@ -233,31 +246,13 @@
   aside .card:nth-of-type(4) { border-left: 5px solid var(--accent-gold); } 
   aside .card:nth-of-type(4)::after { background: var(--accent-gold); } 
 
-  /* Títulos de Tarjetas y Formación Académica - FIX: Colores de Títulos de Card */
-  main .card:nth-of-type(1) .profile-title { color: var(--accent-blue); } /* Perfil */
-  
+  /* Títulos y Contenido */
   main .card:nth-of-type(2) strong { color: var(--accent-gold); } 
   main .card:nth-of-type(3) strong { color: var(--accent-yellow); } 
   main .card:nth-of-type(4) strong { color: var(--accent-purple); }
   main .card:nth-of-type(5) strong { color: var(--accent-blue); }
   main .card:nth-of-type(6) strong { color: var(--accent-green); }
   main .card:nth-of-type(7) strong { color: var(--accent-yellow); }
-
-  /* ASIDE Títulos */
-  aside .card:nth-of-type(1) div:first-child { color: var(--accent-purple); } /* Título Formación Académica Púrpura */
-  aside .card:nth-of-type(2) div:first-child { color: var(--accent-green); } /* Título Contacto */
-  aside .card:nth-of-type(3) div:first-child { color: var(--accent-blue); } /* Título Habilidades Técnicas */
-  aside .card:nth-of-type(4) div:first-child { color: var(--accent-gold); } /* Título Habilidades Blandas Dorado */
-
-  /* Estilo del título IPN Politécnico (Guinda) */
-  .acad-ipn-title {
-    color: var(--accent-guinda);
-    font-weight: 800;
-    margin-top: 0;
-    margin-bottom: 12px;
-    font-size: 18px;
-    text-align: center;
-  }
   
   .profile-title{font-size:16px;font-weight:800;margin-bottom:8px}
   .profile-text{color:var(--fg);opacity:1;font-size:15px;line-height:1.6;}
@@ -270,13 +265,25 @@
     border-bottom: 2px solid rgba(255, 51, 102, 0.3); padding-bottom: 4px;
     cursor: pointer; display: flex; justify-content: space-between; align-items: center;
   }
-  h2.section::after { content: '\25BC'; font-size: 14px; margin-left: 10px; transition: transform 0.2s; }
-  details[open] h2.section::after { content: '\25B2'; }
-  details summary::-webkit-details-marker { display: none; }
-  details summary { list-style: none; } 
-  .section-content { padding-top: 10px; }
 
-  /* RESTAURACIÓN: Colores de los íconos de contacto */
+  /* ESTILOS DE LOS TÍTULOS INTERNOS DE TARJETA */
+  main .card:nth-of-type(1) .profile-title { color: var(--accent-blue); } /* Perfil */
+  aside .card:nth-of-type(1) div:first-child { color: var(--accent-purple); } /* Título Formación Académica */
+  aside .card:nth-of-type(2) div:first-child { color: var(--accent-green); } /* Título Contacto */
+  aside .card:nth-of-type(3) div:first-child { color: var(--accent-blue); } /* Título Habilidades Técnicas */
+  aside .card:nth-of-type(4) div:first-child { color: var(--accent-gold); } /* Título Habilidades Blandas */
+
+  /* Estilo del título IPN Politécnico (Guinda) */
+  .acad-ipn-title {
+    color: var(--accent-guinda);
+    font-weight: 800;
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  /* RESTAURACIÓN: Colores de los íconos de contacto (Importante) */
   .contact-list a { color: var(--fg); text-decoration: none; display: flex; align-items: center; } 
   .contact-list a i { margin-right: 8px; font-size: 1.1em; } 
   .contact-list li { margin: 8px 0; overflow-wrap: break-word; } 
@@ -503,7 +510,7 @@
             <li><a href="https://sgj369.github.io/cv-sergio-gardu-o-jardon/" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a></li>
             <li><a href="https://www.facebook.com/share/19FgjAa3ai/" target="_blank" rel="noopener"><i class="fa-brands fa-facebook"></i> Facebook</a></li>
             <li><a href="https://www.instagram.com/cheko_sgj?igsh=amV1aTVwZ3VpeTBi" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i> Instagram</a></li>
-            <li><a href="https://www.linkedin.com/in/gardu%C3%B1o-jardon-sergio-264b82b0" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin"></i> LinkedIn</a></li>
+            <li><a href="https://www.linkedin.com/in/gardu%C3%B1o-jardon-sergio-264b582b0" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin"></i> LinkedIn</a></li>
             <li><a href="https://www.tiktok.com/@chekup00" target="_blank" rel="noopener"><i class="fa-brands fa-tiktok"></i> TikTok</a></li>
           </ul>
         </div>
