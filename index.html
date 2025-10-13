@@ -361,10 +361,10 @@
         <div class="card">
           <div class="profile-title" data-lang="profile-title">Perfil</div>
           <div class="profile-text" style="margin-bottom: 15px;" data-lang="profile-p1">
-            Soy **Ingeniero Mecatrónico** especializado en **IoT, datos y soluciones sostenibles**. Diseño, desarrollo y despliego sistemas de monitoreo ambiental que integran hardware (**ESP32 y sensores**), energía renovable (**paneles solares y baterías**) y pipelines de datos (**Google Sheets / SQL**, dashboards).
+            Ingeniero Mecatrónico especializado en sistemas IoT, datos y soluciones sostenibles. Diseño, desarrollo y despliego sistemas de monitoreo ambiental que integran hardware (ESP32 y sensores), energía renovable y pipelines de datos (Google Sheets / SQL, dashboards).
           </div>
           <div class="profile-text" data-lang="profile-p2">
-            Programo en **Python**, **C++/Arduino** y **Google Apps Script** para automatizar procesos y crear modelos analíticos orientados a optimizar recursos y apoyar la toma de decisiones. Me interesa colaborar en proyectos que unan tecnología y naturaleza para generar impacto ambiental positivo.
+            Programacion en Python, C++/Arduino y Google Apps Script para automatizar procesos y crear modelos analíticos orientados a optimizar recursos y apoyar la toma de decisiones. Me interesa colaborar en proyectos que unan tecnología y naturaleza para generar impacto ambiental positivo.
           </div>
         </div>
 
@@ -373,10 +373,11 @@
           <h2 class="section" data-lang="exp-title">Experiencia y proyectos</h2>
         </summary>
         <div class="section-content">
-          <div class="card" style="margin-bottom:12px">
-            <strong data-lang="ecogaia-role">
+            <div class="card" style="margin-bottom:12px">
+            <strong>
               <img src="ECOGAIASOS.png" alt="Logo EcoGaiaSOS" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
-              <strong data-lang="iot-role">Eco Gaia SOS — Plataforma de impacto ambiental</strong>               </strong> <div class="contact-small" data-lang="ecogaia-dates">2024 – Presente · CDMX</div>
+              <span data-lang="ecogaia-role">Eco Gaia SOS — Plataforma de impacto ambiental</span>
+            </strong> <div class="contact-small" data-lang="ecogaia-dates">2024 – Presente · CDMX</div>
             <ul class="clean">
               <li data-lang="ecogaia-l1">Desarrollo e implementación de la plataforma web para **gestión y difusión de convocatorias y proyectos ambientales**.</li>
               <li data-lang="ecogaia-l2">Responsable de la organización de datos, visualización y soporte a actores locales.</li>
@@ -623,10 +624,22 @@
 
     let currentLanguage = 'es';
 
-    function applyText(element, text) {
+        function applyText(element, text) {
         let processedText = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>'); 
-        element.innerHTML = processedText;
+        
+        // **NUEVA LÓGICA:** Si es un STRONG con un logo, solo actualizamos el SPAN (el texto).
+        if (element.tagName === 'STRONG' && element.querySelector('img')) {
+            const textSpan = element.querySelector('span');
+            if (textSpan) {
+                textSpan.innerHTML = processedText;
+            } else {
+                element.innerHTML = processedText; // Fallback
+            }
+        } else {
+            element.innerHTML = processedText;
+        }
     }
+
 
     function translatePage(lang) {
         const t = translations[lang];
