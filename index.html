@@ -1,16 +1,3 @@
-<!doctype html>
-<html lang="es">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Sergio Garduño Jardón — CV & Portfolio</title>
-  <meta name="description" content="Ingeniero mecatrónico orientado a la sostenibilidad y sistemas inteligentes. IoT, datos, energía solar y proyectos ambientales." />
-
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <meta name="theme-color" content="#072d16">
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
   <style>
   :root{
     --bg-uniform: #333; /* Fondo gris oscuro */
@@ -24,6 +11,7 @@
     --accent-yellow: #ffc300; 
     --accent-purple: #9933cc; 
     --accent-gold: #FFD700; /* Dorado para destacar el header y elementos clave */
+    --accent-guinda: #900030; /* Nuevo color: Guinda/Borgoña para IPN */
 
     --card-bg: rgba(0,0,0,0.88); /* Tarjetas muy oscuras */
     --card-border: rgba(255,255,255,0.1); 
@@ -62,8 +50,8 @@
   /* ESTILOS DEL SELECTOR DE IDIOMA */
   .lang-switcher {
     position: absolute;
-    top: 5px; /* Bajado a 5px para estar más visible */
-    right: 10px; /* Alineado al borde del wrap */
+    top: 5px; 
+    right: 10px; 
     z-index: 1000;
     display: flex;
     gap: 10px;
@@ -217,7 +205,7 @@
   }
   /* FIN: LÍNEA DECORATIVA DERECHA (::after) */
     
-  /* Colores de las líneas laterales y ::after */
+  /* Colores de las líneas laterales (border-left) y ::after */
   main .card:nth-of-type(1) { border-left: 5px solid var(--accent-blue); } 
   main .card:nth-of-type(1)::after { background: var(--accent-blue); } 
   main .card:nth-of-type(2) { border-left: 5px solid var(--accent-green); } 
@@ -245,10 +233,31 @@
   aside .card:nth-of-type(4) { border-left: 5px solid var(--accent-gold); } 
   aside .card:nth-of-type(4)::after { background: var(--accent-gold); } 
 
-  /* Títulos y Contenido */
+  /* Títulos de Tarjetas y Formación Académica - FIX: Colores de Títulos de Card */
+  main .card:nth-of-type(1) .profile-title { color: var(--accent-blue); } /* Perfil */
+  
   main .card:nth-of-type(2) strong { color: var(--accent-gold); } 
   main .card:nth-of-type(3) strong { color: var(--accent-yellow); } 
-  aside .card:nth-of-type(3) div:first-child { color: var(--accent-blue); } 
+  main .card:nth-of-type(4) strong { color: var(--accent-purple); }
+  main .card:nth-of-type(5) strong { color: var(--accent-blue); }
+  main .card:nth-of-type(6) strong { color: var(--accent-green); }
+  main .card:nth-of-type(7) strong { color: var(--accent-yellow); }
+
+  /* ASIDE Títulos */
+  aside .card:nth-of-type(1) div:first-child { color: var(--accent-purple); } /* Título Formación Académica Púrpura */
+  aside .card:nth-of-type(2) div:first-child { color: var(--accent-green); } /* Título Contacto */
+  aside .card:nth-of-type(3) div:first-child { color: var(--accent-blue); } /* Título Habilidades Técnicas */
+  aside .card:nth-of-type(4) div:first-child { color: var(--accent-gold); } /* Título Habilidades Blandas Dorado */
+
+  /* Estilo del título IPN Politécnico (Guinda) */
+  .acad-ipn-title {
+    color: var(--accent-guinda);
+    font-weight: 800;
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 18px;
+    text-align: center;
+  }
   
   .profile-title{font-size:16px;font-weight:800;margin-bottom:8px}
   .profile-text{color:var(--fg);opacity:1;font-size:15px;line-height:1.6;}
@@ -288,7 +297,6 @@
   .btn-primary{background:var(--accent-blue);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(11,102,194,0.06)}
   .btn-dark{background:var(--accent-purple);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;border:1px solid rgba(153, 51, 204, 0.4)}
   .iot-actions a { color: #fff; text-decoration: none; } 
-
 
   /* FOOTER */
   footer{text-align:center;color:var(--muted);font-size:13px;padding:26px 0 10px;display:flex;align-items:center;justify-content:space-between;gap:10px}
@@ -459,7 +467,7 @@
      <div class="card">
     <div style="font-weight:800; margin-bottom:15px; color: var(--accent-purple);" data-lang="acad-title">Formación Académica</div>
     
-    <h3 style="color: var(--accent-blue); font-weight: 800; margin-top: 0; margin-bottom: 12px; font-size: 18px; text-align: center;" data-lang="acad-uni-title">
+    <h3 class="acad-ipn-title" data-lang="acad-uni-title">
         IPN Politécnico
     </h3>
     
@@ -495,7 +503,7 @@
             <li><a href="https://sgj369.github.io/cv-sergio-gardu-o-jardon/" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a></li>
             <li><a href="https://www.facebook.com/share/19FgjAa3ai/" target="_blank" rel="noopener"><i class="fa-brands fa-facebook"></i> Facebook</a></li>
             <li><a href="https://www.instagram.com/cheko_sgj?igsh=amV1aTVwZ3VpeTBi" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i> Instagram</a></li>
-            <li><a href="https://www.linkedin.com/in/gardu%C3%B1o-jardon-sergio-264b582b0" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin"></i> LinkedIn</a></li>
+            <li><a href="https://www.linkedin.com/in/gardu%C3%B1o-jardon-sergio-264b82b0" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin"></i> LinkedIn</a></li>
             <li><a href="https://www.tiktok.com/@chekup00" target="_blank" rel="noopener"><i class="fa-brands fa-tiktok"></i> TikTok</a></li>
           </ul>
         </div>
