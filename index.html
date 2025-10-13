@@ -58,26 +58,36 @@
     padding: 0 10px;
   }
 
-  /* ESTILOS DEL BOTÓN DE IDIOMA FLOTANTE */
+  /* ESTILOS DEL SELECTOR DE IDIOMA */
   .lang-switcher {
-    position: fixed;
-    top: 20px;
-    right: 20px;
+    position: absolute;
+    top: -20px; /* Sube ligeramente para no tocar el borde del .wrap */
+    right: 0;
     z-index: 1000;
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    border-radius: var(--radius);
   }
   .lang-switcher button {
-    background: var(--accent-blue);
-    color: white;
-    border: none;
-    padding: 10px 15px;
+    background: var(--card-bg);
+    color: var(--fg);
+    border: 1px solid var(--accent-gold);
+    padding: 5px 10px;
     border-radius: 8px;
     cursor: pointer;
-    font-weight: 700;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    font-size: 1.5em; /* Tamaño grande para las banderas */
+    line-height: 1;
     transition: background-color 0.2s;
+    opacity: 0.8;
   }
   .lang-switcher button:hover {
-    background: var(--accent-green);
+    opacity: 1;
+    background: rgba(255, 215, 0, 0.1); 
+  }
+  .lang-switcher button.active {
+    border-color: var(--accent-red);
+    background: rgba(255, 51, 102, 0.1);
   }
 
   /* ESTILOS DEL ENCABEZADO PRINCIPAL (HEADER CARD) - CON MARCO DORADO */
@@ -195,19 +205,19 @@
   }
   .card:hover { box-shadow: 0 0 15px rgba(255,255,255,0.1); }
 
-  /* INICIO: LÍNEA DECORATIVA DERECHA (::after) */
+  /* INICIO: LÍNEA DECORATIVA DERECHA (::after) - VERTICAL Y VISIBLE */
   .card::after {
       content: '';
       position: absolute;
-      top: 0;
-      right: 0;
+      top: 0; 
+      right: 0; 
       width: 5px; 
       height: 35px; 
       border-top-right-radius: var(--radius); 
       z-index: 1; 
   }
   /* FIN: LÍNEA DECORATIVA DERECHA (::after) */
-
+    
   /* Colores de las líneas laterales y ::after */
   main .card:nth-of-type(1) { border-left: 5px solid var(--accent-blue); } 
   main .card:nth-of-type(1)::after { background: var(--accent-blue); } 
@@ -239,10 +249,12 @@
   /* Títulos y Contenido */
   main .card:nth-of-type(2) strong { color: var(--accent-gold); } 
   main .card:nth-of-type(3) strong { color: var(--accent-yellow); } 
-  /* ... (otros estilos de color) */
-
+  aside .card:nth-of-type(3) div:first-child { color: var(--accent-blue); } 
+  
   .profile-title{font-size:16px;font-weight:800;margin-bottom:8px}
   .profile-text{color:var(--fg);opacity:1;font-size:15px;line-height:1.6;}
+  .skill-pill { color: var(--fg); padding: 6px 10px; border-radius: 6px; margin: 4px; display: inline-block; font-size: 14px; border: 1px solid rgba(255,255,255,0.15); }
+  .skills { display: flex; flex-wrap: wrap; margin-top: 10px; }
 
   /* Títulos de sección (Experiencia, Logros, Cursos) */
   h2.section{
@@ -256,23 +268,38 @@
   details summary { list-style: none; } 
   .section-content { padding-top: 10px; }
 
-  /* Skill Pills, Contact List, etc. */
-  .skill-pill { color: var(--fg); padding: 6px 10px; border-radius: 6px; margin: 4px; display: inline-block; font-size: 14px; border: 1px solid rgba(255,255,255,0.15); }
-  .skills { display: flex; flex-wrap: wrap; margin-top: 10px; }
-  .contact-list a i { margin-right: 8px; font-size: 1.1em; } 
-  .contact-list li { margin: 8px 0; overflow-wrap: break-word; } 
-  /* ... (otros estilos) ... */
+  /* FOOTER */
+  footer{text-align:center;color:var(--muted);font-size:13px;padding:26px 0 10px;display:flex;align-items:center;justify-content:space-between;gap:10px}
 
+  /* RESPONSIVE TWEAKS (PARA MÓVILES) */
+  @media (max-width:980px){
+    .main-header-card { 
+      flex-direction: column; align-items: flex-start; gap: 15px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1); 
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    header { width: 100%; flex-direction: column; align-items: flex-start; gap: 10px; }
+    .header-main-buttons { 
+      width: 100%; justify-content: flex-start; padding: 10px 0; 
+      border-top: none; border-bottom: none; border-right: none;
+      box-shadow: none;
+    }
+    
+    .wrap { padding: 0; border-left: none; border-right: none; }
+    .hero { grid-template-columns: 1fr; } 
+  }
   </style>
 </head>
 <body>
   <div class="lang-switcher">
-    <button id="langToggle" onclick="toggleLanguage()">ES / EN</button>
+    <button onclick="translatePage('es')" id="flag-es" class="active">🇲🇽</button>
+    <button onclick="translatePage('en')" id="flag-en">🇺🇸</button>
   </div>
-
   <div class="wrap">
 
-    <div class="main-header-card">
+    
+<div class="main-header-card">
         <header>
             <div class="brand">
                 <div class="avatar" title="Foto de Sergio">
@@ -285,10 +312,10 @@
         </header>
         
         <div class="header-main-buttons">
-            <a class="btn-clean-gold" href="cv_viewer.html" target="_blank" rel="noopener" id="btn-view-cv" title="Abrir CV en el navegador"><i class="fa-solid fa-eye"></i> Ver CV</a>
-            <a class="btn-clean-gold" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" id="btn-download-cv" title="Descargar CV como PDF"><i class="fa-solid fa-download"></i> Descargar CV</a>
+            <a class="btn-clean-gold" href="cv_viewer.html" target="_blank" rel="noopener" id="btn-view-cv" title="Abrir CV en el navegador"><i class="fa-solid fa-eye"></i> <span data-lang="btn-view-cv-text">Ver CV</span></a>
+            <a class="btn-clean-gold" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" id="btn-download-cv" title="Descargar CV como PDF"><i class="fa-solid fa-download"></i> <span data-lang="btn-download-cv-text">Descargar CV</span></a>
         </div>
-    </div>
+        </div>
     <div class="hero">
       <main>
         <div class="card">
@@ -404,36 +431,36 @@
         </main>
 
       <aside class="side">
-        <div class="card">
-          <div style="font-weight:800; margin-bottom:15px; color: var(--accent-purple);" data-lang="acad-title">Formación Académica</div>
-          
-          <h3 style="color: var(--accent-blue); font-weight: 800; margin-top: 0; margin-bottom: 12px; font-size: 18px; text-align: center;" data-lang="acad-uni-title">
-              IPN Politécnico
-          </h3>
-          
-          <div style="margin-bottom: 25px;">
-              <div style="color: var(--fg); font-weight: 600; display: flex; align-items: center; gap: 8px; font-size: 16px;">
-                  <img src="upiita-logo.png" alt="Logo UPIITA" style="width: 20px; flex-shrink: 0;">
-                  <span data-lang="acad-eng-title">Ingeniería Mecatrónica (UPIITA)</span>
-              </div>
-              <div class="contact-small" style="margin-left: 28px; font-size: 16px; line-height: 1.2;" data-lang="acad-eng-dates">
-                  Instituto Politécnico Nacional — 2018 - 2024
-              </div>
-          </div>
-          
-          <div>
-              <div style="color: var(--fg); font-weight: 600; display: flex; align-items: center; gap: 8px; font-size: 16px;">
-                  <img src="cecyt13.png" alt="Logo CECyT 13" style="width: 20px; flex-shrink: 0;">
-                  <span data-lang="acad-tech-title">Técnico en Administración de Empresas</span>
-              </div>
-              <div class="contact-small" style="margin-top: 5px; margin-left: 28px; font-size: 16px; line-height: 1.2;">
-                  CECyT N° 13 "Ricardo Flores Magón" (IPN)
-              </div>
-              <div class="contact-small" style="margin-left: 28px; font-size: 16px; line-height: 1.2;" data-lang="acad-tech-dates">
-                  2015 – 2018
-              </div>
-          </div>
+     <div class="card">
+    <div style="font-weight:800; margin-bottom:15px; color: var(--accent-purple);" data-lang="acad-title">Formación Académica</div>
+    
+    <h3 style="color: var(--accent-blue); font-weight: 800; margin-top: 0; margin-bottom: 12px; font-size: 18px; text-align: center;" data-lang="acad-uni-title">
+        IPN Politécnico
+    </h3>
+    
+    <div style="margin-bottom: 25px;">
+        <div style="color: var(--fg); font-weight: 600; display: flex; align-items: center; gap: 8px; font-size: 16px;">
+            <img src="upiita-logo.png" alt="Logo UPIITA" style="width: 20px; flex-shrink: 0;">
+            <span data-lang="acad-eng-title">Ingeniería Mecatrónica (UPIITA)</span>
         </div>
+        <div class="contact-small" style="margin-top: 5px; margin-left: 28px; font-size: 16px; line-height: 1.2;" data-lang="acad-eng-dates">
+            Instituto Politécnico Nacional — 2018 - 2024
+        </div>
+    </div>
+    
+    <div>
+        <div style="color: var(--fg); font-weight: 600; display: flex; align-items: center; gap: 8px; font-size: 16px;">
+            <img src="cecyt13.png" alt="Logo CECyT 13" style="width: 20px; flex-shrink: 0;">
+            <span data-lang="acad-tech-title">Técnico en Administración de Empresas</span>
+        </div>
+        <div class="contact-small" style="margin-top: 5px; margin-left: 28px; font-size: 16px; line-height: 1.2;">
+            CECyT N° 13 "Ricardo Flores Magón" (IPN)
+        </div>
+        <div class="contact-small" style="margin-left: 28px; font-size: 16px; line-height: 1.2;" data-lang="acad-tech-dates">
+            2015 – 2018
+        </div>
+    </div>
+    </div>
         <div class="card">
           <div style="font-weight:800;margin-bottom:8px" data-lang="contact-title">Contacto</div>
           <ul class="contact-list">
@@ -490,8 +517,8 @@
             'profile-title': 'Profile',
             'profile-p1': 'I am a **Mechatronics Engineer** specializing in **IoT, data, and sustainable solutions**. I design, develop, and deploy environmental monitoring systems that integrate hardware (**ESP32 and sensors**), renewable energy (**solar panels and batteries**), and data pipelines (**Google Sheets / SQL**, dashboards).',
             'profile-p2': 'I program in **Python**, **C++/Arduino**, and **Google Apps Script** to automate processes and create analytical models aimed at optimizing resources and supporting decision-making. I am interested in collaborating on projects that unite technology and nature to generate a positive environmental impact.',
-            'btn-view-cv': '👁️ View CV',
-            'btn-download-cv': '⬇ Download CV',
+            'btn-view-cv-text': 'View CV',
+            'btn-download-cv-text': 'Download CV',
             'exp-title': 'Experience & Projects',
             'ecogaia-role': 'Eco Gaia SOS — Environmental Impact Platform',
             'ecogaia-dates': '2024 – Present · CDMX',
@@ -551,50 +578,52 @@
             'footer-source': 'Made with GitHub Pages',
             'footer-contact': 'Contact: sgj.cheko@gmail.com'
         },
-        // Spanish translations are defined implicitly by the HTML content, but can be added here if needed
+        'es': {
+            'btn-view-cv-text': 'Ver CV',
+            'btn-download-cv-text': 'Descargar CV',
+            'acad-eng-dates': 'Instituto Politécnico Nacional — 2018 - 2024',
+            'acad-tech-dates': '2015 – 2018',
+            // El resto de los textos en español ya están en el HTML por defecto
+        }
     };
 
     let currentLanguage = 'es';
 
     function translatePage(lang) {
+        if (lang === currentLanguage) return; // Evita la traducción si ya está en ese idioma
+        
         const t = translations[lang];
 
         // 1. Elementos con data-lang (contenido general)
         document.querySelectorAll('[data-lang]').forEach(element => {
             const key = element.getAttribute('data-lang');
-            if (t[key]) {
-                // Para manejar negritas (**text**) correctamente en HTML
-                let text = t[key];
-                text = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>'); 
-                element.innerHTML = text;
-            }
-        });
+            // Usamos el texto del HTML si no hay traducción específica para 'es'
+            const originalText = element.textContent.trim(); 
+            let translatedText = t[key] || originalText; 
 
-        // 2. Elementos especiales (Botones de CV)
-        document.getElementById('btn-view-cv').textContent = lang === 'en' ? '👁️ View CV' : '👁️ Ver CV';
-        document.getElementById('btn-download-cv').innerHTML = (lang === 'en' ? '⬇ Download CV' : '⬇ Descargar CV');
+            // Para manejar negritas (**)
+            translatedText = translatedText.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>'); 
+            
+            element.innerHTML = translatedText;
+        });
+        
+        // 2. Actualizar texto de botones de CV
+        document.getElementById('btn-view-cv').querySelector('span').textContent = t['btn-view-cv-text'];
+        document.getElementById('btn-download-cv').querySelector('span').textContent = t['btn-download-cv-text'];
+
+        // 3. Manejo de bandera activa
+        document.getElementById('flag-es').classList.remove('active');
+        document.getElementById('flag-en').classList.remove('active');
+        document.getElementById(`flag-${lang}`).classList.add('active');
 
         currentLanguage = lang;
         document.documentElement.lang = lang;
     }
 
-    function toggleLanguage() {
-        const newLang = currentLanguage === 'es' ? 'en' : 'es';
-        translatePage(newLang);
-        // Opcional: Guardar la preferencia de idioma en localStorage
-        // localStorage.setItem('language', newLang); 
-    }
-
-    // Inicialización al cargar
+    // Inicialización al cargar: asigna el evento onclick al botón de alternancia
     document.addEventListener('DOMContentLoaded', () => {
-        // const savedLang = localStorage.getItem('language') || 'es';
-        // if (savedLang !== 'es') {
-        //     translatePage(savedLang);
-        // }
-
-        // Inicializa el texto de los botones de CV (el JS sobrescribe el HTML original)
-        document.getElementById('btn-view-cv').innerHTML = document.getElementById('btn-view-cv').innerHTML.replace("Ver CV", "Ver CV");
-        document.getElementById('btn-download-cv').innerHTML = document.getElementById('btn-download-cv').innerHTML.replace("Descargar CV", "Descargar CV");
+        // Inicializa el estado de las banderas
+        document.getElementById('flag-es').classList.add('active');
     });
   </script>
   </body>
