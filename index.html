@@ -247,7 +247,8 @@
   aside .card:nth-of-type(4)::after { background: var(--accent-gold); } 
 
   /* Títulos y Contenido */
-  main .card:nth-of-type(2) strong span{ color: var(--accent-gold); } 
+  /* Colores de los Títulos FUERTES (<strong>) dentro de las tarjetas de la sección principal (main) */
+  main .card:nth-of-type(2) strong span { color: var(--accent-gold); } /* FIX: Eco Gaia en Dorado */
   main .card:nth-of-type(3) strong { color: var(--accent-yellow); } 
   main .card:nth-of-type(4) strong { color: var(--accent-purple); }
   main .card:nth-of-type(5) strong { color: var(--accent-blue); }
@@ -361,10 +362,10 @@
         <div class="card">
           <div class="profile-title" data-lang="profile-title">Perfil</div>
           <div class="profile-text" style="margin-bottom: 15px;" data-lang="profile-p1">
-            Ingeniero Mecatrónico especializado en sistemas IoT, datos y soluciones sostenibles. Diseño, desarrollo y despliego sistemas de monitoreo ambiental que integran hardware (ESP32 y sensores), energía renovable y pipelines de datos (Google Sheets / SQL, dashboards).
+            Soy **Ingeniero Mecatrónico** especializado en **IoT, datos y soluciones sostenibles**. Diseño, desarrollo y despliego sistemas de monitoreo ambiental que integran hardware (**ESP32 y sensores**), energía renovable (**paneles solares y baterías**) y pipelines de datos (**Google Sheets / SQL**, dashboards).
           </div>
           <div class="profile-text" data-lang="profile-p2">
-            Programacion en Python, C++/Arduino y Google Apps Script para automatizar procesos y crear modelos analíticos orientados a optimizar recursos y apoyar la toma de decisiones. Me interesa colaborar en proyectos que unan tecnología y naturaleza para generar impacto ambiental positivo.
+            Programo en **Python**, **C++/Arduino** y **Google Apps Script** para automatizar procesos y crear modelos analíticos orientados a optimizar recursos y apoyar la toma de decisiones. Me interesa colaborar en proyectos que unan tecnología y naturaleza para generar impacto ambiental positivo.
           </div>
         </div>
 
@@ -373,12 +374,11 @@
           <h2 class="section" data-lang="exp-title">Experiencia y proyectos</h2>
         </summary>
         <div class="section-content">
-            <div class="card" style="margin-bottom:12px">
+          <div class="card" style="margin-bottom:12px">
             <strong data-lang="ecogaia-role">
                 <img src="ECOGAIASOS.png" alt="Logo EcoGaiaSOS" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
                 <span class="ecogaia-text-to-translate">Eco Gaia SOS — Plataforma de impacto ambiental</span>
             </strong> <div class="contact-small" data-lang="ecogaia-dates">2024 – Presente · CDMX</div>
-            </div>
             <ul class="clean">
               <li data-lang="ecogaia-l1">Desarrollo e implementación de la plataforma web para **gestión y difusión de convocatorias y proyectos ambientales**.</li>
               <li data-lang="ecogaia-l2">Responsable de la organización de datos, visualización y soporte a actores locales.</li>
@@ -471,38 +471,37 @@
         </details>
         </main>
 
-        <aside class="side">
-        <div class="card">
-            <div style="font-weight:800; margin-bottom:15px; color: var(--accent-purple);" data-lang="acad-title">Formación Académica</div>
-            
-            <h3 class="acad-ipn-title" data-lang="acad-uni-title">
-                IPN Politécnico
-            </h3>
-            
-            <div style="margin-bottom: 25px;">
-                <div style="color: var(--fg); font-weight: 600; display: flex; align-items: center; gap: 8px; font-size: 16px;">
-                    <img src="upiita-logo.png" alt="Logo UPIITA" style="width: 20px; flex-shrink: 0;">
-                    <span data-lang="acad-eng-title">Ingeniería Mecatrónica (UPIITA)</span>
-                </div>
-                <div class="contact-small" style="margin-top: 5px; margin-left: 28px; font-size: 16px; line-height: 1.2;">
-                    Instituto Politécnico Nacional — <span data-lang="acad-eng-dates">2018 - 2024</span>
-                </div>
-            </div>
-            
-            <div>
-                <div style="color: var(--fg); font-weight: 600; display: flex; align-items: center; gap: 8px; font-size: 16px;">
-                    <img src="cecyt13.png" alt="Logo CECyT 13" style="width: 20px; flex-shrink: 0;">
-                    <span data-lang="acad-tech-title">Técnico en Administración de Empresas</span>
-                </div>
-                <div class="contact-small" style="margin-top: 5px; margin-left: 28px; font-size: 16px; line-height: 1.2;">
-                    CECyT N° 13 "Ricardo Flores Magón" (IPN)
-                </div>
-                <div class="contact-small" style="margin-left: 28px; font-size: 16px; line-height: 1.2;" data-lang="acad-tech-dates">
-                    2015 – 2018
-                </div>
-            </div>
+      <aside class="side">
+     <div class="card">
+    <div style="font-weight:800; margin-bottom:15px; color: var(--accent-purple);" data-lang="acad-title">Formación Académica</div>
+    
+    <h3 class="acad-ipn-title" data-lang="acad-uni-title">
+        IPN Politécnico
+    </h3>
+    
+    <div style="margin-bottom: 25px;">
+        <div style="color: var(--fg); font-weight: 600; display: flex; align-items: center; gap: 8px; font-size: 16px;">
+            <img src="upiita-logo.png" alt="Logo UPIITA" style="width: 20px; flex-shrink: 0;">
+            <span data-lang="acad-eng-title">Ingeniería Mecatrónica (UPIITA)</span>
         </div>
-
+        <div class="contact-small" style="margin-top: 5px; margin-left: 28px; font-size: 16px; line-height: 1.2;" data-lang="acad-eng-dates">
+            Instituto Politécnico Nacional — 2018 - 2024
+        </div>
+    </div>
+    
+    <div>
+        <div style="color: var(--fg); font-weight: 600; display: flex; align-items: center; gap: 8px; font-size: 16px;">
+            <img src="cecyt13.png" alt="Logo CECyT 13" style="width: 20px; flex-shrink: 0;">
+            <span data-lang="acad-tech-title">Técnico en Administración de Empresas</span>
+        </div>
+        <div class="contact-small" style="margin-top: 5px; margin-left: 28px; font-size: 16px; line-height: 1.2;">
+            CECyT N° 13 "Ricardo Flores Magón" (IPN)
+        </div>
+        <div class="contact-small" style="margin-left: 28px; font-size: 16px; line-height: 1.2;" data-lang="acad-tech-dates">
+            2015 – 2018
+        </div>
+    </div>
+    </div>
         <div class="card">
           <div style="font-weight:800;margin-bottom:8px" data-lang="contact-title">Contacto</div>
           <ul class="contact-list">
@@ -557,8 +556,8 @@
     const translations = {
         'en': {
             'profile-title': 'Profile',
-            'profile-p1': 'Mechatronics Engineer specializing in IoT systems, data, and sustainable solutions. I design, develop, and deploy environmental monitoring systems that integrate hardware (ESP32 and sensors), renewable energy, and data pipelines (Google Sheets / SQL, dashboards).',
-            'profile-p2': 'Programming expertise in Python, C++/Arduino, and Google Apps Script to automate processes and create analytical models focused on optimizing resources and supporting decision-making. I seek to collaborate on projects that merge technology and nature to generate a positive environmental impact.',
+            'profile-p1': 'I am a **Mechatronics Engineer** specializing in **IoT, data, and sustainable solutions**. I design, develop, and deploy environmental monitoring systems that integrate hardware (**ESP32 and sensors**), renewable energy (**solar panels and batteries**), and data pipelines (**Google Sheets / SQL**, dashboards).',
+            'profile-p2': 'Programming expertise in **Python, C++/Arduino, and Google Apps Script** to automate processes and create analytical models focused on optimizing resources and supporting decision-making. I seek to collaborate on projects that merge technology and nature to generate a positive environmental impact.',
             'btn-view-cv-text': 'View CV',
             'btn-download-cv-text': 'Download CV',
             'exp-title': 'Experience & Projects',
@@ -687,5 +686,5 @@
         document.getElementById('flag-es').classList.add('active');
     });
   </script>
-  </body>
+</body>
 </html>
