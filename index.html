@@ -352,9 +352,14 @@
         </header>
         
         <div class="header-main-buttons">
-            <a class="btn-clean-gold" href="cv_viewer.html" target="_blank" rel="noopener" id="btn-view-cv" title="Abrir CV en el navegador"><i class="fa-solid fa-eye"></i> <span data-lang="btn-view-cv-text">Ver CV</span></a>
-            <a class="btn-clean-gold" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" id="btn-download-cv" title="Descargar CV como PDF"><i class="fa-solid fa-download"></i> <span data-lang="btn-download-cv-text">Descargar CV</span></a>
+            <a class="btn-clean-gold" href="cv_viewer.html" target="_blank" rel="noopener" id="btn-view-cv" title="Abrir CV en el navegador" data-lang-href-en="cv_viewer_eu.html">
+                <i class="fa-solid fa-eye"></i> <span data-lang="btn-view-cv-text">Ver CV</span>
+            </a>
+            <a class="btn-clean-gold" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" id="btn-download-cv" title="Descargar CV como PDF" data-lang-href-en="cv_pagina_web_eu.pdf">
+                <i class="fa-solid fa-download"></i> <span data-lang="btn-download-cv-text">Descargar CV</span>
+            </a>
         </div>
+
         </div>
     <div class="hero">
       <main>
@@ -641,25 +646,52 @@
     }
 
 
-    function translatePage(lang) {
+        function translatePage(lang) {
         const t = translations[lang];
+        const isEnglish = (lang === 'en');
 
         document.querySelectorAll('[data-lang]').forEach(element => {
             const key = element.getAttribute('data-lang');
             
-            // Si la traducción para el idioma seleccionado existe, úsala.
+            // Lógica de traducción de TEXTO
             if (t[key]) {
                 applyText(element, t[key]);
             } else if (lang === 'es') {
-                // Si volvemos al español, usamos el texto original que guardamos
                 const originalText = element.getAttribute('data-es-original');
                 if (originalText) {
                     applyText(element, originalText);
                 }
             }
         });
+        
+        // **********************************************
+        // INICIO: LÓGICA DE CAMBIO DE URLS
+        // **********************************************
 
-        // Actualizar los botones de CV
+        document.querySelectorAll('[data-lang-href-en]').forEach(button => {
+            const originalHref = button.getAttribute('href');
+            const englishHref = button.getAttribute('data-lang-href-en');
+
+            if (isEnglish) {
+                // Guarda la URL original antes de cambiarla
+                if (!button.getAttribute('data-es-href')) {
+                    button.setAttribute('data-es-href', originalHref);
+                }
+                // Cambia a la URL en inglés
+                button.setAttribute('href', englishHref);
+                
+            } else {
+                // Vuelve a la URL original (español)
+                const spanishHref = button.getAttribute('data-es-href') || originalHref;
+                button.setAttribute('href', spanishHref);
+            }
+        });
+
+        // **********************************************
+        // FIN: LÓGICA DE CAMBIO DE URLS
+        // **********************************************
+
+        // Actualizar el texto de los botones de CV
         document.getElementById('btn-view-cv').querySelector('span').textContent = t['btn-view-cv-text'] || 'Ver CV';
         document.getElementById('btn-download-cv').querySelector('span').textContent = t['btn-download-cv-text'] || 'Descargar CV';
 
@@ -671,6 +703,7 @@
         currentLanguage = lang;
         document.documentElement.lang = lang;
     }
+
 
     // Inicialización al cargar: Guarda el texto original en español
     document.addEventListener('DOMContentLoaded', () => {
