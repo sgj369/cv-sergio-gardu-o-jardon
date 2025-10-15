@@ -36,28 +36,36 @@
     --btn-secondary: var(--accent-blue); 
   }
 
-  /* Estilos Base */
+    /* Estilos Base */
   html { background-color: var(--bg-uniform); }
   *{box-sizing:border-box}
   html,body{height:100%;margin:0;padding:0}
   body{
     font-family:var(--font-sans);
-    background: var(--bg-uniform);
     color:var(--fg);
     -webkit-font-smoothing:antialiased;
     -moz-osx-osx-font-smoothing:grayscale;
     line-height:1.5;
     padding:28px;
     transition: background-color .25s ease;
+    
+    /* INICIO: CÓDIGO PARA FONDO ANIMADO */
+    background: linear-gradient(
+        135deg, 
+        var(--bg-uniform), 
+        rgba(0, 0, 0, 0.9), /* Un toque más oscuro */
+        var(--bg-uniform)
+    );
+    background-size: 400% 400%; /* Hacemos el fondo 4 veces más grande */
+    animation: gradientMove 25s ease infinite; /* Aplicar animación lenta */
+    /* FIN: CÓDIGO PARA FONDO ANIMADO */
   }
 
-  .wrap{
-    max-width:var(--maxw);
-    margin:0 auto;
-    position:relative;
-    border-left: 1px solid rgba(255,255,255,0.05);
-    border-right: 1px solid rgba(255,255,255,0.05);
-    padding: 0 10px;
+  /* DEFINICIÓN DE LA ANIMACIÓN */
+  @keyframes gradientMove {
+    0% { background-position: 0% 50%; } /* Empieza a la izquierda */
+    50% { background-position: 100% 50%; } /* Mueve lentamente hacia la derecha */
+    100% { background-position: 0% 50%; } /* Regresa */
   }
 
   /* ESTILOS DEL SELECTOR DE IDIOMA */
