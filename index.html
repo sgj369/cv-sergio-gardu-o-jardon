@@ -42,7 +42,7 @@
   html,body{height:100%;margin:0;padding:0}
   body{
     font-family:var(--font-sans);
-    background: var(--bg-uniform);
+    background: transparent;
     color:var(--fg);
     -webkit-font-smoothing:antialiased;
     -moz-osx-osx-font-smoothing:grayscale;
@@ -51,14 +51,14 @@
     transition: background-color .25s ease;
   }
 
-  .wrap{
+    .wrap{
     max-width:var(--maxw);
     margin:0 auto;
     position:relative;
-    border-left: 1px solid rgba(255,255,255,0.05);
-    border-right: 1px solid rgba(255,255,255,0.05);
+    /* Las líneas de borde se han eliminado */
     padding: 0 10px;
   }
+
 
   /* ESTILOS DEL SELECTOR DE IDIOMA */
   .lang-switcher {
