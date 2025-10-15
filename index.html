@@ -11,9 +11,9 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <style>
+  <style>
   :root{
-    --bg-uniform: #090A0F; /* Fondo muy oscuro para las estrellas */
+    --bg-uniform: #333; /* Fondo gris oscuro */
     --fg: #eef1f0; /* Blanco suave para texto principal */
     --muted: #a3a3a3; /* Gris para texto secundario */
     
@@ -37,71 +37,34 @@
   }
 
   /* Estilos Base */
-  html { 
-    /* Quitamos height: 100% y overflow: hidden de html para que el body pueda scrollear */
-    background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
-    background-attachment: fixed; /* Mantiene el fondo estático, pero la animación lo mueve */
-  }
-
+  html { background-color: var(--bg-uniform); }
   *{box-sizing:border-box}
-  /* Quitamos altura fija para que el body crezca con el contenido */
-  html,body{margin:0;padding:0} 
+  html,body{height:100%;margin:0;padding:0}
   body{
-    min-height: 100vh; /* Asegura que la página sea al menos la altura de la ventana */
     font-family:var(--font-sans);
+    background: var(--bg-uniform);
     color:var(--fg);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-osx-font-smoothing:grayscale;
     line-height:1.5;
     padding:28px;
     transition: background-color .25s ease;
-    background-color: transparent; 
-  }
-  
-  /* DEFINICIÓN DE LA ANIMACIÓN DE ESTRELLAS */
-  @keyframes animStar {
-    from { transform: translateY(0px); }
-    to { transform: translateY(-2000px); }
   }
 
-  /* CÓDIGO DE LAS ESTRELLAS: FIJAMOS LA POSICIÓN PARA LIBERAR EL SCROLL */
-  #stars, #stars2, #stars3 {
-    position: fixed; /* CLAVE: Fija las estrellas al viewport, permitiendo el scroll del body */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1; /* Detrás del contenido */
-    
-    /* Propiedades de las estrellas */
-    background: transparent;
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    position:relative;
+    border-left: 1px solid rgba(255,255,255,0.05);
+    border-right: 1px solid rgba(255,255,255,0.05);
+    padding: 0 10px;
   }
 
-  /* Capa 1 (Pequeñas y Rápidas) */
-  #stars {
-    box-shadow: 174px 1199px #FFF, 1515px 129px #FFF, 1421px 45px #FFF, 1024px 1729px #FFF, 252px 1083px #FFF, 1269px 728px #FFF, 843px 1860px #FFF, 1965px 791px #FFF, 1876px 1716px #FFF, 1373px 1017px #FFF, 946px 635px #FFF, 151px 1827px #FFF, 1426px 819px #FFF, 1146px 1475px #FFF, 1980px 1003px #FFF, 1046px 664px #FFF, 1137px 432px #FFF, 1878px 1445px #FFF, 1377px 621px #FFF, 1374px 213px #FFF, 1873px 1667px #FFF, 480px 731px #FFF, 1211px 46px #FFF, 1438px 1709px #FFF, 840px 1040px #FFF, 1819px 1891px #FFF, 458px 973px #FFF, 1372px 1675px #FFF, 1870px 1698px #FFF, 1983px 1276px #FFF, 1726px 1059px #FFF, 1318px 182px #FFF, 663px 1282px #FFF, 1874px 795px #FFF, 620px 459px #FFF, 1904px 1361px #FFF, 848px 1581px #FFF, 158px 1978px #FFF, 1735px 24px #FFF, 1895px 1444px #FFF, 1698px 1000px #FFF, 1287px 998px #FFF, 154px 1298px #FFF, 213px 446px #FFF, 1485px 107px #FFF, 345px 1404px #FFF, 351px 814px #FFF, 1604px 1867px #FFF, 1341px 179px #FFF, 1459px 1500px #FFF, 144px 1200px #FFF, 1930px 1041px #FFF, 300px 1450px #FFF, 1756px 1362px #FFF, 215px 1476px #FFF, 1018px 300px #FFF, 160px 1629px #FFF, 1980px 1199px #FFF, 1851px 183px #FFF, 1075px 1530px #FFF, 1184px 1368px #FFF, 346px 1046px #FFF, 980px 1987px #FFF, 1133px 1358px #FFF, 1542px 796px #FFF, 187px 759px #FFF, 1827px 1162px #FFF, 203px 1957px #FFF, 1667px 300px #FFF, 1421px 900px #FFF;
-    animation: animStar 50s linear infinite;
-  }
-  #stars:after { content: " "; position: absolute; top: 2000px; width: 1px; height: 1px; background: transparent; box-shadow: inherit; }
-  
-  /* Capa 2 (Medianas y Normales) */
-  #stars2 {
-    box-shadow: 174px 1199px #FFF, 1515px 129px #FFF, 1421px 45px #FFF, 1024px 1729px #FFF, 252px 1083px #FFF, 1269px 728px #FFF, 843px 1860px #FFF, 1965px 791px #FFF, 1876px 1716px #FFF, 1373px 1017px #FFF, 946px 635px #FFF, 151px 1827px #FFF, 1426px 819px #FFF, 1146px 1475px #FFF, 1980px 1003px #FFF, 1046px 664px #FFF, 1137px 432px #FFF, 1878px 1445px #FFF, 1377px 621px #FFF, 1374px 213px #FFF, 1873px 1667px #FFF, 480px 731px #FFF, 1211px 46px #FFF, 1438px 1709px #FFF, 840px 1040px #FFF, 1819px 1891px #FFF, 458px 973px #FFF, 1372px 1675px #FFF, 1870px 1698px #FFF, 1983px 1276px #FFF;
-    animation: animStar 100s linear infinite;
-  }
-  #stars2:after { content: " "; position: absolute; top: 2000px; width: 2px; height: 2px; background: transparent; box-shadow: inherit; }
-  
-  /* Capa 3 (Grandes y Lentas) */
-  #stars3 {
-    box-shadow: 174px 1199px #FFF, 1515px 129px #FFF, 1421px 45px #FFF, 1024px 1729px #FFF, 252px 1083px #FFF, 1269px 728px #FFF, 843px 1860px #FFF, 1965px 791px #FFF, 1876px 1716px #FFF, 1373px 1017px #FFF;
-    animation: animStar 150s linear infinite;
-  }
-  #stars3:after { content: " "; position: absolute; top: 2000px; width: 3px; height: 3px; background: transparent; box-shadow: inherit; }
-
-  
   /* ESTILOS DEL SELECTOR DE IDIOMA */
   .lang-switcher {
     position: absolute;
-    top: 5px; 
-    right: 10px; 
+    top: 5px; /* Bajado a 5px para estar más visible */
+    right: 10px; /* Alineado al borde del wrap */
     z-index: 1000;
     display: flex;
     gap: 10px;
@@ -127,7 +90,7 @@
     background: rgba(255, 51, 102, 0.1);
   }
 
-  /* ESTILOS DEL ENCABEZADO PRINCIPAL (HEADER CARD) - FIX: CENTRADO APLICADO */
+  /* ESTILOS DEL ENCABEZADO PRINCIPAL (HEADER CARD) - CON MARCO DORADO */
   .main-header-card {
     background: var(--card-bg);
     border: 1px solid rgba(255, 255, 255, 0.1); 
@@ -142,28 +105,7 @@
     align-items: center; 
     gap: 20px; 
     padding: 20px;
-    
-    /* FIX: Centrado y ancho máximo para la tarjeta principal */
-    max-width: var(--maxw);
-    margin-left: auto;
-    margin-right: auto;
   }
-  
-  /* ESTILOS DEL CUERPO PRINCIPAL (MAIN CONTENT & ASIDE) - FIX: CENTRADO APLICADO */
-  .hero{
-    display:grid;
-    grid-template-columns:1fr 360px; /* Columna principal y barra lateral */
-    gap:28px;
-    align-items:start;
-    margin-bottom:28px;
-    
-    /* FIX: Centrado y ancho máximo para la sección de contenido */
-    max-width: var(--maxw);
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  /* --- REGLAS DE DISEÑO DE TU CV (SE MANTIENEN IGUAL) --- */
   
   header{
     display:flex;
@@ -240,9 +182,18 @@
   }
   .btn-clean-secondary:hover { background: rgba(0, 119, 182, 0.1); }
   
+  /* ESTILOS DEL CUERPO PRINCIPAL (MAIN CONTENT & ASIDE) */
+  .hero{
+    display:grid;
+    grid-template-columns:1fr 360px; /* Columna principal y barra lateral */
+    gap:28px;
+    align-items:start;
+    margin-bottom:28px;
+  }
+
   /* Estilos base para todas las tarjetas de contenido */
   .card{
-    position: relative; 
+    position: relative; /* CLAVE para el ::after */
     background: var(--card-bg);
     border:1px solid var(--card-border);
     padding:20px;
@@ -296,7 +247,7 @@
   aside .card:nth-of-type(4)::after { background: var(--accent-gold); } 
 
   /* Títulos y Contenido */
-  main .card:nth-of-type(2) strong span{ color: var(--accent-gold); } 
+  main .card:nth-of-type(2) strong { color: var(--accent-gold); } 
   main .card:nth-of-type(3) strong { color: var(--accent-yellow); } 
   main .card:nth-of-type(4) strong { color: var(--accent-purple); }
   main .card:nth-of-type(5) strong { color: var(--accent-blue); }
@@ -316,11 +267,11 @@
   }
 
   /* ESTILOS DE LOS TÍTULOS INTERNOS DE TARJETA */
-  main .card:nth-of-type(1) .profile-title { color: var(--accent-blue); } 
-  aside .card:nth-of-type(1) div:first-child { color: var(--accent-purple); } 
-  aside .card:nth-of-type(2) div:first-child { color: var(--accent-green); } 
-  aside .card:nth-of-type(3) div:first-child { color: var(--accent-blue); } 
-  aside .card:nth-of-type(4) div:first-child { color: var(--accent-gold); } 
+  main .card:nth-of-type(1) .profile-title { color: var(--accent-blue); } /* Perfil */
+  aside .card:nth-of-type(1) div:first-child { color: var(--accent-purple); } /* Título Formación Académica */
+  aside .card:nth-of-type(2) div:first-child { color: var(--accent-green); } /* Título Contacto */
+  aside .card:nth-of-type(3) div:first-child { color: var(--accent-blue); } /* Título Habilidades Técnicas */
+  aside .card:nth-of-type(4) div:first-child { color: var(--accent-gold); } /* Título Habilidades Blandas */
 
   /* Estilo del título IPN Politécnico (Guinda) */
   .acad-ipn-title {
@@ -401,19 +352,24 @@
         </header>
         
         <div class="header-main-buttons">
-            <a class="btn-clean-gold" href="cv_viewer.html" target="_blank" rel="noopener" id="btn-view-cv" title="Abrir CV en el navegador" data-lang-href-en="cv_viewer_eu.html"><i class="fa-solid fa-eye"></i> <span data-lang="btn-view-cv-text">Ver CV</span></a>
-            <a class="btn-clean-gold" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" id="btn-download-cv" title="Descargar CV como PDF" data-lang-href-en="cv_pagina_web_eu.pdf"><i class="fa-solid fa-download"></i> <span data-lang="btn-download-cv-text">Descargar CV</span></a>
+            <a class="btn-clean-gold" href="cv_viewer.html" target="_blank" rel="noopener" id="btn-view-cv" title="Abrir CV en el navegador" data-lang-href-en="cv_viewer_eu.html">
+                <i class="fa-solid fa-eye"></i> <span data-lang="btn-view-cv-text">Ver CV</span>
+            </a>
+            <a class="btn-clean-gold" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" id="btn-download-cv" title="Descargar CV como PDF" data-lang-href-en="cv_pagina_web_eu.pdf">
+                <i class="fa-solid fa-download"></i> <span data-lang="btn-download-cv-text">Descargar CV</span>
+            </a>
         </div>
+
         </div>
     <div class="hero">
       <main>
         <div class="card">
           <div class="profile-title" data-lang="profile-title">Perfil</div>
           <div class="profile-text" style="margin-bottom: 15px;" data-lang="profile-p1">
-            Soy **Ingeniero Mecatrónico** especializado en **IoT, datos y soluciones sostenibles**. Diseño, desarrollo y despliego sistemas de monitoreo ambiental que integran hardware (**ESP32 y sensores**), energía renovable (**paneles solares y baterías**) y pipelines de datos (**Google Sheets / SQL**, dashboards).
+            Ingeniero Mecatrónico especializado en sistemas IoT, datos y soluciones sostenibles. Diseño, desarrollo y despliego sistemas de monitoreo ambiental que integran hardware (ESP32 y sensores), energía renovable y pipelines de datos (Google Sheets / SQL, dashboards).
           </div>
           <div class="profile-text" data-lang="profile-p2">
-            Programo en **Python**, **C++/Arduino** y **Google Apps Script** para automatizar procesos y crear modelos analíticos orientados a optimizar recursos y apoyar la toma de decisiones. Me interesa colaborar en proyectos que unan tecnología y naturaleza para generar impacto ambiental positivo.
+            Programacion en Python, C++/Arduino y Google Apps Script para automatizar procesos y crear modelos analíticos orientados a optimizar recursos y apoyar la toma de decisiones. Me interesa colaborar en proyectos que unan tecnología y naturaleza para generar impacto ambiental positivo.
           </div>
         </div>
 
@@ -425,14 +381,14 @@
             <div class="card" style="margin-bottom:12px">
             <strong>
               <img src="ECOGAIASOS.png" alt="Logo EcoGaiaSOS" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
-              <span data-lang="ecogaia-role">Eco Gaia SOS — Plataforma de impacto ambiental</span>
+              <span data-lang="ecogaia-role">EcoGaiaSOS — Plataforma de impacto ambiental</span>
             </strong> <div class="contact-small" data-lang="ecogaia-dates">2024 – Presente · CDMX</div>
             <ul class="clean">
-              <li data-lang="ecogaia-l1">Desarrollo e implementación de la plataforma web para **gestión y difusión de convocatorias y proyectos ambientales**.</li>
+              <li data-lang="ecogaia-l1">Desarrollo e implementación de la plataforma web para gestión y difusión de convocatorias y proyectos ambientales.</li>
               <li data-lang="ecogaia-l2">Responsable de la organización de datos, visualización y soporte a actores locales.</li>
             </ul>
             <div class="iot-block" style="margin-top: 14px;">
-              <a class="btn-clean-secondary" href="https://ecogaiasos.github.io/web/index.html" target="_blank" rel="noopener" data-lang="ecogaia-btn">
+              <a class="btn-clean-secondary" href="https://ecogaiasos.github.io/web/index.html" target="_blank" rel="noopener" style="margin: 0;" data-lang="ecogaia-btn">
                 🌐 Visitar Eco Gaia SOS
               </a>
             </div>
@@ -441,8 +397,8 @@
             <strong data-lang="iot-role">Sistema IoT para techos verdes — Proyecto de tesis</strong> <div class="contact-small" data-lang="iot-dates">2023 – 2025 · Validado en campo</div>
             
             <ul class="clean">
-              <li data-lang="iot-l1">Diseño y despliegue de sistema de **monitoreo térmico autónomo** con ESP32, sensores y **alimentación solar**.</li>
-              <li data-lang="iot-l2">Desarrollo de *pipeline* de datos y dashboard para la validación de **reducción térmica** en techos verdes.</li>
+              <li data-lang="iot-l1">Diseño y despliegue de sistema de monitoreo térmico autónomo con ESP32, sensores y alimentación solar.</li>
+              <li data-lang="iot-l2">Desarrollo de pipeline de datos y dashboard para la validación de reducción térmica en techos verdes.</li>
             </ul>
 
             <div class="iot-block">
@@ -496,7 +452,7 @@
         <div class="section-content">
           <div class="card">
             <ul class="clean">
-              <li data-lang="logros-l1">Prototipo IoT validado en campo para monitoreo térmico y energético (**Tesis**).</li>
+              <li data-lang="logros-l1">Prototipo IoT validado en campo para monitoreo térmico y energético (Tesis).</li>
               <li data-lang="logros-l2">Participación técnica en el Congreso Nacional de Biotecnología (Oaxaca, 2025).</li>
               <li data-lang="logros-l3">Implementación y desarrollo de la plataforma Eco Gaia SOS.</li>
             </ul>
@@ -532,8 +488,8 @@
                     <img src="upiita-logo.png" alt="Logo UPIITA" style="width: 20px; flex-shrink: 0;">
                     <span data-lang="acad-eng-title">Ingeniería Mecatrónica (UPIITA)</span>
                 </div>
-                <div class="contact-small" style="margin-top: 5px; margin-left: 28px; font-size: 16px; line-height: 1.2;" data-lang="acad-eng-dates">
-                    Instituto Politécnico Nacional — 2018 - 2024
+                <div class="contact-small" style="margin-top: 5px; margin-left: 28px; font-size: 16px; line-height: 1.2;">
+                    Instituto Politécnico Nacional — <span data-lang="acad-eng-dates">2018 - 2024</span>
                 </div>
             </div>
             
@@ -676,7 +632,7 @@
         function applyText(element, text) {
         let processedText = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>'); 
         
-        // **LÓGICA:** Si es un STRONG con un logo, solo actualizamos el SPAN (el texto).
+        // **NUEVA LÓGICA:** Si es un STRONG con un logo, solo actualizamos el SPAN (el texto).
         if (element.tagName === 'STRONG' && element.querySelector('img')) {
             const textSpan = element.querySelector('span');
             if (textSpan) {
@@ -692,23 +648,50 @@
 
         function translatePage(lang) {
         const t = translations[lang];
+        const isEnglish = (lang === 'en');
 
         document.querySelectorAll('[data-lang]').forEach(element => {
             const key = element.getAttribute('data-lang');
             
-            // Si la traducción para el idioma seleccionado existe, úsala.
+            // Lógica de traducción de TEXTO
             if (t[key]) {
                 applyText(element, t[key]);
             } else if (lang === 'es') {
-                // Si volvemos al español, usamos el texto original que guardamos
                 const originalText = element.getAttribute('data-es-original');
                 if (originalText) {
                     applyText(element, originalText);
                 }
             }
         });
+        
+        // **********************************************
+        // INICIO: LÓGICA DE CAMBIO DE URLS
+        // **********************************************
 
-        // Actualizar los botones de CV
+        document.querySelectorAll('[data-lang-href-en]').forEach(button => {
+            const originalHref = button.getAttribute('href');
+            const englishHref = button.getAttribute('data-lang-href-en');
+
+            if (isEnglish) {
+                // Guarda la URL original antes de cambiarla
+                if (!button.getAttribute('data-es-href')) {
+                    button.setAttribute('data-es-href', originalHref);
+                }
+                // Cambia a la URL en inglés
+                button.setAttribute('href', englishHref);
+                
+            } else {
+                // Vuelve a la URL original (español)
+                const spanishHref = button.getAttribute('data-es-href') || originalHref;
+                button.setAttribute('href', spanishHref);
+            }
+        });
+
+        // **********************************************
+        // FIN: LÓGICA DE CAMBIO DE URLS
+        // **********************************************
+
+        // Actualizar el texto de los botones de CV
         document.getElementById('btn-view-cv').querySelector('span').textContent = t['btn-view-cv-text'] || 'Ver CV';
         document.getElementById('btn-download-cv').querySelector('span').textContent = t['btn-download-cv-text'] || 'Descargar CV';
 
@@ -720,6 +703,7 @@
         currentLanguage = lang;
         document.documentElement.lang = lang;
     }
+
 
     // Inicialización al cargar: Guarda el texto original en español
     document.addEventListener('DOMContentLoaded', () => {
@@ -735,5 +719,5 @@
         document.getElementById('flag-es').classList.add('active');
     });
   </script>
-</body>
+  </body>
 </html>
