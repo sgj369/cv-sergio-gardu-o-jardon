@@ -431,9 +431,10 @@
                   📊 Hoja de datos (Google Sheets)
                 </a>
   
-                <a class="btn-dark" href="tesis_viewer.html" rel="noopener" data-lang="iot-btn3">
+                 <a class="btn-dark" href="tesis_viewer.html" id="btn-view-tesis" target="_blank" rel="noopener" data-lang="iot-btn3">
                   📘 Ver tesis (PDF)
                 </a>
+
               </div>
             </div>
           </div>
@@ -838,7 +839,15 @@
         
         // 2. Inicializa el estado de la bandera (ES por defecto)
         document.getElementById('flag-es').classList.add('active');
+    const tesisBtn = document.getElementById('btn-view-tesis');
+        if (tesisBtn) {
+            tesisBtn.addEventListener('click', function(event) {
+                event.preventDefault(); // Previene que el enlace funcione de la forma normal
+                window.open(this.href, '_blank'); // Abre la URL en una nueva pestaña de forma controlada
+            });
+        }
     });
+    
   </script>
   </body>
 </html>
