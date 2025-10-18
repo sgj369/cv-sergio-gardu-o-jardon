@@ -346,7 +346,7 @@
     background-size: cover;
     background-position: 50% 50%;
   }
-  
+
   /* ============================================= */
   /* 1. ESTILOS DEL MENÚ LATERAL FIJO (Navegación) */
   /* ============================================= */
@@ -545,54 +545,34 @@
   .btn-tiktok { background: #fff; color: #000; }
   .btn-tiktok:hover { box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3); }
   
-  /* ============================================= */
-  /* 4. AJUSTE AL DISEÑO MÓVIL (Modificación) */
-  /* ============================================= */
-  
-    @media (max-width:980px){
-    body {
-      padding: 28px 15px; /* Mantiene el padding vertical, reduce el horizontal */
-    }
-    .main-header-card { 
-      flex-direction: column; align-items: flex-start; gap: 15px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1); 
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      border-right: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    header { width: 100%; flex-direction: column; align-items: flex-start; gap: 10px; }
-    .header-main-buttons { 
-      width: 100%; justify-content: flex-start; padding: 10px 0; 
-      border-top: none; border-bottom: none; border-right: none;
-      box-shadow: none;
-    }
-    
-    .wrap { padding: 0; border-left: none; border-right: none; }
-    .hero { grid-template-columns: 1fr; } 
-  }
-    /*css de las particulas*/
-    #particles-js {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: -1; 
-    background-color: var(--bg-uniform);
-    background-image: url("");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 50% 50%;
-  }
   </style>
 </head>
 <body>
+  
   <div id="particles-js"></div>
+
+  <nav class="side-navbar" id="side-navbar">
+    <button id="menu-toggle-btn" title="Expandir menú">
+      <i class="fa-solid fa-chevron-right"></i>
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <ul>
+      <li><a href="#perfil" class="nav-link" title="Perfil"><i class="fa-solid fa-user"></i><span class="link-text">Perfil</span></a></li>
+      <li><a href="#experiencia" class="nav-link" title="Experiencia"><i class="fa-solid fa-briefcase"></i><span class="link-text">Experiencia</span></a></li>
+      <li><a href="#logros" class="nav-link" title="Logros"><i class="fa-solid fa-trophy"></i><span class="link-text">Logros</span></a></li>
+      <li><a href="#cursos" class="nav-link" title="Cursos"><i class="fa-solid fa-graduation-cap"></i><span class="link-text">Cursos</span></a></li>
+      
+      <li><a href="#formacion" class="nav-link" title="Formación"><i class="fa-solid fa-school"></i><span class="link-text">Formación</span></a></li>
+      <li><a href="#contacto" class="nav-link" title="Contacto"><i class="fa-solid fa-envelope"></i><span class="link-text">Contacto</span></a></li>
+      <li><a href="#habilidades" class="nav-link" title="Habilidades"><i class="fa-solid fa-cogs"></i><span class="link-text">Habilidades</span></a></li>
+    </ul>
+  </nav>
+          </ul>
   <div class="lang-switcher">
     <button onclick="translatePage('es')" id="flag-es" class="active">🇲🇽</button>
     <button onclick="translatePage('en')" id="flag-en">🇺🇸</button>
   </div>
   <div class="wrap">
-
     
 <div class="main-header-card">
         <header>
@@ -618,7 +598,7 @@
         </div>
     <div class="hero">
       <main>
-        <div class="card">
+        <div class="card" id="perfil">
           <div class="profile-title" data-lang="profile-title">Perfil</div>
           <div class="profile-text" style="margin-bottom: 15px;" data-lang="profile-p1">
             Ingeniero Mecatrónico especializado en sistemas IoT, datos y soluciones sostenibles. Diseño, desarrollo y despliego sistemas de monitoreo ambiental que integran hardware (ESP32 y sensores), energía renovable y pipelines de datos (Google Sheets / SQL, dashboards).
@@ -628,7 +608,7 @@
           </div>
         </div>
 
-        <details open data-section="experience">
+        <details open data-section="experience" id="experiencia">
         <summary>
           <h2 class="section" data-lang="exp-title">Experiencia y proyectos</h2>
         </summary>
@@ -701,7 +681,7 @@
           </div>
         </div>
         </details>
-        <details data-section="achievements">
+        <<details data-section="achievements" id="logros">"achievements">
         <summary>
           <h2 class="section" data-lang="logros-title">Logros</h2>
         </summary>
@@ -715,7 +695,7 @@
           </div>
         </div>
         </details>
-        <details data-section="courses">
+        <details data-section="courses" id="cursos">
         <summary>
           <h2 class="section" data-lang="cursos-title">Cursos y certificados</h2>
         </summary>
@@ -732,7 +712,7 @@
         </main>
 
         <aside class="side">
-        <div class="card">
+        <div class="card" id="formacion">
             <div style="font-weight:800; margin-bottom:15px; color: var(--accent-purple);" data-lang="acad-title">Formación Académica</div>
             
             <h3 class="acad-ipn-title" data-lang="acad-uni-title">
@@ -763,21 +743,60 @@
             </div>
         </div>
 
-        <div class="card">
+        <div class="card" id="contacto">
           <div style="font-weight:800;margin-bottom:8px" data-lang="contact-title">Contacto</div>
-          <ul class="contact-list">
-            <li><a href="mailto:sgj.cheko@gmail.com"><i class="fa-regular fa-envelope"></i> sgj.cheko@gmail.com</a></li>
-            <li><a href="mailto:sgardunoj1400@alumno.ipn.mx"><i class="fa-regular fa-envelope"></i> sgardunoj1400@alumno.ipn.mx</a></li>
-            <li><a href="https://wa.me/5215586864746" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a></li>
-            <li><a href="https://sgj369.github.io/cv-sergio-gardu-o-jardon/" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a></li>
-            <li><a href="https://www.facebook.com/share/19FgjAa3ai/" target="_blank" rel="noopener"><i class="fa-brands fa-facebook"></i> Facebook</a></li>
-            <li><a href="https://www.instagram.com/cheko_sgj?igsh=amV1aTVwZ3VpeTBi" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i> Instagram</a></li>
-            <li><a href="https://www.linkedin.com/in/gardu%C3%B1o-jardon-sergio-264b582b0" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin"></i> LinkedIn</a></li>
-            <li><a href="https://www.tiktok.com/@chekup00" target="_blank" rel="noopener"><i class="fa-brands fa-tiktok"></i> TikTok</a></li>
+              <ul class="contact-list"> <li>
+              <a href="mailto:sgj.cheko@gmail.com" class="contact-btn-pressable btn-email">
+                <i class="fa-regular fa-envelope"></i>
+                <span>sgj.cheko@gmail.com</span>
+              </a>
+            </li>
+            <li>
+              <a href="mailto:sgardunoj1400@alumno.ipn.mx" class="contact-btn-pressable btn-email">
+                <i class="fa-regular fa-envelope"></i>
+                <span>sgardunoj1400@alumno.ipn.mx</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://wa.me/5215586864746" target="_blank" class="contact-btn-pressable btn-whatsapp">
+                <i class="fa-brands fa-whatsapp"></i>
+                <span>WhatsApp</span>
+              </a>
+            </li>
+            <li>
+              <a href="httpsa://sgj369.github.io/cv-sergio-gardu-o-jardon/" target="_blank" class="contact-btn-pressable btn-github">
+                <i class="fa-brands fa-github"></i>
+                <span>GitHub</span>
+              </a>
+            </li>
+            <li>
+              <a href="httpsa://www.linkedin.com/in/gardu%C3%B1o-jardon-sergio-264b582b0" target="_blank" class="contact-btn-pressable btn-linkedin">
+                <i class="fa-brands fa-linkedin"></i>
+                <span>LinkedIn</span>
+              </a>
+            </li>
+            <li>
+              <a href="httpsa://www.facebook.com/share/19FgjAa3ai/" target="_blank" class="contact-btn-pressable btn-facebook">
+                <i class="fa-brands fa-facebook"></i>
+                <span>Facebook</span>
+              </a>
+            </li>
+             <li>
+              <a href="httpsa://www.instagram.com/cheko_sgj?igsh=amV1aTVwZ3VpeTBi" target="_blank" class="contact-btn-pressable btn-instagram">
+                <i class="fa-brands fa-instagram"></i>
+                <span>Instagram</span>
+              </a>
+            </li>
+             <li>
+              <a href="httpsa://www.tiktok.com/@chekup00" target="_blank" class="contact-btn-pressable btn-tiktok">
+                <i class="fa-brands fa-tiktok"></i>
+                <span>TikTok</span>
+              </a>
+            </li>
           </ul>
         </div>
 
-        <div class="card">
+        <div class="card" id="habilidades">
           <div style="font-weight:800;margin-bottom:8px" data-lang="tech-skills-title">Habilidades técnicas</div>
           <div class="skills">
             <div class="skill-pill" data-lang="skill-cpp">C++ / Arduino</div>
@@ -802,7 +821,7 @@
         </div>
       </aside>
       </div>
-    <footer>
+        <footer>
       <div class="footer-brand">
         <div class="sello"><img src="haku-logo.png" alt="Haku"></div>
         <div style="color:var(--muted);font-size:13px">© <span id="year"></span> <span data-lang="footer-name">Sergio Garduño Jardón</span> · <span data-lang="footer-source">Hecho con GitHub Pages</span></div>
@@ -812,279 +831,112 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-  
     <script>
       particlesJS("particles-js", {
-        "particles": {
-          "number": {
-            "value": 80,
-            "density": {
-              "enable": true,
-              "value_area": 800
-            }
-          },
-          "color": {
-            "value": ["#FFD700", "#63b96f", "#0077b6", "#eef1f0"]
-          },
-          "shape": {
-            "type": "circle",
-            "stroke": {
-              "width": 0,
-              "color": "#000000"
-            },
-          },
-          "opacity": {
-            "value": 0.6,
-            "random": false,
-            "anim": {
-              "enable": false,
-              "speed": 1,
-              "opacity_min": 0.1,
-              "sync": false
-            }
-          },
-          "size": {
-            "value": 3,
-            "random": true,
-            "anim": {
-              "enable": false,
-              "speed": 40,
-              "size_min": 0.1,
-              "sync": false
-            }
-          },
-          "line_linked": {
-            "enable": true,
-            "distance": 150,
-            "color": "#a3a3a3",
-            "opacity": 0.4,
-            "width": 1
-          },
-          "move": {
-            "enable": true,
-            "speed": 3,
-            "direction": "none",
-            "random": false,
-            "straight": false,
-            "out_mode": "out",
-            "bounce": false,
-          }
-        },
-        "interactivity": {
-          "detect_on": "canvas",
-          "events": {
-            "onhover": {
-              "enable": true,
-              "mode": "repulse"
-            },
-            "onclick": {
-              "enable": true,
-              "mode": "push"
-            },
-            "resize": true
-          },
-          "modes": {
-            "grab": {
-              "distance": 400,
-              "line_linked": {
-                "opacity": 1
-              }
-            },
-            "bubble": {
-              "distance": 400,
-              "size": 40,
-              "duration": 2,
-              "opacity": 8,
-              "speed": 3
-            },
-            "repulse": {
-              "distance": 150,
-              "duration": 0.4
-            },
-            "push": {
-              "particles_nb": 4
-            },
-            "remove": {
-              "particles_nb": 2
-            }
-          }
-        },
+        "particles": { "number": { "value": 80, "density": { "enable": true, "value_area": 800 }}, "color": { "value": ["#FFD700", "#63b96f", "#0077b6", "#eef1f0"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }}, "opacity": { "value": 0.6, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false }}, "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false }}, "line_linked": { "enable": true, "distance": 150, "color": "#a3a3a3", "opacity": 0.4, "width": 1 }, "move": { "enable": true, "speed": 3, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }},
+        "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" }, "resize": true }, "modes": { "grab": { "distance": 400, "line_linked": { "opacity": 1 }}, "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 }, "repulse": { "distance": 150, "duration": 0.4 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 }}},
         "retina_detect": true
       });
     </script>
-  
     
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
 
-    const translations = {
-        'en': {
-            'profile-title': 'Profile',
-            'profile-p1': 'Mechatronics Engineer specializing in IoT systems, data, and sustainable solutions. I design, develop, and deploy environmental monitoring systems that integrate hardware (ESP32 and sensors), renewable energy, and data pipelines (Google Sheets / SQL, dashboards).',
-            'profile-p2': 'Programming expertise in Python, C++/Arduino, and Google Apps Script to automate processes and create analytical models focused on optimizing resources and supporting decision-making. I seek to collaborate on projects that merge technology and nature to generate a positive environmental impact.',
-            'btn-view-cv-text': 'View CV',
-            'btn-download-cv-text': 'Download CV',
-            'exp-title': 'Experience & Projects',
-            'ecogaia-role': 'Eco Gaia SOS — Environmental Impact Platform',
-            'ecogaia-dates': '2024 – Present · CDMX',
-            'ecogaia-l1': 'Development and implementation of a web platform for management and dissemination of environmental calls and projects.',
-            'ecogaia-l2': 'Responsible for data organization, visualization, and local stakeholder support.',
-            'ecogaia-btn': '🌐 Visit Eco Gaia SOS',
-            'iot-role': 'IoT System for Green Roofs — Thesis Project',
-            'iot-dates': '2023 – 2025 · Field Validated',
-            'iot-l1': 'Design and deployment of an autonomous thermal monitoring system with ESP32, sensors, and solar power.',
-            'iot-l2': 'Development of data pipeline and dashboard for validating thermal reduction on green roofs.',
-            'iot-links': 'Project Green Roof Links',
-            'iot-btn1': '🌐 View Dashboard (Real-time data)',
-            'iot-btn2': '📊 View Data Sheet (Google Sheets)',
-            'iot-btn3': '📘 View Thesis (PDF)',
-            'robo-role': 'Robodacta — Design and Sales',
-            'robo-dates': '2022 – 2024',
-            'robo-l1': 'Design of educational kits, packaging, online courses, and audiovisual material; management of suppliers and sales.',
-            'meta-role': 'METAMORFOZIZ — Advertising and Production',
-            'meta-dates': '2021 – 2022',
-            'meta-l1': 'Graphic design, production of banners and signs, management of printing materials and processes.',
-            'ventas-role': 'Sales (Local) — Coyoacán',
-            'ventas-dates': '2021 – 2022',
-            'ventas-l1': 'Direct customer service, management of B2C and B2B sales, cash register operation, and inventory control.',
-            'serv-role': 'Technical Service (Own Business)',
-            'serv-dates': '2018 – 2020',
-            'serv-l1': 'Repair of electronic devices, purchase and sale of spare parts, inventory control, and customer service.',
-            'logros-title': 'Achievements',
-            'logros-l1': 'IoT prototype validated in the field for thermal and energy monitoring (Thesis).',
-            'logros-l2': 'Technical participation in the National Biotechnology Congress (Oaxaca, 2025).',
-            'logros-l3': 'Implementation and development of the Eco Gaia SOS platform.',
-            'cursos-title': 'Courses & Certificates',
-            'cursos-l1': 'Seminar: Design of manufacturing automation and integration of programmable devices.',
-            'cursos-l2': 'Course/Self-study: Python for data analysis (pandas) — practical projects.',
-            'cursos-l3': 'Certification in progress: English B2.',
-            'acad-title': 'Academic Background',
-            'acad-eng-title': 'Mechatronics Engineering (UPIITA)',
-            'acad-tech-title': 'Technician in Business Administration',
-            'acad-tech-dates': '2015 – 2018',
-            'contact-title': 'Contact',
-            'tech-skills-title': 'Technical Skills',
-            'soft-skills-title': 'Soft Skills',
-            'skill-cpp': 'C++ / Arduino',
-            'skill-python': 'Python (pandas)',
-            'skill-esp32': 'ESP32 & sensors',
-            'skill-sql': 'SQL & Google Sheets',
-            'skill-solar': 'Solar Panels & Batteries',
-            'skill-apps-script': 'Google Apps Script',
-            'soft-l1': 'Leadership',
-            'soft-l2': 'Creativity and innovation',
-            'soft-l3': 'Project planning and management',
-            'soft-l4': 'Teamwork',
-            'soft-l5': 'Adaptability',
-            'soft-l6': 'Certification in progress: English B2.',
-            'footer-name': 'Sergio Garduño Jardón',
-            'footer-source': 'Made with GitHub Pages',
-            'footer-contact': 'Contact: sgj.cheko@gmail.com'
-        },
-        'es': {
-            // No necesita traducción si el HTML original es el de referencia
-        }
-    };
+      const translations = {
+          'en': { 'profile-title': 'Profile', 'profile-p1': 'Mechatronics Engineer specializing in IoT systems, data, and sustainable solutions. I design, develop, and deploy environmental monitoring systems that integrate hardware (ESP32 and sensors), renewable energy, and data pipelines (Google Sheets / SQL, dashboards).', 'profile-p2': 'Programming expertise in Python, C++/Arduino, and Google Apps Script to automate processes and create analytical models focused on optimizing resources and supporting decision-making. I seek to collaborate on projects that merge technology and nature to generate a positive environmental impact.', 'btn-view-cv-text': 'View CV', 'btn-download-cv-text': 'Download CV', 'exp-title': 'Experience & Projects', 'ecogaia-role': 'Eco Gaia SOS — Environmental Impact Platform', 'ecogaia-dates': '2024 – Present · CDMX', 'ecogaia-l1': 'Development and implementation of a web platform for management and dissemination of environmental calls and projects.', 'ecogaia-l2': 'Responsible for data organization, visualization, and local stakeholder support.', 'ecogaia-btn': '🌐 Visit Eco Gaia SOS', 'iot-role': 'IoT System for Green Roofs — Thesis Project', 'iot-dates': '2023 – 2025 · Field Validated', 'iot-l1': 'Design and deployment of an autonomous thermal monitoring system with ESP32, sensors, and solar power.', 'iot-l2': 'Development of data pipeline and dashboard for validating thermal reduction on green roofs.', 'iot-links': 'Project Green Roof Links', 'iot-btn1': '🌐 View Dashboard (Real-time data)', 'iot-btn2': '📊 View Data Sheet (Google Sheets)', 'iot-btn3': '📘 View Thesis (PDF)', 'robo-role': 'Robodacta — Design and Sales', 'robo-dates': '2022 – 2024', 'robo-l1': 'Design of educational kits, packaging, online courses, and audiovisual material; management of suppliers and sales.', 'meta-role': 'METAMORFOZIZ — Advertising and Production', 'meta-dates': '2021 – 2022', 'meta-l1': 'Graphic design, production of banners and signs, management of printing materials and processes.', 'ventas-role': 'Sales (Local) — Coyoacán', 'ventas-dates': '2021 – 2022', 'ventas-l1': 'Direct customer service, management of B2C and B2B sales, cash register operation, and inventory control.', 'serv-role': 'Technical Service (Own Business)', 'serv-dates': '2018 – 2020', 'serv-l1': 'Repair of electronic devices, purchase and sale of spare parts, inventory control, and customer service.', 'logros-title': 'Achievements', 'logros-l1': 'IoT prototype validated in the field for thermal and energy monitoring (Thesis).', 'logros-l2': 'Technical participation in the National Biotechnology Congress (Oaxaca, 2025).', 'logros-l3': 'Implementation and development of the Eco Gaia SOS platform.', 'cursos-title': 'Courses & Certificates', 'cursos-l1': 'Seminar: Design of manufacturing automation and integration of programmable devices.', 'cursos-l2': 'Course/Self-study: Python for data analysis (pandas) — practical projects.', 'cursos-l3': 'Certification in progress: English B2.', 'acad-title': 'Academic Background', 'acad-eng-title': 'Mechatronics Engineering (UPIITA)', 'acad-tech-title': 'Technician in Business Administration', 'acad-tech-dates': '2015 – 2018', 'contact-title': 'Contact', 'tech-skills-title': 'Technical Skills', 'soft-skills-title': 'Soft Skills', 'skill-cpp': 'C++ / Arduino', 'skill-python': 'Python (pandas)', 'skill-esp32': 'ESP32 & sensors', 'skill-sql': 'SQL & Google Sheets', 'skill-solar': 'Solar Panels & Batteries', 'skill-apps-script': 'Google Apps Script', 'soft-l1': 'Leadership', 'soft-l2': 'Creativity and innovation', 'soft-l3': 'Project planning and management', 'soft-l4': 'Teamwork', 'soft-l5': 'Adaptability', 'soft-l6': 'Certification in progress: English B2.', 'footer-name': 'Sergio Garduño Jardón', 'footer-source': 'Made with GitHub Pages', 'footer-contact': 'Contact: sgj.cheko@gmail.com' },
+          'es': { /* No necesita traducción */ }
+      };
 
-    let currentLanguage = 'es';
+      let currentLanguage = 'es';
 
-        function applyText(element, text) {
-        let processedText = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>'); 
-        
-        // **NUEVA LÓGICA:** Si es un STRONG con un logo, solo actualizamos el SPAN (el texto).
+      function applyText(element, text) {
+        let processedText = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
         if (element.tagName === 'STRONG' && element.querySelector('img')) {
-            const textSpan = element.querySelector('span');
-            if (textSpan) {
-                textSpan.innerHTML = processedText;
-            } else {
-                element.innerHTML = processedText; // Fallback
-            }
+          const textSpan = element.querySelector('span');
+          if (textSpan) { textSpan.innerHTML = processedText; }
+          else { element.innerHTML = processedText; }
         } else {
-            element.innerHTML = processedText;
+          element.innerHTML = processedText;
         }
-    }
+      }
 
-
-        function translatePage(lang) {
+      function translatePage(lang) {
         const t = translations[lang];
         const isEnglish = (lang === 'en');
-
         document.querySelectorAll('[data-lang]').forEach(element => {
             const key = element.getAttribute('data-lang');
-            
-            // Lógica de traducción de TEXTO
             if (t[key]) {
                 applyText(element, t[key]);
             } else if (lang === 'es') {
                 const originalText = element.getAttribute('data-es-original');
-                if (originalText) {
-                    applyText(element, originalText);
-                }
+                if (originalText) { applyText(element, originalText); }
             }
         });
-        
-        // **********************************************
-        // INICIO: LÓGICA DE CAMBIO DE URLS
-        // **********************************************
-
         document.querySelectorAll('[data-lang-href-en]').forEach(button => {
             const originalHref = button.getAttribute('href');
             const englishHref = button.getAttribute('data-lang-href-en');
-
             if (isEnglish) {
-                // Guarda la URL original antes de cambiarla
-                if (!button.getAttribute('data-es-href')) {
-                    button.setAttribute('data-es-href', originalHref);
-                }
-                // Cambia a la URL en inglés
+                if (!button.getAttribute('data-es-href')) { button.setAttribute('data-es-href', originalHref); }
                 button.setAttribute('href', englishHref);
-                
             } else {
-                // Vuelve a la URL original (español)
                 const spanishHref = button.getAttribute('data-es-href') || originalHref;
                 button.setAttribute('href', spanishHref);
             }
         });
-
-        // **********************************************
-        // FIN: LÓGICA DE CAMBIO DE URLS
-        // **********************************************
-
-        // Actualizar el texto de los botones de CV
         document.getElementById('btn-view-cv').querySelector('span').textContent = t['btn-view-cv-text'] || 'Ver CV';
         document.getElementById('btn-download-cv').querySelector('span').textContent = t['btn-download-cv-text'] || 'Descargar CV';
-
-        // Manejo de bandera activa
         document.getElementById('flag-es').classList.remove('active');
         document.getElementById('flag-en').classList.remove('active');
         document.getElementById(`flag-${lang}`).classList.add('active');
-
         currentLanguage = lang;
         document.documentElement.lang = lang;
-    }
+      }
 
+      // INICIALIZACIÓN DE TODO
+      document.addEventListener('DOMContentLoaded', () => {
+          // 1. Lógica de Traducción
+          document.querySelectorAll('[data-lang]').forEach(element => {
+              if (!element.getAttribute('data-es-original')) {
+                   element.setAttribute('data-es-original', element.innerHTML); 
+              }
+          });
+          document.getElementById('flag-es').classList.add('active');
+          
+          // --- 👇 CÓDIGO NUEVO AÑADIDO 👇 ---
 
-    // Inicialización al cargar: Guarda el texto original en español
-    document.addEventListener('DOMContentLoaded', () => {
-        // 1. Guardar el texto original del HTML para la reversión al español
-        document.querySelectorAll('[data-lang]').forEach(element => {
-            if (!element.getAttribute('data-es-original')) {
-                 // Guarda el contenido del HTML como referencia para el idioma ES
-                 element.setAttribute('data-es-original', element.innerHTML); 
-            }
-        });
-        
-        // 2. Inicializa el estado de la bandera (ES por defecto)
-        document.getElementById('flag-es').classList.add('active');
-    const tesisBtn = document.getElementById('btn-view-tesis');
-        if (tesisBtn) {
-            tesisBtn.addEventListener('click', function(event) {
-                event.preventDefault(); // Previene que el enlace funcione de la forma normal
-                window.open(this.href, '_blank'); // Abre la URL en una nueva pestaña de forma controlada
+          // 2. LÓGICA DEL MENÚ LATERAL
+          const menuToggleBtn = document.getElementById('menu-toggle-btn');
+          const sideNavbar = document.getElementById('side-navbar');
+          
+          if (menuToggleBtn && sideNavbar) {
+            menuToggleBtn.addEventListener('click', () => {
+              sideNavbar.classList.toggle('expanded');
+              document.body.classList.toggle('menu-expanded');
             });
-        }
-    });
-    
-  </script>
+          }
+      
+          // 3. LÓGICA DE ANIMACIÓN DE TARJETAS
+          // Seleccionamos TODAS las tarjetas
+          const animatedCards = document.querySelectorAll('.card'); 
+          
+          const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+              }
+            });
+          }, {
+            threshold: 0.1 // Se activa cuando el 10% de la tarjeta es visible
+          });
+          
+          // Observamos cada tarjeta
+          animatedCards.forEach(card => {
+            revealObserver.observe(card);
+          });
+          
+          // --- 👆 FIN DEL CÓDIGO NUEVO 👆 ---
+      });
+    </script>
   </body>
 </html>
