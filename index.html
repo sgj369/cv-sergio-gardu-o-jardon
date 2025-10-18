@@ -346,6 +346,243 @@
     background-size: cover;
     background-position: 50% 50%;
   }
+  
+  /* ============================================= */
+  /* 1. ESTILOS DEL MENÚ LATERAL FIJO (Navegación) */
+  /* ============================================= */
+  
+  :root {
+    /* Definimos el ancho del menú (contraído y expandido) */
+    --menu-width-collapsed: 70px;
+    --menu-width-expanded: 240px; 
+  }
+
+  /* Habilitamos el scroll suave */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Modificamos el BODY para dejar espacio al menú */
+  body {
+    padding-left: var(--menu-width-collapsed);
+    transition: padding-left 0.3s ease-in-out; /* Animación al cambiar el padding */
+  }
+
+  /* Clase que se añade al body cuando el menú está expandido */
+  body.menu-expanded {
+    padding-left: var(--menu-width-expanded);
+  }
+  
+  /* El menú lateral */
+  .side-navbar {
+    position: fixed; /* Fijo en la pantalla */
+    top: 0;
+    left: 0;
+    height: 100vh; /* Alto completo */
+    background: var(--card-bg);
+    border-right: 1px solid var(--card-border);
+    width: var(--menu-width-collapsed); /* Ancho inicial (contraído) */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    z-index: 1000;
+    overflow: hidden; /* Oculta el texto cuando está contraído */
+    transition: width 0.3s ease-in-out; /* La animación de expansión */
+  }
+
+  /* Estilos cuando el menú está expandido */
+  .side-navbar.expanded {
+    width: var(--menu-width-expanded);
+    align-items: flex-start; /* Alinea los items a la izquierda */
+  }
+
+  /* Contenedor de los enlaces */
+  .side-navbar ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0 0;
+    width: 100%;
+  }
+
+  /* Estilo de cada enlace del menú */
+  .side-navbar .nav-link {
+    display: flex;
+    align-items: center;
+    color: var(--fg);
+    text-decoration: none;
+    padding: 15px 0 15px 23px; /* Mantiene el ícono a la izquierda */
+    height: 50px; /* Alto fijo */
+    width: 100%;
+    white-space: nowrap; /* Evita que el texto se rompa */
+    transition: background-color 0.2s ease;
+  }
+  
+  .side-navbar .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Estilo del ícono */
+  .side-navbar .nav-link i {
+    font-size: 1.3em;
+    width: 24px; /* Ancho fijo para el ícono */
+    text-align: center;
+  }
+  
+  /* Estilo del texto del enlace (oculto por defecto) */
+  .side-navbar .link-text {
+    margin-left: 20px;
+    font-weight: 600;
+    opacity: 0; /* Oculto */
+    transition: opacity 0.2s ease;
+  }
+  
+  /* Mostramos el texto cuando el menú está expandido */
+  .side-navbar.expanded .link-text {
+    opacity: 1;
+  }
+  
+  /* Botón para expandir/contraer */
+  #menu-toggle-btn {
+    background: none;
+    border: none;
+    color: var(--fg);
+    font-size: 1.5em;
+    cursor: pointer;
+    padding: 10px 23px; /* Alinear con los íconos */
+  }
+  
+  /* Ocultamos el botón de cerrar por defecto */
+  #menu-toggle-btn .fa-chevron-left { display: none; }
+  
+  /* Mostramos el botón de cerrar cuando está expandido */
+  .side-navbar.expanded #menu-toggle-btn .fa-chevron-left { display: inline; }
+  .side-navbar.expanded #menu-toggle-btn .fa-chevron-right { display: none; }
+
+
+  /* ============================================= */
+  /* 2. ESTILOS DE LA ANIMACIÓN DE TARJETAS */
+  /* ============================================= */
+  
+  /* Modificamos la transición original de .card */
+  .card {
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.2s ease;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  /* Mantenemos el hover original */
+  .card:hover { 
+    box-shadow: 0 0 15px rgba(255,255,255,0.1); 
+    transform: translateY(0); /* Evita saltos raros */
+  }
+
+  /* Clase que se añade con JS cuando el elemento es visible */
+  .card.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* ============================================= */
+  /* 3. NUEVOS ESTILOS PARA CONTACTO (Presionables) */
+  /* ============================================= */
+  
+  /* Borramos los estilos de la lista de contacto anterior */
+  .contact-list, .contact-list a, .contact-list a i, .contact-list li {
+    all: unset; /* Resetea todos los estilos anteriores */
+  }
+
+  .contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 12px; /* Espacio entre botones */
+  }
+
+  .contact-btn-pressable {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+    color: #000; 
+    transition: all 0.2s ease-out;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  }
+  
+  .contact-btn-pressable:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  }
+  
+  .contact-btn-pressable i {
+    font-size: 1.2em;
+    margin-right: 12px;
+    width: 25px;
+    text-align: center;
+  }
+  
+  /* Colores de fondo para cada botón */
+  .btn-email { background: var(--accent-yellow); color: #332400; }
+  .btn-email:hover { box-shadow: 0 8px 25px rgba(255, 195, 0, 0.3); }
+
+  .btn-whatsapp { background: var(--accent-green); color: #03120a; }
+  .btn-whatsapp:hover { box-shadow: 0 8px 25px rgba(99, 185, 111, 0.3); }
+  
+  .btn-github { background: var(--accent-purple); color: var(--fg); }
+  .btn-github:hover { box-shadow: 0 8px 25px rgba(153, 51, 204, 0.3); }
+  
+  .btn-linkedin { background: var(--accent-blue); color: var(--fg); }
+  .btn-linkedin:hover { box-shadow: 0 8px 25px rgba(0, 119, 182, 0.3); }
+
+  .btn-facebook { background: #1877F2; color: var(--fg); }
+  .btn-facebook:hover { box-shadow: 0 8px 25px rgba(24, 119, 242, 0.3); }
+
+  .btn-instagram { background: #E4405F; color: var(--fg); }
+  .btn-instagram:hover { box-shadow: 0 8px 25px rgba(228, 64, 95, 0.3); }
+  
+  .btn-tiktok { background: #fff; color: #000; }
+  .btn-tiktok:hover { box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3); }
+  
+  /* ============================================= */
+  /* 4. AJUSTE AL DISEÑO MÓVIL (Modificación) */
+  /* ============================================= */
+  
+    @media (max-width:980px){
+    body {
+      padding: 28px 15px; /* Mantiene el padding vertical, reduce el horizontal */
+    }
+    .main-header-card { 
+      flex-direction: column; align-items: flex-start; gap: 15px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1); 
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    header { width: 100%; flex-direction: column; align-items: flex-start; gap: 10px; }
+    .header-main-buttons { 
+      width: 100%; justify-content: flex-start; padding: 10px 0; 
+      border-top: none; border-bottom: none; border-right: none;
+      box-shadow: none;
+    }
+    
+    .wrap { padding: 0; border-left: none; border-right: none; }
+    .hero { grid-template-columns: 1fr; } 
+  }
+    /*css de las particulas*/
+    #particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1; 
+    background-color: var(--bg-uniform);
+    background-image: url("");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+  }
   </style>
 </head>
 <body>
