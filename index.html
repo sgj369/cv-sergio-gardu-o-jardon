@@ -314,7 +314,8 @@
   /* RESPONSIVE TWEAKS (PARA MÓVILES) */
   @media (max-width:980px){
     body {
-      padding: 28px 15px; /* Mantiene el padding vertical, reduce el horizontal */
+      padding: 28px 15px; /* Restaura padding original */
+      padding-left: var(--menu-width-collapsed, 70px); /* Añade espacio para el menú colapsado */
     }
     .main-header-card { 
       flex-direction: column; align-items: flex-start; gap: 15px;
@@ -351,12 +352,6 @@
   /* 1. ESTILOS DEL MENÚ LATERAL FIJO (Navegación) */
   /* ============================================= */
   
-  :root {
-    /* Definimos el ancho del menú (contraído y expandido) */
-    --menu-width-collapsed: 70px;
-    --menu-width-expanded: 240px; 
-  }
-
   /* Habilitamos el scroll suave */
   html {
     scroll-behavior: smooth;
@@ -364,13 +359,13 @@
 
   /* Modificamos el BODY para dejar espacio al menú */
   body {
-    padding-left: var(--menu-width-collapsed);
+    padding-left: var(--menu-width-collapsed, 70px); /* Usamos 70px como valor por defecto */
     transition: padding-left 0.3s ease-in-out; /* Animación al cambiar el padding */
   }
 
   /* Clase que se añade al body cuando el menú está expandido */
   body.menu-expanded {
-    padding-left: var(--menu-width-expanded);
+    padding-left: var(--menu-width-expanded, 240px); /* Usamos 240px como valor por defecto */
   }
   
   /* El menú lateral */
@@ -381,7 +376,7 @@
     height: 100vh; /* Alto completo */
     background: var(--card-bg);
     border-right: 1px solid var(--card-border);
-    width: var(--menu-width-collapsed); /* Ancho inicial (contraído) */
+    width: var(--menu-width-collapsed, 70px); /* Ancho inicial (contraído) */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -393,7 +388,7 @@
 
   /* Estilos cuando el menú está expandido */
   .side-navbar.expanded {
-    width: var(--menu-width-expanded);
+    width: var(--menu-width-expanded, 240px);
     align-items: flex-start; /* Alinea los items a la izquierda */
   }
 
@@ -487,17 +482,26 @@
   /* ============================================= */
   
   /* Borramos los estilos de la lista de contacto anterior */
-  .contact-list, .contact-list a, .contact-list a i, .contact-list li {
+  /* Mantenemos selectores originales para asegurar especificidad */
+  aside .card:nth-of-type(2) .contact-list, 
+  aside .card:nth-of-type(2) .contact-list a, 
+  aside .card:nth-of-type(2) .contact-list a i, 
+  aside .card:nth-of-type(2) .contact-list li {
     all: unset; /* Resetea todos los estilos anteriores */
   }
 
-  .contact-list {
+  /* Re-aplicamos estilos base necesarios para la lista */
+   aside .card:nth-of-type(2) .contact-list {
     list-style: none;
     padding: 0;
     margin: 0;
     display: grid;
     gap: 12px; /* Espacio entre botones */
   }
+   aside .card:nth-of-type(2) .contact-list li {
+     /* Asegura que cada item ocupe su espacio */
+     display: block; 
+   }
 
   .contact-btn-pressable {
     display: flex;
@@ -544,6 +548,7 @@
   
   .btn-tiktok { background: #fff; color: #000; }
   .btn-tiktok:hover { box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3); }
+
   
   </style>
 </head>
@@ -567,7 +572,6 @@
       <li><a href="#habilidades" class="nav-link" title="Habilidades"><i class="fa-solid fa-cogs"></i><span class="link-text">Habilidades</span></a></li>
     </ul>
   </nav>
-          </ul>
   <div class="lang-switcher">
     <button onclick="translatePage('es')" id="flag-es" class="active">🇲🇽</button>
     <button onclick="translatePage('en')" id="flag-en">🇺🇸</button>
@@ -681,7 +685,7 @@
           </div>
         </div>
         </details>
-        <<details data-section="achievements" id="logros">"achievements">
+        <details data-section="achievements" id="logros">
         <summary>
           <h2 class="section" data-lang="logros-title">Logros</h2>
         </summary>
@@ -764,31 +768,31 @@
               </a>
             </li>
             <li>
-              <a href="httpsa://sgj369.github.io/cv-sergio-gardu-o-jardon/" target="_blank" class="contact-btn-pressable btn-github">
+              <a href="https://sgj369.github.io/cv-sergio-gardu-o-jardon/" target="_blank" class="contact-btn-pressable btn-github">
                 <i class="fa-brands fa-github"></i>
                 <span>GitHub</span>
               </a>
             </li>
             <li>
-              <a href="httpsa://www.linkedin.com/in/gardu%C3%B1o-jardon-sergio-264b582b0" target="_blank" class="contact-btn-pressable btn-linkedin">
+              <a href="https://www.linkedin.com/in/gardu%C3%B1o-jardon-sergio-264b582b0" target="_blank" class="contact-btn-pressable btn-linkedin">
                 <i class="fa-brands fa-linkedin"></i>
                 <span>LinkedIn</span>
               </a>
             </li>
             <li>
-              <a href="httpsa://www.facebook.com/share/19FgjAa3ai/" target="_blank" class="contact-btn-pressable btn-facebook">
+              <a href="https://www.facebook.com/share/19FgjAa3ai/" target="_blank" class="contact-btn-pressable btn-facebook">
                 <i class="fa-brands fa-facebook"></i>
                 <span>Facebook</span>
               </a>
             </li>
              <li>
-              <a href="httpsa://www.instagram.com/cheko_sgj?igsh=amV1aTVwZ3VpeTBi" target="_blank" class="contact-btn-pressable btn-instagram">
+              <a href="https://www.instagram.com/cheko_sgj?igsh=amV1aTVwZ3VpeTBi" target="_blank" class="contact-btn-pressable btn-instagram">
                 <i class="fa-brands fa-instagram"></i>
                 <span>Instagram</span>
               </a>
             </li>
              <li>
-              <a href="httpsa://www.tiktok.com/@chekup00" target="_blank" class="contact-btn-pressable btn-tiktok">
+              <a href="https://www.tiktok.com/@chekup00" target="_blank" class="contact-btn-pressable btn-tiktok">
                 <i class="fa-brands fa-tiktok"></i>
                 <span>TikTok</span>
               </a>
