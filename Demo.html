@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Demo: Menú Lateral Fijo y Animaciones</title>
+  <title>Demo: 3 Columnas (Menú Izq + Contenido + Barra Der)</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
@@ -22,7 +22,6 @@
       --accent-red: #ff3366;
       --accent-purple: #9933cc;
       
-      /* Definimos el ancho del menú (contraído y expandido) */
       --menu-width-collapsed: 70px;
       --menu-width-expanded: 220px;
     }
@@ -38,123 +37,99 @@
       margin: 0;
       /* Empujamos el contenido principal para dejar espacio al menú */
       padding-left: var(--menu-width-collapsed);
-      transition: padding-left 0.3s ease-in-out; /* Animación al cambiar el padding */
+      transition: padding-left 0.3s ease-in-out;
     }
     
-    /* Clase que se añade al body cuando el menú está expandido */
     body.menu-expanded {
       padding-left: var(--menu-width-expanded);
     }
-
-    /* Contenedor del contenido principal */
-    .main-content {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 28px;
-    }
     
+    /* Esta sección <section> es solo para anclaje del scroll */
     section {
-      padding-top: 60px; /* Espacio para el ancla del scroll */
+      padding-top: 60px;
       margin-top: -60px;
     }
 
-    /* --- ⭐ 1. ESTILOS DEL MENÚ LATERAL FIJO --- */
+    /* --- ⭐ 1. ESTILOS DEL MENÚ LATERAL IZQUIERDO --- */
     
     .side-navbar {
-      position: fixed; /* Fijo en la pantalla */
+      position: fixed;
       top: 0;
       left: 0;
-      height: 100vh; /* Alto completo */
+      height: 100vh;
       background: var(--card-bg);
       border-right: 1px solid var(--card-border);
-      
-      /* Ancho inicial (contraído) */
       width: var(--menu-width-collapsed);
-      
       display: flex;
       flex-direction: column;
       align-items: center;
       padding: 20px 0;
       z-index: 1000;
-      overflow: hidden; /* Oculta el texto cuando está contraído */
-      
-      /* La animación de expansión */
+      overflow: hidden;
       transition: width 0.3s ease-in-out;
     }
-
-    /* Estilos cuando el menú está expandido */
     .side-navbar.expanded {
       width: var(--menu-width-expanded);
-      align-items: flex-start; /* Alinea los items a la izquierda */
+      align-items: flex-start;
     }
-
-    /* Contenedor de los enlaces */
-    .side-navbar ul {
-      list-style: none;
-      padding: 0;
-      margin: 20px 0 0 0;
-      width: 100%;
-    }
-
-    /* Estilo de cada enlace del menú */
+    .side-navbar ul { list-style: none; padding: 0; margin: 20px 0 0 0; width: 100%; }
     .side-navbar .nav-link {
-      display: flex;
-      align-items: center;
-      color: var(--fg);
-      text-decoration: none;
-      
-      /* Importante: Mantiene el ícono a la izquierda */
-      padding: 15px 0 15px 23px; 
-      
-      height: 50px; /* Alto fijo */
-      width: 100%;
-      white-space: nowrap; /* Evita que el texto se rompa */
+      display: flex; align-items: center; color: var(--fg);
+      text-decoration: none; padding: 15px 0 15px 23px;
+      height: 50px; width: 100%; white-space: nowrap;
       transition: background-color 0.2s ease;
     }
-    
-    .side-navbar .nav-link:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-    
-    /* Estilo del ícono */
-    .side-navbar .nav-link i {
-      font-size: 1.3em;
-      width: 24px; /* Ancho fijo para el ícono */
-      text-align: center;
-    }
-    
-    /* Estilo del texto del enlace (oculto por defecto) */
+    .side-navbar .nav-link:hover { background-color: rgba(255, 255, 255, 0.1); }
+    .side-navbar .nav-link i { font-size: 1.3em; width: 24px; text-align: center; }
     .side-navbar .link-text {
-      margin-left: 20px;
-      font-weight: 600;
-      opacity: 0; /* Oculto */
-      transition: opacity 0.2s ease;
+      margin-left: 20px; font-weight: 600;
+      opacity: 0; transition: opacity 0.2s ease;
     }
-    
-    /* Mostramos el texto cuando el menú está expandido */
-    .side-navbar.expanded .link-text {
-      opacity: 1;
-    }
-    
-    /* Botón para expandir/contraer */
+    .side-navbar.expanded .link-text { opacity: 1; }
     #menu-toggle-btn {
-      background: none;
-      border: none;
-      color: var(--fg);
-      font-size: 1.5em;
-      cursor: pointer;
-      padding: 10px 23px; /* Alinear con los íconos */
+      background: none; border: none; color: var(--fg);
+      font-size: 1.5em; cursor: pointer; padding: 10px 23px;
     }
-    
-    /* Ocultamos el botón de cerrar por defecto */
     #menu-toggle-btn .fa-chevron-left { display: none; }
-    
-    /* Mostramos el botón de cerrar cuando está expandido */
     .side-navbar.expanded #menu-toggle-btn .fa-chevron-left { display: inline; }
     .side-navbar.expanded #menu-toggle-btn .fa-chevron-right { display: none; }
 
+    
+    /* --- ⭐ 2. ESTILOS DEL LAYOUT PRINCIPAL (Contenido + Barra Derecha) --- */
 
-    /* --- ⭐ 2. ESTILOS DE LAS TARJETAS Y ANIMACIÓN --- */
+    /* Este es el contenedor que tiene tus dos columnas */
+    .hero-layout {
+      display: grid;
+      /* 1fr = Columna flexible de contenido, 360px = Columna fija derecha */
+      grid-template-columns: 1fr 360px; 
+      gap: 28px;
+      align-items: start;
+      
+      /* Ajustamos el padding y márgenes */
+      max-width: 1200px; /* Un poco más ancho para las 3 columnas */
+      margin: 0 auto;
+      padding: 28px;
+    }
+    
+    /* Columna de contenido principal (Izquierda del layout) */
+    .hero-main {
+      display: flex;
+      flex-direction: column;
+      gap: 28px; /* Espacio entre tarjetas */
+    }
+    
+    /* Columna de la barra lateral (Derecha del layout) */
+    .hero-aside {
+      /* Esto hace que se quede fija al hacer scroll */
+      position: sticky;
+      top: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px; /* Espacio entre tarjetas */
+    }
+    
+
+    /* --- ⭐ 3. ESTILOS DE LAS TARJETAS Y ANIMACIÓN --- */
     
     .card {
       background: var(--card-bg);
@@ -162,146 +137,124 @@
       padding: 20px;
       border-radius: var(--radius);
       border-left: 5px solid var(--accent-blue);
-      margin-bottom: 28px;
       
       /* --- LA ANIMACIÓN --- */
-      /* Ocultamos las tarjetas por defecto */
       opacity: 0;
-      transform: translateY(30px); /* Las movemos 30px hacia abajo */
-      
-      /* Esta es la animación de entrada */
+      transform: translateY(30px);
       transition: opacity 0.6s ease-out, transform 0.6s ease-out;
     }
-
-    /* Clase que se añade con JS cuando el elemento es visible */
     .card.is-visible {
       opacity: 1;
       transform: translateY(0);
     }
     
-    h2 {
-      font-size: 18px;
-      color: var(--accent-red);
-      margin: 0 0 15px 0;
-      font-weight: 800;
-    }
+    h2 { font-size: 18px; color: var(--accent-red); margin: 0 0 15px 0; }
     
-    /* Diferentes colores de borde para las tarjetas */
+    /* Diferentes colores de borde */
     .card.blue { border-left-color: var(--accent-blue); }
     .card.green { border-left-color: var(--accent-green); }
     .card.yellow { border-left-color: var(--accent-yellow); }
     .card.purple { border-left-color: var(--accent-purple); }
+
+    
+    /* --- 4. AJUSTES PARA MÓVIL --- */
+    
+    @media (max-width: 1100px) {
+      /* En pantallas más pequeñas, volvemos a 1 sola columna */
+      .hero-layout {
+        grid-template-columns: 1fr;
+      }
+      .hero-aside {
+        position: static; /* Quitamos el sticky */
+      }
+    }
+    
+    @media (max-width: 980px) {
+      body {
+        /* Dejamos solo el padding para el menú contraído */
+        padding-left: var(--menu-width-collapsed);
+      }
+      .hero-layout {
+        padding: 28px 15px; /* Reducimos padding lateral del contenido */
+      }
+    }
 
   </style>
 </head>
 <body>
 
   <nav class="side-navbar" id="side-navbar">
-    
     <button id="menu-toggle-btn" title="Expandir menú">
-      <i class="fa-solid fa-chevron-right"></i> <i class="fa-solid fa-chevron-left"></i>  </button>
-    
+      <i class="fa-solid fa-chevron-right"></i>
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
     <ul>
-      <li>
-        <a href="#perfil" class="nav-link" title="Perfil">
-          <i class="fa-solid fa-user"></i>
-          <span class="link-text">Perfil</span>
-        </a>
-      </li>
-      <li>
-        <a href="#experiencia" class="nav-link" title="Experiencia">
-          <i class="fa-solid fa-briefcase"></i>
-          <span class="link-text">Experiencia</span>
-        </a>
-      </li>
-      <li>
-        <a href="#logros" class="nav-link" title="Logros">
-          <i class="fa-solid fa-trophy"></i>
-          <span class="link-text">Logros</span>
-        </a>
-      </li>
-      <li>
-        <a href="#contacto" class="nav-link" title="Contacto">
-          <i class="fa-solid fa-envelope"></i>
-          <span class="link-text">Contacto</span>
-        </a>
-      </li>
+      <li><a href="#perfil" class="nav-link" title="Perfil"><i class="fa-solid fa-user"></i><span class="link-text">Perfil</span></a></li>
+      <li><a href="#experiencia" class="nav-link" title="Experiencia"><i class="fa-solid fa-briefcase"></i><span class="link-text">Experiencia</span></a></li>
+      <li><a href="#contacto" class="nav-link" title="Contacto"><i class="fa-solid fa-envelope"></i><span class="link-text">Contacto</span></a></li>
+      <li><a href="#habilidades" class="nav-link" title="Habilidades"><i class="fa-solid fa-cogs"></i><span class="link-text">Habilidades</span></a></li>
     </ul>
   </nav>
 
-  <div class="main-content">
+  <div class="hero-layout">
 
-    <header class="card blue">
-      <h1>Demo de Menú Lateral y Animaciones</h1>
-      <p>Prueba el botón (>) en el menú de la izquierda para expandirlo. Luego, haz scroll hacia abajo.</p>
-    </header>
+    <main class="hero-main">
+      <header class="card blue">
+        <h1>Demo de 3 Columnas</h1>
+        <p>Prueba el menú (<) y haz scroll. La barra derecha también se quedará fija.</p>
+      </header>
 
-    <section id="perfil" class="card blue">
-      <h2>Perfil</h2>
-      <p>Este es el texto de mi perfil profesional. Haz clic en los íconos del menú lateral para navegar.</p>
-    </section>
+      <section id="perfil" class="card blue">
+        <h2>Perfil</h2>
+        <p>Este es el contenido principal. Ocupa la columna central. Las tarjetas aparecen al hacer scroll.</p>
+      </section>
 
-    <section id="experiencia">
-      <div class="card green">
+      <section id="experiencia" class="card green">
         <h2>Experiencia y Proyectos</h2>
-        <p>Estas tarjetas aparecerán con una animación suave a medida que bajas. ¡Sigue haciendo scroll!</p>
+        <p>Esta tarjeta también tiene el efecto de entrada.</p>
+      </section>
+      
+      <div style="height: 800px; color: #666; text-align: center; padding-top: 100px;">
+        (Relleno para poder hacer scroll y probar la barra derecha fija)
       </div>
-    </section>
-    
-    <section id="logros">
-      <div class="card yellow">
-        <h2>Logros</h2>
-        <p>Esta tarjeta también tiene el efecto de entrada. Cada tarjeta con la clase '.card' lo tendrá.</p>
-      </div>
-    </section>
+    </main>
 
-    <section id="contacto">
-      <div class="card purple">
+    <aside class="hero-aside">
+      <section id="contacto" class="card purple">
         <h2>Contacto</h2>
-        <p>Esta es la última sección de la demo.</p>
-      </div>
-    </section>
+        <p>Esta tarjeta está en la columna derecha. Debería **quedarse fija** (`position: sticky`) cuando haces scroll hacia abajo.</p>
+      </section>
 
-    <div style="height: 800px; color: #666; text-align: center; padding-top: 100px;">
-      (Relleno para poder hacer scroll y probar la navegación)
-    </div>
+      <section id="habilidades" class="card yellow">
+        <h2>Habilidades</h2>
+        <p>Igual que tu diseño original, esta tarjeta también está en la barra derecha.</p>
+      </section>
+    </aside>
 
   </div> <script>
     document.addEventListener('DOMContentLoaded', () => {
 
-      /**
-       * LÓGICA PARA EL MENÚ LATERAL EXPANDIBLE
-       */
+      // Lógica para el menú lateral
       const menuToggleBtn = document.getElementById('menu-toggle-btn');
       const sideNavbar = document.getElementById('side-navbar');
       
       menuToggleBtn.addEventListener('click', () => {
-        // Añade o quita la clase 'expanded' al menú
         sideNavbar.classList.toggle('expanded');
-        // Añade o quita la clase al body para mover el contenido
         document.body.classList.toggle('menu-expanded');
       });
 
-
-      /**
-       * LÓGICA PARA ANIMAR TARJETAS AL HACER SCROLL
-       */
-      // Seleccionamos todas las tarjetas (en lugar de una clase específica)
+      // Lógica para animar tarjetas al hacer scroll
       const animatedCards = document.querySelectorAll('.card');
-      
       const revealObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('is-visible');
-            // Dejamos de observar la tarjeta una vez que ya se mostró
             observer.unobserve(entry.target);
           }
         });
       }, {
-        threshold: 0.1 // La animación se dispara cuando el 10% de la tarjeta es visible
+        threshold: 0.1 
       });
-
-      // Observamos cada una de las tarjetas
       animatedCards.forEach(card => {
         revealObserver.observe(card);
       });
