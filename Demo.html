@@ -12,18 +12,22 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
-  :root{
+    :root{
     --bg-uniform: #333; /* Fondo gris oscuro */
     --fg: #eef1f0; /* Blanco suave para texto principal */
     --muted: #a3a3a3; /* Gris para texto secundario */
     
     /* Paleta de Acentos */
     --accent-red: #ff3366; 
-    --accent-green: #63b96f; 
-    --accent-blue: #0077b6; 
-    --accent-yellow: #ffc300; 
-    --accent-purple: #9933cc; 
-    --accent-gold: #FFD700; /* Dorado para destacar el header y elementos clave */
+    --accent-green: #63b96f; /* Verde Brillante (Contacto) */
+    --accent-blue: #0077b6; /* Azul (Perfil, Habilidades Técnicas) */
+    --accent-yellow: #ffc300; /* Amarillo (Cursos) */
+    --accent-purple: #9933cc; /* Morado (Proyectos, Formación) */
+    --accent-gold: #FFD700; /* Dorado (Logros, Habilidades Blandas) */
+    
+    /* --- CAMBIO AQUÍ --- */
+    --accent-emerald: #2E8B57; /* NUEVO: Verde Esmeralda (Experiencia) */
+    
     --accent-guinda: #900030; /* Guinda/Borgoña para el título IPN */
 
     --card-bg: rgba(0,0,0,0.88); /* Tarjetas muy oscuras */
@@ -32,12 +36,13 @@
     --radius: 14px;
     --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 
-    --btn-primary: var(--accent-green); 
-    --btn-secondary: var(--accent-blue); 
+    /* Variables para el menú (se usan más abajo) */
+    --menu-width-collapsed: 70px;
+    --menu-width-expanded: 240px;
   }
 
   /* Estilos Base */
-  html { background-color: var(--bg-uniform); }
+  html { background-color: var(--bg-uniform); scroll-behavior: smooth; }
   *{box-sizing:border-box}
   html,body{height:100%;margin:0;padding:0}
   body{
@@ -47,48 +52,47 @@
     -webkit-font-smoothing:antialiased;
     -moz-osx-osx-font-smoothing:grayscale;
     line-height:1.5;
-    padding:28px;
-    transition: background-color .25s ease;
+    /* El padding se gestiona con el menú lateral */
+    padding: 28px;
+    padding-left: var(--menu-width-collapsed, 70px); /* Padding inicial para menú contraído */
+    transition: padding-left 0.3s ease-in-out;
   }
 
-    .wrap{
+  /* Clase que se añade al body cuando el menú está expandido */
+  body.menu-expanded {
+    padding-left: var(--menu-width-expanded, 240px);
+  }
+
+  .wrap{
     max-width:var(--maxw);
     margin:0 auto;
-    position:relative;
-    /* Las líneas de borde se han eliminado */
+    position:relative; /* Mantenemos relative para futuras alineaciones */
     padding: 0 10px;
   }
 
+  /* Anclaje para scroll suave */
+  section, details {
+      padding-top: 60px;
+      margin-top: -60px;
+  }
 
-  /* ESTILOS DEL SELECTOR DE IDIOMA */
+  /* --- CAMBIO AQUÍ --- */
+  /* ESTILOS DEL SELECTOR DE IDIOMA (FIJO) */
   .lang-switcher {
-    position: absolute;
-    top: 30px; /* Bajado a 5px para estar más visible */
-    right: 15px; /* Alineado al borde del wrap */
+    position: fixed; /* FIJO en la pantalla */
+    top: 30px; 
+    right: 30px; /* Más separado del borde */
     z-index: 1000;
     display: flex;
     gap: 10px;
   }
   .lang-switcher button {
-    background: var(--card-bg);
-    color: var(--fg);
-    border: 1px solid var(--accent-gold);
-    padding: 5px 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1.5em; 
-    line-height: 1;
-    transition: background-color 0.2s;
-    opacity: 0.8;
+    background: var(--card-bg); color: var(--fg); border: 1px solid var(--accent-gold);
+    padding: 5px 10px; border-radius: 8px; cursor: pointer; font-size: 1.5em; 
+    line-height: 1; transition: background-color 0.2s; opacity: 0.8;
   }
-  .lang-switcher button:hover {
-    opacity: 1;
-    background: rgba(255, 215, 0, 0.1); 
-  }
-  .lang-switcher button.active {
-    border-color: var(--accent-red);
-    background: rgba(255, 51, 102, 0.1);
-  }
+  .lang-switcher button:hover { opacity: 1; background: rgba(255, 215, 0, 0.1); }
+  .lang-switcher button.active { border-color: var(--accent-red); background: rgba(255, 51, 102, 0.1); }
 
   /* ESTILOS DEL ENCABEZADO PRINCIPAL (HEADER CARD) - CON MARCO DORADO */
   .main-header-card {
@@ -100,27 +104,15 @@
     border-radius: var(--radius);
     box-shadow: 0 10px 30px rgba(0,0,0,0.4);
     margin-bottom: 22px;
-    display: flex;
-    justify-content: space-between; 
-    align-items: center; 
-    gap: 20px; 
-    padding: 20px;
+    display: flex; justify-content: space-between; align-items: center; 
+    gap: 20px; padding: 20px;
   }
   
   header{
-    display:flex;
-    flex-direction: row; 
-    align-items: center; 
-    gap: 15px; 
-    margin-bottom:0;
-    flex-shrink: 0; 
+    display:flex; flex-direction: row; align-items: center; 
+    gap: 15px; margin-bottom:0; flex-shrink: 0; 
   }
-  .brand{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    flex-shrink: 0;
-  }
+  .brand{ display:flex; align-items:center; gap:14px; flex-shrink: 0; }
   .avatar{
     width:90px; height:90px; border-radius:12px; overflow:hidden;
     border:2px solid var(--accent-gold); 
@@ -128,54 +120,26 @@
   }
   .avatar img{width:100%;height:100%;object-fit:cover;display:block}
   
-  /* Nombre en Blanco con contorno dorado */
   .title{
-    font-weight:900;
-    font-size:36px; 
-    color: var(--fg); 
+    font-weight:900; font-size:36px; color: var(--fg); 
     text-shadow: 
-        -1px -1px 0 var(--accent-gold),  
-        1px -1px 0 var(--accent-gold),
-        -1px 1px 0 var(--accent-gold),
-        1px 1px 0 var(--accent-gold),
+        -1px -1px 0 var(--accent-gold), 1px -1px 0 var(--accent-gold),
+        -1px 1px 0 var(--accent-gold), 1px 1px 0 var(--accent-gold),
         0 0 10px rgba(255, 215, 0, 0.8); 
   } 
 
-  /* Estilo de Botones de CV (Ver CV, Descargar CV) */
   .btn-clean-gold {
-    background: transparent;
-    border: 2px solid var(--accent-gold);
-    color: var(--accent-gold);
-    padding:8px 12px;
-    border-radius:10px;
-    font-weight:700;
-    text-decoration:none;
-    display:inline-flex;
-    gap:8px;
-    align-items:center;
-    transition: background-color 0.15s;
-    flex-shrink: 0;
-  }
-  .btn-clean-gold:hover { background: rgba(255, 215, 0, 0.1); }
-  
-  /* Contenedor de botones de CV */
-  .header-main-buttons { 
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  
-  /* Botones de Contacto Rápido y otros */
-  .btn-clean-primary {
-    background: transparent; border: 2px solid var(--btn-primary); color: var(--btn-primary);
+    background: transparent; border: 2px solid var(--accent-gold); color: var(--accent-gold);
     padding:8px 12px; border-radius:10px; font-weight:700; text-decoration:none;
     display:inline-flex; gap:8px; align-items:center; transition: background-color 0.15s;
     flex-shrink: 0;
   }
-  .btn-clean-primary:hover { background: rgba(99, 185, 111, 0.1); }
+  .btn-clean-gold:hover { background: rgba(255, 215, 0, 0.1); }
+  
+  .header-main-buttons { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  
   .btn-clean-secondary {
-    background: transparent; border: 2px solid var(--btn-secondary); color: var(--btn-secondary);
+    background: transparent; border: 2px solid var(--accent-blue); color: var(--accent-blue);
     padding:8px 12px; border-radius:10px; font-weight:700; text-decoration:none;
     display:inline-flex; gap:8px; align-items:center; transition: background-color 0.15s;
     flex-shrink: 0;
@@ -190,113 +154,143 @@
     align-items:start;
     margin-bottom:28px;
   }
+  
+  /* --- CAMBIO AQUÍ (Clases añadidas) --- */
+  .hero-main { display: flex; flex-direction: column; gap: 28px; }
+  .hero-aside { position: sticky; top: 28px; display: flex; flex-direction: column; gap: 28px; }
 
   /* Estilos base para todas las tarjetas de contenido */
   .card{
-    position: relative; /* CLAVE para el ::after */
-    background: var(--card-bg);
-    border:1px solid var(--card-border);
-    padding:20px;
-    border-radius:var(--radius);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
-    color:var(--fg);
-    transition: all 0.2s ease;
-    overflow: hidden; 
+    position: relative; background: var(--card-bg); border:1px solid var(--card-border);
+    padding:20px; border-radius:var(--radius); box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+    color:var(--fg); overflow: hidden;
+    /* Animación (se define más abajo) */
+    border-left: 5px solid; /* Borde izquierdo base (color se aplica por ID) */
   }
-  .card:hover { box-shadow: 0 0 15px rgba(255,255,255,0.1); }
+  .card:hover { 
+    box-shadow: 0 0 15px rgba(255,255,255,0.1); 
+    transform: translateY(0); /* Evita saltos en hover */
+  }
 
-  /* INICIO: LÍNEA DECORATIVA DERECHA (::after) - VERTICAL Y VISIBLE */
+  /* Línea decorativa derecha */
   .card::after {
-      content: '';
-      position: absolute;
-      top: 0; 
-      right: 0; 
-      width: 5px; 
-      height: 35px; 
-      border-top-right-radius: var(--radius); 
-      z-index: 1; 
+      content: ''; position: absolute; top: 0; right: 0; 
+      width: 5px; height: 35px; 
+      border-top-right-radius: var(--radius); z-index: 1; 
   }
-  /* FIN: LÍNEA DECORATIVA DERECHA (::after) */
     
-  /* Colores de las líneas laterales y ::after */
-  main .card:nth-of-type(1) { border-left: 5px solid var(--accent-blue); } 
-  main .card:nth-of-type(1)::after { background: var(--accent-blue); } 
-  main .card:nth-of-type(2) { border-left: 5px solid var(--accent-green); } 
-  main .card:nth-of-type(2)::after { background: var(--accent-green); } 
-  main .card:nth-of-type(3) { border-left: 5px solid var(--accent-yellow); } 
-  main .card:nth-of-type(3)::after { background: var(--accent-yellow); } 
-  main .card:nth-of-type(4) { border-left: 5px solid var(--accent-purple); } 
-  main .card:nth-of-type(4)::after { background: var(--accent-purple); } 
-  main .card:nth-of-type(5) { border-left: 5px solid var(--accent-blue); } 
-  main .card:nth-of-type(5)::after { background: var(--accent-blue); } 
-  main .card:nth-of-type(6) { border-left: 5px solid var(--accent-green); } 
-  main .card:nth-of-type(6)::after { background: var(--accent-green); } 
-  main .card:nth-of-type(7) { border-left: 5px solid var(--accent-yellow); } 
-  main .card:nth-of-type(7)::after { background: var(--accent-yellow); } 
-  main .card:nth-of-type(8) { border-left: 5px solid var(--accent-red); } 
-  main .card:nth-of-type(8)::after { background: var(--accent-red); } 
-  main .card:nth-of-type(9) { border-left: 5px solid var(--accent-purple); } 
-  main .card:nth-of-type(9)::after { background: var(--accent-purple); } 
-  aside .card:nth-of-type(1) { border-left: 5px solid var(--accent-purple); } 
-  aside .card:nth-of-type(1)::after { background: var(--accent-purple); } 
-  aside .card:nth-of-type(2) { border-left: 5px solid var(--accent-green); } 
-  aside .card:nth-of-type(2)::after { background: var(--accent-green); } 
-  aside .card:nth-of-type(3) { border-left: 5px solid var(--accent-blue); } 
-  aside .card:nth-of-type(3)::after { background: var(--accent-blue); } 
-  aside .card:nth-of-type(4) { border-left: 5px solid var(--accent-gold); } 
-  aside .card:nth-of-type(4)::after { background: var(--accent-gold); } 
-
-  /* Títulos y Contenido */
-  main .card:nth-of-type(2) strong { color: var(--accent-gold); } 
-  main .card:nth-of-type(3) strong { color: var(--accent-yellow); } 
-  main .card:nth-of-type(4) strong { color: var(--accent-purple); }
-  main .card:nth-of-type(5) strong { color: var(--accent-blue); }
-  main .card:nth-of-type(6) strong { color: var(--accent-green); }
-  main .card:nth-of-type(7) strong { color: var(--accent-yellow); }
+  /* --- CAMBIO AQUÍ (REFACTOR DE COLORES POR SECCIÓN ID) --- */
+  /* Todas las reglas nth-of-type fueron eliminadas */
   
-  .profile-title{font-size:16px;font-weight:800;margin-bottom:8px}
+  /* Perfil (Azul) */
+  #perfil { border-left-color: var(--accent-blue); } 
+  #perfil::after { background: var(--accent-blue); }
+  #perfil .profile-title { color: var(--accent-blue); }
+
+  /* Proyectos (Morado) */
+  #proyectos > summary { color: var(--accent-purple); border-color: rgba(153, 51, 204, 0.3); }
+  #proyectos .section-content .card { border-left-color: var(--accent-purple); opacity: 1; transform: none; } /*Hijos no se animan*/
+  #proyectos .section-content .card::after { background: var(--accent-purple); }
+  #proyectos .section-content .card strong { color: var(--fg); } /* Títulos internos blancos */
+
+  /* Experiencia (Verde Esmeralda) */
+  #experiencia > summary { color: var(--accent-emerald); border-color: rgba(46, 139, 87, 0.3); }
+  #experiencia .section-content .card { border-left-color: var(--accent-emerald); opacity: 1; transform: none; }
+  #experiencia .section-content .card::after { background: var(--accent-emerald); }
+  #experiencia .section-content .card strong { color: var(--fg); } /* Títulos internos blancos */
+
+  /* Logros (Dorado) */
+  #logros > summary { color: var(--accent-gold); border-color: rgba(255, 215, 0, 0.3); }
+  #logros .section-content .card { border-left-color: var(--accent-gold); opacity: 1; transform: none; }
+  #logros .section-content .card::after { background: var(--accent-gold); }
+
+  /* Cursos (Amarillo) */
+  #cursos > summary { color: var(--accent-yellow); border-color: rgba(255, 195, 0, 0.3); }
+  #cursos .section-content .card { border-left-color: var(--accent-yellow); opacity: 1; transform: none; }
+  #cursos .section-content .card::after { background: var(--accent-yellow); }
+
+  /* --- ASIDE --- */
+  /* Formación (Morado) */
+  #formacion { border-left-color: var(--accent-purple); } 
+  #formacion::after { background: var(--accent-purple); } 
+  #formacion > div:first-child { color: var(--accent-purple); font-weight: 800; margin-bottom: 15px; }
+  
+  /* Contacto (Verde) */
+  #contacto { border-left-color: var(--accent-green); } 
+  #contacto::after { background: var(--accent-green); } 
+  #contacto > div:first-child { color: var(--accent-green); font-weight: 800; margin-bottom: 8px; }
+  
+  /* Habilidades (Azul) */
+  #habilidades { border-left-color: var(--accent-blue); } 
+  #habilidades::after { background: var(--accent-blue); } 
+  #habilidades > div:first-child { color: var(--accent-blue); font-weight: 800; margin-bottom: 8px; }
+  
+  /* Habilidades Blandas (Dorado) (Sigue siendo el 4to hijo de aside) */
+  aside .card:nth-of-type(4) { border-left-color: var(--accent-gold); } 
+  aside .card:nth-of-type(4)::after { background: var(--accent-gold); } 
+  aside .card:nth-of-type(4) > div:first-child { color: var(--accent-gold); font-weight: 800; margin-bottom: 8px; }
+  
+  /* --- FIN REFACTOR DE COLORES --- */
+
+  
+  /* Títulos y Contenido */
+  h2.profile-title{font-size:18px;font-weight:800;margin-top: 0; margin-bottom:8px}
   .profile-text{color:var(--fg);opacity:1;font-size:15px;line-height:1.6;}
   .skill-pill { color: var(--fg); padding: 6px 10px; border-radius: 6px; margin: 4px; display: inline-block; font-size: 14px; border: 1px solid rgba(255,255,255,0.15); }
   .skills { display: flex; flex-wrap: wrap; margin-top: 10px; }
 
-  /* Títulos de sección (Experiencia, Logros, Cursos) */
+  /* --- CAMBIO AQUÍ (Estilos de Títulos de Sección) --- */
+  
+  /* Títulos de sección (h2 dentro de summary) */
   h2.section{
-    font-size:18px; color:var(--accent-red); margin: 20px 0 15px 0; font-weight:800; 
-    border-bottom: 2px solid rgba(255, 51, 102, 0.3); padding-bottom: 4px;
-    cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+    font-size:18px; margin: 0; font-weight:800; 
+    flex-grow: 1; /* Empuja la flecha a la derecha */
   }
+  /* El color del h2 lo hereda del summary */
+  summary > h2.section { color: inherit !important; }
 
-  /* ESTILOS DE LOS TÍTULOS INTERNOS DE TARJETA */
-  main .card:nth-of-type(1) .profile-title { color: var(--accent-blue); } /* Perfil */
-  aside .card:nth-of-type(1) div:first-child { color: var(--accent-purple); } /* Título Formación Académica */
-  aside .card:nth-of-type(2) div:first-child { color: var(--accent-green); } /* Título Contacto */
-  aside .card:nth-of-type(3) div:first-child { color: var(--accent-blue); } /* Título Habilidades Técnicas */
-  aside .card:nth-of-type(4) div:first-child { color: var(--accent-gold); } /* Título Habilidades Blandas */
+  /* Estilo del <summary> que contiene el título */
+  details > summary {
+      /* El color de texto y borde se aplica por ID */
+      border-bottom: 2px solid; 
+      padding-bottom: 4px; margin-bottom: 15px;
+      cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+      position: relative; /* Para la flecha */
+  }
+  
+  /* Flecha desplegable (NUEVO) */
+  details > summary::after {
+    content: '▼'; /* Flecha hacia abajo */
+    font-size: 0.8em;
+    color: var(--muted);
+    margin-left: 10px; /* Espacio entre título y flecha */
+    transition: transform 0.2s ease-out;
+    flex-shrink: 0; /* Evita que la flecha se encoja */
+  }
+  details[open] > summary::after {
+    transform: rotate(180deg); /* Flecha hacia arriba */
+  }
+  
+  /* Contenido dentro de las secciones <details> (NUEVO) */
+  .section-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* Espacio entre tarjetas de experiencia/proyectos */
+  }
+  .clean { padding-left: 20px; margin: 0; } /* Estilo para listas <ul> */
 
-  /* Estilo del título IPN Politécnico (Guinda) */
   .acad-ipn-title {
-    color: var(--accent-guinda);
-    font-weight: 800;
-    margin-top: 0;
-    margin-bottom: 12px;
-    font-size: 18px;
-    text-align: center;
+    color: var(--accent-guinda); font-weight: 800;
+    margin-top: 0; margin-bottom: 12px;
+    font-size: 18px; text-align: center;
   }
+  
+  /* --- CAMBIO AQUÍ (Estilos de Contacto simplificados) --- */
+  /* Los estilos de .contact-list ahora son para los botones presionables */
+  .contact-small { font-size: 0.9em; color: var(--muted); }
 
-  /* RESTAURACIÓN: Colores de los íconos de contacto (Importante) */
-  .contact-list a { color: var(--fg); text-decoration: none; display: flex; align-items: center; } 
-  .contact-list a i { margin-right: 8px; font-size: 1.1em; } 
-  .contact-list li { margin: 8px 0; overflow-wrap: break-word; } 
-  .contact-list li:nth-child(1) a i { color: var(--accent-green); } 
-  .contact-list li:nth-child(2) a i { color: var(--accent-green); } 
-  .contact-list li:nth-child(3) a i { color: var(--accent-yellow); } 
-  .contact-list li:nth-child(4) a i { color: var(--accent-purple); } 
-  .contact-list li:nth-child(5) a i { color: var(--accent-blue); } 
-  .contact-list li:nth-child(6) a i { color: var(--accent-red); } 
-  .contact-list li:nth-child(7) a i { color: var(--accent-green); } 
-  .contact-list li:nth-child(8) a i { color: var(--accent-yellow); } 
 
-  /* RESTAURACIÓN: Estilos específicos de los bloques IoT (Tesis) */
+  /* Estilos bloques IoT (Tesis) */
   .iot-block{margin-top: 14px; padding:0; background: transparent; border: none;}
   .iot-block h3{color:var(--accent-purple); margin:16px 0 10px 0; font-size:18px; font-weight:800; text-shadow: 0 0 2px rgba(153, 51, 204, 0.5);}
   .iot-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px; margin-top: 14px;}
@@ -311,41 +305,11 @@
   .sello{width:40px;height:40px;border-radius:8px;overflow:hidden}
   .sello img{width:100%;height:100%;object-fit:cover}
 
-  /* RESPONSIVE TWEAKS (PARA MÓVILES) */
-  @media (max-width:980px){
-    body {
-      padding: 28px 15px; /* Restaura padding original */
-      padding-left: var(--menu-width-collapsed, 70px); /* Añade espacio para el menú colapsado */
-    }
-    .main-header-card { 
-      flex-direction: column; align-items: flex-start; gap: 15px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1); 
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      border-right: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    header { width: 100%; flex-direction: column; align-items: flex-start; gap: 10px; }
-    .header-main-buttons { 
-      width: 100%; justify-content: flex-start; padding: 10px 0; 
-      border-top: none; border-bottom: none; border-right: none;
-      box-shadow: none;
-    }
-    
-    .wrap { padding: 0; border-left: none; border-right: none; }
-    .hero { grid-template-columns: 1fr; } 
-  }
-    /*css de las particulas*/
-    #particles-js {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: -1; 
+  /* Partículas */
+  #particles-js {
+    position: fixed; width: 100%; height: 100%;
+    top: 0; left: 0; z-index: -1; 
     background-color: var(--bg-uniform);
-    background-image: url("");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 50% 50%;
   }
 
   /* ============================================= */
@@ -368,89 +332,51 @@
     padding-left: var(--menu-width-expanded, 240px); /* Usamos 240px como valor por defecto */
   }
   
-  /* El menú lateral */
   .side-navbar {
-    position: fixed; /* Fijo en la pantalla */
-    top: 0;
-    left: 0;
-    height: 100vh; /* Alto completo */
-    background: var(--card-bg);
+    position: fixed; top: 0; left: 0;
+    height: 100vh; background: var(--card-bg);
     border-right: 1px solid var(--card-border);
-    width: var(--menu-width-collapsed, 70px); /* Ancho inicial (contraído) */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 0;
+    width: var(--menu-width-collapsed, 70px); 
+    display: flex; flex-direction: column;
+    align-items: center; padding: 20px 0;
     z-index: 1000;
-    overflow: hidden; /* Oculta el texto cuando está contraído */
-    transition: width 0.3s ease-in-out; /* La animación de expansión */
+    overflow: hidden; 
+    transition: width 0.3s ease-in-out; 
   }
 
-  /* Estilos cuando el menú está expandido */
   .side-navbar.expanded {
     width: var(--menu-width-expanded, 240px);
-    align-items: flex-start; /* Alinea los items a la izquierda */
+    align-items: flex-start; 
   }
 
-  /* Contenedor de los enlaces */
-  .side-navbar ul {
-    list-style: none;
-    padding: 0;
-    margin: 20px 0 0 0;
-    width: 100%;
-  }
+  .side-navbar ul { list-style: none; padding: 0; margin: 20px 0 0 0; width: 100%; }
 
-  /* Estilo de cada enlace del menú */
   .side-navbar .nav-link {
-    display: flex;
-    align-items: center;
-    color: var(--fg);
-    text-decoration: none;
-    padding: 15px 0 15px 23px; /* Mantiene el ícono a la izquierda */
-    height: 50px; /* Alto fijo */
-    width: 100%;
-    white-space: nowrap; /* Evita que el texto se rompa */
+    display: flex; align-items: center; color: var(--fg);
+    text-decoration: none; padding: 15px 0 15px 23px; 
+    height: 50px; width: 100%;
+    white-space: nowrap; 
     transition: background-color 0.2s ease;
   }
   
-  .side-navbar .nav-link:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-  }
+  .side-navbar .nav-link:hover { background-color: rgba(255, 255, 255, 0.1); }
   
-  /* Estilo del ícono */
-  .side-navbar .nav-link i {
-    font-size: 1.3em;
-    width: 24px; /* Ancho fijo para el ícono */
-    text-align: center;
-  }
+  .side-navbar .nav-link i { font-size: 1.3em; width: 24px; text-align: center; }
   
-  /* Estilo del texto del enlace (oculto por defecto) */
   .side-navbar .link-text {
-    margin-left: 20px;
-    font-weight: 600;
-    opacity: 0; /* Oculto */
-    transition: opacity 0.2s ease;
+    margin-left: 20px; font-weight: 600;
+    opacity: 0; transition: opacity 0.2s ease;
   }
   
-  /* Mostramos el texto cuando el menú está expandido */
-  .side-navbar.expanded .link-text {
-    opacity: 1;
-  }
+  .side-navbar.expanded .link-text { opacity: 1; }
   
-  /* Botón para expandir/contraer */
   #menu-toggle-btn {
-    background: none;
-    border: none;
-    color: var(--fg);
-    font-size: 1.5em;
-    cursor: pointer;
-    padding: 10px 23px; /* Alinear con los íconos */
+    background: none; border: none; color: var(--fg);
+    font-size: 1.5em; cursor: pointer;
+    padding: 10px 23px; 
   }
   
-  /* Ocultamos el botón de cerrar por defecto */
   #menu-toggle-btn .fa-chevron-left { display: none; }
-  
-  /* Mostramos el botón de cerrar cuando está expandido */
   .side-navbar.expanded #menu-toggle-btn .fa-chevron-left { display: inline; }
   .side-navbar.expanded #menu-toggle-btn .fa-chevron-right { display: none; }
 
@@ -459,71 +385,45 @@
   /* 2. ESTILOS DE LA ANIMACIÓN DE TARJETAS */
   /* ============================================= */
   
-  /* Modificamos la transición original de .card */
   .card {
     transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.2s ease;
     opacity: 0;
     transform: translateY(30px);
   }
-  /* Mantenemos el hover original */
-  .card:hover { 
-    box-shadow: 0 0 15px rgba(255,255,255,0.1); 
-    transform: translateY(0); /* Evita saltos raros */
-  }
-
-  /* Clase que se añade con JS cuando el elemento es visible */
   .card.is-visible {
     opacity: 1;
     transform: translateY(0);
   }
   
-    /* ============================================= */
+  /* ============================================= */
   /* 3. NUEVOS ESTILOS PARA CONTACTO (Presionables) */
   /* ============================================= */
 
-  /* Estilos específicos para la lista de contacto DENTRO de la tarjeta con id="contacto" */
   #contacto .contact-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    gap: 12px; /* Espacio entre botones */
+    list-style: none; padding: 0; margin: 0;
+    display: grid; gap: 12px; 
   }
-   #contacto .contact-list li {
-     display: block; /* Asegura que cada item ocupe su espacio */
-   }
+   #contacto .contact-list li { display: block; }
 
-  /* Estilo base del nuevo botón "presionable" */
   #contacto .contact-btn-pressable {
-    display: flex;
-    align-items: center;
-    padding: 12px 16px;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: 700;
-    color: #000; /* Color de texto oscuro por defecto */
+    display: flex; align-items: center; padding: 12px 16px;
+    border-radius: 10px; text-decoration: none; font-weight: 700;
+    color: #000; 
     transition: all 0.2s ease-out;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
   }
-
   #contacto .contact-btn-pressable:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(0,0,0,0.3);
   }
-
   #contacto .contact-btn-pressable i {
-    font-size: 1.2em;
-    margin-right: 12px;
-    width: 25px;
-    text-align: center;
-    /* Quitamos el color por defecto para que lo tome del botón padre */
-    color: inherit; 
+    font-size: 1.2em; margin-right: 12px;
+    width: 25px; text-align: center; color: inherit; 
   }
 
-  /* Colores de fondo y texto específicos para cada botón */
   #contacto .btn-email { background: var(--accent-yellow); color: #332400; }
   #contacto .btn-email:hover { box-shadow: 0 8px 25px rgba(255, 195, 0, 0.3); }
-  #contacto .btn-email i { color: #332400; } /* Aseguramos color del icono */
+  #contacto .btn-email i { color: #332400; } 
 
   #contacto .btn-whatsapp { background: var(--accent-green); color: #03120a; }
   #contacto .btn-whatsapp:hover { box-shadow: 0 8px 25px rgba(99, 185, 111, 0.3); }
@@ -549,7 +449,46 @@
   #contacto .btn-tiktok:hover { box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3); }
   #contacto .btn-tiktok i { color: #000; }
   
-  </style>
+  
+  /* RESPONSIVE TWEAKS (PARA MÓVILES) */
+  @media (max-width: 1100px) { /* Tablet y móvil */
+      .hero { grid-template-columns: 1fr; }
+      .hero-aside { position: static; } /* Quitamos sticky */
+  }
+  
+  @media (max-width:980px){
+    body {
+      padding: 28px 15px; /* Padding móvil */
+      padding-left: calc(var(--menu-width-collapsed, 70px) + 15px); /* Añade espacio para el menú colapsado */
+    }
+    body.menu-expanded {
+       padding-left: calc(var(--menu-width-expanded, 240px) + 15px);
+    }
+    
+    .wrap { padding: 0; }
+    
+    .main-header-card { 
+      flex-direction: column; align-items: flex-start; gap: 15px;
+      /* Mantenemos bordes dorados en móvil */
+    }
+    header { width: 100%; flex-direction: column; align-items: flex-start; gap: 10px; }
+    .header-main-buttons { 
+      width: 100%; justify-content: flex-start; padding-top: 10px; 
+    }
+    
+    /* --- CAMBIO AQUÍ --- */
+    .lang-switcher { top: 15px; right: 15px; } /* Ajuste móvil para flags fijas */
+    
+    footer { padding-left: 15px; padding-right: 15px; }
+  }
+  
+  @media (max-width: 480px) { /* Móvil pequeño */
+      .title { font-size: 28px; }
+      .avatar { width: 70px; height: 70px; }
+      footer { flex-direction: column; gap: 15px; padding-top: 20px; padding-bottom: 20px; }
+   }
+
+ </style>
 </head>
 <body>
   
@@ -572,14 +511,14 @@
       <li><a href="#habilidades" class="nav-link" title="Habilidades"><i class="fa-solid fa-cogs"></i><span class="link-text">Habilidades</span></a></li>
     </ul>
   </nav>
+  <div class="lang-switcher">
+      <button onclick="translatePage('es')" id="flag-es" class="active">🇲🇽</button>
+      <button onclick="translatePage('en')" id="flag-en">🇺🇸</button>
+  </div>
 
   <div class="wrap">
     
-    <div class="lang-switcher">
-      <button onclick="translatePage('es')" id="flag-es" class="active">🇲🇽</button>
-      <button onclick="translatePage('en')" id="flag-en">🇺🇸</button>
-    </div>
-
+    
     <div class="main-header-card card"> <header>
             <div class="brand">
                 <div class="avatar" title="Foto de Sergio">
