@@ -105,32 +105,27 @@
   .lang-switcher button:hover { opacity: 1; background: rgba(255, 215, 0, 0.1); }
   .lang-switcher button.active { border-color: var(--accent-red); background: rgba(255, 51, 102, 0.1); }
 
-  /* --- ESTILOS DEL ENCABEZADO (Blanco y Negro) --- */
+  /* --- ESTILOS DEL ENCABEZADO (Corregido) --- */
   .main-header-card {
     background: var(--card-bg); border: 1px solid var(--card-border);
     border-radius: var(--radius); box-shadow: 0 10px 30px rgba(0,0,0,0.4);
     margin-bottom: 22px; display: flex; justify-content: space-between;
     align-items: center; gap: 20px; padding: 20px;
-    /* Líneas laterales Blancas */
-    border-left: 5px solid var(--fg); border-right: 5px solid var(--fg);
-    /* Quitamos bordes originales */
-    border-top: none; border-bottom: none;
+    /* Eliminadas las líneas laterales gruesas y bordes 'none' para un look limpio */
   }
   header{ display:flex; flex-direction: row; align-items: center; gap: 15px; flex-shrink: 0; }
   .brand{ display:flex; align-items:center; gap:14px; flex-shrink: 0; }
-  .avatar{ /* Borde Blanco */
+  .avatar{ /* Borde Blanco (Consistente) */
     width:90px; height:90px; border-radius:12px; overflow:hidden;
     border: 2px solid var(--fg);
-    box-shadow: none;
+    box-shadow: 0 0 10px rgba(238, 241, 240, 0.2); /* Sombra blanca sutil */
   }
   .avatar img{width:100%;height:100%;object-fit:cover;display:block}
-  /* Nombre con Relleno NEGRO y Contorno Blanco */
+  /* Nombre limpio con sombra sutil */
   .title{
     font-weight: 900; font-size: 36px;
-    color: #000; /* <-- RELLENO NEGRO */
-    text-shadow: /* Contorno blanco */
-      -1px -1px 0 var(--fg), 1px -1px 0 var(--fg),
-      -1px  1px 0 var(--fg), 1px  1px 0 var(--fg);
+    color: var(--fg); /* <-- RELLENO BLANCO */
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5); /* Sombra para legibilidad */
   }
   .header-main-buttons { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
   /* Botón Contorno Blanco */
@@ -365,7 +360,7 @@
     body.menu-expanded footer {
         padding-left: calc(var(--menu-width-expanded, 240px) + 15px);
     }
-    .main-header-card { flex-direction: column; align-items: flex-start; gap: 15px; border-left-width: 5px; border-right-width: 5px; border-top: none; border-bottom: none; }
+    .main-header-card { flex-direction: column; align-items: flex-start; gap: 15px; } /* Corregido: se quitan bordes gruesos */
     header { width: 100%; flex-direction: column; align-items: flex-start; gap: 10px; }
     .header-main-buttons { width: 100%; justify-content: flex-start; padding-top: 10px; }
     .lang-switcher { top: 15px; right: 15px; /* Ajustamos posición banderas */ }
