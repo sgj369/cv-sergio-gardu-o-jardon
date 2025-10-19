@@ -3,88 +3,107 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Demo: Encabezado Líneas Laterales Doradas</title>
+  <title>Demo: Iconos con Contorno</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <style>
-    /* 1. TUS VARIABLES Y ESTILOS BASE */
+    /* 1. VARIABLES Y ESTILOS BASE */
     :root{
-      --bg-uniform: #333; --fg: #eef1f0;
-      --accent-gold: #FFD700;
+      --bg-uniform: #333; --fg: #eef1f0; /* Blanco */
       --card-bg: rgba(0,0,0,0.88); --card-border: rgba(255,255,255,0.1);
-      --radius: 14px; --font-sans: Inter, system-ui, -apple-system, sans-serif;
-    }
-    body { font-family: var(--font-sans); background: var(--bg-uniform); padding: 28px; }
+      --font-sans: Inter, system-ui, -apple-system, sans-serif;
 
-    /* --- ⭐ LA MODIFICACIÓN: LÍNEAS LATERALES DORADAS ⭐ --- */
+      /* Paleta Refinada */
+      --accent-blue: #0077b6;
+      --accent-emerald: #2E8B57; /* Verde Esmeralda */
+      --accent-purple: #9933cc;
+      --accent-gold: #FFD700;
+      --accent-yellow: #ffc300;
+      --accent-green: #63b96f; /* Verde Brillante */
 
-    .main-header-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border); /* Mantenemos este para el contorno */
-      border-radius: var(--radius);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-      margin-bottom: 22px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      padding: 20px;
-      max-width: 1100px;
-      margin: auto;
+      --menu-width-collapsed: 70px;
+    }
+    body { font-family: var(--font-sans); background: var(--bg-uniform); color: var(--fg); margin: 0; padding-left: var(--menu-width-collapsed); }
 
-      /* QUITAMOS los bordes top, bottom, right dorados */
-      /* AÑADIMOS SOLO LAS LÍNEAS LATERALES DORADAS */
-      border-left: 5px solid var(--accent-gold); /* Línea dorada izquierda */
-      border-right: 5px solid var(--accent-gold); /* Línea dorada derecha */
+    /* --- ESTILOS DEL MENÚ LATERAL (Solo lo necesario para los iconos) --- */
+    .side-navbar {
+      position: fixed; top: 0; left: 0; height: 100vh; background: var(--card-bg);
+      border-right: 1px solid var(--card-border); width: var(--menu-width-collapsed);
+      display: flex; flex-direction: column; align-items: center; padding: 20px 0;
+      z-index: 1000;
+    }
+    .side-navbar ul { list-style: none; padding: 0; margin: 20px 0 0 0; width: 100%; }
+    .side-navbar .nav-link {
+      display: flex; align-items: center; text-decoration: none;
+      padding: 15px 0 15px 23px; height: 50px; width: 100%;
+    }
+    .side-navbar .nav-link i {
+      font-size: 1.5em; /* Un poco más grande para que se vea el efecto */
+      width: 24px;
+      text-align: center;
+      color: var(--fg); /* <-- Color blanco para el icono */
+      transition: text-shadow 0.2s ease; /* Transición suave */
     }
 
-    /* El resto de los estilos del header (sin cambios) */
-    header{ display:flex; flex-direction: row; align-items: center; gap: 15px; flex-shrink: 0; }
-    .brand{ display:flex; align-items:center; gap:14px; flex-shrink: 0; }
-    .avatar{
-      width:90px; height:90px; border-radius:12px; overflow:hidden;
-      border:2px solid var(--accent-gold); box-shadow:0 0 15px rgba(255, 215, 0, 0.5);
+    /* --- ⭐ LA MAGIA: CONTORNO CON TEXT-SHADOW ⭐ --- */
+
+    /* Función para crear el contorno */
+    .icon-outline(@color) {
+      text-shadow:
+        /* Esquinas */
+        -1px -1px 0 @color,
+         1px -1px 0 @color,
+        -1px  1px 0 @color,
+         1px  1px 0 @color,
+        /* Bordes directos (opcional, refuerza) */
+        -1px  0   0 @color,
+         1px  0   0 @color,
+         0   -1px 0 @color,
+         0    1px 0 @color;
     }
-    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
-    .title{
-      font-weight:900; font-size:36px; color: var(--fg);
-      text-shadow: -1px -1px 0 var(--accent-gold), 1px -1px 0 var(--accent-gold),
-                   -1px 1px 0 var(--accent-gold), 1px 1px 0 var(--accent-gold),
-                   0 0 10px rgba(255, 215, 0, 0.8);
+    /* NOTA: CSS puro no tiene funciones como LESS/SASS,
+       así que aplicamos la sombra directamente a cada clase */
+
+    /* Aplicamos el contorno con el color correspondiente */
+    .nav-link-perfil i     { .icon-outline(var(--accent-blue)); }
+    .nav-link-experiencia i{ .icon-outline(var(--accent-emerald)); }
+    .nav-link-proyectos i  { .icon-outline(var(--accent-purple)); }
+    .nav-link-logros i     { .icon-outline(var(--accent-gold)); }
+    .nav-link-cursos i     { .icon-outline(var(--accent-yellow)); }
+    .nav-link-formacion i  { .icon-outline(var(--accent-purple)); }
+    .nav-link-contacto i   { .icon-outline(var(--accent-green)); }
+    .nav-link-habilidades i{ .icon-outline(var(--accent-blue)); }
+
+    /* Efecto Hover (Opcional): Podemos quitar el contorno o cambiarlo */
+    .side-navbar .nav-link:hover i {
+       text-shadow: 0 0 5px var(--fg); /* Un brillo blanco al pasar el ratón */
     }
-    .header-main-buttons { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-    .btn-clean-gold {
-      background: transparent; border: 2px solid var(--accent-gold); color: var(--accent-gold);
-      padding:8px 12px; border-radius:10px; font-weight:700; text-decoration:none;
-      display:inline-flex; gap:8px; align-items:center; transition: background-color 0.15s;
-      flex-shrink: 0;
-    }
-    .btn-clean-gold:hover { background: rgba(255, 215, 0, 0.1); }
+
+    /* Estilos para el botón de expandir (sin cambios) */
+    #menu-toggle-btn { background: none; border: none; color: var(--fg); font-size: 1.5em; cursor: pointer; padding: 10px 23px; }
 
   </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/4.1.1/less.min.js"></script>
+
 </head>
 <body>
 
-  <div class="main-header-card">
-    <header>
-      <div class="brand">
-        <div class="avatar" title="Foto de Sergio">
-          <img src="perfil.png" alt="Sergio Garduño Jardón">
-        </div>
-        <div>
-          <div class="title">Sergio Garduño Jardón</div>
-        </div>
-      </div>
-    </header>
+  <nav class="side-navbar" id="side-navbar">
+    <button id="menu-toggle-btn" title="Expandir menú"><i class="fa-solid fa-chevron-right"></i></button>
+    <ul>
+      <li><a href="#perfil" class="nav-link nav-link-perfil" title="Perfil"><i class="fa-solid fa-user"></i></a></li>
+      <li><a href="#experiencia" class="nav-link nav-link-experiencia" title="Experiencia"><i class="fa-solid fa-briefcase"></i></a></li>
+      <li><a href="#proyectos" class="nav-link nav-link-proyectos" title="Proyectos"><i class="fa-solid fa-lightbulb"></i></a></li>
+      <li><a href="#logros" class="nav-link nav-link-logros" title="Logros"><i class="fa-solid fa-trophy"></i></a></li>
+      <li><a href="#cursos" class="nav-link nav-link-cursos" title="Cursos"><i class="fa-solid fa-graduation-cap"></i></a></li>
+      <li><a href="#formacion" class="nav-link nav-link-formacion" title="Formación"><i class="fa-solid fa-school"></i></a></li>
+      <li><a href="#contacto" class="nav-link nav-link-contacto" title="Contacto"><i class="fa-solid fa-envelope"></i></a></li>
+      <li><a href="#habilidades" class="nav-link nav-link-habilidades" title="Habilidades"><i class="fa-solid fa-cogs"></i></a></li>
+    </ul>
+  </nav>
 
-    <div class="header-main-buttons">
-      <a class="btn-clean-gold" href="#">
-        <i class="fa-solid fa-eye"></i> <span>Ver CV</span>
-      </a>
-      <a class="btn-clean-gold" href="#">
-        <i class="fa-solid fa-download"></i> <span>Descargar CV</span>
-      </a>
-    </div>
+  <div style="padding: 20px;">
+    Contenido principal...
   </div>
 
 </body>
