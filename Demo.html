@@ -35,20 +35,20 @@
     }
     .avatar img{width:100%;height:100%;object-fit:cover;display:block}
 
-    /* ⭐ Nombre con Contorno Blanco, SIN Relleno (Corregido) ⭐ */
-    .title{
-      font-weight: 900;
-      font-size: 36px;
-      color: transparent; /* <-- RELLENO TRANSPARENTE */
-      /* Creamos el contorno blanco usando text-shadow */
-      text-shadow:
-        -1px -1px 0 var(--fg),
-         1px -1px 0 var(--fg),
-        -1px  1px 0 var(--fg),
-         1px  1px 0 var(--fg);
-      /* Propiedad experimental opcional */
-      -webkit-text-stroke: 0.5px var(--fg);
-    }
+      /* ⭐ Nombre con Relleno NEGRO y Contorno Blanco ⭐ */
+  .title {
+    font-weight: 900;
+    font-size: 36px;
+    color: #000; /* <-- RELLENO NEGRO */
+    /* Creamos el contorno blanco usando text-shadow */
+    text-shadow:
+      -1px -1px 0 var(--fg),
+       1px -1px 0 var(--fg),
+      -1px  1px 0 var(--fg),
+       1px  1px 0 var(--fg);
+    /* Quitamos -webkit-text-stroke por simplicidad */
+  }
+
 
 
     .header-main-buttons { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
