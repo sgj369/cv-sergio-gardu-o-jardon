@@ -785,12 +785,93 @@
       });
     </script>
     
-    <script>
+        <script>
       document.getElementById('year').textContent = new Date().getFullYear();
 
+      /* --- CAMBIO AQUÍ --- */
+      // Se actualizaron los objetos 'en' y 'es' para las nuevas secciones.
       const translations = {
-          'en': { 'profile-title': 'Profile', 'profile-p1': 'Mechatronics Engineer specializing in IoT systems, data, and sustainable solutions. I design, develop, and deploy environmental monitoring systems that integrate hardware (ESP32 and sensors), renewable energy, and data pipelines (Google Sheets / SQL, dashboards).', 'profile-p2': 'Programming expertise in Python, C++/Arduino, and Google Apps Script to automate processes and create analytical models focused on optimizing resources and supporting decision-making. I seek to collaborate on projects that merge technology and nature to generate a positive environmental impact.', 'btn-view-cv-text': 'View CV', 'btn-download-cv-text': 'Download CV', 'exp-title': 'Experience & Projects', 'ecogaia-role': 'Eco Gaia SOS — Environmental Impact Platform', 'ecogaia-dates': '2024 – Present · CDMX', 'ecogaia-l1': 'Development and implementation of a web platform for management and dissemination of environmental calls and projects.', 'ecogaia-l2': 'Responsible for data organization, visualization, and local stakeholder support.', 'ecogaia-btn': '🌐 Visit Eco Gaia SOS', 'iot-role': 'IoT System for Green Roofs — Thesis Project', 'iot-dates': '2023 – 2025 · Field Validated', 'iot-l1': 'Design and deployment of an autonomous thermal monitoring system with ESP32, sensors, and solar power.', 'iot-l2': 'Development of data pipeline and dashboard for validating thermal reduction on green roofs.', 'iot-links': 'Project Green Roof Links', 'iot-btn1': '🌐 View Dashboard (Real-time data)', 'iot-btn2': '📊 View Data Sheet (Google Sheets)', 'iot-btn3': '📘 View Thesis (PDF)', 'robo-role': 'Robodacta — Design and Sales', 'robo-dates': '2022 – 2024', 'robo-l1': 'Design of educational kits, packaging, online courses, and audiovisual material; management of suppliers and sales.', 'meta-role': 'METAMORFOZIZ — Advertising and Production', 'meta-dates': '2021 – 2022', 'meta-l1': 'Graphic design, production of banners and signs, management of printing materials and processes.', 'ventas-role': 'Sales (Local) — Coyoacán', 'ventas-dates': '2021 – 2022', 'ventas-l1': 'Direct customer service, management of B2C and B2B sales, cash register operation, and inventory control.', 'serv-role': 'Technical Service (Own Business)', 'serv-dates': '2018 – 2020', 'serv-l1': 'Repair of electronic devices, purchase and sale of spare parts, inventory control, and customer service.', 'logros-title': 'Achievements', 'logros-l1': 'IoT prototype validated in the field for thermal and energy monitoring (Thesis).', 'logros-l2': 'Technical participation in the National Biotechnology Congress (Oaxaca, 2025).', 'logros-l3': 'Implementation and development of the Eco Gaia SOS platform.', 'cursos-title': 'Courses & Certificates', 'cursos-l1': 'Seminar: Design of manufacturing automation and integration of programmable devices.', 'cursos-l2': 'Course/Self-study: Python for data analysis (pandas) — practical projects.', 'cursos-l3': 'Certification in progress: English B2.', 'acad-title': 'Academic Background', 'acad-eng-title': 'Mechatronics Engineering (UPIITA)', 'acad-tech-title': 'Technician in Business Administration', 'acad-tech-dates': '2015 – 2018', 'contact-title': 'Contact', 'tech-skills-title': 'Technical Skills', 'soft-skills-title': 'Soft Skills', 'skill-cpp': 'C++ / Arduino', 'skill-python': 'Python (pandas)', 'skill-esp32': 'ESP32 & sensors', 'skill-sql': 'SQL & Google Sheets', 'skill-solar': 'Solar Panels & Batteries', 'skill-apps-script': 'Google Apps Script', 'soft-l1': 'Leadership', 'soft-l2': 'Creativity and innovation', 'soft-l3': 'Project planning and management', 'soft-l4': 'Teamwork', 'soft-l5': 'Adaptability', 'soft-l6': 'Certification in progress: English B2.', 'footer-name': 'Sergio Garduño Jardón', 'footer-source': 'Made with GitHub Pages', 'footer-contact': 'Contact: sgj.cheko@gmail.com' },
-          'es': { /* No necesita traducción */ }
+          'en': { 
+            'profile-title': 'Profile', 
+            'profile-p1': 'Mechatronics Engineer specializing in IoT systems, data, and sustainable solutions. I design, develop, and deploy environmental monitoring systems that integrate hardware (ESP32 and sensors), renewable energy, and data pipelines (Google Sheets / SQL, dashboards).', 
+            'profile-p2': 'Programming expertise in Python, C++/Arduino, and Google Apps Script to automate processes and create analytical models focused on optimizing resources and supporting decision-making. I seek to collaborate on projects that merge technology and nature to generate a positive environmental impact.', 
+            'btn-view-cv-text': 'View CV', 
+            'btn-download-cv-text': 'Download CV', 
+            
+            /* --- Títulos de Sección Corregidos --- */
+            'proyectos-title': 'Personal Projects',
+            'exp-title': 'Work Experience', 
+            
+            /* --- Proyectos --- */
+            'ecogaia-role': 'Eco Gaia SOS — Environmental Impact Platform', 
+            'ecogaia-dates': '2024 – Present · CDMX', 
+            'ecogaia-l1': 'Development and implementation of a web platform for management and dissemination of environmental calls and projects.', 
+            'ecogaia-l2': 'Responsible for data organization, visualization, and local stakeholder support.', 
+            'ecogaia-btn': '🌐 Visit Eco Gaia SOS', 
+            'iot-role': 'IoT System for Green Roofs — Thesis Project', 
+            'iot-dates': '2023 – 2025 · Field Validated', 
+            'iot-l1': 'Design and deployment of an autonomous thermal monitoring system with ESP32, sensors, and solar power.', 
+            'iot-l2': 'Development of data pipeline and dashboard for validating thermal reduction on green roofs.', 
+            'iot-links': 'Project Green Roof Links', 
+            'iot-btn1': '🌐 View Dashboard (Real-time data)', 
+            'iot-btn2': '📊 View Data Sheet (Google Sheets)', 
+            'iot-btn3': '📘 View Thesis (PDF)', 
+            
+            /* --- Experiencia --- */
+            'robo-role': 'Robodacta — Design and Sales', 
+            'robo-dates': '2022 – 2024', 
+            'robo-l1': 'Design of educational kits, packaging, online courses, and audiovisual material; management of suppliers and sales.', 
+            'meta-role': 'METAMORFOZIZ — Advertising and Production', 
+            'meta-dates': '2021 – 2022', 
+            'meta-l1': 'Graphic design, production of banners and signs, management of printing materials and processes.', 
+            'ventas-role': 'Sales (Local) — Coyoacán', 
+            'ventas-dates': '2021 – 2022', 
+            'ventas-l1': 'Direct customer service, management of B2C and B2B sales, cash register operation, and inventory control.', 
+            'serv-role': 'Technical Service (Own Business)', 
+            'serv-dates': '2018 – 2020', 
+            'serv-l1': 'Repair of electronic devices, purchase and sale of spare parts, inventory control, and customer service.', 
+            
+            /* --- Resto de secciones --- */
+            'logros-title': 'Achievements', 
+            'logros-l1': 'IoT prototype validated in the field for thermal and energy monitoring (Thesis).', 
+            'logros-l2': 'Technical participation in the National Biotechnology Congress (Oaxaca, 2025).', 
+            'logros-l3': 'Implementation and development of the Eco Gaia SOS platform.', 
+            'cursos-title': 'Courses & Certificates', 
+            'cursos-l1': 'Seminar: Design of manufacturing automation and integration of programmable devices.', 
+            'cursos-l2': 'Course/Self-study: Python for data analysis (pandas) — practical projects.', 
+            'cursos-l3': 'Certification in progress: English B2.', 
+            'acad-title': 'Academic Background', 
+            'acad-uni-title': 'IPN Polytechnic',
+            'acad-eng-title': 'Mechatronics Engineering (UPIITA)', 
+            'acad-eng-dates': '2018 - 2024',
+            'acad-tech-title': 'Technician in Business Administration', 
+            'acad-tech-dates': '2015 – 2018', 
+            'contact-title': 'Contact', 
+            'tech-skills-title': 'Technical Skills', 
+            'soft-skills-title': 'Soft Skills', 
+            'skill-cpp': 'C++ / Arduino', 
+            'skill-python': 'Python (pandas)', 
+            'skill-esp32': 'ESP32 & sensors', 
+            'skill-sql': 'SQL & Google Sheets', 
+            'skill-solar': 'Solar Panels & Batteries', 
+            'skill-apps-script': 'Google Apps Script', 
+            'soft-l1': 'Leadership', 
+            'soft-l2': 'Creativity and innovation', 
+            'soft-l3': 'Project planning and management', 
+            'soft-l4': 'Teamwork', 
+            'soft-l5': 'Adaptability', 
+            'soft-l6': 'Certification in progress: English B2.', 
+            'footer-name': 'Sergio Garduño Jardón', 
+            'footer-source': 'Made with GitHub Pages', 
+            'footer-contact': 'Contact: sgj.cheko@gmail.com' 
+          },
+          'es': { 
+            /* --- CAMBIO AQUÍ --- */
+            /* Añadimos los títulos en español para que la función los encuentre */
+            'proyectos-title': 'Proyectos Personales',
+            'exp-title': 'Experiencia Laboral'
+            /* El resto de las claves ES se toman del HTML original */
+          }
       };
 
       let currentLanguage = 'es';
@@ -806,50 +887,60 @@
         }
       }
 
+      /* --- CAMBIO AQUÍ --- */
+      // Función de traducción mejorada para manejar mejor los fallbacks
       function translatePage(lang) {
-        const t = translations[lang];
+        const t = translations[lang] || translations['es']; // Fallback a español
         const isEnglish = (lang === 'en');
+        
         document.querySelectorAll('[data-lang]').forEach(element => {
             const key = element.getAttribute('data-lang');
-            if (t[key]) {
+            
+            // Guarda el texto original ES la primera vez que se traduce a EN
+            if (isEnglish && !element.getAttribute('data-es-original')) {
+                 element.setAttribute('data-es-original', element.innerHTML);
+            }
+
+            if (t[key] !== undefined) { // Usar traducción si existe
                 applyText(element, t[key]);
-            } else if (lang === 'es') {
+            } else if (lang === 'es') { // Si volvemos a español
                 const originalText = element.getAttribute('data-es-original');
                 if (originalText) { applyText(element, originalText); }
-            }
+            } // Si es inglés y no hay traducción, deja el texto actual
         });
+        
         document.querySelectorAll('[data-lang-href-en]').forEach(button => {
-            const originalHref = button.getAttribute('href');
+            const originalHref = button.getAttribute('data-es-href') || button.getAttribute('href');
+             if (!button.getAttribute('data-es-href')) { button.setAttribute('data-es-href', originalHref); }
+             
             const englishHref = button.getAttribute('data-lang-href-en');
-            if (isEnglish) {
-                if (!button.getAttribute('data-es-href')) { button.setAttribute('data-es-href', originalHref); }
-                button.setAttribute('href', englishHref);
-            } else {
-                const spanishHref = button.getAttribute('data-es-href') || originalHref;
-                button.setAttribute('href', spanishHref);
-            }
+            button.setAttribute('href', isEnglish ? englishHref : originalHref);
         });
-        document.getElementById('btn-view-cv').querySelector('span').textContent = t['btn-view-cv-text'] || 'Ver CV';
-        document.getElementById('btn-download-cv').querySelector('span').textContent = t['btn-download-cv-text'] || 'Descargar CV';
-        document.getElementById('flag-es').classList.remove('active');
-        document.getElementById('flag-en').classList.remove('active');
-        document.getElementById(`flag-${lang}`).classList.add('active');
+        
+        // Actualizar texto específico de botones CV
+        const viewCvSpan = document.getElementById('btn-view-cv')?.querySelector('span');
+        if(viewCvSpan) viewCvSpan.textContent = t['btn-view-cv-text'] || 'Ver CV'; // Usa fallback
+        const downloadCvSpan = document.getElementById('btn-download-cv')?.querySelector('span');
+        if(downloadCvSpan) downloadCvSpan.textContent = t['btn-download-cv-text'] || 'Descargar CV'; // Usa fallback
+
+        document.getElementById('flag-es')?.classList.toggle('active', lang === 'es');
+        document.getElementById('flag-en')?.classList.toggle('active', lang === 'en');
         currentLanguage = lang;
         document.documentElement.lang = lang;
       }
 
       // INICIALIZACIÓN DE TODO
       document.addEventListener('DOMContentLoaded', () => {
+          
           // 1. Lógica de Traducción
+          // Guardar texto original ES al cargar
           document.querySelectorAll('[data-lang]').forEach(element => {
               if (!element.getAttribute('data-es-original')) {
                    element.setAttribute('data-es-original', element.innerHTML); 
               }
           });
-          document.getElementById('flag-es').classList.add('active');
+          document.getElementById('flag-es')?.classList.add('active'); // Activar bandera ES
           
-          // --- 👇 CÓDIGO NUEVO AÑADIDO 👇 ---
-
           // 2. LÓGICA DEL MENÚ LATERAL
           const menuToggleBtn = document.getElementById('menu-toggle-btn');
           const sideNavbar = document.getElementById('side-navbar');
@@ -862,7 +953,6 @@
           }
       
           // 3. LÓGICA DE ANIMACIÓN DE TARJETAS
-          // Seleccionamos TODAS las tarjetas
           const animatedCards = document.querySelectorAll('.card'); 
           
           const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -876,12 +966,9 @@
             threshold: 0.1 // Se activa cuando el 10% de la tarjeta es visible
           });
           
-          // Observamos cada tarjeta
           animatedCards.forEach(card => {
             revealObserver.observe(card);
           });
-          
-          // --- 👆 FIN DEL CÓDIGO NUEVO 👆 ---
       });
     </script>
   </body>
