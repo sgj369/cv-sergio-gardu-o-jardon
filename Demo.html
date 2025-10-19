@@ -45,16 +45,17 @@
   html,body{height:100%;margin:0;padding:0}
   body{
     font-family:var(--font-sans);
-    background: transparent; /* Para que se vea particles.js */
+    background: transparent;
     color:var(--fg);
     -webkit-font-smoothing:antialiased;
     -moz-osx-osx-font-smoothing:grayscale;
     line-height:1.5;
-    /* Padding SOLO a la izquierda para el menú */
-    padding-left: var(--menu-width-collapsed);
-    transition: padding-left 0.3s ease-in-out;
-    position: relative; /* Para cálculo correcto */
-    overflow-x: hidden; /* Evita scroll horizontal accidental */
+    /* QUITAMOS el padding-left de aquí */
+    /* padding: 28px; /* <- Puedes mantener este si quieres padding global,
+                          o quitarlo si el padding del wrap es suficiente */
+    position: relative; /* Mantenemos por si acaso */
+    overflow-x: hidden; /* Mantenemos por si acaso */
+    transition: none; /* Quitamos transición innecesaria aquí */
   }
    /* Clase que se añade al body cuando el menú está expandido */
   body.menu-expanded {
@@ -62,15 +63,23 @@
   }
 
   /* Contenedor principal corregido */
-    .wrap{
-    max-width: var(--maxw);
-    margin-left: auto; /* Centrado correcto */
+      .wrap{
+    max-width:var(--maxw);
+    margin-left: auto; /* Centrado */
     margin-right: auto;
     width: 100%; /* Ocupa espacio disponible */
+    position:relative;
     padding: 28px 10px; /* Padding vertical e interno horizontal */
+    /* AÑADIMOS padding-left para compensar el menú */
+    padding-left: calc(var(--menu-width-collapsed, 70px) + 10px); /* Menú + Padding interno */
     box-sizing: border-box;
-    position: relative; /* Para posicionar las banderas */
+    transition: padding-left 0.3s ease-in-out; /* Animamos el padding */
   }
+  /* Cuando el menú se expande, aumentamos el padding del wrap */
+  body.menu-expanded .wrap {
+      padding-left: calc(var(--menu-width-expanded, 240px) + 10px);
+  }
+
 
   /* Anclaje para scroll suave */
   section, details {
@@ -269,7 +278,15 @@
     /* Centrado */
     max-width: var(--maxw); margin-left: auto; margin-right: auto;
     width: 100%; box-sizing: border-box;
+    /* AÑADIMOS padding-left para compensar el menú */
+    padding-left: calc(var(--menu-width-collapsed, 70px) + 10px);
+    transition: padding-left 0.3s ease-in-out; /* Animamos el padding */
   }
+  /* Cuando el menú se expande, aumentamos el padding del footer */
+  body.menu-expanded footer {
+      padding-left: calc(var(--menu-width-expanded, 240px) + 10px);
+  }
+
   .footer-brand{display:flex;align-items:center;gap:8px}
   .sello{width:40px;height:40px;border-radius:8px;overflow:hidden}
   .sello img{width:100%;height:100%;object-fit:cover}
@@ -297,13 +314,22 @@
       .hero-aside { position: static; } /* Quitamos sticky */
   }
   @media (max-width: 980px){ /* Móvil */
-    body {
-      padding: 0; /* Quitamos padding global en móvil */
-      padding-left: var(--menu-width-collapsed); /* Mantenemos espacio menú */
+        .wrap {
+        padding: 28px 15px; /* Padding vertical/horizontal móvil */
+        /* Aplicamos padding-left móvil */
+        padding-left: calc(var(--menu-width-collapsed, 70px) + 15px);
     }
-    .wrap {
-        padding: 28px 15px; /* Aplicamos padding vertical/horizontal al wrap en móvil */
-     }
+    body.menu-expanded .wrap {
+        padding-left: calc(var(--menu-width-expanded, 240px) + 15px);
+    }
+
+    footer {
+        padding-left: calc(var(--menu-width-collapsed, 70px) + 15px);
+        padding-right: 15px; /* Padding derecho móvil */
+    }
+    body.menu-expanded footer {
+        padding-left: calc(var(--menu-width-expanded, 240px) + 15px);
+    }
     .main-header-card { flex-direction: column; align-items: flex-start; gap: 15px; border-left-width: 5px; border-right-width: 5px; border-top: none; border-bottom: none; }
     header { width: 100%; flex-direction: column; align-items: flex-start; gap: 10px; }
     .header-main-buttons { width: 100%; justify-content: flex-start; padding-top: 10px; }
