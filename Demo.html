@@ -3,16 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Demo: Nueva Jerarquía de Colores</title>
+  <title>Demo: Colores Refinados y Secciones Separadas</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <style>
-    /* 1. VARIABLES Y ESTILOS BASE (Tus variables originales) */
+    /* 1. VARIABLES Y ESTILOS BASE */
     :root{
       --bg-uniform: #333; --fg: #eef1f0; --muted: #a3a3a3;
       --accent-red: #ff3366; --accent-green: #63b96f; --accent-blue: #0077b6;
       --accent-yellow: #ffc300; --accent-purple: #9933cc; --accent-gold: #FFD700;
-      --accent-guinda: #900030;
+      /* Nuevo color para Experiencia Laboral */
+      --accent-emerald: #2E8B57; /* Verde Mar o Esmeralda */
+
       --card-bg: rgba(0,0,0,0.88); --card-border: rgba(255,255,255,0.1);
       --maxw: 1100px; --radius: 14px;
       --font-sans: Inter, system-ui, -apple-system, sans-serif;
@@ -27,8 +29,8 @@
     body.menu-expanded { padding-left: var(--menu-width-expanded); }
     section, details { padding-top: 60px; margin-top: -60px; } /* Anclaje */
 
-    /* --- ESTILOS DEL MENÚ LATERAL (Con iconos coloreados) --- */
-    .side-navbar {
+    /* --- ESTILOS DEL MENÚ LATERAL --- */
+    .side-navbar { /* ... Estilos del menú (igual que antes) ... */
       position: fixed; top: 0; left: 0; height: 100vh; background: var(--card-bg);
       border-right: 1px solid var(--card-border); width: var(--menu-width-collapsed);
       display: flex; flex-direction: column; align-items: center; padding: 20px 0;
@@ -36,11 +38,7 @@
     }
     .side-navbar.expanded { width: var(--menu-width-expanded); align-items: flex-start; }
     .side-navbar ul { list-style: none; padding: 0; margin: 20px 0 0 0; width: 100%; }
-    .side-navbar .nav-link {
-      display: flex; align-items: center; color: var(--fg); text-decoration: none;
-      padding: 15px 0 15px 23px; height: 50px; width: 100%; white-space: nowrap;
-      transition: background-color 0.2s ease;
-    }
+    .side-navbar .nav-link { display: flex; align-items: center; color: var(--fg); text-decoration: none; padding: 15px 0 15px 23px; height: 50px; width: 100%; white-space: nowrap; transition: background-color 0.2s ease; }
     .side-navbar .nav-link:hover { background-color: rgba(255, 255, 255, 0.1); }
     .side-navbar .nav-link i { font-size: 1.3em; width: 24px; text-align: center; transition: color 0.2s; }
     .side-navbar .link-text { margin-left: 20px; font-weight: 600; opacity: 0; transition: opacity 0.2s ease; }
@@ -50,14 +48,16 @@
     .side-navbar.expanded #menu-toggle-btn .fa-chevron-left { display: inline; }
     .side-navbar.expanded #menu-toggle-btn .fa-chevron-right { display: none; }
 
-    /* ⭐ 1. COLORES DE ICONOS DEL MENÚ (Coinciden con títulos de sección) */
+    /* ⭐ NUEVOS COLORES DE ICONOS DEL MENÚ */
     .nav-link-perfil i { color: var(--accent-blue); }
-    .nav-link-experiencia i { color: var(--accent-green); }
-    .nav-link-logros i { color: var(--accent-yellow); }
-    .nav-link-cursos i { color: var(--accent-purple); }
-    .nav-link-formacion i { color: var(--accent-purple); } /* Mismo color que aside */
-    .nav-link-contacto i { color: var(--accent-green); } /* Mismo color que aside */
-    .nav-link-habilidades i { color: var(--accent-blue); } /* Mismo color que aside */
+    .nav-link-experiencia i { color: var(--accent-emerald); } /* Verde Esmeralda */
+    .nav-link-proyectos i { color: var(--accent-purple); } /* Morado */
+    .nav-link-logros i { color: var(--accent-gold); } /* Dorado */
+    .nav-link-cursos i { color: var(--accent-yellow); } /* Amarillo */
+    .nav-link-formacion i { color: var(--accent-purple); } /* Morado (Igual que Proyectos) */
+    .nav-link-contacto i { color: var(--accent-green); } /* Verde Brillante */
+    .nav-link-habilidades i { color: var(--accent-blue); } /* Azul (Igual que Perfil) */
+
 
     /* --- LAYOUT Y TARJETAS --- */
     .hero-layout { display: grid; grid-template-columns: 1fr 360px; gap: 28px; align-items: start; max-width: 1200px; margin: 0 auto; padding: 28px; }
@@ -65,47 +65,60 @@
     .hero-aside { position: sticky; top: 28px; display: flex; flex-direction: column; gap: 28px; }
     .card {
       background: var(--card-bg); border: 1px solid var(--card-border); padding: 20px;
-      border-radius: var(--radius); border-left: 5px solid var(--accent-blue);
+      border-radius: var(--radius); border-left: 5px solid; /* El color se define por sección */
       opacity: 0; transform: translateY(30px);
       transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.2s ease;
     }
     .card:hover { box-shadow: 0 0 15px rgba(255,255,255,0.1); transform: translateY(0); }
     .card.is-visible { opacity: 1; transform: translateY(0); }
+    /* Títulos Principales de Sección (H2) */
     h2 { font-size: 18px; margin: 0 0 15px 0; font-weight: 800; border-bottom: 2px solid; padding-bottom: 4px; }
-    summary > h2 { border-bottom: none; padding-bottom: 0; margin-bottom: 0; cursor: pointer; } /* Quitar borde de H2 dentro de summary */
-    details > summary { border-bottom: 2px solid; padding-bottom: 4px; margin-bottom: 15px;} /* Aplicar borde al summary */
+    summary > h2 { border-bottom: none; padding-bottom: 0; margin-bottom: 0; cursor: pointer; }
+    details > summary { border-bottom: 2px solid; padding-bottom: 4px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;} /* Borde al summary */
 
 
-    /* ⭐ 2. COLORES DE TÍTULOS DE SECCIÓN (Reemplazando el rojo) */
+    /* ⭐ NUEVOS COLORES DE TÍTULOS DE SECCIÓN Y BORDES LATERALES */
+    #perfil { border-left-color: var(--accent-blue); }
     #perfil h2 { color: var(--accent-blue); border-color: rgba(0, 119, 182, 0.3); }
-    #experiencia > summary { color: var(--accent-green); border-color: rgba(99, 185, 111, 0.3); }
-    #logros > summary { color: var(--accent-yellow); border-color: rgba(255, 195, 0, 0.3); }
-    #cursos > summary { color: var(--accent-purple); border-color: rgba(153, 51, 204, 0.3); }
-    /* Colores de títulos en ASIDE (Se mantienen) */
+
+    #experiencia > summary { color: var(--accent-emerald); border-color: rgba(46, 139, 87, 0.4); }
+    #experiencia .section-content .card { border-left-color: var(--accent-emerald); }
+
+    #proyectos > summary { color: var(--accent-purple); border-color: rgba(153, 51, 204, 0.3); }
+    #proyectos .section-content .card { border-left-color: var(--accent-purple); }
+
+    #logros > summary { color: var(--accent-gold); border-color: rgba(255, 215, 0, 0.3); }
+    #logros .section-content .card { border-left-color: var(--accent-gold); }
+
+    #cursos > summary { color: var(--accent-yellow); border-color: rgba(255, 195, 0, 0.3); }
+    #cursos .section-content .card { border-left-color: var(--accent-yellow); }
+
+    /* Colores de títulos y bordes en ASIDE (Se mantienen) */
+    #formacion { border-left-color: var(--accent-purple); }
     #formacion > div:first-child { color: var(--accent-purple); font-weight: 800; margin-bottom: 15px; }
+
+    #contacto { border-left-color: var(--accent-green); }
     #contacto > div:first-child { color: var(--accent-green); font-weight: 800; margin-bottom: 8px; }
+
+    #habilidades { border-left-color: var(--accent-blue); }
     #habilidades > div:first-child { color: var(--accent-blue); font-weight: 800; margin-bottom: 8px; }
-    #habilidades + .card > div:first-child { color: var(--accent-gold); font-weight: 800; margin-bottom: 8px; } /* Título Habil. Blandas */
+
+    #habilidades + .card { border-left-color: var(--accent-gold); } /* Habil. Blandas */
+    #habilidades + .card > div:first-child { color: var(--accent-gold); font-weight: 800; margin-bottom: 8px; }
 
 
-    /* ⭐ 3. COLOR DE TÍTULOS DENTRO DE EXPERIENCIA (Blancos) */
-    #experiencia .section-content .card strong {
-      color: var(--fg); /* Color blanco para uniformidad */
+    /* ⭐ TÍTULOS INTERNOS DE EXPERIENCIA Y PROYECTOS (Blancos) */
+    #experiencia .section-content .card strong,
+    #proyectos .section-content .card strong {
+      color: var(--fg); /* Color blanco */
     }
-    /* Limpiamos estilos de color nth-of-type anteriores si existieran */
-    main .card:nth-of-type(2) strong,
-    main .card:nth-of-type(3) strong,
-    main .card:nth-of-type(4) strong,
-    main .card:nth-of-type(5) strong,
-    main .card:nth-of-type(6) strong,
-    main .card:nth-of-type(7) strong {
-        color: inherit; /* Hereda el color (blanco) */
-    }
-    /* Estilos para que los elementos dentro de details animen bien */
-    details .section-content .card { opacity: 1; transform: none; }
+    /* Limpieza extra por si acaso */
+     main .card strong { color: inherit; } /* Hereda blanco por defecto */
+     #experiencia .section-content .card strong,
+     #proyectos .section-content .card strong { color: var(--fg); } /* Fuerza blanco */
 
 
-    /* --- ESTILOS DE BOTONES DE CONTACTO (Presionables - Sin cambios) --- */
+    /* --- ESTILOS DE BOTONES DE CONTACTO (Sin cambios) --- */
     #contacto .contact-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
     #contacto .contact-list li { display: block; }
     #contacto .contact-btn-pressable { display: flex; align-items: center; padding: 12px 16px; border-radius: 10px; text-decoration: none; font-weight: 700; color: #000; transition: all 0.2s ease-out; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
@@ -118,6 +131,8 @@
     #contacto .btn-facebook { background: #1877F2; color: var(--fg); } #contacto .btn-facebook:hover { box-shadow: 0 8px 25px rgba(24, 119, 242, 0.3); } #contacto .btn-facebook i { color: var(--fg); }
     #contacto .btn-instagram { background: #E4405F; color: var(--fg); } #contacto .btn-instagram:hover { box-shadow: 0 8px 25px rgba(228, 64, 95, 0.3); } #contacto .btn-instagram i { color: var(--fg); }
     #contacto .btn-tiktok { background: #fff; color: #000; } #contacto .btn-tiktok:hover { box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3); } #contacto .btn-tiktok i { color: #000; }
+    /* Animación dentro de details */
+    details .section-content .card { opacity: 1; transform: none; }
 
     /* --- AJUSTES MÓVIL --- */
     @media (max-width: 1100px) { .hero-layout { grid-template-columns: 1fr; } .hero-aside { position: static; } }
@@ -132,6 +147,7 @@
     <ul>
       <li><a href="#perfil" class="nav-link nav-link-perfil" title="Perfil"><i class="fa-solid fa-user"></i><span class="link-text">Perfil</span></a></li>
       <li><a href="#experiencia" class="nav-link nav-link-experiencia" title="Experiencia"><i class="fa-solid fa-briefcase"></i><span class="link-text">Experiencia</span></a></li>
+      <li><a href="#proyectos" class="nav-link nav-link-proyectos" title="Proyectos"><i class="fa-solid fa-lightbulb"></i><span class="link-text">Proyectos</span></a></li>
       <li><a href="#logros" class="nav-link nav-link-logros" title="Logros"><i class="fa-solid fa-trophy"></i><span class="link-text">Logros</span></a></li>
       <li><a href="#cursos" class="nav-link nav-link-cursos" title="Cursos"><i class="fa-solid fa-graduation-cap"></i><span class="link-text">Cursos</span></a></li>
       <li><a href="#formacion" class="nav-link nav-link-formacion" title="Formación"><i class="fa-solid fa-school"></i><span class="link-text">Formación</span></a></li>
@@ -143,20 +159,33 @@
   <div class="hero-layout">
 
     <main class="hero-main">
-      <header class="card"><h1>Demo Colores</h1></header>
+      <header class="card"><h1>Demo Colores V2</h1></header>
 
       <section id="perfil" class="card">
-        <h2>Perfil</h2> <p>El título "Perfil" es azul, y el icono <i class="fa-solid fa-user" style="color:var(--accent-blue)"></i> en el menú también.</p>
+        <h2>Perfil</h2> <p>Título y borde azul. Icono del menú <i class="fa-solid fa-user" style="color:var(--accent-blue)"></i> azul.</p>
       </section>
 
       <details id="experiencia" open>
-         <summary><h2>Experiencia y Proyectos</h2></summary> <div class="section-content">
+         <summary><h2>Experiencia Laboral</h2></summary> <div class="section-content">
            <div class="card" style="margin-bottom: 12px;">
-             <strong>Título de Proyecto 1 (Blanco)</strong>
-             <p>El título "Experiencia..." es verde, y el icono <i class="fa-solid fa-briefcase" style="color:var(--accent-green)"></i> en el menú también. Los títulos internos (strong) son blancos.</p>
+             <strong>Robodacta (Blanco)</strong>
+             <p>Título "Experiencia Laboral" verde esmeralda, borde lateral verde esmeralda. Icono <i class="fa-solid fa-briefcase" style="color:var(--accent-emerald)"></i> verde esmeralda. Título interno blanco.</p>
            </div>
            <div class="card">
-             <strong>Título de Proyecto 2 (Blanco)</strong>
+             <strong>Metamorfoziz (Blanco)</strong>
+             <p>Este título también es blanco.</p>
+           </div>
+         </div>
+      </details>
+
+      <details id="proyectos" open>
+         <summary><h2>Proyectos Personales</h2></summary> <div class="section-content">
+           <div class="card" style="margin-bottom: 12px;">
+             <strong>EcoGaiaSOS (Blanco)</strong>
+             <p>Título "Proyectos" morado, borde lateral morado. Icono <i class="fa-solid fa-lightbulb" style="color:var(--accent-purple)"></i> morado. Título interno blanco.</p>
+           </div>
+           <div class="card">
+             <strong>Techos Verdes (Blanco)</strong>
              <p>Este título también es blanco.</p>
            </div>
          </div>
@@ -165,7 +194,7 @@
       <details id="logros">
          <summary><h2>Logros</h2></summary> <div class="section-content">
             <div class="card">
-              <p>El título "Logros" es amarillo, y el icono <i class="fa-solid fa-trophy" style="color:var(--accent-yellow)"></i> en el menú también.</p>
+              <p>Título "Logros" dorado, borde lateral dorado. Icono <i class="fa-solid fa-trophy" style="color:var(--accent-gold)"></i> dorado.</p>
             </div>
           </div>
       </details>
@@ -173,7 +202,7 @@
       <details id="cursos">
          <summary><h2>Cursos</h2></summary> <div class="section-content">
            <div class="card">
-             <p>El título "Cursos" es morado, y el icono <i class="fa-solid fa-graduation-cap" style="color:var(--accent-purple)"></i> en el menú también.</p>
+             <p>Título "Cursos" amarillo, borde lateral amarillo. Icono <i class="fa-solid fa-graduation-cap" style="color:var(--accent-yellow)"></i> amarillo.</p>
            </div>
          </div>
       </details>
@@ -184,11 +213,11 @@
 
     <aside class="hero-aside">
       <div class="card" id="formacion">
-        <div>Formación Académica</div> <p>Título morado, icono del menú <i class="fa-solid fa-school" style="color:var(--accent-purple)"></i> morado.</p>
+        <div>Formación Académica</div> <p>Título morado, borde lateral morado. Icono del menú <i class="fa-solid fa-school" style="color:var(--accent-purple)"></i> morado.</p>
       </div>
 
       <div class="card" id="contacto">
-        <div>Contacto</div> <p>Título verde, icono del menú <i class="fa-solid fa-envelope" style="color:var(--accent-green)"></i> verde. Botones "presionables".</p>
+        <div>Contacto</div> <p>Título verde brillante, borde lateral verde brillante. Icono del menú <i class="fa-solid fa-envelope" style="color:var(--accent-green)"></i> verde brillante.</p>
          <ul class="contact-list">
             <li><a href="#" class="contact-btn-pressable btn-email"><i class="fa-regular fa-envelope"></i><span>Email</span></a></li>
             <li><a href="#" class="contact-btn-pressable btn-whatsapp"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></a></li>
@@ -196,9 +225,9 @@
       </div>
 
       <div class="card" id="habilidades">
-         <div>Habilidades Técnicas</div> <p>Título azul, icono del menú <i class="fa-solid fa-cogs" style="color:var(--accent-blue)"></i> azul.</p>
+         <div>Habilidades Técnicas</div> <p>Título azul, borde lateral azul. Icono del menú <i class="fa-solid fa-cogs" style="color:var(--accent-blue)"></i> azul.</p>
       </div>
-      <div class="card"> <div>Habilidades Blandas</div> <p>Este título es dorado.</p>
+      <div class="card"> <div>Habilidades Blandas</div> <p>Título dorado, borde lateral dorado.</p>
       </div>
     </aside>
 
