@@ -71,46 +71,30 @@
   }
 
 
-  /* ESTILOS DEL SELECTOR DE IDIOMA (DENTRO DEL NAV) */
+    /* ESTILOS DEL SELECTOR DE IDIOMA (FIJO EN PANTALLA) */
   .lang-switcher {
-    position: absolute; /* Posición absoluta DENTRO del nav */
-    bottom: 20px; /* Abajo del menú */
-    left: 50%; /* Centrado horizontalmente */
-    transform: translateX(-50%); /* Ajuste fino para centrar */
+    position: fixed; /* FIJO en la pantalla */
+    top: 30px; 
+    right: 30px; /* Más separado del borde */
+    z-index: 1000;
     display: flex;
-    gap: 8px; /* Menos espacio entre banderas */
-    z-index: 1001; /* Encima de otros elementos del nav */
-    opacity: 0; /* Oculto por defecto */
-    transition: opacity 0.3s ease 0.1s; /* Animación suave */
-    pointer-events: none; /* No clickable cuando está oculto */
+    gap: 10px;
   }
-
-  /* Mostrar solo cuando el menú esté EXPANDIDO */
-  .side-navbar.expanded .lang-switcher {
-    opacity: 1; 
-    pointer-events: auto; /* Clickable cuando es visible */
-  }
-
   .lang-switcher button {
-    background: var(--card-bg);
-    color: var(--fg);
-    border: 1px solid var(--accent-gold);
-    padding: 3px 8px; /* Más pequeños */
-    border-radius: 6px; /* Menos redondeado */
-    cursor: pointer;
-    font-size: 1.2em; /* Tamaño reducido */
-    line-height: 1;
-    transition: background-color 0.2s;
-    opacity: 0.8;
+    background: var(--card-bg); color: var(--fg); border: 1px solid var(--accent-gold);
+    padding: 5px 10px; border-radius: 8px; cursor: pointer; font-size: 1.5em; 
+    line-height: 1; transition: background-color 0.2s; opacity: 0.8;
   }
-  .lang-switcher button:hover {
-    opacity: 1;
-    background: rgba(255, 215, 0, 0.1); 
-  }
-  .lang-switcher button.active {
-    border-color: var(--accent-red);
-    background: rgba(255, 51, 102, 0.1);
-  }
+  .lang-switcher button:hover { opacity: 1; background: rgba(255, 215, 0, 0.1); }
+  .lang-switcher button.active { border-color: var(--accent-red); background: rgba(255, 51, 102, 0.1); }
+
+  /* Ajuste responsive para móviles */
+   @media (max-width:980px){
+     .lang-switcher { 
+       top: 15px; 
+       right: 15px; 
+     }
+   }
 
   /* ESTILOS DEL ENCABEZADO PRINCIPAL (HEADER CARD) - CON MARCO DORADO */
     .main-header-card {
@@ -606,11 +590,7 @@
       <i class="fa-solid fa-chevron-right"></i>
       <i class="fa-solid fa-chevron-left"></i>
     </button>
-    <div class="lang-switcher">
-      <button onclick="translatePage('es')" id="flag-es" class="active">🇲🇽</button>
-      <button onclick="translatePage('en')" id="flag-en">🇺🇸</button>
-    </div>
-     <ul>
+      <ul>
       <li><a href="#perfil" class="nav-link nav-link-perfil" title="Perfil"><i class="fa-solid fa-user"></i><span class="link-text">Perfil</span></a></li>
       <li><a href="#proyectos" class="nav-link nav-link-proyectos" title="Proyectos"><i class="fa-solid fa-lightbulb"></i><span class="link-text">Proyectos</span></a></li>
       <li><a href="#experiencia" class="nav-link nav-link-experiencia" title="Experiencia"><i class="fa-solid fa-briefcase"></i><span class="link-text">Experiencia</span></a></li>
@@ -621,9 +601,10 @@
       <li><a href="#habilidades" class="nav-link nav-link-habilidades" title="Habilidades"><i class="fa-solid fa-cogs"></i><span class="link-text">Habilidades</span></a></li>
     </ul>
   </nav>
-
-  
-
+  <div class="lang-switcher">
+      <button onclick="translatePage('es')" id="flag-es" class="active">🇲🇽</button>
+      <button onclick="translatePage('en')" id="flag-en">🇺🇸</button>
+  </div>
   <div class="wrap">
     
     
