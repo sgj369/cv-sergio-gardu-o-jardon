@@ -3,114 +3,606 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Visualización Encabezado Final</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <title>Sergio Garduño Jardón — CV & Portfolio</title>
+  <meta name="description" content="Ingeniero mecatrónico orientado a la sostenibilidad y sistemas inteligentes. IoT, datos, energía solar y proyectos ambientales." />
+
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <meta name="theme-color" content="#072d16">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
-    /* 1. Variables y Estilos Base Necesarios */
-    :root{
-      --bg-uniform: #333; --fg: #eef1f0; /* Blanco suave */
-      --accent-gold: #FFD700;
-      --card-bg: rgba(0,0,0,0.88); --card-border: rgba(255,255,255,0.1);
-      --radius: 14px; --font-sans: Inter, system-ui, -apple-system, sans-serif;
-    }
-    body { font-family: var(--font-sans); background: var(--bg-uniform); padding: 28px; }
+  :root{
+    --bg-uniform: #333; /* Fondo gris oscuro */
+    --fg: #eef1f0; /* Blanco suave para texto principal */
+    --muted: #a3a3a3; /* Gris para texto secundario */
 
-    /* --- ESTILOS DEL ENCABEZADO --- */
-    .main-header-card {
-      background: var(--card-bg); border: 1px solid var(--card-border);
-      border-radius: var(--radius); box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-      margin-bottom: 22px; display: flex; justify-content: space-between;
-      align-items: center; gap: 20px; padding: 20px;
-      /* Líneas laterales Blancas */
-      border-left: 5px solid var(--fg); border-right: 5px solid var(--fg);
-      max-width: 1100px; margin: auto;
-    }
-    header{ display:flex; flex-direction: row; align-items: center; gap: 15px; flex-shrink: 0; }
-    .brand{ display:flex; align-items:center; gap:14px; flex-shrink: 0; }
-    .avatar{ /* Borde Blanco */
-      width:90px; height:90px; border-radius:12px; overflow:hidden;
-      border: 2px solid var(--fg);
-      box-shadow: none;
-    }
-    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+    /* Paleta de Acentos */
+    --accent-red: #ff3366;
+    --accent-green: #63b96f; /* Verde Brillante (Contacto) */
+    --accent-blue: #0077b6; /* Azul (Perfil, Habilidades) */
+    --accent-yellow: #ffc300; /* Amarillo (Cursos) */
+    --accent-purple: #9933cc; /* Morado (Proyectos, Formación) */
+    --accent-gold: #FFD700; /* Dorado (Logros, Habilidades Blandas) */
+    --accent-emerald: #2E8B57; /* Verde Esmeralda (Experiencia) */
+    --accent-guinda: #900030; /* Guinda/Borgoña para el título IPN */
 
-      /* ⭐ Nombre con Relleno NEGRO y Contorno Blanco ⭐ */
-  .title {
-    font-weight: 900;
-    font-size: 36px;
-    color: #000; /* <-- RELLENO NEGRO */
-    /* Creamos el contorno blanco usando text-shadow */
-    text-shadow:
-      -1px -1px 0 var(--fg),
-       1px -1px 0 var(--fg),
-      -1px  1px 0 var(--fg),
-       1px  1px 0 var(--fg);
-    /* Quitamos -webkit-text-stroke por simplicidad */
+
+    --card-bg: rgba(0,0,0,0.88); /* Tarjetas muy oscuras */
+    --card-border: rgba(255,255,255,0.1);
+    --maxw: 1100px;
+    --radius: 14px;
+    --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+
+    --btn-primary: var(--accent-green);
+    --btn-secondary: var(--accent-blue);
+
+    /* Variables para el menú */
+    --menu-width-collapsed: 70px;
+    --menu-width-expanded: 240px;
+  }
+
+  /* Estilos Base */
+  html { background-color: var(--bg-uniform); scroll-behavior: smooth; }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;padding:0}
+  body{
+    font-family:var(--font-sans);
+    background: transparent; /* Para que se vea particles.js */
+    color:var(--fg);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-osx-font-smoothing:grayscale;
+    line-height:1.5;
+    padding: 28px; /* Padding original */
+    padding-left: var(--menu-width-collapsed); /* Espacio para menú colapsado */
+    transition: padding-left 0.3s ease-in-out;
+  }
+   /* Clase que se añade al body cuando el menú está expandido */
+  body.menu-expanded {
+    padding-left: var(--menu-width-expanded);
+  }
+
+    .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    position:relative;
+    padding: 0 10px; /* Padding interno del wrap */
+  }
+
+  /* Anclaje para scroll suave */
+  section, details {
+      padding-top: 60px;
+      margin-top: -60px;
   }
 
 
+  /* ESTILOS DEL SELECTOR DE IDIOMA */
+  .lang-switcher {
+    position: absolute; /* Cambiado a absolute relativo al wrap */
+    top: 30px;
+    right: 15px;
+    z-index: 1000;
+    display: flex;
+    gap: 10px;
+  }
+  .lang-switcher button {
+    background: var(--card-bg);
+    color: var(--fg);
+    border: 1px solid var(--accent-gold);
+    padding: 5px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.5em;
+    line-height: 1;
+    transition: background-color 0.2s;
+    opacity: 0.8;
+  }
+  .lang-switcher button:hover {
+    opacity: 1;
+    background: rgba(255, 215, 0, 0.1);
+  }
+  .lang-switcher button.active {
+    border-color: var(--accent-red);
+    background: rgba(255, 51, 102, 0.1);
+  }
 
-    .header-main-buttons { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  /* --- ESTILOS DEL ENCABEZADO (Blanco y Negro) --- */
+  .main-header-card {
+    background: var(--card-bg); border: 1px solid var(--card-border);
+    border-radius: var(--radius); box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    margin-bottom: 22px; display: flex; justify-content: space-between;
+    align-items: center; gap: 20px; padding: 20px;
+    /* Líneas laterales Blancas */
+    border-left: 5px solid var(--fg); border-right: 5px solid var(--fg);
+    /* Quitamos bordes originales */
+    border-top: none; border-bottom: none;
+  }
+  header{ display:flex; flex-direction: row; align-items: center; gap: 15px; flex-shrink: 0; }
+  .brand{ display:flex; align-items:center; gap:14px; flex-shrink: 0; }
+  .avatar{ /* Borde Blanco */
+    width:90px; height:90px; border-radius:12px; overflow:hidden;
+    border: 2px solid var(--fg);
+    box-shadow: none;
+  }
+  .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+  /* Nombre con Relleno NEGRO y Contorno Blanco */
+  .title{
+    font-weight: 900; font-size: 36px;
+    color: #000; /* <-- RELLENO NEGRO */
+    text-shadow: /* Contorno blanco */
+      -1px -1px 0 var(--fg), 1px -1px 0 var(--fg),
+      -1px  1px 0 var(--fg), 1px  1px 0 var(--fg);
+  }
+  .header-main-buttons { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  /* Botón Contorno Blanco */
+  .btn-clean-outline {
+    background: transparent; border: 2px solid var(--fg); color: var(--fg);
+    padding:8px 12px; border-radius:10px; font-weight:700; text-decoration:none;
+    display:inline-flex; gap:8px; align-items:center; transition: background-color 0.15s, transform 0.15s;
+    flex-shrink: 0;
+  }
+  .btn-clean-outline:hover { background: rgba(238, 241, 240, 0.1); transform: translateY(-1px); }
+  /* Estilo base común para botones rellenos */
+  .btn-fill {
+    padding: 10px 14px; border-radius:10px; font-weight:700; text-decoration:none;
+    display:inline-flex; gap:8px; align-items:center; transition: transform 0.15s, box-shadow 0.15s;
+    flex-shrink: 0; border: none;
+  }
+  .btn-fill:hover { transform: translateY(-2px); }
+  /* Botón Relleno Blanco (Para Ver CV) */
+  .btn-fill-white {
+    background: var(--fg); color: #333; /* Texto oscuro */
+    box-shadow: 0 4px 15px rgba(238, 241, 240, 0.2);
+  }
+   .btn-fill-white:hover { box-shadow: 0 6px 20px rgba(238, 241, 240, 0.4); }
 
-    /* Botón Contorno Blanco */
-    .btn-clean-outline {
-      background: transparent; border: 2px solid var(--fg); color: var(--fg);
-      padding:8px 12px; border-radius:10px; font-weight:700; text-decoration:none;
-      display:inline-flex; gap:8px; align-items:center; transition: background-color 0.15s, transform 0.15s;
-      flex-shrink: 0;
+
+  /* ESTILOS DEL CUERPO PRINCIPAL (MAIN CONTENT & ASIDE) */
+  .hero{
+    display:grid;
+    grid-template-columns:1fr 360px; /* Layout original */
+    gap:28px;
+    align-items:start;
+    margin-bottom:28px;
+  }
+  .hero-main { display: flex; flex-direction: column; gap: 28px; } /* Para espaciado en main */
+  .hero-aside { position: sticky; top: 28px; display: flex; flex-direction: column; gap: 28px; } /* Para aside fijo */
+
+  /* Estilos base para todas las tarjetas de contenido */
+  .card{
+    position: relative; background: var(--card-bg); border:1px solid var(--card-border);
+    padding:20px; border-radius:var(--radius); box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+    color:var(--fg); overflow: hidden;
+    /* Animación */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.2s ease;
+    opacity: 0; transform: translateY(30px);
+  }
+  .card:hover { box-shadow: 0 0 15px rgba(255,255,255,0.1); transform: translateY(0); }
+  .card.is-visible { opacity: 1; transform: translateY(0); } /* Clase para animación JS */
+
+  /* Línea decorativa derecha */
+  .card::after { content: ''; position: absolute; top: 0; right: 0; width: 5px; height: 35px; border-top-right-radius: var(--radius); z-index: 1; }
+
+  /* Colores de Títulos y Bordes de Sección (Paleta Refinada) */
+  #perfil { border-left-color: var(--accent-blue); } #perfil::after { background: var(--accent-blue); }
+  #perfil .profile-title { color: var(--accent-blue); } /* Mantenemos título interno */
+
+  #experiencia > summary { color: var(--accent-emerald); border-color: rgba(46, 139, 87, 0.4); }
+  #experiencia .section-content .card { border-left-color: var(--accent-emerald); opacity: 1; transform: none; /* Quitamos animación interna por ahora */ } #experiencia .section-content .card::after { background: var(--accent-emerald); }
+
+  #proyectos > summary { color: var(--accent-purple); border-color: rgba(153, 51, 204, 0.3); }
+  #proyectos .section-content .card { border-left-color: var(--accent-purple); opacity: 1; transform: none; } #proyectos .section-content .card::after { background: var(--accent-purple); }
+
+  #logros > summary { color: var(--accent-gold); border-color: rgba(255, 215, 0, 0.3); }
+  #logros .section-content .card { border-left-color: var(--accent-gold); opacity: 1; transform: none; } #logros .section-content .card::after { background: var(--accent-gold); }
+
+  #cursos > summary { color: var(--accent-yellow); border-color: rgba(255, 195, 0, 0.3); }
+  #cursos .section-content .card { border-left-color: var(--accent-yellow); opacity: 1; transform: none; } #cursos .section-content .card::after { background: var(--accent-yellow); }
+
+  #formacion { border-left-color: var(--accent-purple); } #formacion::after { background: var(--accent-purple); }
+  #formacion > div:first-child { color: var(--accent-purple); font-weight: 800; margin-bottom: 15px; }
+
+  #contacto { border-left-color: var(--accent-green); } #contacto::after { background: var(--accent-green); }
+  #contacto > div:first-child { color: var(--accent-green); font-weight: 800; margin-bottom: 8px; }
+
+  #habilidades { border-left-color: var(--accent-blue); } #habilidades::after { background: var(--accent-blue); }
+  #habilidades > div:first-child { color: var(--accent-blue); font-weight: 800; margin-bottom: 8px; }
+
+  /* Habilidades Blandas (usa nth-of-type porque no tiene ID propio) */
+  aside .card:nth-of-type(4) { border-left-color: var(--accent-gold); } aside .card:nth-of-type(4)::after { background: var(--accent-gold); }
+  aside .card:nth-of-type(4) > div:first-child { color: var(--accent-gold); font-weight: 800; margin-bottom: 8px; }
+
+  /* Títulos Internos (Experiencia/Proyectos Blancos) */
+   main .card strong { color: inherit; } /* Hereda blanco por defecto */
+   #experiencia .section-content .card strong,
+   #proyectos .section-content .card strong { color: var(--fg); } /* Fuerza blanco */
+
+  .profile-text{color:var(--fg);opacity:1;font-size:15px;line-height:1.6;}
+  .skill-pill { /* Mantenemos estilo original */
+      color: var(--fg); padding: 6px 10px; border-radius: 6px; margin: 4px;
+      display: inline-block; font-size: 14px; border: 1px solid rgba(255,255,255,0.15);
+  }
+  .skills { display: flex; flex-wrap: wrap; margin-top: 10px; }
+
+  /* Títulos H2 dentro de Summary */
+  h2.section { font-size:18px; margin: 0; font-weight:800; /* Quitamos margen y borde inferior */ }
+  summary > h2.section { color: inherit !important; } /* Hereda color del summary */
+  details > summary { /* Borde y cursor al summary */
+      border-bottom: 2px solid; padding-bottom: 4px; margin-bottom: 15px;
+      cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+  }
+
+  .acad-ipn-title { color: var(--accent-guinda); font-weight: 800; margin: 0 0 12px 0; font-size: 18px; text-align: center; }
+  .contact-small { font-size: 0.9em; color: var(--muted); } /* Estilo reutilizado */
+
+  /* Bloque IoT (Sin cambios) */
+  .iot-block{margin-top: 14px; padding:0; background: transparent; border: none;}
+  .iot-block h3{color:var(--accent-purple); margin:16px 0 10px 0; font-size:18px; font-weight:800; text-shadow: 0 0 2px rgba(153, 51, 204, 0.5);}
+  .iot-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px; margin-top: 14px;}
+  .btn-accent{background:var(--accent-green);color:#03120a;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(99,185,111,0.06)}
+  .btn-primary{background:var(--accent-blue);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(11,102,194,0.06)}
+  .btn-dark{background:var(--accent-purple);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;border:1px solid rgba(153, 51, 204, 0.4)}
+  .iot-actions a { color: #fff; text-decoration: none; }
+
+   /* --- ESTILOS BOTONES CONTACTO (Presionables) --- */
+  #contacto .contact-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+  #contacto .contact-list li { display: block; }
+  #contacto .contact-btn-pressable { display: flex; align-items: center; padding: 12px 16px; border-radius: 10px; text-decoration: none; font-weight: 700; color: #000; transition: all 0.2s ease-out; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+  #contacto .contact-btn-pressable:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.3); }
+  #contacto .contact-btn-pressable i { font-size: 1.2em; margin-right: 12px; width: 25px; text-align: center; color: inherit; }
+  #contacto .btn-email { background: var(--accent-yellow); color: #332400; } #contacto .btn-email:hover { box-shadow: 0 8px 25px rgba(255, 195, 0, 0.3); } #contacto .btn-email i { color: #332400; }
+  #contacto .btn-whatsapp { background: var(--accent-green); color: #03120a; } #contacto .btn-whatsapp:hover { box-shadow: 0 8px 25px rgba(99, 185, 111, 0.3); } #contacto .btn-whatsapp i { color: #03120a; }
+  #contacto .btn-github { background: var(--accent-purple); color: var(--fg); } #contacto .btn-github:hover { box-shadow: 0 8px 25px rgba(153, 51, 204, 0.3); } #contacto .btn-github i { color: var(--fg); }
+  #contacto .btn-linkedin { background: var(--accent-blue); color: var(--fg); } #contacto .btn-linkedin:hover { box-shadow: 0 8px 25px rgba(0, 119, 182, 0.3); } #contacto .btn-linkedin i { color: var(--fg); }
+  #contacto .btn-facebook { background: #1877F2; color: var(--fg); } #contacto .btn-facebook:hover { box-shadow: 0 8px 25px rgba(24, 119, 242, 0.3); } #contacto .btn-facebook i { color: var(--fg); }
+  #contacto .btn-instagram { background: #E4405F; color: var(--fg); } #contacto .btn-instagram:hover { box-shadow: 0 8px 25px rgba(228, 64, 95, 0.3); } #contacto .btn-instagram i { color: var(--fg); }
+  #contacto .btn-tiktok { background: #fff; color: #000; } #contacto .btn-tiktok:hover { box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3); } #contacto .btn-tiktok i { color: #000; }
+
+  /* FOOTER */
+  footer{text-align:center;color:var(--muted);font-size:13px;padding:26px 10px 10px;display:flex;align-items:center;justify-content:space-between;gap:10px; margin-left: calc(-1 * var(--menu-width-collapsed)); /* Compensar padding del body */ }
+  .body.menu-expanded footer { margin-left: calc(-1 * var(--menu-width-expanded)); } /* Ajuste cuando menú expandido */
+  .footer-brand{display:flex;align-items:center;gap:8px}
+  .sello{width:40px;height:40px;border-radius:8px;overflow:hidden}
+  .sello img{width:100%;height:100%;object-fit:cover}
+
+  /* --- ICONOS MENÚ: BLANCOS CON CONTORNO COLOR --- */
+   .side-navbar .nav-link i {
+       font-size: 1.5em; width: 24px; text-align: center;
+       color: var(--fg); /* Icono Blanco */
+       transition: text-shadow 0.2s ease;
     }
-    .btn-clean-outline:hover { background: rgba(238, 241, 240, 0.1); transform: translateY(-1px); }
+    .nav-link-perfil i     { text-shadow: -1px -1px 0 var(--accent-blue), 1px -1px 0 var(--accent-blue), -1px 1px 0 var(--accent-blue), 1px 1px 0 var(--accent-blue); }
+    .nav-link-experiencia i{ text-shadow: -1px -1px 0 var(--accent-emerald), 1px -1px 0 var(--accent-emerald), -1px 1px 0 var(--accent-emerald), 1px 1px 0 var(--accent-emerald); }
+    .nav-link-proyectos i  { text-shadow: -1px -1px 0 var(--accent-purple), 1px -1px 0 var(--accent-purple), -1px 1px 0 var(--accent-purple), 1px 1px 0 var(--accent-purple); }
+    .nav-link-logros i     { text-shadow: -1px -1px 0 var(--accent-gold), 1px -1px 0 var(--accent-gold), -1px 1px 0 var(--accent-gold), 1px 1px 0 var(--accent-gold); }
+    .nav-link-cursos i     { text-shadow: -1px -1px 0 var(--accent-yellow), 1px -1px 0 var(--accent-yellow), -1px 1px 0 var(--accent-yellow), 1px 1px 0 var(--accent-yellow); }
+    .nav-link-formacion i  { text-shadow: -1px -1px 0 var(--accent-purple), 1px -1px 0 var(--accent-purple), -1px 1px 0 var(--accent-purple), 1px 1px 0 var(--accent-purple); }
+    .nav-link-contacto i   { text-shadow: -1px -1px 0 var(--accent-green), 1px -1px 0 var(--accent-green), -1px 1px 0 var(--accent-green), 1px 1px 0 var(--accent-green); }
+    .nav-link-habilidades i{ text-shadow: -1px -1px 0 var(--accent-blue), 1px -1px 0 var(--accent-blue), -1px 1px 0 var(--accent-blue), 1px 1px 0 var(--accent-blue); }
+    /* Hover: Brillo blanco */
+    .side-navbar .nav-link:hover i { text-shadow: 0 0 8px var(--fg); }
 
-    /* Estilo base común para botones rellenos */
-    .btn-fill {
-      padding: 10px 14px; border-radius:10px; font-weight:700; text-decoration:none;
-      display:inline-flex; gap:8px; align-items:center; transition: transform 0.15s, box-shadow 0.15s;
-      flex-shrink: 0; border: none;
+  /* RESPONSIVE TWEAKS (PARA MÓVILES) */
+  @media (max-width: 1100px) { /* Tablet y móvil */
+      .hero { grid-template-columns: 1fr; }
+      .hero-aside { position: static; } /* Quitamos sticky */
+  }
+  @media (max-width: 980px){ /* Móvil */
+    body {
+      padding: 28px 15px; /* Padding móvil */
+      padding-left: var(--menu-width-collapsed); /* Mantenemos espacio menú */
     }
-    .btn-fill:hover { transform: translateY(-2px); }
-
-    /* Botón Relleno Blanco (Para Ver CV) */
-    .btn-fill-white {
-      background: var(--fg); color: #333; /* Texto oscuro */
-      box-shadow: 0 4px 15px rgba(238, 241, 240, 0.2);
-    }
-     .btn-fill-white:hover { box-shadow: 0 6px 20px rgba(238, 241, 240, 0.4); }
-
-
-    /* Ajustes móviles */
-    @media (max-width: 900px) {
-      .main-header-card { flex-direction: column; align-items: flex-start; gap: 15px; }
-      header { width: 100%; }
-      .header-main-buttons { width: 100%; justify-content: flex-start; padding-top: 10px; }
-    }
-    @media (max-width: 480px) {
+    .wrap { padding: 0; } /* Quitamos padding extra del wrap */
+    .main-header-card { flex-direction: column; align-items: flex-start; gap: 15px; }
+    header { width: 100%; flex-direction: column; align-items: flex-start; gap: 10px; }
+    .header-main-buttons { width: 100%; justify-content: flex-start; padding-top: 10px; }
+    footer { margin-left: 0; padding-left: 15px; padding-right: 15px; } /* Ajuste footer móvil */
+    .body.menu-expanded footer { margin-left: 0; }
+  }
+  @media (max-width: 480px) { /* Móvil pequeño */
       .title { font-size: 28px; }
       .avatar { width: 70px; height: 70px; }
-    }
+   }
+
+    /* Partículas */
+    #particles-js { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: -1; background-color: var(--bg-uniform); }
+
   </style>
 </head>
 <body>
 
-  <div class="main-header-card">
-    <header>
-      <div class="brand">
-        <div class="avatar" title="Foto de Sergio">
-          <img src="perfil.png" alt="Sergio Garduño Jardón">
-        </div>
-        <div>
-          <div class="title">Sergio Garduño Jardón</div> </div>
-      </div>
-    </header>
-    <div class="header-main-buttons">
-      <a class="btn-fill btn-fill-white" href="#">
-        <i class="fa-solid fa-eye"></i> <span>Ver CV</span>
-      </a>
-      <a class="btn-clean-outline" href="#">
-        <i class="fa-solid fa-download"></i> <span>Descargar CV</span>
-      </a>
-    </div>
-  </div>
+  <div id="particles-js"></div>
 
+  <nav class="side-navbar" id="side-navbar">
+    <button id="menu-toggle-btn" title="Expandir menú"><i class="fa-solid fa-chevron-right"></i><i class="fa-solid fa-chevron-left"></i></button>
+    <ul>
+      <li><a href="#perfil" class="nav-link nav-link-perfil" title="Perfil"><i class="fa-solid fa-user"></i><span class="link-text">Perfil</span></a></li>
+      <li><a href="#experiencia" class="nav-link nav-link-experiencia" title="Experiencia"><i class="fa-solid fa-briefcase"></i><span class="link-text">Experiencia</span></a></li>
+       <li><a href="#proyectos" class="nav-link nav-link-proyectos" title="Proyectos"><i class="fa-solid fa-lightbulb"></i><span class="link-text">Proyectos</span></a></li>
+      <li><a href="#logros" class="nav-link nav-link-logros" title="Logros"><i class="fa-solid fa-trophy"></i><span class="link-text">Logros</span></a></li>
+      <li><a href="#cursos" class="nav-link nav-link-cursos" title="Cursos"><i class="fa-solid fa-graduation-cap"></i><span class="link-text">Cursos</span></a></li>
+      <li><a href="#formacion" class="nav-link nav-link-formacion" title="Formación"><i class="fa-solid fa-school"></i><span class="link-text">Formación</span></a></li>
+      <li><a href="#contacto" class="nav-link nav-link-contacto" title="Contacto"><i class="fa-solid fa-envelope"></i><span class="link-text">Contacto</span></a></li>
+      <li><a href="#habilidades" class="nav-link nav-link-habilidades" title="Habilidades"><i class="fa-solid fa-cogs"></i><span class="link-text">Habilidades</span></a></li>
+    </ul>
+  </nav>
+
+  <div class="wrap">
+
+    <div class="lang-switcher">
+      <button onclick="translatePage('es')" id="flag-es" class="active">🇲🇽</button>
+      <button onclick="translatePage('en')" id="flag-en">🇺🇸</button>
+    </div>
+
+    <div class="main-header-card card"> <header>
+        <div class="brand">
+          <div class="avatar" title="Foto de Sergio">
+            <img src="perfil.png" alt="Sergio Garduño Jardón">
+          </div>
+          <div>
+            <div class="title" data-lang="name">Sergio Garduño Jardón</div>
+          </div>
+        </div>
+      </header>
+      <div class="header-main-buttons">
+        <a class="btn-fill btn-fill-white" href="cv_viewer.html" target="_blank" rel="noopener" id="btn-view-cv" title="Abrir CV" data-lang-href-en="cv_viewer_eu.html">
+          <i class="fa-solid fa-eye"></i> <span data-lang="btn-view-cv-text">Ver CV</span>
+        </a>
+        <a class="btn-clean-outline" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" id="btn-download-cv" title="Descargar CV" data-lang-href-en="cv_pagina_web_eu.pdf">
+          <i class="fa-solid fa-download"></i> <span data-lang="btn-download-cv-text">Descargar CV</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero">
+      <main class="hero-main">
+        <section id="perfil" class="card">
+          <h2 class="profile-title" data-lang="profile-title">Perfil</h2> <div class="profile-text" style="margin-bottom: 15px;" data-lang="profile-p1">
+            Ingeniero Mecatrónico especializado en sistemas IoT, datos y soluciones sostenibles. Diseño, desarrollo y despliego sistemas de monitoreo ambiental que integran hardware (ESP32 y sensores), energía renovable y pipelines de datos (Google Sheets / SQL, dashboards).
+          </div>
+          <div class="profile-text" data-lang="profile-p2">
+            Programacion en Python, C++/Arduino y Google Apps Script para automatizar procesos y crear modelos analíticos orientados a optimizar recursos y apoyar la toma de decisiones. Me interesa colaborar en proyectos que unan tecnología y naturaleza para generar impacto ambiental positivo.
+          </div>
+        </section>
+
+        <details id="experiencia" open>
+          <summary><h2 class="section" data-lang="exp-title">Experiencia Laboral</h2></summary>
+          <div class="section-content">
+            <div class="card" style="margin-bottom:12px">
+              <strong data-lang="robo-role">Robodacta — Diseño y ventas</strong> <div class="contact-small" data-lang="robo-dates">2022 – 2024</div>
+              <ul class="clean"><li data-lang="robo-l1">Diseño de kits educativos, empaques, cursos online y material audiovisual; gestión de proveedores y ventas.</li></ul>
+            </div>
+            <div class="card" style="margin-bottom:12px">
+              <strong data-lang="meta-role">METAMORFOZIZ — Publicidad y producción</strong> <div class="contact-small" data-lang="meta-dates">2021 – 2022</div>
+              <ul class="clean"><li data-lang="meta-l1">Diseño gráfico, producción de lonas y banners, gestión de materiales y procesos de impresión.</li></ul>
+            </div>
+            <div class="card" style="margin-bottom:12px">
+              <strong data-lang="ventas-role">Ventas (local) — Coyoacán</strong> <div class="contact-small" data-lang="ventas-dates">2021 – 2022</div>
+              <ul class="clean"><li data-lang="ventas-l1">Atención directa a clientes, gestión de ventas B2C y B2B, manejo de caja y control de inventario.</li></ul>
+            </div>
+            <div class="card">
+              <strong data-lang="serv-role">Servicio técnico (negocio propio)</strong> <div class="contact-small" data-lang="serv-dates">2018 – 2020</div>
+              <ul class="clean"><li data-lang="serv-l1">Reparación de dispositivos electrónicos, compra y venta de refacciones, control de inventario y atención al cliente.</li></ul>
+            </div>
+          </div>
+        </details>
+
+        <details id="proyectos" open>
+            <summary><h2 class="section" data-lang="proyectos-title">Proyectos Personales</h2></summary> <div class="section-content">
+               <div class="card" style="margin-bottom:12px">
+                  <strong><img src="ECOGAIASOS.png" alt="Logo EcoGaiaSOS" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;"><span data-lang="ecogaia-role">EcoGaiaSOS — Plataforma de impacto ambiental</span></strong>
+                  <div class="contact-small" data-lang="ecogaia-dates">2024 – Presente · CDMX</div>
+                  <ul class="clean">
+                     <li data-lang="ecogaia-l1">Desarrollo e implementación de la plataforma web para gestión y difusión de convocatorias y proyectos ambientales.</li>
+                     <li data-lang="ecogaia-l2">Responsable de la organización de datos, visualización y soporte a actores locales.</li>
+                  </ul>
+                  <div class="iot-block" style="margin-top: 14px;"><a class="btn-clean-secondary" href="https://ecogaiasos.github.io/web/index.html" target="_blank" rel="noopener" style="margin: 0;" data-lang="ecogaia-btn">🌐 Visitar Eco Gaia SOS</a></div>
+               </div>
+               <div class="card" style="margin-bottom:12px">
+                  <strong data-lang="iot-role">Sistema IoT para techos verdes — Proyecto de tesis</strong>
+                  <div class="contact-small" data-lang="iot-dates">2023 – 2025 · Validado en campo</div>
+                  <ul class="clean">
+                     <li data-lang="iot-l1">Diseño y despliegue de sistema de monitoreo térmico autónomo con ESP32, sensores y alimentación solar.</li>
+                     <li data-lang="iot-l2">Desarrollo de pipeline de datos y dashboard para la validación de reducción térmica en techos verdes.</li>
+                  </ul>
+                  <div class="iot-block">
+                     <h3 data-lang="iot-links">Enlaces del Proyecto Techo Verde</h3>
+                     <div class="iot-actions">
+                        <a class="btn-accent" href="https://hugonogueron2607.github.io/Techo_Verde/" target="_blank" rel="noopener" data-lang="iot-btn1">🌐 Dashboard</a>
+                        <a class="btn-primary" href="https://docs.google.com/spreadsheets/d/1Mu0mfmwoWRI_kJ8EweGpJT1g608t6EQixtfevX0z0ac/edit?usp=sharing" target="_blank" rel="noopener" data-lang="iot-btn2">📊 Hoja de datos</a>
+                        <a class="btn-dark" href="tesis_viewer.html" target="_blank" rel="noopener" data-lang="iot-btn3">📘 Ver tesis</a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </details>
+
+        <details id="logros">
+          <summary><h2 class="section" data-lang="logros-title">Logros</h2></summary>
+          <div class="section-content">
+            <div class="card">
+              <ul class="clean">
+                <li data-lang="logros-l1">Prototipo IoT validado en campo para monitoreo térmico y energético (Tesis).</li>
+                <li data-lang="logros-l2">Participación técnica en el Congreso Nacional de Biotecnología (Oaxaca, 2025).</li>
+                <li data-lang="logros-l3">Implementación y desarrollo de la plataforma Eco Gaia SOS.</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details id="cursos">
+          <summary><h2 class="section" data-lang="cursos-title">Cursos y certificados</h2></summary>
+          <div class="section-content">
+            <div class="card">
+              <ul class="clean">
+                <li data-lang="cursos-l1">Seminario: Diseño de la automatización de la manufactura e integración de dispositivos programables.</li>
+                <li data-lang="cursos-l2">Curso/autoformación: Python para análisis de datos (pandas) — proyectos prácticos.</li>
+                <li data-lang="cursos-l3">Certificación en proceso: Inglés B2.</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+      </main>
+
+      <aside class="hero-aside">
+        <div class="card" id="formacion">
+          <div data-lang="acad-title">Formación Académica</div>
+          <h3 class="acad-ipn-title" data-lang="acad-uni-title">IPN Politécnico</h3>
+          <div style="margin-bottom: 25px;">
+            <div style="color: var(--fg); font-weight: 600; display: flex; align-items: center; gap: 8px; font-size: 16px;">
+              <img src="upiita-logo.png" alt="Logo UPIITA" style="width: 20px; flex-shrink: 0;">
+              <span data-lang="acad-eng-title">Ingeniería Mecatrónica (UPIITA)</span>
+            </div>
+            <div class="contact-small" style="margin-top: 5px; margin-left: 28px; font-size: 16px; line-height: 1.2;">
+              Instituto Politécnico Nacional — <span data-lang="acad-eng-dates">2018 - 2024</span>
+            </div>
+          </div>
+          <div>
+            <div style="color: var(--fg); font-weight: 600; display: flex; align-items: center; gap: 8px; font-size: 16px;">
+              <img src="cecyt13.png" alt="Logo CECyT 13" style="width: 20px; flex-shrink: 0;">
+              <span data-lang="acad-tech-title">Técnico en Administración de Empresas</span>
+            </div>
+            <div class="contact-small" style="margin-top: 5px; margin-left: 28px; font-size: 16px; line-height: 1.2;">
+              CECyT N° 13 "Ricardo Flores Magón" (IPN)
+            </div>
+            <div class="contact-small" style="margin-left: 28px; font-size: 16px; line-height: 1.2;" data-lang="acad-tech-dates">
+              2015 – 2018
+            </div>
+          </div>
+        </div>
+
+        <div class="card" id="contacto">
+          <div data-lang="contact-title">Contacto</div>
+          <ul class="contact-list">
+            <li><a href="mailto:sgj.cheko@gmail.com" class="contact-btn-pressable btn-email"><i class="fa-regular fa-envelope"></i><span>sgj.cheko@gmail.com</span></a></li>
+            <li><a href="mailto:sgardunoj1400@alumno.ipn.mx" class="contact-btn-pressable btn-email"><i class="fa-regular fa-envelope"></i><span>sgardunoj1400@alumno.ipn.mx</span></a></li>
+            <li><a href="https://wa.me/5215586864746" target="_blank" rel="noopener" class="contact-btn-pressable btn-whatsapp"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></a></li>
+            <li><a href="https://sgj369.github.io/cv-sergio-gardu-o-jardon/" target="_blank" rel="noopener" class="contact-btn-pressable btn-github"><i class="fa-brands fa-github"></i><span>GitHub</span></a></li>
+            <li><a href="https://www.linkedin.com/in/gardu%C3%B1o-jardon-sergio-264b582b0" target="_blank" rel="noopener" class="contact-btn-pressable btn-linkedin"><i class="fa-brands fa-linkedin"></i><span>LinkedIn</span></a></li>
+            <li><a href="https://www.facebook.com/share/19FgjAa3ai/" target="_blank" rel="noopener" class="contact-btn-pressable btn-facebook"><i class="fa-brands fa-facebook"></i><span>Facebook</span></a></li>
+            <li><a href="https://www.instagram.com/cheko_sgj?igsh=amV1aTVwZ3VpeTBi" target="_blank" rel="noopener" class="contact-btn-pressable btn-instagram"><i class="fa-brands fa-instagram"></i><span>Instagram</span></a></li>
+            <li><a href="https://www.tiktok.com/@chekup00" target="_blank" rel="noopener" class="contact-btn-pressable btn-tiktok"><i class="fa-brands fa-tiktok"></i><span>TikTok</span></a></li>
+          </ul>
+        </div>
+
+        <div class="card" id="habilidades">
+          <div data-lang="tech-skills-title">Habilidades técnicas</div>
+          <div class="skills">
+            <div class="skill-pill" data-lang="skill-cpp">C++ / Arduino</div>
+            <div class="skill-pill" data-lang="skill-python">Python (pandas)</div>
+            <div class="skill-pill" data-lang="skill-esp32">ESP32 & sensores</div>
+            <div class="skill-pill" data-lang="skill-sql">SQL & Google Sheets</div>
+            <div class="skill-pill" data-lang="skill-solar">Paneles solares & baterías</div>
+            <div class="skill-pill" data-lang="skill-apps-script">Google Apps Script</div>
+          </div>
+        </div>
+
+        <div class="card"> <div data-lang="soft-skills-title">Habilidades blandas</div>
+          <ul class="clean">
+            <li data-lang="soft-l1">Liderazgo</li>
+            <li data-lang="soft-l2">Creatividad e innovación</li>
+            <li data-lang="soft-l3">Planeación y gestión de proyectos</li>
+            <li data-lang="soft-l4">Trabajo en equipo</li>
+            <li data-lang="soft-l5">Adaptabilidad</li>
+            <li data-lang="soft-l6">Certificación en proceso: Inglés B2.</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      <div class="footer-brand">
+        <div class="sello"><img src="haku-logo.png" alt="Haku"></div>
+        <div style="color:var(--muted);font-size:13px">© <span id="year"></span> <span data-lang="footer-name">Sergio Garduño Jardón</span> · <span data-lang="footer-source">Hecho con GitHub Pages</span></div>
+      </div>
+      <div style="color:var(--muted);font-size:13px" data-lang="footer-contact">Contacto: sgj.cheko@gmail.com</div>
+    </footer>
+
+  </div> <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles-js", { /* Configuración particles.js */
+        "particles": { "number": { "value": 80, "density": { "enable": true, "value_area": 800 }}, "color": { "value": ["#FFD700", "#63b96f", "#0077b6", "#eef1f0"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }}, "opacity": { "value": 0.6, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false }}, "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false }}, "line_linked": { "enable": true, "distance": 150, "color": "#a3a3a3", "opacity": 0.4, "width": 1 }, "move": { "enable": true, "speed": 3, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }},
+        "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" }, "resize": true }, "modes": { "grab": { "distance": 400, "line_linked": { "opacity": 1 }}, "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 }, "repulse": { "distance": 150, "duration": 0.4 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 }}},
+        "retina_detect": true
+     });
+  </script>
+  <script> // Script principal (Traducción, Menú, Animaciones)
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const translations = { /* Objeto de traducciones */
+        'en': { 'profile-title': 'Profile', 'profile-p1': 'Mechatronics Engineer specializing...', 'profile-p2': 'Programming expertise...', 'btn-view-cv-text': 'View CV', 'btn-download-cv-text': 'Download CV', 'exp-title': 'Work Experience', /* <--- CAMBIO */ 'proyectos-title':'Personal Projects', /* <--- NUEVO */ 'ecogaia-role': 'Eco Gaia SOS — Env. Impact Platform', 'ecogaia-dates': '2024 – Present · CDMX', 'ecogaia-l1': 'Development & implementation...', 'ecogaia-l2': 'Responsible for data org...', 'ecogaia-btn': '🌐 Visit Eco Gaia SOS', 'iot-role': 'IoT System for Green Roofs — Thesis Project', 'iot-dates': '2023 – 2025 · Field Validated', 'iot-l1': 'Design & deployment...', 'iot-l2': 'Development of data pipeline...', 'iot-links': 'Project Green Roof Links', 'iot-btn1': '🌐 Dashboard', 'iot-btn2': '📊 Data Sheet', 'iot-btn3': '📘 View Thesis', 'robo-role': 'Robodacta — Design & Sales', 'robo-dates': '2022 – 2024', 'robo-l1': 'Design of educational kits...', 'meta-role': 'METAMORFOZIZ — Advertising & Prod.', 'meta-dates': '2021 – 2022', 'meta-l1': 'Graphic design, banner prod...', 'ventas-role': 'Sales (Local) — Coyoacán', 'ventas-dates': '2021 – 2022', 'ventas-l1': 'Direct customer service...', 'serv-role': 'Technical Service (Own Business)', 'serv-dates': '2018 – 2020', 'serv-l1': 'Repair of electronic devices...', 'logros-title': 'Achievements', 'logros-l1': 'Field-validated IoT prototype...', 'logros-l2': 'Technical participation...', 'logros-l3': 'Eco Gaia SOS platform dev...', 'cursos-title': 'Courses & Certificates', 'cursos-l1': 'Seminar: Manufacturing automation...', 'cursos-l2': 'Course/Self-study: Python data analysis...', 'cursos-l3': 'In progress: English B2 Cert.', 'acad-title': 'Academic Background', 'acad-uni-title': 'IPN Polytechnic', 'acad-eng-title': 'Mechatronics Engineering (UPIITA)', 'acad-eng-dates': '2018 - 2024', 'acad-tech-title': 'Technician in Business Admin.', 'acad-tech-dates': '2015 – 2018', 'contact-title': 'Contact', 'tech-skills-title': 'Technical Skills', 'soft-skills-title': 'Soft Skills', 'skill-cpp': 'C++ / Arduino', 'skill-python': 'Python (pandas)', 'skill-esp32': 'ESP32 & sensors', 'skill-sql': 'SQL & Google Sheets', 'skill-solar': 'Solar Panels & Batteries', 'skill-apps-script': 'Google Apps Script', 'soft-l1': 'Leadership', 'soft-l2': 'Creativity & innovation', 'soft-l3': 'Project planning & mgmt.', 'soft-l4': 'Teamwork', 'soft-l5': 'Adaptability', 'soft-l6': 'In progress: English B2 Cert.', 'footer-name': 'Sergio Garduño Jardón', 'footer-source': 'Made with GitHub Pages', 'footer-contact': 'Contact: sgj.cheko@gmail.com' },
+        'es': { 'exp-title': 'Experiencia Laboral', 'proyectos-title':'Proyectos Personales' /* Resto igual */ }
+    };
+
+    let currentLanguage = 'es';
+
+    function applyText(element, text) { /* Función applyText */
+        let processedText = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+        if (element.tagName === 'STRONG' && element.querySelector('img')) {
+          const textSpan = element.querySelector('span');
+          if (textSpan) { textSpan.innerHTML = processedText; } else { element.innerHTML = processedText; }
+        } else { element.innerHTML = processedText; }
+    }
+
+    function translatePage(lang) { /* Función translatePage */
+        const t = translations[lang] || translations['es']; // Fallback a español
+        const isEnglish = (lang === 'en');
+        document.querySelectorAll('[data-lang]').forEach(element => {
+            const key = element.getAttribute('data-lang');
+            if (t[key] !== undefined) { // Usar traducción si existe
+                applyText(element, t[key]);
+            } else if (lang === 'es') { // Si volvemos a español y no hay traducción definida
+                const originalText = element.getAttribute('data-es-original');
+                if (originalText) { applyText(element, originalText); }
+            } // Si es inglés y no hay traducción, deja el texto actual (probablemente español)
+        });
+        document.querySelectorAll('[data-lang-href-en]').forEach(button => { /* Lógica URLs */
+            const originalHref = button.getAttribute('data-es-href') || button.getAttribute('href'); // Guarda el href original la primera vez
+             if (!button.getAttribute('data-es-href')) { button.setAttribute('data-es-href', originalHref); }
+            const englishHref = button.getAttribute('data-lang-href-en');
+            button.setAttribute('href', isEnglish ? englishHref : originalHref);
+        });
+        // Actualizar texto específico de botones CV si existe en 't'
+        const viewCvSpan = document.getElementById('btn-view-cv')?.querySelector('span');
+        if(viewCvSpan && t['btn-view-cv-text']) viewCvSpan.textContent = t['btn-view-cv-text'];
+        const downloadCvSpan = document.getElementById('btn-download-cv')?.querySelector('span');
+        if(downloadCvSpan && t['btn-download-cv-text']) downloadCvSpan.textContent = t['btn-download-cv-text'];
+
+        document.getElementById('flag-es')?.classList.toggle('active', lang === 'es');
+        document.getElementById('flag-en')?.classList.toggle('active', lang === 'en');
+        currentLanguage = lang;
+        document.documentElement.lang = lang;
+     }
+
+    document.addEventListener('DOMContentLoaded', () => { /* Inicialización */
+        // Guardar texto original
+        document.querySelectorAll('[data-lang]').forEach(element => {
+            if (!element.getAttribute('data-es-original')) { element.setAttribute('data-es-original', element.innerHTML); }
+        });
+        document.getElementById('flag-es')?.classList.add('active'); // Activar bandera ES
+
+        // Lógica Menú Lateral
+        const menuToggleBtn = document.getElementById('menu-toggle-btn');
+        const sideNavbar = document.getElementById('side-navbar');
+        if (menuToggleBtn && sideNavbar) {
+          menuToggleBtn.addEventListener('click', () => {
+            sideNavbar.classList.toggle('expanded');
+            document.body.classList.toggle('menu-expanded');
+          });
+        }
+
+        // Lógica Animación Tarjetas
+        const animatedCards = document.querySelectorAll('.card');
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
+        animatedCards.forEach(card => { revealObserver.observe(card); });
+    });
+  </script>
 </body>
 </html>
