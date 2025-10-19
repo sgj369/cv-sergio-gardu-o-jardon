@@ -60,35 +60,31 @@
   }
 
 
-  /* ESTILOS DEL SELECTOR DE IDIOMA */
+    /* ESTILOS DEL SELECTOR DE IDIOMA (FIJO EN PANTALLA) */
   .lang-switcher {
-    position: absolute;
-    top: 30px; /* Bajado a 5px para estar más visible */
-    right: 15px; /* Alineado al borde del wrap */
+    position: fixed; /* FIJO en la pantalla */
+    top: 30px; 
+    right: 30px; /* Más separado del borde */
     z-index: 1000;
     display: flex;
     gap: 10px;
+    /* Quitamos opacity y transition, siempre visibles */
   }
   .lang-switcher button {
-    background: var(--card-bg);
-    color: var(--fg);
-    border: 1px solid var(--accent-gold);
-    padding: 5px 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1.5em; 
-    line-height: 1;
-    transition: background-color 0.2s;
-    opacity: 0.8;
+    background: var(--card-bg); color: var(--fg); border: 1px solid var(--accent-gold);
+    padding: 5px 10px; border-radius: 8px; cursor: pointer; font-size: 1.5em; 
+    line-height: 1; transition: background-color 0.2s; opacity: 0.8;
   }
-  .lang-switcher button:hover {
-    opacity: 1;
-    background: rgba(255, 215, 0, 0.1); 
-  }
-  .lang-switcher button.active {
-    border-color: var(--accent-red);
-    background: rgba(255, 51, 102, 0.1);
-  }
+  .lang-switcher button:hover { opacity: 1; background: rgba(255, 215, 0, 0.1); }
+  .lang-switcher button.active { border-color: var(--accent-red); background: rgba(255, 51, 102, 0.1); }
+
+  /* Ajuste responsive para móviles */
+   @media (max-width:980px){
+     .lang-switcher { 
+       top: 15px; 
+       right: 15px; 
+     }
+   }
 
   /* ESTILOS DEL ENCABEZADO PRINCIPAL (HEADER CARD) - CON MARCO DORADO */
   .main-header-card {
