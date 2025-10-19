@@ -34,9 +34,6 @@
     --radius: 14px;
     --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 
-    --btn-primary: var(--accent-green);
-    --btn-secondary: var(--accent-blue);
-
     /* Variables para el menú */
     --menu-width-collapsed: 70px;
     --menu-width-expanded: 240px;
@@ -53,8 +50,8 @@
     -webkit-font-smoothing:antialiased;
     -moz-osx-osx-font-smoothing:grayscale;
     line-height:1.5;
-    /* Padding original global quitado */
-    padding-left: var(--menu-width-collapsed); /* Espacio para menú colapsado */
+    /* Padding SOLO a la izquierda para el menú */
+    padding-left: var(--menu-width-collapsed);
     transition: padding-left 0.3s ease-in-out;
   }
    /* Clase que se añade al body cuando el menú está expandido */
@@ -62,14 +59,15 @@
     padding-left: var(--menu-width-expanded);
   }
 
+  /* Contenedor principal corregido */
     .wrap{
     max-width:var(--maxw);
-    margin-left: auto; /* Centrado correcto con padding-left en body */
+    margin-left: auto; /* Centrado correcto */
     margin-right: auto;
     width: 100%; /* Ocupa espacio disponible */
-    position:relative;
-    padding: 28px 10px; /* Padding interno y vertical */
-    box-sizing: border-box; /* Asegura que el padding no desborde */
+    padding: 28px 10px; /* Padding vertical e interno horizontal */
+    box-sizing: border-box;
+    position:relative; /* Para posicionar las banderas */
   }
 
   /* Anclaje para scroll suave */
@@ -83,31 +81,18 @@
   .lang-switcher {
     position: absolute; /* Relativo al wrap */
     top: 30px;
-    right: 15px;
+    right: 15px; /* Alineado a la derecha del wrap */
     z-index: 1000;
     display: flex;
     gap: 10px;
   }
-  .lang-switcher button {
-    background: var(--card-bg);
-    color: var(--fg);
-    border: 1px solid var(--accent-gold); /* Mantenemos borde dorado por contraste */
-    padding: 5px 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1.5em;
-    line-height: 1;
-    transition: background-color 0.2s;
-    opacity: 0.8;
+  .lang-switcher button { /* Estilos botones bandera */
+    background: var(--card-bg); color: var(--fg); border: 1px solid var(--accent-gold);
+    padding: 5px 10px; border-radius: 8px; cursor: pointer; font-size: 1.5em;
+    line-height: 1; transition: background-color 0.2s; opacity: 0.8;
   }
-  .lang-switcher button:hover {
-    opacity: 1;
-    background: rgba(255, 215, 0, 0.1);
-  }
-  .lang-switcher button.active {
-    border-color: var(--accent-red);
-    background: rgba(255, 51, 102, 0.1);
-  }
+  .lang-switcher button:hover { opacity: 1; background: rgba(255, 215, 0, 0.1); }
+  .lang-switcher button.active { border-color: var(--accent-red); background: rgba(255, 51, 102, 0.1); }
 
   /* --- ESTILOS DEL ENCABEZADO (Blanco y Negro) --- */
   .main-header-card {
@@ -115,61 +100,43 @@
     border-radius: var(--radius); box-shadow: 0 10px 30px rgba(0,0,0,0.4);
     margin-bottom: 22px; display: flex; justify-content: space-between;
     align-items: center; gap: 20px; padding: 20px;
-    /* Líneas laterales Blancas */
     border-left: 5px solid var(--fg); border-right: 5px solid var(--fg);
-    /* Quitamos bordes originales */
     border-top: none; border-bottom: none;
   }
   header{ display:flex; flex-direction: row; align-items: center; gap: 15px; flex-shrink: 0; }
   .brand{ display:flex; align-items:center; gap:14px; flex-shrink: 0; }
-  .avatar{ /* Borde Blanco */
-    width:90px; height:90px; border-radius:12px; overflow:hidden;
-    border: 2px solid var(--fg);
-    box-shadow: none;
-  }
+  .avatar{ width:90px; height:90px; border-radius:12px; overflow:hidden; border: 2px solid var(--fg); box-shadow: none; }
   .avatar img{width:100%;height:100%;object-fit:cover;display:block}
-  /* Nombre con Relleno NEGRO y Contorno Blanco */
   .title{
-    font-weight: 900; font-size: 36px;
-    color: #000; /* <-- RELLENO NEGRO */
+    font-weight: 900; font-size: 36px; color: #000; /* Relleno Negro */
     text-shadow: /* Contorno blanco */
       -1px -1px 0 var(--fg), 1px -1px 0 var(--fg),
       -1px  1px 0 var(--fg), 1px  1px 0 var(--fg);
   }
   .header-main-buttons { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-  /* Botón Contorno Blanco */
-  .btn-clean-outline {
+  .btn-clean-outline { /* Botón Contorno Blanco */
     background: transparent; border: 2px solid var(--fg); color: var(--fg);
     padding:8px 12px; border-radius:10px; font-weight:700; text-decoration:none;
     display:inline-flex; gap:8px; align-items:center; transition: background-color 0.15s, transform 0.15s;
     flex-shrink: 0;
   }
   .btn-clean-outline:hover { background: rgba(238, 241, 240, 0.1); transform: translateY(-1px); }
-  /* Estilo base común para botones rellenos */
-  .btn-fill {
+  .btn-fill { /* Base botones rellenos */
     padding: 10px 14px; border-radius:10px; font-weight:700; text-decoration:none;
     display:inline-flex; gap:8px; align-items:center; transition: transform 0.15s, box-shadow 0.15s;
     flex-shrink: 0; border: none;
   }
   .btn-fill:hover { transform: translateY(-2px); }
-  /* Botón Relleno Blanco (Para Ver CV) */
-  .btn-fill-white {
-    background: var(--fg); color: #333; /* Texto oscuro */
-    box-shadow: 0 4px 15px rgba(238, 241, 240, 0.2);
+  .btn-fill-white { /* Botón Relleno Blanco */
+    background: var(--fg); color: #333; box-shadow: 0 4px 15px rgba(238, 241, 240, 0.2);
   }
    .btn-fill-white:hover { box-shadow: 0 6px 20px rgba(238, 241, 240, 0.4); }
 
 
   /* ESTILOS DEL CUERPO PRINCIPAL (MAIN CONTENT & ASIDE) */
-  .hero{
-    display:grid;
-    grid-template-columns:1fr 360px; /* Layout original */
-    gap:28px;
-    align-items:start;
-    margin-bottom:28px;
-  }
-  .hero-main { display: flex; flex-direction: column; gap: 28px; } /* Para espaciado en main */
-  .hero-aside { position: sticky; top: 28px; display: flex; flex-direction: column; gap: 28px; } /* Para aside fijo */
+  .hero{ display:grid; grid-template-columns:1fr 360px; gap:28px; align-items:start; margin-bottom:28px; }
+  .hero-main { display: flex; flex-direction: column; gap: 28px; }
+  .hero-aside { position: sticky; top: 28px; display: flex; flex-direction: column; gap: 28px; }
 
   /* Estilos base para todas las tarjetas de contenido */
   .card{
@@ -189,7 +156,7 @@
 
   /* Colores de Títulos y Bordes de Sección (Paleta Refinada) */
   #perfil { border-left-color: var(--accent-blue); } #perfil::after { background: var(--accent-blue); }
-  #perfil h2.profile-title { color: var(--accent-blue); } /* Usamos h2 ahora */
+  #perfil h2.profile-title { color: var(--accent-blue); }
 
   #experiencia > summary { color: var(--accent-emerald); border-color: rgba(46, 139, 87, 0.4); }
   #experiencia .section-content .card { border-left-color: var(--accent-emerald); opacity: 1; transform: none; } #experiencia .section-content .card::after { background: var(--accent-emerald); }
@@ -206,41 +173,51 @@
   #formacion { border-left-color: var(--accent-purple); } #formacion::after { background: var(--accent-purple); }
   #formacion > div:first-child { color: var(--accent-purple); font-weight: 800; margin-bottom: 15px; }
 
-  #contacto { border-left-color: var(--accent-green); } #contacto::after { background: var(--accent-green); }
-  #contacto > div:first-child { color: var(--accent-green); font-weight: 800; margin-bottom: 8px; }
-
   #habilidades { border-left-color: var(--accent-blue); } #habilidades::after { background: var(--accent-blue); }
   #habilidades > div:first-child { color: var(--accent-blue); font-weight: 800; margin-bottom: 8px; }
 
-  /* Habilidades Blandas (usa nth-of-type porque no tiene ID propio) */
-  aside .card:nth-of-type(3) { border-left-color: var(--accent-gold); } /* Ajustado a 3 porque Contacto se movió */
+  /* Habilidades Blandas (nth-of-type por orden actual) */
+  aside .card:nth-of-type(3) { border-left-color: var(--accent-gold); }
   aside .card:nth-of-type(3)::after { background: var(--accent-gold); }
   aside .card:nth-of-type(3) > div:first-child { color: var(--accent-gold); font-weight: 800; margin-bottom: 8px; }
 
+  #contacto { border-left-color: var(--accent-green); } #contacto::after { background: var(--accent-green); }
+  #contacto > div:first-child { color: var(--accent-green); font-weight: 800; margin-bottom: 8px; }
+
+
   /* Títulos Internos (Experiencia/Proyectos Blancos) */
-   main .card strong { color: inherit; } /* Hereda blanco por defecto */
+   main .card strong { color: inherit; }
    #experiencia .section-content .card strong,
-   #proyectos .section-content .card strong { color: var(--fg); } /* Fuerza blanco */
+   #proyectos .section-content .card strong { color: var(--fg); }
 
   .profile-text{color:var(--fg);opacity:1;font-size:15px;line-height:1.6;}
-  .skill-pill { /* Mantenemos estilo original */
-      color: var(--fg); padding: 6px 10px; border-radius: 6px; margin: 4px;
-      display: inline-block; font-size: 14px; border: 1px solid rgba(255,255,255,0.15);
-  }
+  .skill-pill { color: var(--fg); padding: 6px 10px; border-radius: 6px; margin: 4px; display: inline-block; font-size: 14px; border: 1px solid rgba(255,255,255,0.15); }
   .skills { display: flex; flex-wrap: wrap; margin-top: 10px; }
 
-  /* Títulos H2 dentro de Summary */
-  h2.section { font-size:18px; margin: 0; font-weight:800; }
-  summary > h2.section { color: inherit !important; } /* Hereda color del summary */
-  details > summary { /* Borde y cursor al summary */
+  /* Títulos H2 y Summary */
+  h2.section { font-size:18px; margin: 0; font-weight:800; flex-grow: 1; /* Ocupa espacio disponible */ }
+  summary > h2.section { color: inherit !important; }
+  details > summary {
       border-bottom: 2px solid; padding-bottom: 4px; margin-bottom: 15px;
       cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+      position: relative; /* Para la flecha */
+  }
+  /* ⭐ Flecha desplegable */
+  details > summary::after {
+    content: '▼'; /* Flecha hacia abajo */
+    font-size: 0.8em;
+    color: var(--muted);
+    margin-left: 10px;
+    transition: transform 0.2s ease-out;
+  }
+  details[open] > summary::after {
+    transform: rotate(180deg); /* Flecha hacia arriba */
   }
 
   .acad-ipn-title { color: var(--accent-guinda); font-weight: 800; margin: 0 0 12px 0; font-size: 18px; text-align: center; }
-  .contact-small { font-size: 0.9em; color: var(--muted); } /* Estilo reutilizado */
+  .contact-small { font-size: 0.9em; color: var(--muted); }
 
-  /* Bloque IoT (Sin cambios) */
+  /* Bloque IoT */
   .iot-block{margin-top: 14px; padding:0; background: transparent; border: none;}
   .iot-block h3{color:var(--accent-purple); margin:16px 0 10px 0; font-size:18px; font-weight:800; text-shadow: 0 0 2px rgba(153, 51, 204, 0.5);}
   .iot-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px; margin-top: 14px;}
@@ -300,13 +277,13 @@
   }
   @media (max-width: 980px){ /* Móvil */
     body {
-      padding: 28px 0; /* Quitamos padding lateral del body */
+      padding: 0; /* Quitamos padding global en móvil */
       padding-left: var(--menu-width-collapsed); /* Mantenemos espacio menú */
     }
     .wrap {
-        padding: 0 15px; /* Aplicamos padding lateral al wrap en móvil */
+        padding: 28px 15px; /* Aplicamos padding vertical/horizontal al wrap en móvil */
      }
-    .main-header-card { flex-direction: column; align-items: flex-start; gap: 15px; border-left: 5px solid var(--fg); border-right: 5px solid var(--fg); /* Mantenemos líneas laterales */ border-top: none; border-bottom: none; } /* Quitamos top/bottom */}
+    .main-header-card { flex-direction: column; align-items: flex-start; gap: 15px; border-left-width: 5px; border-right-width: 5px; /* Mantenemos líneas */ border-top: none; border-bottom: none; }
     header { width: 100%; flex-direction: column; align-items: flex-start; gap: 10px; }
     .header-main-buttons { width: 100%; justify-content: flex-start; padding-top: 10px; }
     .lang-switcher { top: 15px; right: 15px; /* Ajustamos posición banderas */ }
@@ -371,7 +348,8 @@
     <div class="hero">
       <main class="hero-main">
         <section id="perfil" class="card">
-          <h2 class="profile-title" data-lang="profile-title">Perfil</h2> <div class="profile-text" style="margin-bottom: 15px;" data-lang="profile-p1">
+          <h2 class="profile-title" data-lang="profile-title">Perfil</h2>
+          <div class="profile-text" style="margin-bottom: 15px;" data-lang="profile-p1">
             Ingeniero Mecatrónico especializado en sistemas IoT, datos y soluciones sostenibles. Diseño, desarrollo y despliego sistemas de monitoreo ambiental que integran hardware (ESP32 y sensores), energía renovable y pipelines de datos (Google Sheets / SQL, dashboards).
           </div>
           <div class="profile-text" data-lang="profile-p2">
