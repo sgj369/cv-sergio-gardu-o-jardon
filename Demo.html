@@ -64,9 +64,13 @@
 
     .wrap{
     max-width:var(--maxw);
-    margin:0 auto;
+    /* margin: 0 auto; QUITADO */
+    margin-left: auto; /* Alinea a la derecha dentro del espacio disponible */
+    margin-right: auto; /* Alinea a la izquierda dentro del espacio disponible */
+     /* Mantenemos un margen lateral si hay espacio extra */
+    padding: 0 10px; /* Padding interno */
     position:relative;
-    padding: 0 10px; /* Padding interno del wrap */
+     width: 100%; /* Asegura que use el espacio disponible */
   }
 
   /* Anclaje para scroll suave */
@@ -258,12 +262,30 @@
   #contacto .btn-instagram { background: #E4405F; color: var(--fg); } #contacto .btn-instagram:hover { box-shadow: 0 8px 25px rgba(228, 64, 95, 0.3); } #contacto .btn-instagram i { color: var(--fg); }
   #contacto .btn-tiktok { background: #fff; color: #000; } #contacto .btn-tiktok:hover { box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3); } #contacto .btn-tiktok i { color: #000; }
 
-  /* FOOTER */
-  footer{text-align:center;color:var(--muted);font-size:13px;padding:26px 10px 10px;display:flex;align-items:center;justify-content:space-between;gap:10px; margin-left: calc(-1 * var(--menu-width-collapsed)); /* Compensar padding del body */ }
-  .body.menu-expanded footer { margin-left: calc(-1 * var(--menu-width-expanded)); } /* Ajuste cuando menú expandido */
-  .footer-brand{display:flex;align-items:center;gap:8px}
-  .sello{width:40px;height:40px;border-radius:8px;overflow:hidden}
-  .sello img{width:100%;height:100%;object-fit:cover}
+  /* FOOTER (Corrected for Centering with Left Menu) */
+footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  /* Padding: top, horizontal (using wrap's padding), bottom */
+  padding: 26px 10px 10px; 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  /* Centering: Make it behave like .wrap */
+  max-width: var(--maxw); /* Same max-width as content */
+  margin-left: auto;     /* Auto margins center it horizontally */
+  margin-right: auto;
+  width: 100%;            /* Occupy available width up to max-width */
+  box-sizing: border-box; /* Ensure padding is included in the width */
+}
+
+/* Footer Brand and Sello (No changes needed) */
+.footer-brand { display: flex; align-items: center; gap: 8px; }
+.sello { width: 40px; height: 40px; border-radius: 8px; overflow: hidden; }
+.sello img { width: 100%; height: 100%; object-fit: cover; }
 
   /* --- ICONOS MENÚ: BLANCOS CON CONTORNO COLOR --- */
    .side-navbar .nav-link i {
