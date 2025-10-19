@@ -90,46 +90,111 @@
   .lang-switcher button.active { border-color: var(--accent-red); background: rgba(255, 51, 102, 0.1); }
 
   /* ESTILOS DEL ENCABEZADO PRINCIPAL (HEADER CARD) - CON MARCO DORADO */
-  .main-header-card {
+    .main-header-card {
     background: var(--card-bg);
     border: 1px solid rgba(255, 255, 255, 0.1); 
-    border-top: 2px solid var(--accent-gold); 
-    border-bottom: 2px solid var(--accent-gold); 
-    border-right: 2px solid var(--accent-gold); 
+    
+    /* --- CAMBIO AQUÍ: De dorado a blanco --- */
+    border-top: 2px solid var(--fg); 
+    border-bottom: 2px solid var(--fg); 
+    border-right: 2px solid var(--fg); 
+    
     border-radius: var(--radius);
     box-shadow: 0 10px 30px rgba(0,0,0,0.4);
     margin-bottom: 22px;
-    display: flex; justify-content: space-between; align-items: center; 
-    gap: 20px; padding: 20px;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    gap: 20px; 
+    padding: 20px;
   }
+
+    /* --- CAMBIO AQUÍ: Línea blanca para el header --- */
+  .main-header-card::after {
+      content: '';
+      position: absolute;
+      top: 0; 
+      right: 0; 
+      width: 5px; 
+      height: 35px; 
+      background: var(--fg); /* Color Blanco */
+      border-top-right-radius: var(--radius); 
+      z-index: 1; 
+  }
+
   
   header{
     display:flex; flex-direction: row; align-items: center; 
     gap: 15px; margin-bottom:0; flex-shrink: 0; 
   }
   .brand{ display:flex; align-items:center; gap:14px; flex-shrink: 0; }
-  .avatar{
+    .avatar{
     width:90px; height:90px; border-radius:12px; overflow:hidden;
-    border:2px solid var(--accent-gold); 
-    box-shadow:0 0 15px rgba(255, 215, 0, 0.5); 
+    
+    /* --- CAMBIO AQUÍ: De dorado a blanco --- */
+    border:2px solid var(--fg); 
+    box-shadow:0 0 15px rgba(238, 241, 240, 0.5); /* Sombra blanca */
   }
+
   .avatar img{width:100%;height:100%;object-fit:cover;display:block}
   
+    /* --- CAMBIO AQUÍ: Nombre contorno blanco y relleno negro --- */
   .title{
-    font-weight:900; font-size:36px; color: var(--fg); 
-    text-shadow: 
-        -1px -1px 0 var(--accent-gold), 1px -1px 0 var(--accent-gold),
-        -1px 1px 0 var(--accent-gold), 1px 1px 0 var(--accent-gold),
-        0 0 10px rgba(255, 215, 0, 0.8); 
+    font-weight:900;
+    font-size:36px; 
+    color: #000; /* Relleno Negro */
+    text-shadow: /* Contorno Blanco */
+        -1px -1px 0 var(--fg),  
+         1px -1px 0 var(--fg),
+        -1px  1px 0 var(--fg),
+         1px  1px 0 var(--fg); 
   } 
+ 
 
-  .btn-clean-gold {
-    background: transparent; border: 2px solid var(--accent-gold); color: var(--accent-gold);
-    padding:8px 12px; border-radius:10px; font-weight:700; text-decoration:none;
-    display:inline-flex; gap:8px; align-items:center; transition: background-color 0.15s;
+    /* --- CAMBIO AQUÍ: Reemplazamos .btn-clean-gold por estos dos --- */
+
+  /* Botón Relleno Blanco (Para Ver CV) */
+  .btn-fill-white {
+    background: var(--fg);
+    color: #333; /* Texto oscuro */
+    border: 2px solid var(--fg);
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+    box-shadow: 0 4px 15px rgba(238, 241, 240, 0.2);
+  }
+  .btn-fill-white:hover { 
+    background: #cdd1d0; /* Un gris claro al pasar el ratón */
+    border-color: #cdd1d0;
+    box-shadow: 0 6px 20px rgba(238, 241, 240, 0.4);
+    transform: translateY(-1px);
+  }
+
+  /* Botón Contorno Blanco (Para Descargar CV) */
+  .btn-outline-white {
+    background: transparent;
+    border: 2px solid var(--fg);
+    color: var(--fg);
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    transition: background-color 0.15s;
     flex-shrink: 0;
   }
-  .btn-clean-gold:hover { background: rgba(255, 215, 0, 0.1); }
+  .btn-outline-white:hover { 
+    background: rgba(238, 241, 240, 0.1); /* Relleno blanco sutil */
+  }
+
   
   .header-main-buttons { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
   
@@ -550,13 +615,14 @@
         </header>
         
         <div class="header-main-buttons">
-            <a class="btn-clean-gold" href="cv_viewer.html" target="_blank" rel="noopener" id="btn-view-cv" title="Abrir CV en el navegador" data-lang-href-en="cv_viewer_eu.html">
+            <a class="btn-fill-white" href="cv_viewer.html" target="_blank" rel="noopener" id="btn-view-cv" title="Abrir CV en el navegador" data-lang-href-en="cv_viewer_eu.html">
                 <i class="fa-solid fa-eye"></i> <span data-lang="btn-view-cv-text">Ver CV</span>
             </a>
-            <a class="btn-clean-gold" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" id="btn-download-cv" title="Descargar CV como PDF" data-lang-href-en="cv_pagina_web_eu.pdf">
+            <a class="btn-outline-white" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" id="btn-download-cv" title="Descargar CV como PDF" data-lang-href-en="cv_pagina_web_eu.pdf">
                 <i class="fa-solid fa-download"></i> <span data-lang="btn-download-cv-text">Descargar CV</span>
             </a>
         </div>
+
     </div>
 
     <div class="hero">
