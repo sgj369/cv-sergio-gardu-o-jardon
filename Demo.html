@@ -63,7 +63,7 @@
   .wrap{
     max-width:var(--maxw);
     margin:0 auto;
-    position:relative;
+    position:relative; /* Clave para alinear el lang-switcher */
     padding: 0 10px;
   }
 
@@ -73,11 +73,11 @@
       margin-top: -60px;
   }
 
-  /* ESTILOS DEL SELECTOR DE IDIOMA */
+  /* ESTILOS DEL SELECTOR DE IDIOMA (Corregido) */
   .lang-switcher {
     position: absolute;
     top: 30px; 
-    right: 15px; /* Alineado al borde del wrap */
+    right: 15px; /* Alineado a la derecha del wrap */
     z-index: 1000;
     display: flex;
     gap: 10px;
@@ -191,11 +191,13 @@
   #proyectos > summary { color: var(--accent-purple); border-color: rgba(153, 51, 204, 0.3); }
   #proyectos .section-content .card { border-left-color: var(--accent-purple); opacity: 1; transform: none; } /*Hijos no se animan*/
   #proyectos .section-content .card::after { background: var(--accent-purple); }
+  #proyectos .section-content .card strong { color: var(--fg); } /* Títulos internos blancos */
 
   /* Experiencia (Verde Esmeralda) */
   #experiencia > summary { color: var(--accent-emerald); border-color: rgba(46, 139, 87, 0.3); }
   #experiencia .section-content .card { border-left-color: var(--accent-emerald); opacity: 1; transform: none; }
   #experiencia .section-content .card::after { background: var(--accent-emerald); }
+  #experiencia .section-content .card strong { color: var(--fg); } /* Títulos internos blancos */
 
   /* Logros (Dorado) */
   #logros > summary { color: var(--accent-gold); border-color: rgba(255, 215, 0, 0.3); }
@@ -228,8 +230,6 @@
   aside .card:nth-of-type(4)::after { background: var(--accent-gold); } 
   aside .card:nth-of-type(4) > div:first-child { color: var(--accent-gold); font-weight: 800; margin-bottom: 8px; }
   
-  /* Títulos Internos (Experiencia/Proyectos Blancos) */
-  main .card strong { color: var(--fg); }
   /* --- FIN REFACTOR DE COLORES --- */
 
   
@@ -275,6 +275,7 @@
     flex-direction: column;
     gap: 12px; /* Espacio entre tarjetas de experiencia/proyectos */
   }
+  .clean { padding-left: 20px; margin: 0; } /* Estilo para listas <ul> */
 
   .acad-ipn-title {
     color: var(--accent-guinda); font-weight: 800;
@@ -361,6 +362,12 @@
   .side-navbar.expanded #menu-toggle-btn .fa-chevron-left { display: inline; }
   .side-navbar.expanded #menu-toggle-btn .fa-chevron-right { display: none; }
 
+  
+  /* ============================================= */
+  /* 2. ESTILOS DE LA ANIMACIÓN DE TARJETAS */
+  /* ============================================= */
+  
+  /* .card ya tiene la animación de opacity y transform */
   
   /* ============================================= */
   /* 3. NUEVOS ESTILOS PARA CONTACTO (Presionables) */
@@ -483,7 +490,7 @@
       <button onclick="translatePage('en')" id="flag-en">🇺🇸</button>
     </div>
     
-    <div class="main-header-card"> <header>
+    <div class="main-header-card card"> <header>
           <div class="brand">
               <div class="avatar" title="Foto de Sergio">
                   <img src="perfil.png" alt="Sergio Garduño Jardón">
@@ -717,7 +724,7 @@
         </div>
 
         <div class="card">
-          <div data-lang="soft-skills-title">Habilidades blandas</div>
+          <div style="font-weight:800;margin-bottom:8px" data-lang="soft-skills-title">Habilidades blandas</div>
           <ul class="clean">
             <li data-lang="soft-l1">Liderazgo</li>
             <li data-lang="soft-l2">Creatividad e innovación</li>
@@ -738,8 +745,7 @@
       <div style="color:var(--muted);font-size:13px" data-lang="footer-contact">Contacto: sgj.cheko@gmail.com</div>
     </footer>
   </div>
-
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
       particlesJS("particles-js", {
         "particles": { "number": { "value": 80, "density": { "enable": true, "value_area": 800 }}, "color": { "value": ["#FFD700", "#63b96f", "#0077b6", "#eef1f0"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }}, "opacity": { "value": 0.6, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false }}, "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false }}, "line_linked": { "enable": true, "distance": 150, "color": "#a3a3a3", "opacity": 0.4, "width": 1 }, "move": { "enable": true, "speed": 3, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }},
@@ -814,4 +820,120 @@
             'skill-python': 'Python (pandas)', 
             'skill-esp32': 'ESP32 & sensors', 
             'skill-sql': 'SQL & Google Sheets', 
-            'skill-solar': '
+            'skill-solar': 'Solar Panels & Batteries', 
+            'skill-apps-script': 'Google Apps Script', 
+            'soft-l1': 'Leadership', 
+            'soft-l2': 'Creativity and innovation', 
+            'soft-l3': 'Project planning and management', 
+            'soft-l4': 'Teamwork', 
+            'soft-l5': 'Adaptability', 
+            'soft-l6': 'Certification in progress: English B2.', 
+            'footer-name': 'Sergio Garduño Jardón', 
+            'footer-source': 'Made with GitHub Pages', 
+            'footer-contact': 'Contact: sgj.cheko@gmail.com' 
+          },
+          'es': { 
+            /* --- Títulos de Sección en Español --- */
+            'proyectos-title': 'Proyectos Personales',
+            'exp-title': 'Experiencia Laboral'
+            /* El resto de las claves ES se toman del HTML original */
+          }
+      };
+
+      let currentLanguage = 'es';
+
+      function applyText(element, text) {
+        let processedText = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+        if (element.tagName === 'STRONG' && element.querySelector('img')) {
+          const textSpan = element.querySelector('span');
+          if (textSpan) { textSpan.innerHTML = processedText; }
+          else { element.innerHTML = processedText; }
+        } else {
+          element.innerHTML = processedText;
+        }
+      }
+
+      function translatePage(lang) {
+        const t = translations[lang] || translations['es']; // Fallback a español
+        const isEnglish = (lang === 'en');
+        
+        document.querySelectorAll('[data-lang]').forEach(element => {
+            const key = element.getAttribute('data-lang');
+            
+            // Guarda el texto original ES la primera vez que se traduce a EN
+            if (isEnglish && !element.getAttribute('data-es-original')) {
+                 element.setAttribute('data-es-original', element.innerHTML);
+            }
+
+            if (t[key] !== undefined) { // Usar traducción si existe
+                applyText(element, t[key]);
+            } else if (lang === 'es') { // Si volvemos a español
+                const originalText = element.getAttribute('data-es-original');
+                if (originalText) { applyText(element, originalText); }
+            } // Si es inglés y no hay traducción, deja el texto actual
+        });
+        
+        document.querySelectorAll('[data-lang-href-en]').forEach(button => {
+            const originalHref = button.getAttribute('data-es-href') || button.getAttribute('href');
+             if (!button.getAttribute('data-es-href')) { button.setAttribute('data-es-href', originalHref); }
+             
+            const englishHref = button.getAttribute('data-lang-href-en');
+            button.setAttribute('href', isEnglish ? englishHref : originalHref);
+        });
+        
+        // Actualizar texto específico de botones CV
+        const viewCvSpan = document.getElementById('btn-view-cv')?.querySelector('span');
+        if(viewCvSpan) viewCvSpan.textContent = t['btn-view-cv-text'] || 'Ver CV'; // Usa fallback
+        const downloadCvSpan = document.getElementById('btn-download-cv')?.querySelector('span');
+        if(downloadCvSpan) downloadCvSpan.textContent = t['btn-download-cv-text'] || 'Descargar CV'; // Usa fallback
+
+        document.getElementById('flag-es')?.classList.toggle('active', lang === 'es');
+        document.getElementById('flag-en')?.classList.toggle('active', lang ===an');
+        currentLanguage = lang;
+        document.documentElement.lang = lang;
+      }
+
+      // INICIALIZACIÓN DE TODO
+      document.addEventListener('DOMContentLoaded', () => {
+          
+          // 1. Lógica de Traducción
+          // Guardar texto original ES al cargar
+          document.querySelectorAll('[data-lang]').forEach(element => {
+              if (!element.getAttribute('data-es-original')) {
+                   element.setAttribute('data-es-original', element.innerHTML); 
+              }
+          });
+          document.getElementById('flag-es')?.classList.add('active'); // Activar bandera ES
+          
+          // 2. LÓGICA DEL MENÚ LATERAL
+          const menuToggleBtn = document.getElementById('menu-toggle-btn');
+          const sideNavbar = document.getElementById('side-navbar');
+          
+          if (menuToggleBtn && sideNavbar) {
+            menuToggleBtn.addEventListener('click', () => {
+              sideNavbar.classList.toggle('expanded');
+              document.body.classList.toggle('menu-expanded');
+            });
+          }
+      
+          // 3. LÓGICA DE ANIMACIÓN DE TARJETAS
+          const animatedCards = document.querySelectorAll('.card'); 
+          
+          const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+              }
+            });
+          }, {
+            threshold: 0.1 // Se activa cuando el 10% de la tarjeta es visible
+          });
+          
+          animatedCards.forEach(card => {
+            revealObserver.observe(card);
+          });
+      });
+    </script>
+  </body>
+</html>
