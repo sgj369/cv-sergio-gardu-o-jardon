@@ -71,7 +71,7 @@
   }
 
 
-    /* ESTILOS DEL SELECTOR DE IDIOMA (DENTRO DEL NAV) */
+  /* ESTILOS DEL SELECTOR DE IDIOMA (DENTRO DEL NAV) */
   .lang-switcher {
     position: absolute; /* Posición absoluta DENTRO del nav */
     bottom: 20px; /* Abajo del menú */
@@ -82,11 +82,13 @@
     z-index: 1001; /* Encima de otros elementos del nav */
     opacity: 0; /* Oculto por defecto */
     transition: opacity 0.3s ease 0.1s; /* Animación suave */
+    pointer-events: none; /* No clickable cuando está oculto */
   }
 
   /* Mostrar solo cuando el menú esté EXPANDIDO */
   .side-navbar.expanded .lang-switcher {
     opacity: 1; 
+    pointer-events: auto; /* Clickable cuando es visible */
   }
 
   .lang-switcher button {
@@ -109,7 +111,6 @@
     border-color: var(--accent-red);
     background: rgba(255, 51, 102, 0.1);
   }
-
 
   /* ESTILOS DEL ENCABEZADO PRINCIPAL (HEADER CARD) - CON MARCO DORADO */
     .main-header-card {
