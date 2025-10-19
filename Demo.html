@@ -3,28 +3,24 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Demo: Encabezado con Línea Blanca Izq</title>
+  <title>Demo: Encabezado Líneas Laterales Doradas</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <style>
     /* 1. TUS VARIABLES Y ESTILOS BASE */
     :root{
-      --bg-uniform: #333; --fg: #eef1f0; /* Blanco suave */
+      --bg-uniform: #333; --fg: #eef1f0;
       --accent-gold: #FFD700;
       --card-bg: rgba(0,0,0,0.88); --card-border: rgba(255,255,255,0.1);
       --radius: 14px; --font-sans: Inter, system-ui, -apple-system, sans-serif;
     }
     body { font-family: var(--font-sans); background: var(--bg-uniform); padding: 28px; }
 
-    /* --- ⭐ LA MODIFICACIÓN: LÍNEA IZQUIERDA Y SIN LÍNEA BAJO EL NOMBRE ⭐ --- */
+    /* --- ⭐ LA MODIFICACIÓN: LÍNEAS LATERALES DORADAS ⭐ --- */
 
-    /* Estilos originales del encabezado */
     .main-header-card {
       background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-top: 2px solid var(--accent-gold);
-      border-bottom: 2px solid var(--accent-gold);
-      border-right: 2px solid var(--accent-gold);
+      border: 1px solid var(--card-border); /* Mantenemos este para el contorno */
       border-radius: var(--radius);
       box-shadow: 0 10px 30px rgba(0,0,0,0.4);
       margin-bottom: 22px;
@@ -36,14 +32,13 @@
       max-width: 1100px;
       margin: auto;
 
-      /* Añadimos la línea blanca a la izquierda */
-      border-left: 5px solid var(--fg); /* <-- LÍNEA BLANCA AÑADIDA */
+      /* QUITAMOS los bordes top, bottom, right dorados */
+      /* AÑADIMOS SOLO LAS LÍNEAS LATERALES DORADAS */
+      border-left: 5px solid var(--accent-gold); /* Línea dorada izquierda */
+      border-right: 5px solid var(--accent-gold); /* Línea dorada derecha */
     }
 
-    /* Quitamos la regla que ponía la línea bajo el nombre */
-    /* Ya NO existe la regla para .brand > div { border-bottom... } */
-
-    /* El resto de los estilos del header */
+    /* El resto de los estilos del header (sin cambios) */
     header{ display:flex; flex-direction: row; align-items: center; gap: 15px; flex-shrink: 0; }
     .brand{ display:flex; align-items:center; gap:14px; flex-shrink: 0; }
     .avatar{
