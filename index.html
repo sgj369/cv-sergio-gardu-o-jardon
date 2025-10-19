@@ -60,23 +60,34 @@
   }
 
 
-  /* ESTILOS DEL SELECTOR DE IDIOMA */
+    /* ESTILOS DEL SELECTOR DE IDIOMA (DENTRO DEL NAV) */
   .lang-switcher {
-    position: absolute;
-    top: 30px; /* Bajado a 5px para estar más visible */
-    right: 15px; /* Alineado al borde del wrap */
-    z-index: 1000;
+    position: absolute; /* Posición absoluta DENTRO del nav */
+    bottom: 20px; /* Abajo del menú */
+    left: 50%; /* Centrado horizontalmente */
+    transform: translateX(-50%); /* Ajuste fino para centrar */
     display: flex;
-    gap: 10px;
+    gap: 8px; /* Menos espacio entre banderas */
+    z-index: 1001; /* Encima de otros elementos del nav */
+    opacity: 0; /* Oculto por defecto */
+    transition: opacity 0.3s ease 0.1s; /* Animación suave */
+    pointer-events: none; /* No clickable cuando está oculto */
   }
+
+  /* Mostrar solo cuando el menú esté EXPANDIDO */
+  .side-navbar.expanded .lang-switcher {
+    opacity: 1; 
+    pointer-events: auto; /* Clickable cuando es visible */
+  }
+
   .lang-switcher button {
     background: var(--card-bg);
     color: var(--fg);
     border: 1px solid var(--accent-gold);
-    padding: 5px 10px;
-    border-radius: 8px;
+    padding: 3px 8px; /* Más pequeños */
+    border-radius: 6px; /* Menos redondeado */
     cursor: pointer;
-    font-size: 1.5em; 
+    font-size: 1.2em; /* Tamaño reducido */
     line-height: 1;
     transition: background-color 0.2s;
     opacity: 0.8;
