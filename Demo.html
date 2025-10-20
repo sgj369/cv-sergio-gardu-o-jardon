@@ -53,10 +53,11 @@
     -moz-osx-osx-font-smoothing:grayscale;
     line-height:1.5;
     /* El padding se gestiona con el menú lateral */
-    padding: 28px;
+    padding: 28px 0;
     padding-left: var(--menu-width-collapsed, 70px); /* Padding inicial para menú contraído */
     transition: padding-left 0.3s ease-in-out;
   }
+    
 
   /* Clase que se añade al body cuando el menú está expandido */
   body.menu-expanded {
@@ -550,17 +551,18 @@
   
       @media (max-width: 980px){ /* Aplica a tablet vertical y móvil */
     body {
-      padding: 28px 15px; /* Padding móvil general */
-      padding-left: calc(var(--menu-width-collapsed, 70px) + 15px); 
+      padding: 28px 0px; /* Padding móvil general */
+      padding-left: calc(var(--menu-width-collapsed, 70px) + 0px); 
       overflow-x: hidden; /* Evita scroll horizontal indeseado */
     }
     body.menu-expanded {
-       padding-left: calc(var(--menu-width-expanded, 240px) + 15px);
+       padding-left: calc(var(--menu-width-expanded, 240px) + 0px);
     }
     
     .wrap { 
-        padding: 0; /* Quitamos padding extra aquí */
+        padding: 0 15px; 
         width: 100%; /* Asegura que ocupe el ancho disponible */
+        box-sizing: border-box;
     } 
     
     .main-header-card { 
@@ -568,10 +570,11 @@
       align-items: flex-start; 
       gap: 10px; /* Menos espacio */
       padding: 15px; 
-      width: 100%; 
       margin-left: 0;
       margin-right: 0;
       box-sizing: border-box; /* Asegura que el padding no desborde */
+      max-width: 100%;
+      flex-grow: 1;
     }
      /* Reducimos un poco el título en móvil */
     .main-header-card .title {
