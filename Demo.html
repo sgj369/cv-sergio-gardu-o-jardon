@@ -548,32 +548,34 @@
       .hero-aside { position: static; } /* Quitamos sticky */
   }
   
-    @media (max-width:980px){
+      @media (max-width: 980px){ /* Aplica a tablet vertical y móvil */
     body {
       padding: 28px 15px; /* Padding móvil general */
-      /* Mantenemos el padding-left para el menú colapsado */
       padding-left: calc(var(--menu-width-collapsed, 70px) + 15px); 
+      overflow-x: hidden; /* Evita scroll horizontal indeseado */
     }
     body.menu-expanded {
-       /* Ajustamos el padding-left cuando el menú se expande */
        padding-left: calc(var(--menu-width-expanded, 240px) + 15px);
     }
     
-    /* ELIMINAMOS padding: 0; de .wrap aquí */
     .wrap { 
-        /* Ya no necesita padding específico aquí, hereda del body */
-        /* Eliminamos border-left y border-right si estaban */
+        padding: 0; /* Quitamos padding extra aquí */
+        width: 100%; /* Asegura que ocupe el ancho disponible */
     } 
     
     .main-header-card { 
       flex-direction: column; 
       align-items: flex-start; 
-      gap: 15px;
-      padding: 15px; /* Un poco menos de padding vertical en móvil si quieres */
-      /* Aseguramos que ocupe todo el ancho disponible */
+      gap: 10px; /* Menos espacio */
+      padding: 15px; 
       width: 100%; 
       margin-left: 0;
       margin-right: 0;
+      box-sizing: border-box; /* Asegura que el padding no desborde */
+    }
+     /* Reducimos un poco el título en móvil */
+    .main-header-card .title {
+        font-size: 30px; 
     }
     header { 
         width: 100%; 
@@ -585,7 +587,6 @@
       width: 100%; 
       justify-content: flex-start; 
       padding-top: 10px; 
-      /* Quitamos bordes y sombras si estaban */
       border: none;
       box-shadow: none;
     }
@@ -593,23 +594,30 @@
     /* Layout principal y aside */
     .hero { grid-template-columns: 1fr; } 
     .hero-aside { position: static; } /* Quitamos sticky */
-
-    /* ELIMINAMOS la regla para .lang-switcher aquí, ya no aplica */
     
     footer { 
-        /* Aseguramos que el padding del footer también respete el menú */
         padding-left: 15px; 
         padding-right: 15px; 
     }
   }
-
-
   
-  @media (max-width: 480px) { /* Móvil pequeño */
-      .title { font-size: 28px; }
+  /* Ajuste específico para pantallas pequeñas en horizontal */
+  @media (max-width: 700px) and (orientation: landscape) {
+      .main-header-card .title {
+          font-size: 24px; /* Título aún más pequeño */
+      }
+      .header-main-buttons a {
+          padding: 6px 10px; /* Botones un poco más pequeños */
+          font-size: 0.9em;
+      }
+  }
+
+  @media (max-width: 480px) { /* Móvil pequeño vertical */
+      .title { font-size: 28px; } /* Mantenemos el tamaño original para vertical */
       .avatar { width: 70px; height: 70px; }
       footer { flex-direction: column; gap: 15px; padding-top: 20px; padding-bottom: 20px; }
    }
+
 
  </style>
 </head>
@@ -1034,6 +1042,14 @@
                 const originalText = element.getAttribute('data-es-original');
                 if (originalText) { applyText(element, originalText); }
             } // Si es inglés y no hay traducción, deja el texto actual
+                // --- Añadido para mostrar solo una bandera ---
+      const flagEsBtn = document.getElementById('flag-es');
+      const flagEnBtn = document.getElementById('flag-en');
+      if (flagEsBtn && flagEnBtn) {
+          flagEsBtn.style.display = (lang === 'en') ? 'inline-block' : 'none'; // Muestra ES si el idioma actual es EN
+          flagEnBtn.style.display = (lang === 'es') ? 'inline-block' : 'none'; // Muestra EN si el idioma actual es ES
+      }
+      // --- Fin del añadido ---
         });
         
         document.querySelectorAll('[data-lang-href-en]').forEach(button => {
@@ -1065,6 +1081,7 @@
               if (!element.getAttribute('data-es-original')) {
                    element.setAttribute('data-es-original', element.innerHTML); 
               }
+            
           });
           document.getElementById('flag-es')?.classList.add('active'); // Activar bandera ES
           
