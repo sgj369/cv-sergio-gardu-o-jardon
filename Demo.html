@@ -558,7 +558,13 @@
        /* Ajustamos el padding-left cuando el menú se expande */
        padding-left: calc(var(--menu-width-expanded, 240px) + 15px);
     }
-        
+    
+    /* ELIMINAMOS padding: 0; de .wrap aquí */
+    .wrap { 
+        /* Ya no necesita padding específico aquí, hereda del body */
+        /* Eliminamos border-left y border-right si estaban */
+    } 
+    
     .main-header-card { 
       flex-direction: column; 
       align-items: flex-start; 
@@ -587,6 +593,8 @@
     /* Layout principal y aside */
     .hero { grid-template-columns: 1fr; } 
     .hero-aside { position: static; } /* Quitamos sticky */
+
+    /* ELIMINAMOS la regla para .lang-switcher aquí, ya no aplica */
     
     footer { 
         /* Aseguramos que el padding del footer también respete el menú */
@@ -594,6 +602,7 @@
         padding-right: 15px; 
     }
   }
+
 
   
   @media (max-width: 480px) { /* Móvil pequeño */
