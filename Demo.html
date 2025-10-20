@@ -559,11 +559,26 @@
        padding-left: calc(var(--menu-width-expanded, 240px) + 0px);
     }
     
-    .wrap { 
-        padding: 0 15px; 
-        width: 100%; /* Asegura que ocupe el ancho disponible */
-        box-sizing: border-box;
-    } 
+    .wrap{
+  max-width:var(--maxw);
+  margin: 0 auto; 
+  position: relative;
+  padding: 0; 
+  box-sizing: border-box; 
+  width: 100%; 
+  
+  padding-left: calc(var(--menu-width-collapsed, 70px) + 10px); 
+  padding-right: 10px; 
+  transition: padding-left 0.3s ease-in-out; 
+  }
+  
+  
+  /* Cuando el menú se expande, aumentamos el padding del wrap */
+  body.menu-expanded .wrap {
+      padding-left: calc(var(--menu-width-expanded, 240px) + 10px);
+  }
+
+ 
     
     .main-header-card { 
       flex-direction: column; 
