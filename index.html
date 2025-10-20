@@ -12,18 +12,22 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
-  :root{
+    :root{
     --bg-uniform: #333; /* Fondo gris oscuro */
     --fg: #eef1f0; /* Blanco suave para texto principal */
     --muted: #a3a3a3; /* Gris para texto secundario */
     
     /* Paleta de Acentos */
     --accent-red: #ff3366; 
-    --accent-green: #63b96f; 
-    --accent-blue: #0077b6; 
-    --accent-yellow: #ffc300; 
-    --accent-purple: #9933cc; 
-    --accent-gold: #FFD700; /* Dorado para destacar el header y elementos clave */
+    --accent-green: #63b96f; /* Verde Brillante (Contacto) */
+    --accent-blue: #0077b6; /* Azul (Perfil, Habilidades Técnicas) */
+    --accent-yellow: #ffc300; /* Amarillo (Cursos) */
+    --accent-purple: #9933cc; /* Morado (Proyectos, Formación) */
+    --accent-gold: #FFD700; /* Dorado (Logros, Habilidades Blandas) */
+    
+    /* --- CAMBIO AQUÍ --- */
+    --accent-emerald: #2E8B57; /* NUEVO: Verde Esmeralda (Experiencia) */
+    
     --accent-guinda: #900030; /* Guinda/Borgoña para el título IPN */
 
     --card-bg: rgba(0,0,0,0.88); /* Tarjetas muy oscuras */
@@ -32,12 +36,13 @@
     --radius: 14px;
     --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 
-    --btn-primary: var(--accent-green); 
-    --btn-secondary: var(--accent-blue); 
+    /* Variables para el menú (se usan más abajo) */
+    --menu-width-collapsed: 70px;
+    --menu-width-expanded: 240px;
   }
 
   /* Estilos Base */
-  html { background-color: var(--bg-uniform); }
+  html { background-color: var(--bg-uniform); scroll-behavior: smooth; }
   *{box-sizing:border-box}
   html,body{height:100%;margin:0;padding:0}
   body{
@@ -47,28 +52,34 @@
     -webkit-font-smoothing:antialiased;
     -moz-osx-osx-font-smoothing:grayscale;
     line-height:1.5;
-    padding:28px;
-    transition: background-color .25s ease;
+    /* El padding se gestiona con el menú lateral */
+    padding: 28px;
+    padding-left: var(--menu-width-collapsed, 70px); /* Padding inicial para menú contraído */
+    transition: padding-left 0.3s ease-in-out;
   }
 
-    .wrap{
+  /* Clase que se añade al body cuando el menú está expandido */
+  body.menu-expanded {
+    padding-left: var(--menu-width-expanded, 240px);
+  }
+
+  .wrap{
     max-width:var(--maxw);
     margin:0 auto;
-    position:relative;
-    /* Las líneas de borde se han eliminado */
+    position:relative; /* Mantenemos relative para futuras alineaciones */
     padding: 0 10px;
   }
 
 
     /* ESTILOS DEL SELECTOR DE IDIOMA (FIJO EN PANTALLA) */
   .lang-switcher {
-    position: fixed; /* FIJO en la pantalla */
-    top: 30px; 
-    right: 30px; /* Más separado del borde */
+     /* FIJO en la pantalla */
+    top: 40px; 
+    right: 60px; /* Más separado del borde */
     z-index: 1000;
     display: flex;
+    flex-direction: column;
     gap: 10px;
-    /* Quitamos opacity y transition, siempre visibles */
   }
   .lang-switcher button {
     background: var(--card-bg); color: var(--fg); border: 1px solid var(--accent-gold);
@@ -87,12 +98,15 @@
    }
 
   /* ESTILOS DEL ENCABEZADO PRINCIPAL (HEADER CARD) - CON MARCO DORADO */
-  .main-header-card {
+    .main-header-card {
     background: var(--card-bg);
     border: 1px solid rgba(255, 255, 255, 0.1); 
-    border-top: 2px solid var(--accent-gold); 
-    border-bottom: 2px solid var(--accent-gold); 
-    border-right: 2px solid var(--accent-gold); 
+    
+    /* --- CAMBIO AQUÍ: De dorado a blanco --- */
+    border-top: 2px solid var(--fg); 
+    border-bottom: 2px solid var(--fg); 
+    border-right: 2px solid var(--fg); 
+    
     border-radius: var(--radius);
     box-shadow: 0 10px 30px rgba(0,0,0,0.4);
     margin-bottom: 22px;
@@ -102,76 +116,98 @@
     gap: 20px; 
     padding: 20px;
   }
+
+    /* --- CAMBIO AQUÍ: Línea blanca para el header --- */
+  .main-header-card::after {
+      content: '';
+      position: absolute;
+      top: 0; 
+      right: 0; 
+      width: 5px; 
+      height: 35px; 
+      background: var(--fg); /* Color Blanco */
+      border-top-right-radius: var(--radius); 
+      z-index: 1; 
+  }
+
   
   header{
-    display:flex;
-    flex-direction: row; 
-    align-items: center; 
-    gap: 15px; 
-    margin-bottom:0;
-    flex-shrink: 0; 
+    display:flex; flex-direction: row; align-items: center; 
+    gap: 15px; margin-bottom:0; flex-shrink: 0; 
   }
-  .brand{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    flex-shrink: 0;
-  }
-  .avatar{
+  .brand{ display:flex; align-items:center; gap:14px; flex-shrink: 0; }
+    .avatar{
     width:90px; height:90px; border-radius:12px; overflow:hidden;
-    border:2px solid var(--accent-gold); 
-    box-shadow:0 0 15px rgba(255, 215, 0, 0.5); 
+    
+    /* --- CAMBIO AQUÍ: De dorado a blanco --- */
+    border:2px solid var(--fg); 
+    box-shadow:0 0 15px rgba(238, 241, 240, 0.5); /* Sombra blanca */
   }
+
   .avatar img{width:100%;height:100%;object-fit:cover;display:block}
   
-  /* Nombre en Blanco con contorno dorado */
+    /* --- CAMBIO AQUÍ: Nombre contorno blanco y relleno negro --- */
   .title{
     font-weight:900;
     font-size:36px; 
-    color: var(--fg); 
-    text-shadow: 
-        -1px -1px 0 var(--accent-gold),  
-        1px -1px 0 var(--accent-gold),
-        -1px 1px 0 var(--accent-gold),
-        1px 1px 0 var(--accent-gold),
-        0 0 10px rgba(255, 215, 0, 0.8); 
+    color: #000; /* Relleno Negro */
+    text-shadow: /* Contorno Blanco */
+        -1px -1px 0 var(--fg),  
+         1px -1px 0 var(--fg),
+        -1px  1px 0 var(--fg),
+         1px  1px 0 var(--fg); 
   } 
+ 
 
-  /* Estilo de Botones de CV (Ver CV, Descargar CV) */
-  .btn-clean-gold {
+    /* --- CAMBIO AQUÍ: Reemplazamos .btn-clean-gold por estos dos --- */
+
+  /* Botón Relleno Blanco (Para Ver CV) */
+  .btn-fill-white {
+    background: var(--fg);
+    color: #333; /* Texto oscuro */
+    border: 2px solid var(--fg);
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+    box-shadow: 0 4px 15px rgba(238, 241, 240, 0.2);
+  }
+  .btn-fill-white:hover { 
+    background: #cdd1d0; /* Un gris claro al pasar el ratón */
+    border-color: #cdd1d0;
+    box-shadow: 0 6px 20px rgba(238, 241, 240, 0.4);
+    transform: translateY(-1px);
+  }
+
+  /* Botón Contorno Blanco (Para Descargar CV) */
+  .btn-outline-white {
     background: transparent;
-    border: 2px solid var(--accent-gold);
-    color: var(--accent-gold);
-    padding:8px 12px;
-    border-radius:10px;
-    font-weight:700;
-    text-decoration:none;
-    display:inline-flex;
-    gap:8px;
-    align-items:center;
+    border: 2px solid var(--fg);
+    color: var(--fg);
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
     transition: background-color 0.15s;
     flex-shrink: 0;
   }
-  .btn-clean-gold:hover { background: rgba(255, 215, 0, 0.1); }
-  
-  /* Contenedor de botones de CV */
-  .header-main-buttons { 
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    align-items: center;
+  .btn-outline-white:hover { 
+    background: rgba(238, 241, 240, 0.1); /* Relleno blanco sutil */
   }
+
   
-  /* Botones de Contacto Rápido y otros */
-  .btn-clean-primary {
-    background: transparent; border: 2px solid var(--btn-primary); color: var(--btn-primary);
-    padding:8px 12px; border-radius:10px; font-weight:700; text-decoration:none;
-    display:inline-flex; gap:8px; align-items:center; transition: background-color 0.15s;
-    flex-shrink: 0;
-  }
-  .btn-clean-primary:hover { background: rgba(99, 185, 111, 0.1); }
+  .header-main-buttons { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  
   .btn-clean-secondary {
-    background: transparent; border: 2px solid var(--btn-secondary); color: var(--btn-secondary);
+    background: transparent; border: 2px solid var(--accent-blue); color: var(--accent-blue);
     padding:8px 12px; border-radius:10px; font-weight:700; text-decoration:none;
     display:inline-flex; gap:8px; align-items:center; transition: background-color 0.15s;
     flex-shrink: 0;
@@ -186,113 +222,144 @@
     align-items:start;
     margin-bottom:28px;
   }
+  
+  /* --- CAMBIO AQUÍ (Clases añadidas) --- */
+  .hero-main { display: flex; flex-direction: column; gap: 28px; }
+  .hero-aside { position: sticky; top: 28px; display: flex; flex-direction: column; gap: 28px; }
 
   /* Estilos base para todas las tarjetas de contenido */
   .card{
-    position: relative; /* CLAVE para el ::after */
-    background: var(--card-bg);
-    border:1px solid var(--card-border);
-    padding:20px;
-    border-radius:var(--radius);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
-    color:var(--fg);
-    transition: all 0.2s ease;
-    overflow: hidden; 
+    position: relative; background: var(--card-bg); border:1px solid var(--card-border);
+    padding:20px; border-radius:var(--radius); box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+    color:var(--fg); overflow: hidden;
+    /* Animación (se define más abajo) */
+    border-left: 5px solid; /* Borde izquierdo base (color se aplica por ID) */
   }
-  .card:hover { box-shadow: 0 0 15px rgba(255,255,255,0.1); }
+  .card:hover { 
+    box-shadow: 0 0 15px rgba(255,255,255,0.1); 
+    transform: translateY(0); /* Evita saltos en hover */
+  }
 
-  /* INICIO: LÍNEA DECORATIVA DERECHA (::after) - VERTICAL Y VISIBLE */
+  /* Línea decorativa derecha */
   .card::after {
-      content: '';
-      position: absolute;
-      top: 0; 
-      right: 0; 
-      width: 5px; 
-      height: 35px; 
-      border-top-right-radius: var(--radius); 
-      z-index: 1; 
+      content: ''; position: absolute; top: 0; right: 0; 
+      width: 5px; height: 35px; 
+      border-top-right-radius: var(--radius); z-index: 1; 
   }
-  /* FIN: LÍNEA DECORATIVA DERECHA (::after) */
     
-  /* Colores de las líneas laterales y ::after */
-  main .card:nth-of-type(1) { border-left: 5px solid var(--accent-blue); } 
-  main .card:nth-of-type(1)::after { background: var(--accent-blue); } 
-  main .card:nth-of-type(2) { border-left: 5px solid var(--accent-green); } 
-  main .card:nth-of-type(2)::after { background: var(--accent-green); } 
-  main .card:nth-of-type(3) { border-left: 5px solid var(--accent-yellow); } 
-  main .card:nth-of-type(3)::after { background: var(--accent-yellow); } 
-  main .card:nth-of-type(4) { border-left: 5px solid var(--accent-purple); } 
-  main .card:nth-of-type(4)::after { background: var(--accent-purple); } 
-  main .card:nth-of-type(5) { border-left: 5px solid var(--accent-blue); } 
-  main .card:nth-of-type(5)::after { background: var(--accent-blue); } 
-  main .card:nth-of-type(6) { border-left: 5px solid var(--accent-green); } 
-  main .card:nth-of-type(6)::after { background: var(--accent-green); } 
-  main .card:nth-of-type(7) { border-left: 5px solid var(--accent-yellow); } 
-  main .card:nth-of-type(7)::after { background: var(--accent-yellow); } 
-  main .card:nth-of-type(8) { border-left: 5px solid var(--accent-red); } 
-  main .card:nth-of-type(8)::after { background: var(--accent-red); } 
-  main .card:nth-of-type(9) { border-left: 5px solid var(--accent-purple); } 
-  main .card:nth-of-type(9)::after { background: var(--accent-purple); } 
-  aside .card:nth-of-type(1) { border-left: 5px solid var(--accent-purple); } 
-  aside .card:nth-of-type(1)::after { background: var(--accent-purple); } 
-  aside .card:nth-of-type(2) { border-left: 5px solid var(--accent-green); } 
-  aside .card:nth-of-type(2)::after { background: var(--accent-green); } 
-  aside .card:nth-of-type(3) { border-left: 5px solid var(--accent-blue); } 
-  aside .card:nth-of-type(3)::after { background: var(--accent-blue); } 
-  aside .card:nth-of-type(4) { border-left: 5px solid var(--accent-gold); } 
-  aside .card:nth-of-type(4)::after { background: var(--accent-gold); } 
-
-  /* Títulos y Contenido */
-  main .card:nth-of-type(2) strong { color: var(--accent-gold); } 
-  main .card:nth-of-type(3) strong { color: var(--accent-yellow); } 
-  main .card:nth-of-type(4) strong { color: var(--accent-purple); }
-  main .card:nth-of-type(5) strong { color: var(--accent-blue); }
-  main .card:nth-of-type(6) strong { color: var(--accent-green); }
-  main .card:nth-of-type(7) strong { color: var(--accent-yellow); }
+  /* --- CAMBIO AQUÍ (REFACTOR DE COLORES POR SECCIÓN ID) --- */
+  /* Todas las reglas nth-of-type fueron eliminadas */
   
-  .profile-title{font-size:16px;font-weight:800;margin-bottom:8px}
+  /* Perfil (Azul) */
+  #perfil { border-left-color: var(--accent-blue); } 
+  #perfil::after { background: var(--accent-blue); }
+  #perfil .profile-title { color: var(--accent-blue); }
+
+  /* Proyectos (Morado) */
+  #proyectos > summary { color: var(--accent-purple); border-color: rgba(153, 51, 204, 0.3); }
+  #proyectos .section-content .card { border-left-color: var(--accent-purple); opacity: 1; transform: none; } /*Hijos no se animan*/
+  #proyectos .section-content .card::after { background: var(--accent-purple); }
+  #proyectos .section-content .card strong { color: var(--fg); } /* Títulos internos blancos */
+
+  /* Experiencia (Verde Esmeralda) */
+  #experiencia > summary { color: var(--accent-emerald); border-color: rgba(46, 139, 87, 0.3); }
+  #experiencia .section-content .card { border-left-color: var(--accent-emerald); opacity: 1; transform: none; }
+  #experiencia .section-content .card::after { background: var(--accent-emerald); }
+  #experiencia .section-content .card strong { color: var(--fg); } /* Títulos internos blancos */
+
+  /* Logros (Dorado) */
+  #logros > summary { color: var(--accent-gold); border-color: rgba(255, 215, 0, 0.3); }
+  #logros .section-content .card { border-left-color: var(--accent-gold); opacity: 1; transform: none; }
+  #logros .section-content .card::after { background: var(--accent-gold); }
+
+
+  /* Cursos (Rojo) */
+  #cursos > summary { color: var(--accent-red); border-color: rgba(255, 51, 102, 0.3); }
+  #cursos .section-content .card { border-left-color: var(--accent-red); opacity: 1; transform: none; }
+  #cursos .section-content .card::after { background: var(--accent-red); }
+
+  /* --- ASIDE --- */
+  /* Formación (Morado) */
+  #formacion { border-left-color: var(--accent-purple); } 
+  #formacion::after { background: var(--accent-purple); } 
+  #formacion > div:first-child { color: var(--accent-purple); font-weight: 800; margin-bottom: 15px; }
+  
+  /* Contacto (Verde) */
+  #contacto { border-left-color: var(--accent-green); } 
+  #contacto::after { background: var(--accent-green); } 
+  #contacto > div:first-child { color: var(--accent-green); font-weight: 800; margin-bottom: 8px; }
+  
+  /* Habilidades (Azul) */
+  #habilidades { border-left-color: var(--accent-blue); } 
+  #habilidades::after { background: var(--accent-blue); } 
+  #habilidades > div:first-child { color: var(--accent-blue); font-weight: 800; margin-bottom: 8px; }
+  
+  /* Habilidades Blandas (Dorado) (Sigue siendo el 4to hijo de aside) */
+  aside .card:nth-of-type(4) { border-left-color: var(--accent-gold); } 
+  aside .card:nth-of-type(4)::after { background: var(--accent-gold); } 
+  aside .card:nth-of-type(4) > div:first-child { color: var(--accent-gold); font-weight: 800; margin-bottom: 8px; }
+  
+  /* --- FIN REFACTOR DE COLORES --- */
+
+  
+  /* Títulos y Contenido */
+  h2.profile-title{font-size:18px;font-weight:800;margin-top: 0; margin-bottom:8px}
   .profile-text{color:var(--fg);opacity:1;font-size:15px;line-height:1.6;}
   .skill-pill { color: var(--fg); padding: 6px 10px; border-radius: 6px; margin: 4px; display: inline-block; font-size: 14px; border: 1px solid rgba(255,255,255,0.15); }
   .skills { display: flex; flex-wrap: wrap; margin-top: 10px; }
 
-  /* Títulos de sección (Experiencia, Logros, Cursos) */
+  /* --- CAMBIO AQUÍ (Estilos de Títulos de Sección) --- */
+  
+  /* Títulos de sección (h2 dentro de summary) */
   h2.section{
-    font-size:18px; color:var(--accent-red); margin: 20px 0 15px 0; font-weight:800; 
-    border-bottom: 2px solid rgba(255, 51, 102, 0.3); padding-bottom: 4px;
-    cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+    font-size:18px; margin: 0; font-weight:800; 
+    flex-grow: 1; /* Empuja la flecha a la derecha */
   }
+  /* El color del h2 lo hereda del summary */
+  summary > h2.section { color: inherit !important; }
 
-  /* ESTILOS DE LOS TÍTULOS INTERNOS DE TARJETA */
-  main .card:nth-of-type(1) .profile-title { color: var(--accent-blue); } /* Perfil */
-  aside .card:nth-of-type(1) div:first-child { color: var(--accent-purple); } /* Título Formación Académica */
-  aside .card:nth-of-type(2) div:first-child { color: var(--accent-green); } /* Título Contacto */
-  aside .card:nth-of-type(3) div:first-child { color: var(--accent-blue); } /* Título Habilidades Técnicas */
-  aside .card:nth-of-type(4) div:first-child { color: var(--accent-gold); } /* Título Habilidades Blandas */
-
-  /* Estilo del título IPN Politécnico (Guinda) */
+  /* Estilo del <summary> que contiene el título */
+  details > summary {
+      /* El color de texto y borde se aplica por ID */
+      border-bottom: 2px solid; 
+      padding-bottom: 4px; margin-bottom: 15px;
+      cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+      position: relative; /* Para la flecha */
+  }
+  
+  /* Flecha desplegable (NUEVO) */
+  details > summary::after {
+    content: '▼'; /* Flecha hacia abajo */
+    font-size: 0.8em;
+    color: var(--muted);
+    margin-left: 10px; /* Espacio entre título y flecha */
+    transition: transform 0.2s ease-out;
+    flex-shrink: 0; /* Evita que la flecha se encoja */
+  }
+  details[open] > summary::after {
+    transform: rotate(180deg); /* Flecha hacia arriba */
+  }
+  
+  /* Contenido dentro de las secciones <details> (NUEVO) */
+  .section-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* Espacio entre tarjetas de experiencia/proyectos */
+  }  
+    .clean { padding-left: 20px; margin: 0; list-style-type: none; } /* Estilo para listas <ul> */
+    
   .acad-ipn-title {
-    color: var(--accent-guinda);
-    font-weight: 800;
-    margin-top: 0;
-    margin-bottom: 12px;
-    font-size: 18px;
-    text-align: center;
+    color: var(--accent-guinda); font-weight: 800;
+    margin-top: 0; margin-bottom: 12px;
+    font-size: 18px; text-align: center;
   }
+  
+  /* --- CAMBIO AQUÍ (Estilos de Contacto simplificados) --- */
+  /* Los estilos de .contact-list ahora son para los botones presionables */
+  .contact-small { font-size: 0.9em; color: var(--muted); }
 
-  /* RESTAURACIÓN: Colores de los íconos de contacto (Importante) */
-  .contact-list a { color: var(--fg); text-decoration: none; display: flex; align-items: center; } 
-  .contact-list a i { margin-right: 8px; font-size: 1.1em; } 
-  .contact-list li { margin: 8px 0; overflow-wrap: break-word; } 
-  .contact-list li:nth-child(1) a i { color: var(--accent-green); } 
-  .contact-list li:nth-child(2) a i { color: var(--accent-green); } 
-  .contact-list li:nth-child(3) a i { color: var(--accent-yellow); } 
-  .contact-list li:nth-child(4) a i { color: var(--accent-purple); } 
-  .contact-list li:nth-child(5) a i { color: var(--accent-blue); } 
-  .contact-list li:nth-child(6) a i { color: var(--accent-red); } 
-  .contact-list li:nth-child(7) a i { color: var(--accent-green); } 
-  .contact-list li:nth-child(8) a i { color: var(--accent-yellow); } 
 
-  /* RESTAURACIÓN: Estilos específicos de los bloques IoT (Tesis) */
+  /* Estilos bloques IoT (Tesis) */
   .iot-block{margin-top: 14px; padding:0; background: transparent; border: none;}
   .iot-block h3{color:var(--accent-purple); margin:16px 0 10px 0; font-size:18px; font-weight:800; text-shadow: 0 0 2px rgba(153, 51, 204, 0.5);}
   .iot-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px; margin-top: 14px;}
@@ -307,41 +374,11 @@
   .sello{width:40px;height:40px;border-radius:8px;overflow:hidden}
   .sello img{width:100%;height:100%;object-fit:cover}
 
-  /* RESPONSIVE TWEAKS (PARA MÓVILES) */
-  @media (max-width:980px){
-    body {
-      padding: 28px 15px; /* Restaura padding original */
-      padding-left: var(--menu-width-collapsed, 70px); /* Añade espacio para el menú colapsado */
-    }
-    .main-header-card { 
-      flex-direction: column; align-items: flex-start; gap: 15px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1); 
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      border-right: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    header { width: 100%; flex-direction: column; align-items: flex-start; gap: 10px; }
-    .header-main-buttons { 
-      width: 100%; justify-content: flex-start; padding: 10px 0; 
-      border-top: none; border-bottom: none; border-right: none;
-      box-shadow: none;
-    }
-    
-    .wrap { padding: 0; border-left: none; border-right: none; }
-    .hero { grid-template-columns: 1fr; } 
-  }
-    /*css de las particulas*/
-    #particles-js {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: -1; 
+  /* Partículas */
+  #particles-js {
+    position: fixed; width: 100%; height: 100%;
+    top: 0; left: 0; z-index: -1; 
     background-color: var(--bg-uniform);
-    background-image: url("");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 50% 50%;
   }
 
   /* ============================================= */
@@ -364,89 +401,74 @@
     padding-left: var(--menu-width-expanded, 240px); /* Usamos 240px como valor por defecto */
   }
   
-  /* El menú lateral */
   .side-navbar {
-    position: fixed; /* Fijo en la pantalla */
-    top: 0;
-    left: 0;
-    height: 100vh; /* Alto completo */
-    background: var(--card-bg);
+    position: fixed; top: 0; left: 0;
+    height: 100vh; background: var(--card-bg);
     border-right: 1px solid var(--card-border);
-    width: var(--menu-width-collapsed, 70px); /* Ancho inicial (contraído) */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 0;
+    width: var(--menu-width-collapsed, 70px); 
+    display: flex; flex-direction: column;
+    align-items: center; padding: 20px 0;
     z-index: 1000;
-    overflow: hidden; /* Oculta el texto cuando está contraído */
-    transition: width 0.3s ease-in-out; /* La animación de expansión */
+    overflow: hidden; 
+    transition: width 0.3s ease-in-out; 
   }
 
-  /* Estilos cuando el menú está expandido */
   .side-navbar.expanded {
     width: var(--menu-width-expanded, 240px);
-    align-items: flex-start; /* Alinea los items a la izquierda */
+    align-items: flex-start; 
   }
 
-  /* Contenedor de los enlaces */
-  .side-navbar ul {
-    list-style: none;
-    padding: 0;
-    margin: 20px 0 0 0;
-    width: 100%;
-  }
+  .side-navbar ul { list-style: none; padding: 0; margin: 20px 0 0 0; width: 100%; }
 
-  /* Estilo de cada enlace del menú */
   .side-navbar .nav-link {
-    display: flex;
-    align-items: center;
-    color: var(--fg);
-    text-decoration: none;
-    padding: 15px 0 15px 23px; /* Mantiene el ícono a la izquierda */
-    height: 50px; /* Alto fijo */
-    width: 100%;
-    white-space: nowrap; /* Evita que el texto se rompa */
+    display: flex; align-items: center; color: var(--fg);
+    text-decoration: none; padding: 15px 0 15px 23px; 
+    height: 50px; width: 100%;
+    white-space: nowrap; 
     transition: background-color 0.2s ease;
   }
   
-  .side-navbar .nav-link:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-  }
+  .side-navbar .nav-link:hover { background-color: rgba(255, 255, 255, 0.1); }
   
-  /* Estilo del ícono */
-  .side-navbar .nav-link i {
-    font-size: 1.3em;
-    width: 24px; /* Ancho fijo para el ícono */
+    .side-navbar .nav-link i {
+    font-size: 1.3em; 
+    width: 24px; 
     text-align: center;
+    color: var(--fg); /* Icono Blanco */
+    transition: text-shadow 0.2s ease, transform 0.2s ease;
+    transform: scale(1); /* Estado base para el hover */
   }
   
-  /* Estilo del texto del enlace (oculto por defecto) */
+  /* --- CAMBIO AQUÍ: Colores de contorno para cada icono --- */
+  .nav-link-perfil i      { text-shadow: 0 0 5px var(--accent-blue), 0 0 10px var(--accent-blue); }
+  .nav-link-proyectos i   { text-shadow: 0 0 5px var(--accent-purple), 0 0 10px var(--accent-purple); }
+  .nav-link-experiencia i { text-shadow: 0 0 5px var(--accent-emerald), 0 0 10px var(--accent-emerald); }
+  .nav-link-logros i      { text-shadow: 0 0 5px var(--accent-gold), 0 0 10px var(--accent-gold); }
+  .nav-link-cursos i      { text-shadow: 0 0 5px var(--accent-red), 0 0 10px var(--accent-red); } /* Color Rojo */
+  .nav-link-formacion i   { text-shadow: 0 0 5px var(--accent-purple), 0 0 10px var(--accent-purple); }
+  .nav-link-contacto i    { text-shadow: 0 0 5px var(--accent-green), 0 0 10px var(--accent-green); }
+  .nav-link-habilidades i { text-shadow: 0 0 5px var(--accent-blue), 0 0 10px var(--accent-blue); }
+
+  /* Efecto de "brillo" y crecimiento al pasar el ratón */
+  .side-navbar .nav-link:hover i { 
+    text-shadow: 0 0 12px var(--fg), 0 0 20px var(--fg); /* Brillo blanco */
+    transform: scale(1.1); /* Crece un poco */
+  }
+  
   .side-navbar .link-text {
-    margin-left: 20px;
-    font-weight: 600;
-    opacity: 0; /* Oculto */
-    transition: opacity 0.2s ease;
+    margin-left: 20px; font-weight: 600;
+    opacity: 0; transition: opacity 0.2s ease;
   }
   
-  /* Mostramos el texto cuando el menú está expandido */
-  .side-navbar.expanded .link-text {
-    opacity: 1;
-  }
+  .side-navbar.expanded .link-text { opacity: 1; }
   
-  /* Botón para expandir/contraer */
   #menu-toggle-btn {
-    background: none;
-    border: none;
-    color: var(--fg);
-    font-size: 1.5em;
-    cursor: pointer;
-    padding: 10px 23px; /* Alinear con los íconos */
+    background: none; border: none; color: var(--fg);
+    font-size: 1.5em; cursor: pointer;
+    padding: 10px 23px; 
   }
   
-  /* Ocultamos el botón de cerrar por defecto */
   #menu-toggle-btn .fa-chevron-left { display: none; }
-  
-  /* Mostramos el botón de cerrar cuando está expandido */
   .side-navbar.expanded #menu-toggle-btn .fa-chevron-left { display: inline; }
   .side-navbar.expanded #menu-toggle-btn .fa-chevron-right { display: none; }
 
@@ -455,71 +477,45 @@
   /* 2. ESTILOS DE LA ANIMACIÓN DE TARJETAS */
   /* ============================================= */
   
-  /* Modificamos la transición original de .card */
   .card {
     transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.2s ease;
     opacity: 0;
     transform: translateY(30px);
   }
-  /* Mantenemos el hover original */
-  .card:hover { 
-    box-shadow: 0 0 15px rgba(255,255,255,0.1); 
-    transform: translateY(0); /* Evita saltos raros */
-  }
-
-  /* Clase que se añade con JS cuando el elemento es visible */
   .card.is-visible {
     opacity: 1;
     transform: translateY(0);
   }
   
-    /* ============================================= */
+  /* ============================================= */
   /* 3. NUEVOS ESTILOS PARA CONTACTO (Presionables) */
   /* ============================================= */
 
-  /* Estilos específicos para la lista de contacto DENTRO de la tarjeta con id="contacto" */
   #contacto .contact-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    gap: 12px; /* Espacio entre botones */
+    list-style: none; padding: 0; margin: 0;
+    display: grid; gap: 12px; 
   }
-   #contacto .contact-list li {
-     display: block; /* Asegura que cada item ocupe su espacio */
-   }
+   #contacto .contact-list li { display: block; }
 
-  /* Estilo base del nuevo botón "presionable" */
   #contacto .contact-btn-pressable {
-    display: flex;
-    align-items: center;
-    padding: 12px 16px;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: 700;
-    color: #000; /* Color de texto oscuro por defecto */
+    display: flex; align-items: center; padding: 12px 16px;
+    border-radius: 10px; text-decoration: none; font-weight: 700;
+    color: #000; 
     transition: all 0.2s ease-out;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
   }
-
   #contacto .contact-btn-pressable:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(0,0,0,0.3);
   }
-
   #contacto .contact-btn-pressable i {
-    font-size: 1.2em;
-    margin-right: 12px;
-    width: 25px;
-    text-align: center;
-    /* Quitamos el color por defecto para que lo tome del botón padre */
-    color: inherit; 
+    font-size: 1.2em; margin-right: 12px;
+    width: 25px; text-align: center; color: inherit; 
   }
 
-  /* Colores de fondo y texto específicos para cada botón */
   #contacto .btn-email { background: var(--accent-yellow); color: #332400; }
   #contacto .btn-email:hover { box-shadow: 0 8px 25px rgba(255, 195, 0, 0.3); }
-  #contacto .btn-email i { color: #332400; } /* Aseguramos color del icono */
+  #contacto .btn-email i { color: #332400; } 
 
   #contacto .btn-whatsapp { background: var(--accent-green); color: #03120a; }
   #contacto .btn-whatsapp:hover { box-shadow: 0 8px 25px rgba(99, 185, 111, 0.3); }
@@ -545,39 +541,100 @@
   #contacto .btn-tiktok:hover { box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3); }
   #contacto .btn-tiktok i { color: #000; }
   
-  </style>
+  
+  /* RESPONSIVE TWEAKS (PARA MÓVILES) */
+  @media (max-width: 1100px) { /* Tablet y móvil */
+      .hero { grid-template-columns: 1fr; }
+      .hero-aside { position: static; } /* Quitamos sticky */
+  }
+  
+    @media (max-width:980px){
+    body {
+      padding: 28px 15px; /* Padding móvil general */
+      /* Mantenemos el padding-left para el menú colapsado */
+      padding-left: calc(var(--menu-width-collapsed, 70px) + 15px); 
+    }
+    body.menu-expanded {
+       /* Ajustamos el padding-left cuando el menú se expande */
+       padding-left: calc(var(--menu-width-expanded, 240px) + 15px);
+    }
+        
+    .main-header-card { 
+      flex-direction: column; 
+      align-items: flex-start; 
+      gap: 15px;
+      padding: 15px; /* Un poco menos de padding vertical en móvil si quieres */
+      /* Aseguramos que ocupe todo el ancho disponible */
+      width: 100%; 
+      margin-left: 0;
+      margin-right: 0;
+    }
+    header { 
+        width: 100%; 
+        flex-direction: column; 
+        align-items: flex-start; 
+        gap: 10px; 
+    }
+    .header-main-buttons { 
+      width: 100%; 
+      justify-content: flex-start; 
+      padding-top: 10px; 
+      /* Quitamos bordes y sombras si estaban */
+      border: none;
+      box-shadow: none;
+    }
+    
+    /* Layout principal y aside */
+    .hero { grid-template-columns: 1fr; } 
+    .hero-aside { position: static; } /* Quitamos sticky */
+    
+    footer { 
+        /* Aseguramos que el padding del footer también respete el menú */
+        padding-left: 15px; 
+        padding-right: 15px; 
+    }
+  }
+
+  
+  @media (max-width: 480px) { /* Móvil pequeño */
+      .title { font-size: 28px; }
+      .avatar { width: 70px; height: 70px; }
+      footer { flex-direction: column; gap: 15px; padding-top: 20px; padding-bottom: 20px; }
+   }
+
+ </style>
 </head>
 <body>
   
   <div id="particles-js"></div>
 
-  <nav class="side-navbar" id="side-navbar">
+   <nav class="side-navbar" id="side-navbar">
     <button id="menu-toggle-btn" title="Expandir menú">
       <i class="fa-solid fa-chevron-right"></i>
       <i class="fa-solid fa-chevron-left"></i>
     </button>
-    <ul>
-      <li><a href="#perfil" class="nav-link" title="Perfil"><i class="fa-solid fa-user"></i><span class="link-text">Perfil</span></a></li>
-      <li><a href="#experiencia" class="nav-link" title="Experiencia"><i class="fa-solid fa-briefcase"></i><span class="link-text">Experiencia</span></a></li>
-      <li><a href="#logros" class="nav-link" title="Logros"><i class="fa-solid fa-trophy"></i><span class="link-text">Logros</span></a></li>
-      <li><a href="#cursos" class="nav-link" title="Cursos"><i class="fa-solid fa-graduation-cap"></i><span class="link-text">Cursos</span></a></li>
-      
-      <li><a href="#formacion" class="nav-link" title="Formación"><i class="fa-solid fa-school"></i><span class="link-text">Formación</span></a></li>
-      <li><a href="#contacto" class="nav-link" title="Contacto"><i class="fa-solid fa-envelope"></i><span class="link-text">Contacto</span></a></li>
-      <li><a href="#habilidades" class="nav-link" title="Habilidades"><i class="fa-solid fa-cogs"></i><span class="link-text">Habilidades</span></a></li>
+     <div class="lang-switcher">
+      <button onclick="translatePage('es')" id="flag-es" class="active">🇲🇽</button>
+      <button onclick="translatePage('en')" id="flag-en">🇺🇸</button>
+    </div>
+      <ul>
+      <li><a href="#perfil" class="nav-link nav-link-perfil" title="Perfil"><i class="fa-solid fa-user"></i><span class="link-text">Perfil</span></a></li>
+      <li><a href="#proyectos" class="nav-link nav-link-proyectos" title="Proyectos"><i class="fa-solid fa-lightbulb"></i><span class="link-text">Proyectos</span></a></li>
+      <li><a href="#experiencia" class="nav-link nav-link-experiencia" title="Experiencia"><i class="fa-solid fa-briefcase"></i><span class="link-text">Experiencia</span></a></li>
+      <li><a href="#logros" class="nav-link nav-link-logros" title="Logros"><i class="fa-solid fa-trophy"></i><span class="link-text">Logros</span></a></li>
+      <li><a href="#cursos" class="nav-link nav-link-cursos" title="Cursos"><i class="fa-solid fa-graduation-cap"></i><span class="link-text">Cursos</span></a></li>
+      <li><a href="#formacion" class="nav-link nav-link-formacion" title="Formación"><i class="fa-solid fa-school"></i><span class="link-text">Formación</span></a></li>
+      <li><a href="#contacto" class="nav-link nav-link-contacto" title="Contacto"><i class="fa-solid fa-envelope"></i><span class="link-text">Contacto</span></a></li>
+      <li><a href="#habilidades" class="nav-link nav-link-habilidades" title="Habilidades"><i class="fa-solid fa-cogs"></i><span class="link-text">Habilidades</span></a></li>
     </ul>
   </nav>
-  <div class="lang-switcher">
-    <button onclick="translatePage('es')" id="flag-es" class="active">🇲🇽</button>
-    <button onclick="translatePage('en')" id="flag-en">🇺🇸</button>
-  </div>
   <div class="wrap">
     
-<div class="main-header-card">
-        <header>
+    
+    <div class="main-header-card card"> <header>
             <div class="brand">
                 <div class="avatar" title="Foto de Sergio">
-                    <img src="perfil.png" alt="Sergio Garduño Jardón">
+                    <img src="perfil.png" alt="Sergio GarduÑO Jardón">
                 </div>
                 <div>
                     <div class="title" data-lang="name">Sergio Garduño Jardón</div>
@@ -586,18 +643,18 @@
         </header>
         
         <div class="header-main-buttons">
-            <a class="btn-clean-gold" href="cv_viewer.html" target="_blank" rel="noopener" id="btn-view-cv" title="Abrir CV en el navegador" data-lang-href-en="cv_viewer_eu.html">
+            <a class="btn-fill-white" href="cv_viewer.html" target="_blank" rel="noopener" id="btn-view-cv" title="Abrir CV en el navegador" data-lang-href-en="cv_viewer_eu.html">
                 <i class="fa-solid fa-eye"></i> <span data-lang="btn-view-cv-text">Ver CV</span>
             </a>
-            <a class="btn-clean-gold" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" id="btn-download-cv" title="Descargar CV como PDF" data-lang-href-en="cv_pagina_web_eu.pdf">
+            <a class="btn-outline-white" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" id="btn-download-cv" title="Descargar CV como PDF" data-lang-href-en="cv_pagina_web_eu.pdf">
                 <i class="fa-solid fa-download"></i> <span data-lang="btn-download-cv-text">Descargar CV</span>
             </a>
         </div>
 
-        </div>
+    </div>
+
     <div class="hero">
-      <main>
-        <div class="card" id="perfil">
+      <main class="hero-main"> <section class="card" id="perfil">
           <div class="profile-title" data-lang="profile-title">Perfil</div>
           <div class="profile-text" style="margin-bottom: 15px;" data-lang="profile-p1">
             Ingeniero Mecatrónico especializado en sistemas IoT, datos y soluciones sostenibles. Diseño, desarrollo y despliego sistemas de monitoreo ambiental que integran hardware (ESP32 y sensores), energía renovable y pipelines de datos (Google Sheets / SQL, dashboards).
@@ -605,81 +662,88 @@
           <div class="profile-text" data-lang="profile-p2">
             Programacion en Python, C++/Arduino y Google Apps Script para automatizar procesos y crear modelos analíticos orientados a optimizar recursos y apoyar la toma de decisiones. Me interesa colaborar en proyectos que unan tecnología y naturaleza para generar impacto ambiental positivo.
           </div>
-        </div>
+        </section>
 
-        <details open data-section="experience" id="experiencia">
-        <summary>
-          <h2 class="section" data-lang="exp-title">Experiencia y proyectos</h2>
-        </summary>
-        <div class="section-content">
-            <div class="card" style="margin-bottom:12px">
-            <strong>
-              <img src="ECOGAIASOS.png" alt="Logo EcoGaiaSOS" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
-              <span data-lang="ecogaia-role">EcoGaiaSOS — Plataforma de impacto ambiental</span>
-            </strong> <div class="contact-small" data-lang="ecogaia-dates">2024 – Presente · CDMX</div>
-            <ul class="clean">
-              <li data-lang="ecogaia-l1">Desarrollo e implementación de la plataforma web para gestión y difusión de convocatorias y proyectos ambientales.</li>
-              <li data-lang="ecogaia-l2">Responsable de la organización de datos, visualización y soporte a actores locales.</li>
-            </ul>
-            <div class="iot-block" style="margin-top: 14px;">
-              <a class="btn-clean-secondary" href="https://ecogaiasos.github.io/web/index.html" target="_blank" rel="noopener" style="margin: 0;" data-lang="ecogaia-btn">
-                🌐 Visitar Eco Gaia SOS
-              </a>
-            </div>
-          </div>
-          <div class="card" style="margin-bottom:12px">
-            <strong data-lang="iot-role">Sistema IoT para techos verdes — Proyecto de tesis</strong> <div class="contact-small" data-lang="iot-dates">2023 – 2025 · Validado en campo</div>
-            
-            <ul class="clean">
-              <li data-lang="iot-l1">Diseño y despliegue de sistema de monitoreo térmico autónomo con ESP32, sensores y alimentación solar.</li>
-              <li data-lang="iot-l2">Desarrollo de pipeline de datos y dashboard para la validación de reducción térmica en techos verdes.</li>
-            </ul>
 
-            <div class="iot-block">
-              <h3 data-lang="iot-links">Enlaces del Proyecto Techo Verde</h3>
-              
-              <div class="iot-actions">
-                <a class="btn-accent" href="https://hugonogueron2607.github.io/Techo_Verde/" target="_blank" rel="noopener" data-lang="iot-btn1">
-                  🌐 Dashboard (datos en tiempo real)
-                </a>
-  
-                <a class="btn-primary" href="https://docs.google.com/spreadsheets/d/1Mu0mfmwoWRI_kJ8EweGpJT1g608t6EQixtfevX0z0ac/edit?usp=sharing" target="_blank" rel="noopener" data-lang="iot-btn2">
-                  📊 Hoja de datos (Google Sheets)
-                </a>
-  
-                 <a class="btn-dark" href="tesis_viewer.html" id="btn-view-tesis" target="_blank" rel="noopener" data-lang="iot-btn3">
-                  📘 Ver tesis (PDF)
-                </a>
-
+        <details open id="proyectos">
+          <summary>
+            <h2 class="section" data-lang="proyectos-title">Proyectos Personales</h2>
+          </summary>
+          <div class="section-content">
+              <div class="card" style="margin-bottom:12px">
+                <strong>
+                  <img src="ECOGAIASOS.png" alt="Logo EcoGaiaSOS" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+                  <span data-lang="ecogaia-role">EcoGaiaSOS — Plataforma de impacto ambiental</span>
+                </strong> <div class="contact-small" data-lang="ecogaia-dates">2024 – Presente · CDMX</div>
+                <ul class="clean">
+                  <li data-lang="ecogaia-l1">Desarrollo e implementación de la plataforma web para gestión y difusión de convocatorias y proyectos ambientales.</li>
+                  <li data-lang="ecogaia-l2">Responsable de la organización de datos, visualización y soporte a actores locales.</li>
+                </ul>
+                <div class="iot-block" style="margin-top: 14px;">
+                  <a class="btn-clean-secondary" href="https://ecogaiasos.github.io/web/index.html" target="_blank" rel="noopener" style="margin: 0;" data-lang="ecogaia-btn">
+                    🌐 Visitar Eco Gaia SOS
+                  </a>
+                </div>
               </div>
-            </div>
+              <div class="card" style="margin-bottom:12px">
+                <strong data-lang="iot-role">Sistema IoT para techos verdes — Proyecto de tesis</strong> <div class="contact-small" data-lang="iot-dates">2023 – 2025 · Validado en campo</div>
+                
+                <ul class="clean">
+                  <li data-lang="iot-l1">Diseño y despliegue de sistema de monitoreo térmico autónomo con ESP32, sensores y alimentación solar.</li>
+                  <li data-lang="iot-l2">Desarrollo de pipeline de datos y dashboard para la validación de reducción térmica en techos verdes.</li>
+                </ul>
+
+                <div class="iot-block">
+                  <h3 data-lang="iot-links">Enlaces del Proyecto Techo Verde</h3>
+                  <div class="iot-actions">
+                    <a class="btn-accent" href="https://hugonogueron2607.github.io/Techo_Verde/" target="_blank" rel="noopener" data-lang="iot-btn1">
+                      🌐 Dashboard (datos en tiempo real)
+                    </a>
+                    <a class="btn-primary" href="https://docs.google.com/spreadsheets/d/1Mu0mfmwoWRI_kJ8EweGpJT1g608t6EQixtfevX0z0ac/edit?usp=sharing" target="_blank" rel="noopener" data-lang="iot-btn2">
+                      📊 Hoja de datos (Google Sheets)
+                    </a>
+                    <a class="btn-dark" href="tesis_viewer.html" id="btn-view-tesis" target="_blank" rel="noopener" data-lang="iot-btn3">
+                      📘 Ver tesis (PDF)
+                    </a>
+                  </div>
+                </div>
+              </div>
           </div>
-          <div class="card" style="margin-bottom:12px">
-            <strong data-lang="robo-role">Robodacta — Diseño y ventas</strong> <div class="contact-small" data-lang="robo-dates">2022 – 2024</div>
-            <ul class="clean">
-              <li data-lang="robo-l1">Diseño de kits educativos, empaques, cursos online y material audiovisual; gestión de proveedores y ventas.</li>
-            </ul>
-          </div>
-          <div class="card" style="margin-bottom:12px">
-            <strong data-lang="meta-role">METAMORFOZIZ — Publicidad y producción</strong> <div class="contact-small" data-lang="meta-dates">2021 – 2022</div>
-            <ul class="clean">
-              <li data-lang="meta-l1">Diseño gráfico, producción de lonas y banners, gestión de materiales y procesos de impresión.</li>
-            </ul>
-          </div>
-          <div class="card" style="margin-bottom:12px">
-            <strong data-lang="ventas-role">Ventas (local) — Coyoacán</strong> <div class="contact-small" data-lang="ventas-dates">2021 – 2022</div>
-            <ul class="clean">
-              <li data-lang="ventas-l1">Atención directa a clientes, gestión de ventas B2C y B2B, manejo de caja y control de inventario.</li>
-            </ul>
-          </div>
-          <div class="card">
-            <strong data-lang="serv-role">Servicio técnico (negocio propio)</strong> <div class="contact-small" data-lang="serv-dates">2018 – 2020</div>
-            <ul class="clean">
-              <li data-lang="serv-l1">Reparación de dispositivos electrónicos, compra y venta de refacciones, control de inventario y atención al cliente.</li>
-            </ul>
-          </div>
-        </div>
         </details>
+
+        <details open id="experiencia">
+          <summary>
+            <h2 class="section" data-lang="exp-title">Experiencia Laboral</h2>
+          </summary>
+          <div class="section-content">
+              <div class="card" style="margin-bottom:12px">
+                <strong data-lang="robo-role">Robodacta — Diseño y ventas</strong> <div class="contact-small" data-lang="robo-dates">2022 – 2024</div>
+                <ul class="clean">
+                  <li data-lang="robo-l1">Diseño de kits educativos, empaques, cursos online y material audiovisual; gestión de proveedores y ventas.</li>
+                </ul>
+              </div>
+              <div class="card" style="margin-bottom:12px">
+                <strong data-lang="meta-role">METAMORFOZIZ — Publicidad y producción</strong> <div class="contact-small" data-lang="meta-dates">2021 – 2022</div>
+                <ul class="clean">
+                  <li data-lang="meta-l1">Diseño gráfico, producción de lonas y banners, gestión de materiales y procesos de impresión.</li>
+                </ul>
+              </div>
+              <div class="card" style="margin-bottom:12px">
+                <strong data-lang="ventas-role">Ventas (local) — Coyoacán</strong> <div class="contact-small" data-lang="ventas-dates">2021 – 2022</div>
+                <ul class="clean">
+                  <li data-lang="ventas-l1">Atención directa a clientes, gestión de ventas B2C y B2B, manejo de caja y control de inventario.</li>
+                </ul>
+              </div>
+              <div class="card">
+                <strong data-lang="serv-role">Servicio técnico (negocio propio)</strong> <div class="contact-small" data-lang="serv-dates">2018 – 2020</div>
+                <ul class="clean">
+                  <li data-lang="serv-l1">Reparación de dispositivos electrónicos, compra y venta de refacciones, control de inventario y atención al cliente.</li>
+                </ul>
+              </div>
+          </div>
+        </details>
+
+
         <details data-section="achievements" id="logros">
         <summary>
           <h2 class="section" data-lang="logros-title">Logros</h2>
@@ -694,6 +758,7 @@
           </div>
         </div>
         </details>
+
         <details data-section="courses" id="cursos">
         <summary>
           <h2 class="section" data-lang="cursos-title">Cursos y certificados</h2>
@@ -708,10 +773,9 @@
           </div>
         </div>
         </details>
-        </main>
+      </main>
 
-        <aside class="side">
-        <div class="card" id="formacion">
+      <aside class="hero-aside"> <div class="card" id="formacion">
             <div style="font-weight:800; margin-bottom:15px; color: var(--accent-purple);" data-lang="acad-title">Formación Académica</div>
             
             <h3 class="acad-ipn-title" data-lang="acad-uni-title">
@@ -742,60 +806,7 @@
             </div>
         </div>
 
-        <div class="card" id="contacto">
-          <div style="font-weight:800;margin-bottom:8px" data-lang="contact-title">Contacto</div>
-                        <ul class="contact-list"> 
-            <li>
-              <a href="mailto:sgj.cheko@gmail.com" class="contact-btn-pressable btn-email">
-                <i class="fa-regular fa-envelope"></i>
-                <span>sgj.cheko@gmail.com</span>
-              </a>
-            </li>
-            <li>
-              <a href="mailto:sgardunoj1400@alumno.ipn.mx" class="contact-btn-pressable btn-email">
-                <i class="fa-regular fa-envelope"></i>
-                <span>sgardunoj1400@alumno.ipn.mx</span>
-              </a>
-            </li>
-            <li>
-              <a href="https://wa.me/5215586864746" target="_blank" rel="noopener" class="contact-btn-pressable btn-whatsapp">
-                <i class="fa-brands fa-whatsapp"></i>
-                <span>WhatsApp</span>
-              </a>
-            </li>
-            <li>
-              <a href="https://sgj369.github.io/cv-sergio-gardu-o-jardon/" target="_blank" rel="noopener" class="contact-btn-pressable btn-github">
-                <i class="fa-brands fa-github"></i>
-                <span>GitHub</span>
-              </a>
-            </li>
-            <li>
-              <a href="https://www.linkedin.com/in/gardu%C3%B1o-jardon-sergio-264b582b0" target="_blank" rel="noopener" class="contact-btn-pressable btn-linkedin">
-                <i class="fa-brands fa-linkedin"></i>
-                <span>LinkedIn</span>
-              </a>
-            </li>
-            <li>
-              <a href="https://www.facebook.com/share/19FgjAa3ai/" target="_blank" rel="noopener" class="contact-btn-pressable btn-facebook">
-                <i class="fa-brands fa-facebook"></i>
-                <span>Facebook</span>
-              </a>
-            </li>
-             <li>
-              <a href="https://www.instagram.com/cheko_sgj?igsh=amV1aTVwZ3VpeTBi" target="_blank" rel="noopener" class="contact-btn-pressable btn-instagram">
-                <i class="fa-brands fa-instagram"></i>
-                <span>Instagram</span>
-              </a>
-            </li>
-             <li>
-              <a href="https://www.tiktok.com/@chekup00" target="_blank" rel="noopener" class="contact-btn-pressable btn-tiktok">
-                <i class="fa-brands fa-tiktok"></i>
-                <span>TikTok</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-
+        
         <div class="card" id="habilidades">
           <div style="font-weight:800;margin-bottom:8px" data-lang="tech-skills-title">Habilidades técnicas</div>
           <div class="skills">
@@ -819,8 +830,61 @@
             <li data-lang="soft-l6">Certificación en proceso: Inglés B2.</li>
           </ul>
         </div>
+        <div class="card" id="contacto">
+          <div style="font-weight:800;margin-bottom:8px" data-lang="contact-title">Contacto</div>
+            <ul class="contact-list"> 
+              <li>
+                <a href="mailto:sgj.cheko@gmail.com" class="contact-btn-pressable btn-email">
+                  <i class="fa-regular fa-envelope"></i>
+                  <span>sgj.cheko@gmail.com</span>
+                </a>
+              </li>
+              <li>
+                <a href="mailto:sgardunoj1400@alumno.ipn.mx" class="contact-btn-pressable btn-email">
+                  <i class="fa-regular fa-envelope"></i>
+                  <span>sgardunoj1400@alumno.ipn.mx</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://wa.me/5215586864746" target="_blank" rel="noopener" class="contact-btn-pressable btn-whatsapp">
+                  <i class="fa-brands fa-whatsapp"></i>
+                  <span>WhatsApp</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://sgj369.github.io/cv-sergio-gardu-o-jardon/" target="_blank" rel="noopener" class="contact-btn-pressable btn-github">
+                  <i class="fa-brands fa-github"></i>
+                  <span>GitHub</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.linkedin.com/in/gardu%C3%B1o-jardon-sergio-264b582b0" target="_blank" rel="noopener" class="contact-btn-pressable btn-linkedin">
+                  <i class="fa-brands fa-linkedin"></i>
+                  <span>LinkedIn</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.facebook.com/share/19FgjAa3ai/" target="_blank" rel="noopener" class="contact-btn-pressable btn-facebook">
+                  <i class="fa-brands fa-facebook"></i>
+                  <span>Facebook</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/cheko_sgj?igsh=amV1aTVwZ3VpeTBi" target="_blank" rel="noopener" class="contact-btn-pressable btn-instagram">
+                  <i class="fa-brands fa-instagram"></i>
+                  <span>Instagram</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.tiktok.com/@chekup00" target="_blank" rel="noopener" class="contact-btn-pressable btn-tiktok">
+                  <i class="fa-brands fa-tiktok"></i>
+                  <span>TikTok</span>
+                </a>
+              </li>
+            </ul>
+        </div>
       </aside>
-      </div>
+    </div>
         <footer>
       <div class="footer-brand">
         <div class="sello"><img src="haku-logo.png" alt="Haku"></div>
@@ -839,12 +903,93 @@
       });
     </script>
     
-    <script>
+        <script>
       document.getElementById('year').textContent = new Date().getFullYear();
 
+      /* --- CAMBIO AQUÍ --- */
+      // Se actualizaron los objetos 'en' y 'es' para las nuevas secciones.
       const translations = {
-          'en': { 'profile-title': 'Profile', 'profile-p1': 'Mechatronics Engineer specializing in IoT systems, data, and sustainable solutions. I design, develop, and deploy environmental monitoring systems that integrate hardware (ESP32 and sensors), renewable energy, and data pipelines (Google Sheets / SQL, dashboards).', 'profile-p2': 'Programming expertise in Python, C++/Arduino, and Google Apps Script to automate processes and create analytical models focused on optimizing resources and supporting decision-making. I seek to collaborate on projects that merge technology and nature to generate a positive environmental impact.', 'btn-view-cv-text': 'View CV', 'btn-download-cv-text': 'Download CV', 'exp-title': 'Experience & Projects', 'ecogaia-role': 'Eco Gaia SOS — Environmental Impact Platform', 'ecogaia-dates': '2024 – Present · CDMX', 'ecogaia-l1': 'Development and implementation of a web platform for management and dissemination of environmental calls and projects.', 'ecogaia-l2': 'Responsible for data organization, visualization, and local stakeholder support.', 'ecogaia-btn': '🌐 Visit Eco Gaia SOS', 'iot-role': 'IoT System for Green Roofs — Thesis Project', 'iot-dates': '2023 – 2025 · Field Validated', 'iot-l1': 'Design and deployment of an autonomous thermal monitoring system with ESP32, sensors, and solar power.', 'iot-l2': 'Development of data pipeline and dashboard for validating thermal reduction on green roofs.', 'iot-links': 'Project Green Roof Links', 'iot-btn1': '🌐 View Dashboard (Real-time data)', 'iot-btn2': '📊 View Data Sheet (Google Sheets)', 'iot-btn3': '📘 View Thesis (PDF)', 'robo-role': 'Robodacta — Design and Sales', 'robo-dates': '2022 – 2024', 'robo-l1': 'Design of educational kits, packaging, online courses, and audiovisual material; management of suppliers and sales.', 'meta-role': 'METAMORFOZIZ — Advertising and Production', 'meta-dates': '2021 – 2022', 'meta-l1': 'Graphic design, production of banners and signs, management of printing materials and processes.', 'ventas-role': 'Sales (Local) — Coyoacán', 'ventas-dates': '2021 – 2022', 'ventas-l1': 'Direct customer service, management of B2C and B2B sales, cash register operation, and inventory control.', 'serv-role': 'Technical Service (Own Business)', 'serv-dates': '2018 – 2020', 'serv-l1': 'Repair of electronic devices, purchase and sale of spare parts, inventory control, and customer service.', 'logros-title': 'Achievements', 'logros-l1': 'IoT prototype validated in the field for thermal and energy monitoring (Thesis).', 'logros-l2': 'Technical participation in the National Biotechnology Congress (Oaxaca, 2025).', 'logros-l3': 'Implementation and development of the Eco Gaia SOS platform.', 'cursos-title': 'Courses & Certificates', 'cursos-l1': 'Seminar: Design of manufacturing automation and integration of programmable devices.', 'cursos-l2': 'Course/Self-study: Python for data analysis (pandas) — practical projects.', 'cursos-l3': 'Certification in progress: English B2.', 'acad-title': 'Academic Background', 'acad-eng-title': 'Mechatronics Engineering (UPIITA)', 'acad-tech-title': 'Technician in Business Administration', 'acad-tech-dates': '2015 – 2018', 'contact-title': 'Contact', 'tech-skills-title': 'Technical Skills', 'soft-skills-title': 'Soft Skills', 'skill-cpp': 'C++ / Arduino', 'skill-python': 'Python (pandas)', 'skill-esp32': 'ESP32 & sensors', 'skill-sql': 'SQL & Google Sheets', 'skill-solar': 'Solar Panels & Batteries', 'skill-apps-script': 'Google Apps Script', 'soft-l1': 'Leadership', 'soft-l2': 'Creativity and innovation', 'soft-l3': 'Project planning and management', 'soft-l4': 'Teamwork', 'soft-l5': 'Adaptability', 'soft-l6': 'Certification in progress: English B2.', 'footer-name': 'Sergio Garduño Jardón', 'footer-source': 'Made with GitHub Pages', 'footer-contact': 'Contact: sgj.cheko@gmail.com' },
-          'es': { /* No necesita traducción */ }
+          'en': { 
+            'profile-title': 'Profile', 
+            'profile-p1': 'Mechatronics Engineer specializing in IoT systems, data, and sustainable solutions. I design, develop, and deploy environmental monitoring systems that integrate hardware (ESP32 and sensors), renewable energy, and data pipelines (Google Sheets / SQL, dashboards).', 
+            'profile-p2': 'Programming expertise in Python, C++/Arduino, and Google Apps Script to automate processes and create analytical models focused on optimizing resources and supporting decision-making. I seek to collaborate on projects that merge technology and nature to generate a positive environmental impact.', 
+            'btn-view-cv-text': 'View CV', 
+            'btn-download-cv-text': 'Download CV', 
+            
+            /* --- Títulos de Sección Corregidos --- */
+            'proyectos-title': 'Personal Projects',
+            'exp-title': 'Work Experience', 
+            
+            /* --- Proyectos --- */
+            'ecogaia-role': 'Eco Gaia SOS — Environmental Impact Platform', 
+            'ecogaia-dates': '2024 – Present · CDMX', 
+            'ecogaia-l1': 'Development and implementation of a web platform for management and dissemination of environmental calls and projects.', 
+            'ecogaia-l2': 'Responsible for data organization, visualization, and local stakeholder support.', 
+            'ecogaia-btn': '🌐 Visit Eco Gaia SOS', 
+            'iot-role': 'IoT System for Green Roofs — Thesis Project', 
+            'iot-dates': '2023 – 2025 · Field Validated', 
+            'iot-l1': 'Design and deployment of an autonomous thermal monitoring system with ESP32, sensors, and solar power.', 
+            'iot-l2': 'Development of data pipeline and dashboard for validating thermal reduction on green roofs.', 
+            'iot-links': 'Project Green Roof Links', 
+            'iot-btn1': '🌐 View Dashboard (Real-time data)', 
+            'iot-btn2': '📊 View Data Sheet (Google Sheets)', 
+            'iot-btn3': '📘 View Thesis (PDF)', 
+            
+            /* --- Experiencia --- */
+            'robo-role': 'Robodacta — Design and Sales', 
+            'robo-dates': '2022 – 2024', 
+            'robo-l1': 'Design of educational kits, packaging, online courses, and audiovisual material; management of suppliers and sales.', 
+            'meta-role': 'METAMORFOZIZ — Advertising and Production', 
+            'meta-dates': '2021 – 2022', 
+            'meta-l1': 'Graphic design, production of banners and signs, management of printing materials and processes.', 
+            'ventas-role': 'Sales (Local) — Coyoacán', 
+            'ventas-dates': '2021 – 2022', 
+            'ventas-l1': 'Direct customer service, management of B2C and B2B sales, cash register operation, and inventory control.', 
+            'serv-role': 'Technical Service (Own Business)', 
+            'serv-dates': '2018 – 2020', 
+            'serv-l1': 'Repair of electronic devices, purchase and sale of spare parts, inventory control, and customer service.', 
+            
+            /* --- Resto de secciones --- */
+            'logros-title': 'Achievements', 
+            'logros-l1': 'IoT prototype validated in the field for thermal and energy monitoring (Thesis).', 
+            'logros-l2': 'Technical participation in the National Biotechnology Congress (Oaxaca, 2025).', 
+            'logros-l3': 'Implementation and development of the Eco Gaia SOS platform.', 
+            'cursos-title': 'Courses & Certificates', 
+            'cursos-l1': 'Seminar: Design of manufacturing automation and integration of programmable devices.', 
+            'cursos-l2': 'Course/Self-study: Python for data analysis (pandas) — practical projects.', 
+            'cursos-l3': 'Certification in progress: English B2.', 
+            'acad-title': 'Academic Background', 
+            'acad-uni-title': 'IPN Polytechnic',
+            'acad-eng-title': 'Mechatronics Engineering (UPIITA)', 
+            'acad-eng-dates': '2018 - 2024',
+            'acad-tech-title': 'Technician in Business Administration', 
+            'acad-tech-dates': '2015 – 2018', 
+            'contact-title': 'Contact', 
+            'tech-skills-title': 'Technical Skills', 
+            'soft-skills-title': 'Soft Skills', 
+            'skill-cpp': 'C++ / Arduino', 
+            'skill-python': 'Python (pandas)', 
+            'skill-esp32': 'ESP32 & sensors', 
+            'skill-sql': 'SQL & Google Sheets', 
+            'skill-solar': 'Solar Panels & Batteries', 
+            'skill-apps-script': 'Google Apps Script', 
+            'soft-l1': 'Leadership', 
+            'soft-l2': 'Creativity and innovation', 
+            'soft-l3': 'Project planning and management', 
+            'soft-l4': 'Teamwork', 
+            'soft-l5': 'Adaptability', 
+            'soft-l6': 'Certification in progress: English B2.', 
+            'footer-name': 'Sergio Garduño Jardón', 
+            'footer-source': 'Made with GitHub Pages', 
+            'footer-contact': 'Contact: sgj.cheko@gmail.com' 
+          },
+          'es': { 
+            /* --- CAMBIO AQUÍ --- */
+            /* Añadimos los títulos en español para que la función los encuentre */
+            'proyectos-title': 'Proyectos Personales',
+            'exp-title': 'Experiencia Laboral'
+            /* El resto de las claves ES se toman del HTML original */
+          }
       };
 
       let currentLanguage = 'es';
@@ -860,50 +1005,60 @@
         }
       }
 
+      /* --- CAMBIO AQUÍ --- */
+      // Función de traducción mejorada para manejar mejor los fallbacks
       function translatePage(lang) {
-        const t = translations[lang];
+        const t = translations[lang] || translations['es']; // Fallback a español
         const isEnglish = (lang === 'en');
+        
         document.querySelectorAll('[data-lang]').forEach(element => {
             const key = element.getAttribute('data-lang');
-            if (t[key]) {
+            
+            // Guarda el texto original ES la primera vez que se traduce a EN
+            if (isEnglish && !element.getAttribute('data-es-original')) {
+                 element.setAttribute('data-es-original', element.innerHTML);
+            }
+
+            if (t[key] !== undefined) { // Usar traducción si existe
                 applyText(element, t[key]);
-            } else if (lang === 'es') {
+            } else if (lang === 'es') { // Si volvemos a español
                 const originalText = element.getAttribute('data-es-original');
                 if (originalText) { applyText(element, originalText); }
-            }
+            } // Si es inglés y no hay traducción, deja el texto actual
         });
+        
         document.querySelectorAll('[data-lang-href-en]').forEach(button => {
-            const originalHref = button.getAttribute('href');
+            const originalHref = button.getAttribute('data-es-href') || button.getAttribute('href');
+             if (!button.getAttribute('data-es-href')) { button.setAttribute('data-es-href', originalHref); }
+             
             const englishHref = button.getAttribute('data-lang-href-en');
-            if (isEnglish) {
-                if (!button.getAttribute('data-es-href')) { button.setAttribute('data-es-href', originalHref); }
-                button.setAttribute('href', englishHref);
-            } else {
-                const spanishHref = button.getAttribute('data-es-href') || originalHref;
-                button.setAttribute('href', spanishHref);
-            }
+            button.setAttribute('href', isEnglish ? englishHref : originalHref);
         });
-        document.getElementById('btn-view-cv').querySelector('span').textContent = t['btn-view-cv-text'] || 'Ver CV';
-        document.getElementById('btn-download-cv').querySelector('span').textContent = t['btn-download-cv-text'] || 'Descargar CV';
-        document.getElementById('flag-es').classList.remove('active');
-        document.getElementById('flag-en').classList.remove('active');
-        document.getElementById(`flag-${lang}`).classList.add('active');
+        
+        // Actualizar texto específico de botones CV
+        const viewCvSpan = document.getElementById('btn-view-cv')?.querySelector('span');
+        if(viewCvSpan) viewCvSpan.textContent = t['btn-view-cv-text'] || 'Ver CV'; // Usa fallback
+        const downloadCvSpan = document.getElementById('btn-download-cv')?.querySelector('span');
+        if(downloadCvSpan) downloadCvSpan.textContent = t['btn-download-cv-text'] || 'Descargar CV'; // Usa fallback
+
+        document.getElementById('flag-es')?.classList.toggle('active', lang === 'es');
+        document.getElementById('flag-en')?.classList.toggle('active', lang === 'en');
         currentLanguage = lang;
         document.documentElement.lang = lang;
       }
 
       // INICIALIZACIÓN DE TODO
       document.addEventListener('DOMContentLoaded', () => {
+          
           // 1. Lógica de Traducción
+          // Guardar texto original ES al cargar
           document.querySelectorAll('[data-lang]').forEach(element => {
               if (!element.getAttribute('data-es-original')) {
                    element.setAttribute('data-es-original', element.innerHTML); 
               }
           });
-          document.getElementById('flag-es').classList.add('active');
+          document.getElementById('flag-es')?.classList.add('active'); // Activar bandera ES
           
-          // --- 👇 CÓDIGO NUEVO AÑADIDO 👇 ---
-
           // 2. LÓGICA DEL MENÚ LATERAL
           const menuToggleBtn = document.getElementById('menu-toggle-btn');
           const sideNavbar = document.getElementById('side-navbar');
@@ -916,7 +1071,6 @@
           }
       
           // 3. LÓGICA DE ANIMACIÓN DE TARJETAS
-          // Seleccionamos TODAS las tarjetas
           const animatedCards = document.querySelectorAll('.card'); 
           
           const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -930,12 +1084,9 @@
             threshold: 0.1 // Se activa cuando el 10% de la tarjeta es visible
           });
           
-          // Observamos cada tarjeta
           animatedCards.forEach(card => {
             revealObserver.observe(card);
           });
-          
-          // --- 👆 FIN DEL CÓDIGO NUEVO 👆 ---
       });
     </script>
   </body>
