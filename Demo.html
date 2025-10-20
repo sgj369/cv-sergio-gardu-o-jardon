@@ -548,31 +548,37 @@
       .hero-aside { position: static; } /* Quitamos sticky */
   }
   
-      @media (max-width: 980px){ /* Aplica a tablet vertical y móvil */
+    @media (max-width: 980px){ 
     body {
-      padding: 28px 15px; /* Padding móvil general */
-      padding-left: calc(var(--menu-width-collapsed, 70px) + 15px); 
-      overflow-x: hidden; /* Evita scroll horizontal indeseado */
+      /* En móvil, el body SOLO gestiona el padding para el menú */
+      padding: 28px 0; /* Quitamos padding lateral */
+      padding-left: calc(var(--menu-width-collapsed, 70px) + 0px); /* Ajustamos si es necesario */
+      overflow-x: hidden; 
     }
     body.menu-expanded {
-       padding-left: calc(var(--menu-width-expanded, 240px) + 15px);
+       /* Ajustamos padding-left cuando el menú se expande */
+       padding-left: calc(var(--menu-width-expanded, 240px) + 0px);
     }
-    
+
+    /* El .wrap AHORA maneja el padding lateral del contenido */
     .wrap { 
-        padding: 0; /* Quitamos padding extra aquí */
-        width: 100%; /* Asegura que ocupe el ancho disponible */
+        padding: 0 15px; /* Añadimos padding horizontal aquí */
+        width: 100%; 
+        box-sizing: border-box; /* Importante */
     } 
+ 
     
-    .main-header-card { 
+      .main-header-card { 
       flex-direction: column; 
       align-items: flex-start; 
-      gap: 10px; /* Menos espacio */
+      gap: 10px; 
       padding: 15px; 
-      width: 100%; 
+      /* width: 100%; */ /* <-- ELIMINA ESTA LÍNEA */
       margin-left: 0;
       margin-right: 0;
-      box-sizing: border-box; /* Asegura que el padding no desborde */
+      box-sizing: border-box; 
     }
+
      /* Reducimos un poco el título en móvil */
     .main-header-card .title {
         font-size: 30px; 
