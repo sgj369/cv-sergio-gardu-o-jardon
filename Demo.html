@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es"> 
+<html lang="es">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -53,36 +53,22 @@
     -moz-osx-osx-font-smoothing:grayscale;
     line-height:1.5;
     /* El padding se gestiona con el menú lateral */
-    padding: 28px 0;
+    padding: 28px;
     padding-left: var(--menu-width-collapsed, 70px); /* Padding inicial para menú contraído */
     transition: padding-left 0.3s ease-in-out;
   }
-    
 
   /* Clase que se añade al body cuando el menú está expandido */
   body.menu-expanded {
     padding-left: var(--menu-width-expanded, 240px);
   }
 
-  .wrap {
-  max-width: var(--maxw);
-  margin: 0 auto; 
-  position: relative;
-  padding: 0; /* SIN padding horizontal aquí */
-  box-sizing: border-box; 
-  width: 100%; 
-
-  /* --> AÑADE ESTO <-- */
-  padding-left: calc(var(--menu-width-collapsed, 70px) + 10px); /* Espacio menú cerrado + 10px margen */
-  padding-right: 10px; /* Margen derecho */
-  transition: padding-left 0.3s ease-in-out; 
-}
-/* --> AÑADE ESTO <-- */
-/* Ajusta el padding del .wrap cuando el menú se abre */
-body.menu-expanded .wrap {
-    padding-left: calc(var(--menu-width-expanded, 240px) + 10px);
-}
-
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    position:relative; /* Mantenemos relative para futuras alineaciones */
+    padding: 0 10px;
+  }
 
 
     /* ESTILOS DEL SELECTOR DE IDIOMA (FIJO EN PANTALLA) */
@@ -102,6 +88,10 @@ body.menu-expanded .wrap {
   }
   .lang-switcher button:hover { opacity: 1; background: rgba(255, 215, 0, 0.1); }
   .lang-switcher button.active { border-color: var(--accent-red); background: rgba(255, 51, 102, 0.1); }
+    /* Oculta el botón de idioma que esté activo */
+  .lang-switcher button.active {
+    display: none;
+  }
 
   /* Ajuste responsive para móviles */
    @media (max-width:980px){
@@ -383,29 +373,7 @@ body.menu-expanded .wrap {
   .iot-actions a { color: #fff; text-decoration: none; } 
 
   /* FOOTER */
- footer {
-  text-align: center; color: var(--muted); font-size: 13px; 
-  display: flex; align-items: center; justify-content: space-between; gap: 10px;
-
-  /* --> AÑADE/MODIFICA ESTO <-- */
-  max-width: var(--maxw);    /* Igual que .wrap */
-  margin-left: auto;        /* Igual que .wrap */
-  margin-right: auto;       /* Igual que .wrap */
-  width: 100%;             /* Igual que .wrap */
-  box-sizing: border-box;    /* Igual que .wrap */
-
-  padding-top: 26px; 
-  padding-bottom: 10px;
-  padding-left: calc(var(--menu-width-collapsed, 70px) + 10px); /* Igual que .wrap */
-  padding-right: 10px;                                       /* Igual que .wrap */
-  transition: padding-left 0.3s ease-in-out;                   /* Igual que .wrap */
-}
-    /* --> AÑADE ESTO <-- */
-/* Ajusta el padding del footer cuando el menú se abre */
-body.menu-expanded footer {
-    padding-left: calc(var(--menu-width-expanded, 240px) + 10px);
-}
-
+  footer{text-align:center;color:var(--muted);font-size:13px;padding:26px 0 10px;display:flex;align-items:center;justify-content:space-between;gap:10px}
   .footer-brand{display:flex;align-items:center;gap:8px}
   .sello{width:40px;height:40px;border-radius:8px;overflow:hidden}
   .sello img{width:100%;height:100%;object-fit:cover}
@@ -454,7 +422,11 @@ body.menu-expanded footer {
     align-items: flex-start; 
   }
 
-  .side-navbar ul { list-style: none; padding: 0; margin: 20px 0 0 0; width: 100%; }
+  .side-navbar ul { list-style: none; padding: 0; margin: 20px 0 0 0; width: 100%; 
+    flex-grow: 1; /* Hace que la lista <ul> ocupe el espacio restante */
+    overflow-y: auto; /* Permite el scroll VERTICAL solo si es necesario */
+    overflow-x: hidden; /* Oculta el scroll horizontal */
+  }
 
   .side-navbar .nav-link {
     display: flex; align-items: center; color: var(--fg);
@@ -584,57 +556,26 @@ body.menu-expanded footer {
       .hero-aside { position: static; } /* Quitamos sticky */
   }
   
-      @media (max-width: 980px) {
-  .wrap {
-    padding-left: calc(var(--menu-width-collapsed, 70px) + 15px);
-    padding-right: 15px;
-  }
-  body.menu-expanded .wrap {
-    padding-left: calc(var(--menu-width-expanded, 240px) + 15px);
-  }
-  footer {
-    padding-left: calc(var(--menu-width-collapsed, 70px) + 15px);
-    padding-right: 15px;
-  }
-  body.menu-expanded footer {
-    padding-left: calc(var(--menu-width-expanded, 240px) + 15px);
-  }
-    
-    .wrap{
-  max-width:var(--maxw);
-  margin: 0 auto; 
-  position: relative;
-  padding: 0; 
-  box-sizing: border-box; 
-  width: 100%; 
-  
-  padding-left: calc(var(--menu-width-collapsed, 70px) + 10px); 
-  padding-right: 10px; 
-  transition: padding-left 0.3s ease-in-out; 
-  }
-  
-  
-  /* Cuando el menú se expande, aumentamos el padding del wrap */
-  body.menu-expanded .wrap {
-      padding-left: calc(var(--menu-width-expanded, 240px) + 10px);
-  }
-
- 
-    
+    @media (max-width:980px){
+    body {
+      padding: 28px 15px; /* Padding móvil general */
+      /* Mantenemos el padding-left para el menú colapsado */
+      padding-left: calc(var(--menu-width-collapsed, 70px) + 15px); 
+    }
+    body.menu-expanded {
+       /* Ajustamos el padding-left cuando el menú se expande */
+       padding-left: calc(var(--menu-width-expanded, 240px) + 15px);
+    }
+        
     .main-header-card { 
       flex-direction: column; 
       align-items: flex-start; 
-      gap: 10px; /* Menos espacio */
-      padding: 15px; 
+      gap: 15px;
+      padding: 15px; /* Un poco menos de padding vertical en móvil si quieres */
+      /* Aseguramos que ocupe todo el ancho disponible */
+      width: 100%; 
       margin-left: 0;
       margin-right: 0;
-      box-sizing: border-box; /* Asegura que el padding no desborde */
-      max-width: 100%;
-      flex-grow: 1;
-    }
-     /* Reducimos un poco el título en móvil */
-    .main-header-card .title {
-        font-size: 30px; 
     }
     header { 
         width: 100%; 
@@ -646,6 +587,7 @@ body.menu-expanded footer {
       width: 100%; 
       justify-content: flex-start; 
       padding-top: 10px; 
+      /* Quitamos bordes y sombras si estaban */
       border: none;
       box-shadow: none;
     }
@@ -655,29 +597,18 @@ body.menu-expanded footer {
     .hero-aside { position: static; } /* Quitamos sticky */
     
     footer { 
-        padding-left: 0px; 
-        padding-right: 0px;
-        box-sizing: border-box;
+        /* Aseguramos que el padding del footer también respete el menú */
+        padding-left: 15px; 
+        padding-right: 15px; 
     }
   }
-  
-  /* Ajuste específico para pantallas pequeñas en horizontal */
-  @media (max-width: 700px) and (orientation: landscape) {
-      .main-header-card .title {
-          font-size: 24px; /* Título aún más pequeño */
-      }
-      .header-main-buttons a {
-          padding: 6px 10px; /* Botones un poco más pequeños */
-          font-size: 0.9em;
-      }
-  }
 
-  @media (max-width: 480px) { /* Móvil pequeño vertical */
-      .title { font-size: 28px; } /* Mantenemos el tamaño original para vertical */
+  
+  @media (max-width: 480px) { /* Móvil pequeño */
+      .title { font-size: 28px; }
       .avatar { width: 70px; height: 70px; }
       footer { flex-direction: column; gap: 15px; padding-top: 20px; padding-bottom: 20px; }
    }
-
 
  </style>
 </head>
@@ -1102,14 +1033,6 @@ body.menu-expanded footer {
                 const originalText = element.getAttribute('data-es-original');
                 if (originalText) { applyText(element, originalText); }
             } // Si es inglés y no hay traducción, deja el texto actual
-                // --- Añadido para mostrar solo una bandera ---
-      const flagEsBtn = document.getElementById('flag-es');
-      const flagEnBtn = document.getElementById('flag-en');
-      if (flagEsBtn && flagEnBtn) {
-          flagEsBtn.style.display = (lang === 'en') ? 'inline-block' : 'none'; // Muestra ES si el idioma actual es EN
-          flagEnBtn.style.display = (lang === 'es') ? 'inline-block' : 'none'; // Muestra EN si el idioma actual es ES
-      }
-      // --- Fin del añadido ---
         });
         
         document.querySelectorAll('[data-lang-href-en]').forEach(button => {
@@ -1141,7 +1064,6 @@ body.menu-expanded footer {
               if (!element.getAttribute('data-es-original')) {
                    element.setAttribute('data-es-original', element.innerHTML); 
               }
-            
           });
           document.getElementById('flag-es')?.classList.add('active'); // Activar bandera ES
           
