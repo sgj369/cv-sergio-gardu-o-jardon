@@ -89,9 +89,21 @@
       overflow:hidden;
       border:2px solid var(--fg); 
       box-shadow:0 0 15px rgba(238, 241, 240, 0.5);
+      cursor: pointer; /* Indica que es cliclable */
+      transition: transform 0.2s ease-in-out; /* Transición suave */
     }
-    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
-    
+    .avatar:hover {
+        transform: scale(1.05);
+    }
+    /* Estilos para el QR */
+    .avatar.qr-mode {
+      border-radius: var(--radius); /* Cuadrado para el QR */
+      border-color: var(--accent-green);
+    }
+    .avatar.qr-mode:hover {
+      transform: none; /* Sin efecto hover en QR */
+    }
+
     .title{
       font-weight:900;
       font-size:32px; 
@@ -100,14 +112,28 @@
       text-shadow: -1px -1px 0 var(--fg), 1px -1px 0 var(--fg), -1px 1px 0 var(--fg), 1px 1px 0 var(--fg); 
     }
 
-    /* 6. TARJETA DE PERFIL (Corta) */
+    /* 6. TARJETA DE PERFIL (Corta y "WOW") */
     #perfil { border-left-color: var(--accent-blue); } 
     #perfil::after { background: var(--accent-blue); }
-    #perfil .profile-title { color: var(--accent-blue); font-size:18px; font-weight:800; margin-top: 0; margin-bottom:8px }
-    #perfil .profile-text{ font-size:15px; line-height:1.6; text-align: center; }
+    #perfil .profile-title { 
+        color: var(--accent-blue); 
+        font-size:22px; /* Más grande */
+        font-weight:800; 
+        margin-top: 0; 
+        margin-bottom:8px;
+        text-align: center; /* Centrar título */
+        text-transform: uppercase; /* MAYÚSCULAS */
+    }
+    #perfil .profile-text{ 
+        font-size:16px; /* Texto un poco más grande */
+        line-height:1.6; 
+        text-align: center; /* Centrar texto */
+        font-style: italic; /* Cursiva para "wow" */
+        color: var(--fg); /* Color de texto principal */
+    }
 
 
-    /* 7. TARJETA DE CONTACTO (Copiada 1:1 de tu página) */
+    /* 7. TARJETA DE CONTACTO (Colores y formas ajustadas) */
     #contacto { border-left-color: var(--fg); } 
     #contacto::after { background: var(--fg); } 
     #contacto > div:first-child { color: var(--fg); font-weight: 800; margin-bottom: 12px; font-size: 18px; }
@@ -119,7 +145,9 @@
     #contacto .contact-list li { display: block; }
     #contacto .contact-btn-pressable {
       display: flex; align-items: center; padding: 12px 16px;
-      border-radius: 10px; text-decoration: none; font-weight: 700;
+      /* ESQUINAS CUADRADAS, NO OVALADAS */
+      border-radius: var(--radius); /* Usa la variable de radio de tus tarjetas */
+      text-decoration: none; font-weight: 700;
       color: #000; 
       transition: all 0.2s ease-out;
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
@@ -130,35 +158,35 @@
     }
     #contacto .contact-btn-pressable i {
       font-size: 1.2em; margin-right: 12px;
-      width: 25px text-align: center; color: inherit; 
+      width: 25px; text-align: center; color: inherit; /* Asegura que el icono toma el color del texto */
     }
-    #contacto .btn-email { background: var(--accent-yellow); color: #332400; }
-    #contacto .btn-email:hover { box-shadow: 0 8px 25px rgba(255, 195, 0, 0.3); }
-    #contacto .btn-email i { color: #332400; } 
+    /* Nuevos y ajustados colores de botones */
+    #contacto .btn-personal-web { background: var(--fg); color: #000; } /* GitHub ahora es blanco */
+    #contacto .btn-personal-web:hover { box-shadow: 0 8px 25px rgba(238, 241, 240, 0.3); }
+
+    #contacto .btn-email-main { background: var(--accent-yellow); color: #332400; }
+    #contacto .btn-email-main:hover { box-shadow: 0 8px 25px rgba(255, 195, 0, 0.3); }
+
+    #contacto .btn-email-secondary { background: var(--accent-purple); color: var(--fg); } /* Segundo email morado */
+    #contacto .btn-email-secondary:hover { box-shadow: 0 8px 25px rgba(153, 51, 204, 0.3); }
 
     #contacto .btn-whatsapp { background: var(--accent-green); color: #03120a; }
     #contacto .btn-whatsapp:hover { box-shadow: 0 8px 25px rgba(99, 185, 111, 0.3); }
-    #contacto .btn-whatsapp i { color: #03120a; }
-
-    #contacto .btn-github { background: var(--accent-purple); color: var(--fg); }
-    #contacto .btn-github:hover { box-shadow: 0 8px 25px rgba(153, 51, 204, 0.3); }
-    #contacto .btn-github i { color: var(--fg); }
 
     #contacto .btn-linkedin { background: var(--accent-blue); color: var(--fg); }
     #contacto .btn-linkedin:hover { box-shadow: 0 8px 25px rgba(0, 119, 182, 0.3); }
-    #contacto .btn-linkedin i { color: var(--fg); }
 
     #contacto .btn-facebook { background: #1877F2; color: var(--fg); }
     #contacto .btn-facebook:hover { box-shadow: 0 8px 25px rgba(24, 119, 242, 0.3); }
-    #contacto .btn-facebook i { color: var(--fg); }
 
     #contacto .btn-instagram { background: #E4405F; color: var(--fg); }
     #contacto .btn-instagram:hover { box-shadow: 0 8px 25px rgba(228, 64, 95, 0.3); }
-    #contacto .btn-instagram i { color: var(--fg); }
     
     #contacto .btn-tiktok { background: #fff; color: #000; }
     #contacto .btn-tiktok:hover { box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3); }
-    #contacto .btn-tiktok i { color: #000; }
+
+    #contacto .btn-cv-pdf { background: var(--accent-red); color: var(--fg); } /* Nuevo botón de CV */
+    #contacto .btn-cv-pdf:hover { box-shadow: 0 8px 25px rgba(255, 51, 102, 0.3); }
 
     /* 8. FOOTER (Copiado de tu página) */
     footer{
@@ -192,8 +220,8 @@
   <div class="wrap">
     
     <div class="header-card card">
-      <div class="avatar" title="Foto de Sergio">
-          <img src="perfil.png" alt="Sergio Garduño Jardón">
+      <div class="avatar" title="Clic para QR">
+          <img id="avatar-img" src="perfil.png" alt="Sergio Garduño Jardón">
       </div>
       <div>
           <div class="title">Sergio Garduño Jardón</div>
@@ -203,9 +231,9 @@
     <section class="card" id="perfil">
       <div class="profile-title">Perfil</div>
       <div class="profile-text">
-        Ingeniero Mecatrónico por el IPN.
-        <br>
-        Especializado en sistemas IoT, datos y soluciones sostenibles.
+        ¿Buscas un Ingeniero Mecatrónico que transforma ideas en soluciones reales?
+        <br><br>
+        ¡Aquí estoy! Fusiono IoT, ciencia de datos y energía renovable para proyectos sostenibles que realmente hacen la diferencia.
       </div>
     </section>
 
@@ -213,13 +241,19 @@
       <div>Contacto</div>
         <ul class="contact-list"> 
           <li>
-            <a href="mailto:sgj.cheko@gmail.com" class="contact-btn-pressable btn-email">
+            <a href="https://sgj369.github.io/cv-sergio-gardu-o-jardon/" target="_blank" rel="noopener" class="contact-btn-pressable btn-personal-web">
+              <i class="fa-solid fa-globe"></i>
+              <span>Página web personal</span>
+            </a>
+          </li>
+          <li>
+            <a href="mailto:sgj.cheko@gmail.com" class="contact-btn-pressable btn-email-main">
               <i class="fa-regular fa-envelope"></i>
               <span>sgj.cheko@gmail.com</span>
             </a>
           </li>
           <li>
-            <a href="mailto:sgardunoj1400@alumno.ipn.mx" class="contact-btn-pressable btn-email">
+            <a href="mailto:sgardunoj1400@alumno.ipn.mx" class="contact-btn-pressable btn-email-secondary">
               <i class="fa-regular fa-envelope"></i>
               <span>sgardunoj1400@alumno.ipn.mx</span>
             </a>
@@ -228,12 +262,6 @@
             <a href="https://wa.me/5215586864746" target="_blank" rel="noopener" class="contact-btn-pressable btn-whatsapp">
               <i class="fa-brands fa-whatsapp"></i>
               <span>WhatsApp</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://sgj369.github.io/cv-sergio-gardu-o-jardon/" target="_blank" rel="noopener" class="contact-btn-pressable btn-github">
-              <i class="fa-brands fa-github"></i>
-              <span>GitHub</span>
             </a>
           </li>
           <li>
@@ -260,6 +288,12 @@
               <span>TikTok</span>
             </a>
           </li>
+          <li>
+            <a href="cv_pagina_web.pdf" download="cv_sergio_garduno_jardon.pdf" class="contact-btn-pressable btn-cv-pdf">
+              <i class="fa-solid fa-file-pdf"></i>
+              <span>Descargar CV (PDF)</span>
+            </a>
+          </li>
         </ul>
     </div>
 
@@ -282,6 +316,29 @@
 
     // Script del año
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Script para el QR al hacer clic en la foto
+    const avatarContainer = document.querySelector('.avatar');
+    const avatarImg = document.getElementById('avatar-img');
+    const originalSrc = 'perfil.png'; // Ruta de tu foto de perfil
+    const qrSrc = 'qr_code.png'; // RUTA A TU IMAGEN QR (¡Asegúrate de tener esta imagen!)
+    let isQrMode = false;
+
+    avatarContainer.addEventListener('click', () => {
+        if (isQrMode) {
+            avatarImg.src = originalSrc;
+            avatarImg.alt = 'Sergio Garduño Jardón';
+            avatarContainer.classList.remove('qr-mode');
+            avatarContainer.title = 'Clic para QR';
+        } else {
+            avatarImg.src = qrSrc;
+            avatarImg.alt = 'Código QR de Contacto';
+            avatarContainer.classList.add('qr-mode');
+            avatarContainer.title = 'Clic para volver a la foto';
+        }
+        isQrMode = !isQrMode;
+    });
+
   </script>
 </body>
 </html>
