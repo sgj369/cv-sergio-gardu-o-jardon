@@ -57,31 +57,28 @@
     }
     .header-card::after { background: var(--fg); }
     
-    /* --- INICIO: Estilos para efecto Flip (Intercambio) --- */
     .avatar{
       width: 120px; height: 120px;
-      border-radius: 50%; /* Circular para la foto */
+      border-radius: 50%;
       overflow:hidden; border:2px solid var(--fg); 
       box-shadow:0 0 15px rgba(238, 241, 240, 0.5);
-      cursor: pointer; /* Indica que es cliclable */
-      transition: all 0.3s ease-in-out; /* Transición suave */
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
     }
     .avatar:hover {
         transform: scale(1.05);
     }
-    /* Estilos para el QR */
     .avatar.qr-mode {
-      border-radius: var(--radius); /* Cuadrado para el QR */
-      border-color: var(--accent-green); /* Borde verde para el QR */
-      transform: scale(1.1); /* Un poco más grande en modo QR */
+      border-radius: var(--radius);
+      border-color: var(--accent-green);
+      transform: scale(1.1);
     }
     .avatar.qr-mode:hover {
-      transform: scale(1.1); /* Mantiene tamaño en hover */
+      transform: scale(1.1);
     }
     .avatar img{
       width:100%; height:100%; object-fit:cover; display:block;
     }
-    /* --- FIN: Estilos para efecto Flip --- */
 
     .title{
       font-weight:900; font-size:32px; color: #000;
@@ -89,7 +86,6 @@
       text-shadow: -1px -1px 0 var(--fg), 1px -1px 0 var(--fg), -1px 1px 0 var(--fg), 1px 1px 0 var(--fg); 
     }
     
-    /* Estilos Botón Portafolio */
     .btn-fill-white {
       background: var(--fg); color: #333; border: 2px solid var(--fg);
       padding: 10px 16px; border-radius: 10px; font-weight: 700; text-decoration: none;
@@ -116,7 +112,16 @@
     #contacto { border-left-color: var(--fg); } 
     #contacto::after { background: var(--fg); } 
     #contacto > div:first-child { color: var(--fg); font-weight: 800; margin-bottom: 12px; font-size: 18px; }
-    #contacto .contact-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+    
+    /* --- AQUÍ ESTÁ LA CORRECCIÓN DE LA CUADRÍCULA --- */
+    #contacto .contact-list { 
+      list-style: none; padding: 0; margin: 0; 
+      display: grid; 
+      grid-template-columns: 1fr 1fr; /* <-- ESTA LÍNEA AHORA ESTÁ AQUÍ */
+      gap: 12px; 
+    }
+    /* ----------------------------------------------- */
+    
     #contacto .contact-list li { display: block; }
     #contacto .contact-btn-pressable {
       display: flex; align-items: center; padding: 12px 16px; border-radius: 10px; 
@@ -125,25 +130,33 @@
     }
     #contacto .contact-btn-pressable:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.3); }
     #contacto .contact-btn-pressable i { font-size: 1.2em; margin-right: 12px; width: 25px text-align: center; color: inherit; }
-        /* --- INICIO: Correo Rojo (Añadido) --- */
+    
+    /* Correo Amarillo (El primero) */
+    #contacto .btn-email { background: var(--accent-yellow); color: #332400; }
+    #contacto .btn-email:hover { box-shadow: 0 8px 25px rgba(255, 195, 0, 0.3); }
+    #contacto .btn-email i { color: #332400; } 
+    
+    /* Correo Rojo (El segundo) */
     #contacto .btn-email-rojo { 
-      background: var(--accent-red); /* Variable de rojo que ya tienes */
-      color: var(--fg); /* Texto blanco */
+      background: var(--accent-red);
+      color: var(--fg);
     }
     #contacto .btn-email-rojo:hover { 
-      box-shadow: 0 8px 25px rgba(255, 51, 102, 0.3); /* Sombra roja */
+      box-shadow: 0 8px 25px rgba(255, 51, 102, 0.3);
     }
     #contacto .btn-email-rojo i { 
-      color: var(--fg); /* Icono blanco */
+      color: var(--fg);
     }
-    /* --- FIN: Correo Rojo --- */
 
+    /* Resto de botones */
     #contacto .btn-whatsapp { background: var(--accent-green); color: #03120a; }
     #contacto .btn-github { background: var(--accent-purple); color: var(--fg); }
     #contacto .btn-linkedin { background: var(--accent-blue); color: var(--fg); }
     #contacto .btn-facebook { background: #1877F2; color: var(--fg); }
-    #contacto .btn-instagram { background: #FF5733; color: var(--fg); } /* <-- Color cambiado a Naranja */
-    #contacto .btn-instagram:hover { box-shadow: 0 8px 25px rgba(255, 87, 51, 0.3); } /* <-- Sombra cambiada */
+    
+    /* Instagram Naranja */
+    #contacto .btn-instagram { background: #FF5733; color: var(--fg); }
+    #contacto .btn-instagram:hover { box-shadow: 0 8px 25px rgba(255, 87, 51, 0.3); }
     #contacto .btn-instagram i { color: var(--fg); }
 
     #contacto .btn-tiktok { background: #fff; color: #000; }
@@ -159,7 +172,7 @@
       transition: transform 0.2s ease;
     }
     .sello:hover {
-      transform: scale(1.1); /* Efecto hover para el logo Haku */
+      transform: scale(1.1);
     }
     .sello img{width:100%;height:100%;object-fit:cover}
 
@@ -213,10 +226,10 @@
     <div class="card" id="contacto">
       <div>Contacto</div>
         <ul class="contact-list"> 
+          
           <li><a href="mailto:sgj.cheko@gmail.com" class="contact-btn-pressable btn-email"><i class="fa-regular fa-envelope"></i><span>sgj.cheko@gmail.com</span></a></li>
-              <li><a href="mailto:sgardunoj1400@alumno.ipn.mx" class="contact-btn-pressable btn-email"><i class="fa-regular fa-envelope"></i><span>sgardunoj1400@alumno.ipn.mx</span></a></li>
-    
-    <li><a href="mailto:sgardunoj1400@alumno.ipn.mx" class="contact-btn-pressable btn-email btn-email-rojo"><i class="fa-regular fa-envelope"></i><span>sgardunoj1400@alumno.ipn.mx</span></a></li>
+          
+          <li><a href="mailto:sgardunoj1400@alumno.ipn.mx" class="contact-btn-pressable btn-email btn-email-rojo"><i class="fa-regular fa-envelope"></i><span>sgardunoj1400@alumno.ipn.mx</span></a></li>
 
           <li><a href="https://wa.me/5215586864746" target="_blank" rel="noopener" class="contact-btn-pressable btn-whatsapp"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></a></li>
           <li><a href="https://sgj369.github.io/cv-sergio-gardu-o-jardon/" target="_blank" rel="noopener" class="contact-btn-pressable btn-github"><i class="fa-brands fa-github"></i><span>GitHub</span></a></li>
@@ -237,7 +250,9 @@
       <div style="color:var(--muted);font-size:13px">Contacto: sgj.cheko@gmail.com</div>
     </footer>
 
-  </div><script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script>
     // --- Configuración de Partículas ---
     particlesJS("particles-js", {
@@ -254,21 +269,17 @@
     const avatarContainer = document.getElementById('avatar-container');
     const avatarImg = document.getElementById('avatar-img');
     
-    // Tus nombres de archivo
-    const originalSrc = 'perfil.png'; // Tu foto de perfil
-    const qrSrc = 'TD.png';       // Tu QR
-    
+    const originalSrc = 'perfil.png';
+    const qrSrc = 'TD.png';
     let isQrMode = false;
 
     avatarContainer.addEventListener('click', () => {
         if (isQrMode) {
-            // Si ESTÁ en modo QR -> Volver a la foto
             avatarImg.src = originalSrc;
             avatarImg.alt = 'Sergio Garduño Jardón';
             avatarContainer.classList.remove('qr-mode');
             avatarContainer.title = 'Clic para QR';
         } else {
-            // Si ESTÁ en modo foto -> Cambiar al QR
             avatarImg.src = qrSrc;
             avatarImg.alt = 'Código QR de Contacto';
             avatarContainer.classList.add('qr-mode');
