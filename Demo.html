@@ -400,18 +400,24 @@
   .btn-dark{background:var(--accent-purple);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;border:1px solid rgba(153, 51, 204, 0.4)}
   .iot-actions a { color: #fff; text-decoration: none; } 
 
-    footer {
-  text-align: center;
-  color: var(--muted);
-  font-size: 13px;
-  padding: 26px 0 10px; /* Padding vertical */
-  display: flex;
-  flex-direction: column; /* <-- Siempre vertical */
-  align-items: center;    /* <-- Siempre centrado */
-  justify-content: center;
-  gap: 10px;
-  }
-
+       footer {
+      text-align: center; /* Centra todo el contenido */
+      color: var(--muted);
+      font-size: 13px;
+      padding: 26px 0 10px;
+      /* Quitamos display: flex y sus propiedades */
+    }
+    /* Añadimos margen inferior al primer bloque (.footer-brand) */
+    .footer-brand {
+      margin-bottom: 10px; /* Espacio entre las dos líneas */
+      display: inline-flex; /* Hacemos que sea inline para que text-align lo centre */
+      align-items: center; /* Mantiene logo y texto alineados verticalmente */
+      gap: 8px;
+    }
+    /* Aseguramos que el div de contacto también se centre si es necesario */
+    footer > div:last-child {
+        display: inline-block; /* Asegura centrado con text-align */
+    }
 
 
   .footer-brand{display:flex;align-items:center;gap:8px}
