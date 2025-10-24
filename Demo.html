@@ -207,6 +207,25 @@
     background: rgba(238, 241, 240, 0.1); /* Relleno blanco sutil */
   }
 
+    /* --- AÑADE ESTO (Botón Azul Contorno) --- */
+  .btn-clean-secondary {
+    background: transparent; 
+    border: 2px solid var(--accent-blue); 
+    color: var(--accent-blue);
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    transition: background-color 0.15s;
+    flex-shrink: 0;
+  }
+  .btn-clean-secondary:hover { 
+    background: rgba(0, 119, 182, 0.1); /* Relleno azul sutil */
+  }
+
 
   /* Botón Naranja Contorno (para EcoGaiaSOS) */
   .btn-outline-orange {
