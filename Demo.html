@@ -400,25 +400,17 @@
   .btn-dark{background:var(--accent-purple);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;border:1px solid rgba(153, 51, 204, 0.4)}
   .iot-actions a { color: #fff; text-decoration: none; } 
 
-       footer {
-      text-align: center; /* Centra todo el contenido */
-      color: var(--muted);
-      font-size: 13px;
-      padding: 26px 0 10px;
-      /* Quitamos display: flex y sus propiedades */
-    }
-    /* Añadimos margen inferior al primer bloque (.footer-brand) */
-    .footer-brand {
-      margin-bottom: 10px; /* Espacio entre las dos líneas */
-      display: inline-flex; /* Hacemos que sea inline para que text-align lo centre */
-      align-items: center; /* Mantiene logo y texto alineados verticalmente */
-      gap: 8px;
-    }
-    /* Aseguramos que el div de contacto también se centre si es necesario */
-    footer > div:last-child {
-        display: inline-block; /* Asegura centrado con text-align */
-    }
-
+  footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  padding: 26px 15px 20px;
+  display: flex;
+  flex-direction: column; /* <-- NUEVO: Apila verticalmente */
+  align-items: center;    /* <-- NUEVO: Centra horizontalmente */
+  justify-content: center;
+  gap: 10px;
+  }
 
   .footer-brand{display:flex;align-items:center;gap:8px}
   .sello{width:40px;height:40px;border-radius:8px;overflow:hidden}
@@ -660,7 +652,8 @@
   @media (max-width: 480px) { /* Móvil pequeño */
       .title { font-size: 28px; }
       .avatar { width: 70px; height: 70px; }
-      }
+      footer { flex-direction: column; gap: 15px; padding-top: 20px; padding-bottom: 20px; }
+   }
 
  </style>
 </head>
@@ -947,6 +940,7 @@
         </div>
       </aside>
     </div>
+    </div>
      <footer>
       <div class="footer-brand">
         <a href="QRHAKU.png" target="_blank" title="Ver QR en grande">
@@ -957,7 +951,7 @@
       <div style="color:var(--muted);font-size:13px" data-lang="footer-contact">Contacto: sgj.cheko@gmail.com</div>
     </footer>
     
-    </div>
+
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
       particlesJS("particles-js", {
