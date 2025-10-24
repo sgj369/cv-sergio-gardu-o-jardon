@@ -20,9 +20,6 @@
       --accent-emerald: #2E8B57; --card-bg: rgba(0,0,0,0.88);
       --card-border: rgba(255,255,255,0.1); --radius: 14px;
       --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-        }
-    .header-card a {
-      text-decoration: none;
     }
 
     /* 2. ESTILOS BASE */
@@ -63,6 +60,11 @@
       width: 120px; height: 120px; border-radius: 50%;
       overflow:hidden; border:2px solid var(--fg); 
       box-shadow:0 0 15px rgba(238, 241, 240, 0.5);
+      cursor: pointer; /* ---> AÑADIDO: Indica que se puede hacer clic */
+      transition: transform 0.2s ease;
+    }
+    .avatar:hover {
+      transform: scale(1.05); /* ---> AÑADIDO: Efecto al pasar el mouse */
     }
     .avatar img{width:100%;height:100%;object-fit:cover;display:block}
     .title{
@@ -70,8 +72,6 @@
       text-align: center;
       text-shadow: -1px -1px 0 var(--fg), 1px -1px 0 var(--fg), -1px 1px 0 var(--fg), 1px 1px 0 var(--fg); 
     }
-
-    /* --- ESTILOS DEL BOTÓN (AÑADIDOS) --- */
     .btn-fill-white {
       background: var(--fg); color: #333; border: 2px solid var(--fg);
       padding: 10px 16px; border-radius: 10px; font-weight: 700; text-decoration: none;
@@ -85,10 +85,8 @@
       transform: translateY(-1px);
     }
     .header-button-container {
-      margin-top: 10px; /* Reducido un poco */
-      text-align: center;
+      margin-top: 10px; text-align: center;
     }
-    /* --- FIN DE ESTILOS AÑADIDOS --- */
 
     /* 6. TARJETA DE PERFIL */
     #perfil { border-left-color: var(--accent-blue); } 
@@ -96,8 +94,7 @@
     #perfil .profile-title { color: var(--accent-blue); font-size:18px; font-weight:800; margin-top: 0; margin-bottom:8px }
     #perfil .profile-text{ font-size:15px; line-height:1.6; text-align: center; }
 
-
-    /* 7. TARJETA DE CONTACTO (Sin cambios) */
+    /* 7. TARJETA DE CONTACTO */
     #contacto { border-left-color: var(--fg); } 
     #contacto::after { background: var(--fg); } 
     #contacto > div:first-child { color: var(--fg); font-weight: 800; margin-bottom: 12px; font-size: 18px; }
@@ -111,26 +108,12 @@
     #contacto .contact-btn-pressable:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.3); }
     #contacto .contact-btn-pressable i { font-size: 1.2em; margin-right: 12px; width: 25px text-align: center; color: inherit; }
     #contacto .btn-email { background: var(--accent-yellow); color: #332400; }
-    #contacto .btn-email:hover { box-shadow: 0 8px 25px rgba(255, 195, 0, 0.3); }
-    #contacto .btn-email i { color: #332400; } 
     #contacto .btn-whatsapp { background: var(--accent-green); color: #03120a; }
-    #contacto .btn-whatsapp:hover { box-shadow: 0 8px 25px rgba(99, 185, 111, 0.3); }
-    #contacto .btn-whatsapp i { color: #03120a; }
     #contacto .btn-github { background: var(--accent-purple); color: var(--fg); }
-    #contacto .btn-github:hover { box-shadow: 0 8px 25px rgba(153, 51, 204, 0.3); }
-    #contacto .btn-github i { color: var(--fg); }
     #contacto .btn-linkedin { background: var(--accent-blue); color: var(--fg); }
-    #contacto .btn-linkedin:hover { box-shadow: 0 8px 25px rgba(0, 119, 182, 0.3); }
-    #contacto .btn-linkedin i { color: var(--fg); }
     #contacto .btn-facebook { background: #1877F2; color: var(--fg); }
-    #contacto .btn-facebook:hover { box-shadow: 0 8px 25px rgba(24, 119, 242, 0.3); }
-    #contacto .btn-facebook i { color: var(--fg); }
     #contacto .btn-instagram { background: #E4405F; color: var(--fg); }
-    #contacto .btn-instagram:hover { box-shadow: 0 8px 25px rgba(228, 64, 95, 0.3); }
-    #contacto .btn-instagram i { color: var(--fg); }
     #contacto .btn-tiktok { background: #fff; color: #000; }
-    #contacto .btn-tiktok:hover { box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3); }
-    #contacto .btn-tiktok i { color: #000; }
 
     /* 8. FOOTER */
     footer{
@@ -155,6 +138,82 @@
         .avatar { width: 100px; height: 100px; }
         footer { flex-direction: column; gap: 15px; justify-content: center; }
     }
+
+    /* 11. --- NUEVO: ESTILOS DEL MODAL (VENTANA QR) --- */
+    .modal-overlay {
+      position: fixed; /* Cubre toda la pantalla */
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.85); /* Fondo oscuro semitransparente */
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      cursor: pointer; /* El fondo oscuro también cierra el modal */
+      
+      /* Oculto por defecto */
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    
+    /* Clase que añade JS para mostrar el modal */
+    .modal-overlay.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background: #fff; /* Caja blanca */
+      padding: 20px;
+      border-radius: var(--radius);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      position: relative;
+      cursor: default; /* El cursor normal dentro de la caja */
+      max-width: 90%; /* Máximo ancho en móviles */
+      width: 350px; /* Ancho fijo */
+      
+      /* Animación de entrada */
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+    }
+    .modal-overlay.visible .modal-content {
+      transform: scale(1);
+    }
+
+    .modal-qr-image {
+      width: 100%; /* La imagen QR ocupa todo el ancho de la caja */
+      height: auto;
+      display: block;
+      border-radius: 8px; /* Bordes redondeados para la imagen */
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: -15px; right: -15px;
+      width: 40px; height: 40px;
+      background: var(--fg);
+      color: #333;
+      border-radius: 50%;
+      border: 2px solid #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2em;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transition: all 0.2s ease;
+    }
+    .modal-close-btn:hover {
+      background: var(--accent-red);
+      color: var(--fg);
+      border-color: var(--fg);
+      transform: scale(1.1) rotate(90deg);
+    }
+    
   </style>
 </head>
 <body>
@@ -163,13 +222,11 @@
 
   <div class="wrap">
     
-        <div class="header-card card">
+    <div class="header-card card">
       
-      <a href="TD.png" target="_blank" title="Ver QR de Contacto">
-        <div class="avatar" title="Foto de Sergio">
-            <img src="perfil.png" alt="Sergio Garduño Jardón">
-        </div>
-      </a>
+      <div class="avatar" title="Mostrar QR" id="open-qr">
+          <img src="perfil.png" alt="Sergio Garduño Jardón">
+      </div>
       
       <div>
           <div class="title">Sergio Garduño Jardón</div>
@@ -177,11 +234,11 @@
       
       <div class="header-button-container">
         <a class="btn-fill-white" href="Demo.html" target="_blank" rel="noopener" title="Abrir Portafolio Digital">
-            <i class="fa-solid fa-briefcase"></i> <span>Ver Portafolio Digital</span>
+            <i class="fa-solid fa-briefcase"></i>
+            <span>Ver Portafolio Digital</span>
         </a>
       </div>
     </div>
-
 
     <section class="card" id="perfil">
       <div class="profile-title">Perfil</div>
@@ -212,17 +269,61 @@
       <div style="color:var(--muted);font-size:13px">Contacto: sgj.cheko@gmail.com</div>
     </footer>
 
-  </div><script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  </div><div class="modal-overlay" id="modal-overlay" title="Haz clic para cerrar">
+    <div class="modal-content" onclick="event.stopPropagation();"> <a class="modal-close-btn" id="close-qr" title="Cerrar">&times;</a>
+      
+      <img src="1000005058.png" alt="Código QR de Contacto" class="modal-qr-image">
+    
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script>
-    // Configuración de Partículas
+    // --- Configuración de Partículas ---
     particlesJS("particles-js", {
       "particles": { "number": { "value": 80, "density": { "enable": true, "value_area": 800 }}, "color": { "value": ["#FFD700", "#63b96f", "#0077b6", "#eef1f0"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }}, "opacity": { "value": 0.6, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false }}, "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false }}, "line_linked": { "enable": true, "distance": 150, "color": "#a3a3a3", "opacity": 0.4, "width": 1 }, "move": { "enable": true, "speed": 3, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }},
       "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" }, "resize": true }, "modes": { "grab": { "distance": 400, "line_linked": { "opacity": 1 }}, "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 }, "repulse": { "distance": 150, "duration": 0.4 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 }}},
       "retina_detect": true
     });
 
-    // Script del año
+    // --- Script del año ---
     document.getElementById('year').textContent = new Date().getFullYear();
+
+
+    // --- NUEVO: SCRIPT PARA EL MODAL ---
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      // Selecciona los elementos
+      const modalOverlay = document.getElementById('modal-overlay');
+      const openBtn = document.getElementById('open-qr');
+      const closeBtn = document.getElementById('close-qr');
+
+      // Función para abrir el modal
+      const openModal = () => {
+        modalOverlay.classList.add('visible');
+      };
+      
+      // Función para cerrar el modal
+      const closeModal = () => {
+        modalOverlay.classList.remove('visible');
+      };
+
+      // Asigna los eventos
+      if (openBtn) {
+        openBtn.addEventListener('click', openModal);
+      }
+      
+      if (closeBtn) {
+        closeBtn.addEventListener('click', closeModal);
+      }
+      
+      if (modalOverlay) {
+        // Cierra el modal si se hace clic en el fondo oscuro
+        modalOverlay.addEventListener('click', closeModal);
+      }
+
+    });
   </script>
 </body>
 </html>
