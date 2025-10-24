@@ -400,8 +400,14 @@
   .btn-dark{background:var(--accent-purple);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;border:1px solid rgba(153, 51, 204, 0.4)}
   .iot-actions a { color: #fff; text-decoration: none; } 
 
-  /* FOOTER */
-  footer{text-align:center;color:var(--muted);font-size:13px;padding:26px 0 10px;display:flex;align-items:center;justify-content:center;gap:10px}
+  /* FOOTER */footer {
+  text-align: center;color: var(--muted);font-size: 13px;padding: 26px 15px 20px; /* Padding general */
+  display: flex;align-items: center;justify-content: center;gap: 10px;flex-wrap: wrap; /* Asegura que se centre en móviles */
+
+  /* --- AÑADIDO: Alineación con el menú lateral --- */
+  padding-left: var(--menu-width-collapsed, 70px);
+  transition: padding-left 0.3s ease-in-out;
+  }
   .footer-brand{display:flex;align-items:center;gap:8px}
   .sello{width:40px;height:40px;border-radius:8px;overflow:hidden}
   .sello img{width:100%;height:100%;object-fit:cover}
@@ -930,6 +936,7 @@
         </div>
       </aside>
     </div>
+    </div>
      <footer>
       <div class="footer-brand">
         <a href="QRHAKU.png" target="_blank" title="Ver QR en grande">
@@ -939,7 +946,7 @@
       </div>
       <div style="color:var(--muted);font-size:13px" data-lang="footer-contact">Contacto: sgj.cheko@gmail.com</div>
     </footer>
-    </div>
+    
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
