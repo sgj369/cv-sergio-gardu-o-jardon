@@ -33,7 +33,7 @@
 
     /* 3. WRAP */
     .wrap{
-      max-width: 600px; margin:0 auto; position:relative;
+      max-width: 420px; margin:0 auto; position:relative;
       display: flex; flex-direction: column; gap: 22px;
     }
 
@@ -125,12 +125,27 @@
     }
     #contacto .contact-btn-pressable:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.3); }
     #contacto .contact-btn-pressable i { font-size: 1.2em; margin-right: 12px; width: 25px text-align: center; color: inherit; }
-    #contacto .btn-email { background: var(--accent-yellow); color: #332400; }
+        /* --- INICIO: Correo Rojo (Añadido) --- */
+    #contacto .btn-email-rojo { 
+      background: var(--accent-red); /* Variable de rojo que ya tienes */
+      color: var(--fg); /* Texto blanco */
+    }
+    #contacto .btn-email-rojo:hover { 
+      box-shadow: 0 8px 25px rgba(255, 51, 102, 0.3); /* Sombra roja */
+    }
+    #contacto .btn-email-rojo i { 
+      color: var(--fg); /* Icono blanco */
+    }
+    /* --- FIN: Correo Rojo --- */
+
     #contacto .btn-whatsapp { background: var(--accent-green); color: #03120a; }
     #contacto .btn-github { background: var(--accent-purple); color: var(--fg); }
     #contacto .btn-linkedin { background: var(--accent-blue); color: var(--fg); }
     #contacto .btn-facebook { background: #1877F2; color: var(--fg); }
-    #contacto .btn-instagram { background: #E4405F; color: var(--fg); }
+    #contacto .btn-instagram { background: #FF5733; color: var(--fg); } /* <-- Color cambiado a Naranja */
+    #contacto .btn-instagram:hover { box-shadow: 0 8px 25px rgba(255, 87, 51, 0.3); } /* <-- Sombra cambiada */
+    #contacto .btn-instagram i { color: var(--fg); }
+
     #contacto .btn-tiktok { background: #fff; color: #000; }
 
     /* 8. FOOTER */
@@ -199,7 +214,10 @@
       <div>Contacto</div>
         <ul class="contact-list"> 
           <li><a href="mailto:sgj.cheko@gmail.com" class="contact-btn-pressable btn-email"><i class="fa-regular fa-envelope"></i><span>sgj.cheko@gmail.com</span></a></li>
-          <li><a href="mailto:sgardunoj1400@alumno.ipn.mx" class="contact-btn-pressable btn-email"><i class="fa-regular fa-envelope"></i><span>sgardunoj1400@alumno.ipn.mx</span></a></li>
+              <li><a href="mailto:sgardunoj1400@alumno.ipn.mx" class="contact-btn-pressable btn-email"><i class="fa-regular fa-envelope"></i><span>sgardunoj1400@alumno.ipn.mx</span></a></li>
+    
+    <li><a href="mailto:sgardunoj1400@alumno.ipn.mx" class="contact-btn-pressable btn-email btn-email-rojo"><i class="fa-regular fa-envelope"></i><span>sgardunoj1400@alumno.ipn.mx</span></a></li>
+
           <li><a href="https://wa.me/5215586864746" target="_blank" rel="noopener" class="contact-btn-pressable btn-whatsapp"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></a></li>
           <li><a href="https://sgj369.github.io/cv-sergio-gardu-o-jardon/" target="_blank" rel="noopener" class="contact-btn-pressable btn-github"><i class="fa-brands fa-github"></i><span>GitHub</span></a></li>
           <li><a href="https://www.linkedin.com/in/gardu%C3%B1o-jardon-sergio-264b582b0" target="_blank" rel="noopener" class="contact-btn-pressable btn-linkedin"><i class="fa-brands fa-linkedin"></i><span>LinkedIn</span></a></li>
