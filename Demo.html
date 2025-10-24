@@ -401,17 +401,17 @@
   .iot-actions a { color: #fff; text-decoration: none; } 
 
     footer {
-    text-align: center;
-    color: var(--muted);
-    font-size: 13px;
-    padding: 26px 0 10px; /* Padding vertical, sin padding lateral */
-    display: flex;
-    /* flex-direction: column; (BORRADO) */
-    align-items: center; /* Vuelve a alinear verticalmente */
-    justify-content: center; /* Mantiene centrado */
-    gap: 10px;
-    flex-wrap: wrap; /* Importante para móvil */
-    }
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  padding: 26px 0 10px; /* Padding vertical */
+  display: flex;
+  flex-direction: column; /* <-- Siempre vertical */
+  align-items: center;    /* <-- Siempre centrado */
+  justify-content: center;
+  gap: 10px;
+  }
+
 
 
   .footer-brand{display:flex;align-items:center;gap:8px}
@@ -654,8 +654,7 @@
   @media (max-width: 480px) { /* Móvil pequeño */
       .title { font-size: 28px; }
       .avatar { width: 70px; height: 70px; }
-      footer { flex-direction: column; gap: 15px; padding-top: 20px; padding-bottom: 20px; }
-   }
+      }
 
  </style>
 </head>
