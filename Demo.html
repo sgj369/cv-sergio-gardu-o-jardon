@@ -39,6 +39,7 @@
     /* Variables para el menú (se usan más abajo) */
     --menu-width-collapsed: 70px;
     --menu-width-expanded: 240px;
+    --accent-orange: #FF5733; /* Naranja Vibrante */
   }
 
   /* Estilos Base */
@@ -209,14 +210,25 @@
   
   .header-main-buttons { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
   
-  .btn-clean-secondary {
-    background: transparent; border: 2px solid var(--accent-blue); color: var(--accent-blue);
-    padding:8px 12px; border-radius:10px; font-weight:700; text-decoration:none;
-    display:inline-flex; gap:8px; align-items:center; transition: background-color 0.15s;
+  /* Botón Naranja Contorno (para EcoGaiaSOS) */
+  .btn-outline-orange {
+    background: transparent;
+    border: 2px solid var(--accent-orange);
+    color: var(--accent-orange);
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    transition: background-color 0.15s;
     flex-shrink: 0;
   }
-  .btn-clean-secondary:hover { background: rgba(0, 119, 182, 0.1); }
-  
+  .btn-outline-orange:hover { 
+    background: rgba(255, 87, 51, 0.1); /* Relleno naranja sutil */
+  }
+
   /* ESTILOS DEL CUERPO PRINCIPAL (MAIN CONTENT & ASIDE) */
   .hero{
     display:grid;
@@ -372,7 +384,7 @@
   .iot-actions a { color: #fff; text-decoration: none; } 
 
   /* FOOTER */
-  footer{text-align:center;color:var(--muted);font-size:13px;padding:26px 0 10px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+  footer{text-align:center;color:var(--muted);font-size:13px;padding:26px 0 10px;display:flex;align-items:center;justify-content:center;gap:10px}
   .footer-brand{display:flex;align-items:center;gap:8px}
   .sello{width:40px;height:40px;border-radius:8px;overflow:hidden}
   .sello img{width:100%;height:100%;object-fit:cover}
@@ -521,9 +533,9 @@
     width: 25px; text-align: center; color: inherit; 
   }
 
-  #contacto .btn-email { background: var(--accent-yellow); color: #332400; }
-  #contacto .btn-email:hover { box-shadow: 0 8px 25px rgba(255, 195, 0, 0.3); }
-  #contacto .btn-email i { color: #332400; } 
+  #contacto .btn-email-rojo {background: var(--accent-red);color: var(--fg);}
+  #contacto .btn-email-rojo:hover {box-shadow: 0 8px 25px rgba(255, 51, 102, 0.3);}
+  #contacto .btn-email-rojo i {color: var(--fg); 
 
   #contacto .btn-whatsapp { background: var(--accent-green); color: #03120a; }
   #contacto .btn-whatsapp:hover { box-shadow: 0 8px 25px rgba(99, 185, 111, 0.3); }
@@ -541,9 +553,10 @@
   #contacto .btn-facebook:hover { box-shadow: 0 8px 25px rgba(24, 119, 242, 0.3); }
   #contacto .btn-facebook i { color: var(--fg); }
 
-  #contacto .btn-instagram { background: #E4405F; color: var(--fg); }
-  #contacto .btn-instagram:hover { box-shadow: 0 8px 25px rgba(228, 64, 95, 0.3); }
+  #contacto .btn-instagram { background: var(--accent-orange); color: var(--fg); }
+  #contacto .btn-instagram:hover { box-shadow: 0 8px 25px rgba(255, 87, 51, 0.3); }
   #contacto .btn-instagram i { color: var(--fg); }
+
   
   #contacto .btn-tiktok { background: #fff; color: #000; }
   #contacto .btn-tiktok:hover { box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3); }
@@ -685,11 +698,14 @@
                   <li data-lang="ecogaia-l1">Desarrollo e implementación de la plataforma web para gestión y difusión de convocatorias y proyectos ambientales.</li>
                   <li data-lang="ecogaia-l2">Responsable de la organización de datos, visualización y soporte a actores locales.</li>
                 </ul>
-                <div class="iot-block" style="margin-top: 14px;">
-                  <a class="btn-clean-secondary" href="https://ecogaiasos.github.io/web/index.html" target="_blank" rel="noopener" style="margin: 0;" data-lang="ecogaia-btn">
-                    🌐 Visitar Eco Gaia SOS
-                  </a>
-                </div>
+                <div class="iot-block" style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap;">
+                <a class="btn-clean-secondary" href="https://ecogaiasos.github.io/web/index.html" target="_blank" rel="noopener" data-lang="ecogaias-btn">
+                  🌐 Web EcoGaiaSOS
+                </a>
+                <a class="btn-outline-orange" href="https://www.instagram.com/ecogaiasos?igsh=Y2hrNXg4OXZpbW0w" target="_blank" rel="noopener">
+                  <i class="fa-brands fa-instagram"></i> Instagram
+                </a>
+              </div>
               </div>
               <div class="card" style="margin-bottom:12px">
                 <strong data-lang="iot-role">Sistema IoT para techos verdes — Proyecto de tesis</strong> <div class="contact-small" data-lang="iot-dates">2023 – 2025 · Validado en campo</div>
@@ -844,13 +860,14 @@
                   <i class="fa-regular fa-envelope"></i>
                   <span>sgj.cheko@gmail.com</span>
                 </a>
-              </li>
-              <li>
-                <a href="mailto:sgardunoj1400@alumno.ipn.mx" class="contact-btn-pressable btn-email">
-                  <i class="fa-regular fa-envelope"></i>
-                  <span>sgardunoj1400@alumno.ipn.mx</span>
-                </a>
-              </li>
+            </li>
+            <li>
+            <a href="mailto:sgardunoj1400@alumno.ipn.mx" class="contact-btn-pressable btn-email btn-email-rojo">
+              <i class="fa-regular fa-envelope"></i>
+              <span>sgardunoj1400@alumno.ipn.mx</span>
+            </a>
+          </li>
+
               <li>
                 <a href="https://wa.me/5215586864746" target="_blank" rel="noopener" class="contact-btn-pressable btn-whatsapp">
                   <i class="fa-brands fa-whatsapp"></i>
@@ -891,9 +908,11 @@
         </div>
       </aside>
     </div>
-        <footer>
+     <footer>
       <div class="footer-brand">
-        <div class="sello"><img src="haku-logo.png" alt="Haku"></div>
+        <a href="QRHAKU.png" target="_blank" title="Ver QR en grande">
+          <div class="sello"><img src="haku-logo.png" alt="Haku"></div>
+        </a>
         <div style="color:var(--muted);font-size:13px">© <span id="year"></span> <span data-lang="footer-name">Sergio Garduño Jardón</span> · <span data-lang="footer-source">Hecho con GitHub Pages</span></div>
       </div>
       <div style="color:var(--muted);font-size:13px" data-lang="footer-contact">Contacto: sgj.cheko@gmail.com</div>
