@@ -20,6 +20,9 @@
       --accent-emerald: #2E8B57; --card-bg: rgba(0,0,0,0.88);
       --card-border: rgba(255,255,255,0.1); --radius: 14px;
       --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+        }
+    .header-card a {
+      text-decoration: none;
     }
 
     /* 2. ESTILOS BASE */
@@ -160,19 +163,25 @@
 
   <div class="wrap">
     
-    <div class="header-card card">
-      <div class="avatar" title="Foto de Sergio">
-          <img src="perfil.png" alt="Sergio Garduño Jardón">
-      </div>
+        <div class="header-card card">
+      
+      <a href="TD.png" target="_blank" title="Ver QR de Contacto">
+        <div class="avatar" title="Foto de Sergio">
+            <img src="perfil.png" alt="Sergio Garduño Jardón">
+        </div>
+      </a>
+      
       <div>
           <div class="title">Sergio Garduño Jardón</div>
       </div>
+      
       <div class="header-button-container">
-        <a class="btn-fill-white" href="cv_viewer.html" target="_blank" rel="noopener" title="Abrir CV en el navegador">
-            <i class="fa-solid fa-eye"></i> <span>Ver CV</span>
+        <a class="btn-fill-white" href="Demo.html" target="_blank" rel="noopener" title="Abrir Portafolio Digital">
+            <i class="fa-solid fa-briefcase"></i> <span>Ver Portafolio Digital</span>
         </a>
       </div>
     </div>
+
 
     <section class="card" id="perfil">
       <div class="profile-title">Perfil</div>
