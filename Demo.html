@@ -308,48 +308,75 @@
   #perfil::after { background: var(--accent-blue); }
   #perfil .profile-title { color: var(--accent-blue); }
 
-    /* --- ESTILOS PARA LA CARTA DESPLEGABLE DENTRO DEL PERFIL --- */
+   /* --- ESTILOS PARA LA CARTA DESPLEGABLE DENTRO DEL PERFIL (ACTUALIZADO) --- */
   .inner-details {
-    margin-top: 15px; /* Espacio extra arriba */
-    border-top: 1px solid var(--card-border); /* Línea separadora sutil */
+    margin-top: 15px; 
+    border-top: 1px solid var(--card-border); 
     padding-top: 15px;
   }
   
   .inner-summary {
     cursor: pointer;
-    display: inline-flex; /* Para alinear icono y texto */
-    align-items: center;
+    display: flex; /* Cambiado a flex */
+    justify-content: space-between; /* Empuja el icono de copiar a la derecha */
+    align-items: center; /* Alinea verticalmente */
     font-weight: 700;
-    color: var(--accent-gold); /* Color dorado */
-    margin-bottom: 10px; /* Espacio antes del contenido si está abierto */
-    list-style: none; /* Quita el marcador de <details> */
-    transition: opacity 0.2s ease;
+    color: var(--accent-gold); 
+    margin-bottom: 10px; 
+    list-style: none; /* Quita marcador original */
+    width: 100%; /* Asegura que ocupe todo el ancho */
+    position: relative; /* Para la flecha si es necesario */
   }
-  .inner-summary:hover {
+  .inner-summary:hover .summary-content { /* Solo atenúa el contenido izquierdo al pasar el mouse */
     opacity: 0.8;
   }
   .inner-summary::-webkit-details-marker { 
-    display: none; /* Quita el marcador en Chrome/Safari */
+    display: none; 
   }
   
-  /* Flecha desplegable (similar a las secciones principales) */
-  .inner-summary::after {
+  /* Contenedor del contenido izquierdo (icono + texto + flecha) */
+  .summary-content {
+      display: inline-flex; /* Mantiene icono y texto juntos */
+      align-items: center;
+      position: relative; /* Necesario para la flecha absoluta */
+      padding-right: 20px; /* Espacio para la flecha */
+      transition: opacity 0.2s ease;
+  }
+  
+  /* Flecha desplegable (Ahora posicionada absolutamente) */
+  .summary-content::after {
     content: '▼'; 
     font-size: 0.8em;
     color: var(--muted);
-    margin-left: 8px; 
     transition: transform 0.2s ease-out;
+    position: absolute; /* Posición relativa a .summary-content */
+    right: 0; /* Al final del span */
+    top: 50%;
+    transform: translateY(-50%); /* Centrado vertical */
   }
-  .inner-details[open] > .inner-summary::after {
-    transform: rotate(180deg);
+  .inner-details[open] > .inner-summary .summary-content::after {
+    transform: translateY(-50%) rotate(180deg); /* Gira en su lugar */
   }
   
-  .inner-content {
-    padding-left: 22px; /* Indentación ligera para el texto */
-    color: var(--fg); /* Asegura color de texto principal */
-    opacity: 0.9; /* Un poco más suave que el texto principal */
+  /* Estilos del icono de Copiar */
+  .copy-icon {
+    font-size: 1.1em; 
+    color: var(--muted); 
+    cursor: pointer;
+    padding: 5px; /* Área de clic más grande */
+    margin-left: 10px; /* Espacio desde la flecha */
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .copy-icon:hover {
+    color: var(--accent-blue); /* Color al pasar el mouse */
+    transform: scale(1.1);
+  }
+  /* Estilo temporal al copiar */
+  .copy-icon.copied {
+    color: var(--accent-green); /* Verde al copiar */
   }
   /* --- FIN ESTILOS CARTA DESPLEGABLE --- */
+
 
 
   /* Proyectos (Morado) */
@@ -783,10 +810,17 @@
         </div>
   
         <details class="inner-details">
-          <summary class="inner-summary">
-            <i class="fa-solid fa-file-lines" style="margin-right: 8px;"></i>
-            <span data-lang="carta-title">Ver Carta de Presentación</span> 
-          </summary>
+
+        <summary class="inner-summary">
+
+          <span class="summary-content"> 
+              <i class="fa-solid fa-file-lines" style="margin-right: 8px;"></i>
+              <span data-lang="carta-title">Ver Carta de Presentación</span>
+              </span>
+
+          <i class="fa-regular fa-copy copy-icon" title="Copiar texto" data-lang-title-en="Copy text" id="copy-carta-btn"></i> 
+
+        </summary>
           
           <div class="inner-content profile-text"> 
             
