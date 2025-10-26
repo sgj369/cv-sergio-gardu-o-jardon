@@ -102,24 +102,24 @@
      }
    }
 
-  /* ESTILOS DEL ENCABEZADO PRINCIPAL (HEADER CARD) - CON MARCO DORADO */
-    .main-header-card {
+  /* ESTILOS DEL ENCABEZADO PRINCIPAL (AHORA VERTICAL) */
+  .main-header-card {
     background: var(--card-bg);
     border: 1px solid rgba(255, 255, 255, 0.1); 
-    
-    /* --- CAMBIO AQUÍ: De dorado a blanco --- */
     border-top: 2px solid var(--fg); 
     border-bottom: 2px solid var(--fg); 
     border-right: 2px solid var(--fg); 
-    
     border-radius: var(--radius);
     box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  
+    /* --- CAMBIOS AQUÍ --- */
     display: flex;
-    justify-content: space-between; 
-    align-items: center; 
-    gap: 20px; 
-    padding: 20px;
+    flex-direction: column; /* Apila verticalmente */
+    align-items: center;    /* Centra horizontalmente */
+    gap: 15px;             /* Espacio entre foto, nombre y botones */
+    padding: 25px 20px;    /* Padding ajustado */
   }
+
 
     /* --- CAMBIO AQUÍ: Línea blanca para el header --- */
   .main-header-card::after {
@@ -140,17 +140,36 @@
     gap: 15px; margin-bottom:0; flex-shrink: 0; 
   }
   .brand{ display:flex; align-items:center; gap:14px; flex-shrink: 0; }
-    .avatar{
-    width:90px; height:90px; border-radius:12px; overflow:hidden;
-    
-    /* --- CAMBIO AQUÍ: De dorado a blanco --- */
-    border:2px solid var(--fg); 
-    box-shadow:0 0 15px rgba(238, 241, 240, 0.5); /* Sombra blanca */
-  }
+    /* Estilos del Avatar (Ahora circular y con modo QR) */
+.avatar{
+  width: 120px; /* Más grande */
+  height: 120px;
+  border-radius: 50%; /* Circular */
+  overflow:hidden;
+  border: 3px solid var(--fg); /* Borde un poco más grueso */
+  box-shadow:0 0 20px rgba(238, 241, 240, 0.6); /* Sombra más pronunciada */
+  cursor: pointer; 
+  transition: all 0.3s ease-in-out; 
+  margin-bottom: 5px; /* Pequeño espacio debajo */
+}
+    .avatar:hover {
+      transform: scale(1.05);
+    }
+    /* Estilos para el QR */
+    .avatar.qr-mode {
+      border-radius: var(--radius); /* Cuadrado para el QR */
+      border-color: var(--accent-green);
+      transform: scale(1.1);
+    }
+    .avatar.qr-mode:hover {
+      transform: scale(1.1);
+    }
+    .avatar img{
+      width:100%; height:100%; object-fit:cover; display:block;
+    }
 
-  .avatar img{width:100%;height:100%;object-fit:cover;display:block}
   
-    /* --- CAMBIO AQUÍ: Nombre contorno blanco y relleno negro --- */
+     /* --- CAMBIO AQUÍ: Nombre contorno blanco y relleno negro --- */
   .title{
     font-weight:900;
     font-size:36px; 
@@ -160,7 +179,9 @@
          1px -1px 0 var(--fg),
         -1px  1px 0 var(--fg),
          1px  1px 0 var(--fg); 
+    text-align: center; 
   } 
+ 
  
 
     /* --- CAMBIO AQUÍ: Reemplazamos .btn-clean-gold por estos dos --- */
@@ -614,10 +635,9 @@
         
     .main-header-card { 
       flex-direction: column; 
-      align-items: flex-start; 
+      align-items: center; 
       gap: 15px;
-      padding: 15px; /* Un poco menos de padding vertical en móvil si quieres */
-      /* Aseguramos que ocupe todo el ancho disponible */
+      padding: 15px; 
       width: 100%; 
       margin-left: 0;
       margin-right: 0;
@@ -628,14 +648,15 @@
         align-items: flex-start; 
         gap: 10px; 
     }
-    .header-main-buttons { 
-      width: 100%; 
-      justify-content: flex-start; 
-      padding-top: 10px; 
-      /* Quitamos bordes y sombras si estaban */
-      border: none;
-      box-shadow: none;
-    }
+    .header-main-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center; /* <-- Esta es la línea clave para centrar */
+    margin-top: 5px;
+  }
+
     
     /* Layout principal y aside */
     .hero { grid-template-columns: 1fr; } 
@@ -684,26 +705,26 @@
   <div class="wrap">
     <div class="hero">
       <main class="hero-main">
-    <div class="main-header-card card"> <header>
-            <div class="brand">
-                <div class="avatar" title="Foto de Sergio">
-                    <img src="perfil.png" alt="Sergio GarduÑO Jardón">
-                </div>
-                <div>
-                    <div class="title" data-lang="name">Sergio Garduño Jardón</div>
-                </div>
-            </div>
-        </header>
-        
-        <div class="header-main-buttons">
-            <a class="btn-fill-white" href="cv_viewer.html" target="_blank" rel="noopener" id="btn-view-cv" title="Abrir CV en el navegador" data-lang-href-en="cv_viewer_eu.html">
-                <i class="fa-solid fa-eye"></i> <span data-lang="btn-view-cv-text">Ver CV</span>
-            </a>
-            <a class="btn-outline-white" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" id="btn-download-cv" title="Descargar CV como PDF" data-lang-href-en="cv_pagina_web_eu.pdf">
-                <i class="fa-solid fa-download"></i> <span data-lang="btn-download-cv-text">Descargar CV</span>
-            </a>
-        </div>
+    <div class="main-header-card card"> 
+
+    <div class="avatar" title="Clic para QR" id="avatar-container-main">
+        <img id="avatar-img-main" src="perfil.png" alt="Sergio Garduño Jardón">
     </div>
+
+    <div>
+        <div class="title" data-lang="name">Sergio Garduño Jardón</div>
+    </div>
+
+    <div class="header-main-buttons">
+        <a class="btn-fill-white" href="cv_viewer.html" target="_blank" rel="noopener" id="btn-view-cv" title="Abrir CV en el navegador" data-lang-href-en="cv_viewer_eu.html">
+            <i class="fa-solid fa-eye"></i> <span data-lang="btn-view-cv-text">Ver CV</span>
+        </a>
+        <a class="btn-outline-white" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" id="btn-download-cv" title="Descargar CV como PDF" data-lang-href-en="cv_pagina_web_eu.pdf">
+            <i class="fa-solid fa-download"></i> <span data-lang="btn-download-cv-text">Descargar CV</span>
+        </a>
+    </div>
+</div>
+
 
     <section class="card" id="perfil">
           <div class="profile-title" data-lang="profile-title">Perfil</div>
@@ -714,7 +735,8 @@
             Programacion en Python, C++/Arduino y Google Apps Script para automatizar procesos y crear modelos analíticos orientados a optimizar recursos y apoyar la toma de decisiones. Me interesa colaborar en proyectos que unan tecnología y naturaleza para generar impacto ambiental positivo.
           </div>
         </section>
-
+        
+        
 
         <details open id="proyectos">
           <summary>
@@ -1145,7 +1167,34 @@
           animatedCards.forEach(card => {
             revealObserver.observe(card);
           });
-      });
-    </script>
+      // --- AÑADE ESTO (EFECTO FLIP CABECERA) ---
+      const avatarContainerMain = document.getElementById('avatar-container-main');
+      const avatarImgMain = document.getElementById('avatar-img-main');
+
+      // Asegúrate de tener tu QR guardado como PORTAFOLIO_QR.png
+      const originalSrcMain = 'perfil.png'; 
+      const qrSrcMain = 'PORTAFOLIO_QR.png'; // <-- ¡Usa el nombre de tu nuevo QR!
+
+      let isQrModeMain = false;
+
+      if (avatarContainerMain && avatarImgMain) { // Verifica si existen
+        avatarContainerMain.addEventListener('click', () => {
+            if (isQrModeMain) {
+                avatarImgMain.src = originalSrcMain;
+                avatarImgMain.alt = 'Sergio Garduño Jardón';
+                avatarContainerMain.classList.remove('qr-mode');
+                avatarContainerMain.title = 'Clic para QR';
+            } else {
+                avatarImgMain.src = qrSrcMain;
+                avatarImgMain.alt = 'Código QR del Portafolio';
+                avatarContainerMain.classList.add('qr-mode');
+                avatarContainerMain.title = 'Clic para volver a la foto';
+            }
+            isQrModeMain = !isQrModeMain;
+        });
+      }
+      // --- FIN DE LO AÑADIDO ---
+  }); // Cierre del DOMContentLoaded
+</script>
   </body>
 </html>
