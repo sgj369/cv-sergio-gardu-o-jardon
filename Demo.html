@@ -308,6 +308,50 @@
   #perfil::after { background: var(--accent-blue); }
   #perfil .profile-title { color: var(--accent-blue); }
 
+    /* --- ESTILOS PARA LA CARTA DESPLEGABLE DENTRO DEL PERFIL --- */
+  .inner-details {
+    margin-top: 15px; /* Espacio extra arriba */
+    border-top: 1px solid var(--card-border); /* Línea separadora sutil */
+    padding-top: 15px;
+  }
+  
+  .inner-summary {
+    cursor: pointer;
+    display: inline-flex; /* Para alinear icono y texto */
+    align-items: center;
+    font-weight: 700;
+    color: var(--accent-gold); /* Color dorado */
+    margin-bottom: 10px; /* Espacio antes del contenido si está abierto */
+    list-style: none; /* Quita el marcador de <details> */
+    transition: opacity 0.2s ease;
+  }
+  .inner-summary:hover {
+    opacity: 0.8;
+  }
+  .inner-summary::-webkit-details-marker { 
+    display: none; /* Quita el marcador en Chrome/Safari */
+  }
+  
+  /* Flecha desplegable (similar a las secciones principales) */
+  .inner-summary::after {
+    content: '▼'; 
+    font-size: 0.8em;
+    color: var(--muted);
+    margin-left: 8px; 
+    transition: transform 0.2s ease-out;
+  }
+  .inner-details[open] > .inner-summary::after {
+    transform: rotate(180deg);
+  }
+  
+  .inner-content {
+    padding-left: 22px; /* Indentación ligera para el texto */
+    color: var(--fg); /* Asegura color de texto principal */
+    opacity: 0.9; /* Un poco más suave que el texto principal */
+  }
+  /* --- FIN ESTILOS CARTA DESPLEGABLE --- */
+
+
   /* Proyectos (Morado) */
   #proyectos > summary { color: var(--accent-purple); border-color: rgba(153, 51, 204, 0.3); }
   #proyectos .section-content .card { border-left-color: var(--accent-purple); opacity: 1; transform: none; } /*Hijos no se animan*/
