@@ -314,6 +314,41 @@
     border-top: 1px solid var(--card-border); /* Línea separadora sutil */
     padding-top: 15px;
   }
+
+   /* --- ESTILOS PARA EL BOTÓN COPIAR DENTRO DE LA CARTA --- */
+  .copy-button-container {
+    text-align: right; /* Alinea el botón a la derecha */
+    margin-top: 15px; /* Espacio arriba del botón */
+  }
+  
+  .btn-copy-carta {
+    background-color: transparent;
+    border: 1px solid var(--accent-gold); /* Borde dorado */
+    color: var(--accent-gold); /* Texto dorado */
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-family: var(--font-sans); /* Asegura la misma fuente */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9em; /* Un poco más pequeño */
+  }
+  .btn-copy-carta:hover {
+    background-color: rgba(255, 215, 0, 0.1); /* Relleno dorado sutil */
+    box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
+  }
+  .btn-copy-carta:active {
+    transform: scale(0.98); /* Efecto al presionar */
+  }
+  
+  /* Estilo temporal al copiar (check verde) */
+  .btn-copy-carta.copied {
+    border-color: var(--accent-green);
+    background-color: rgba(99, 185, 111, 0.1);
+    color: var(--accent-green);
+  }
+  /* --- FIN ESTILOS BOTÓN COPIAR --- */
+
   
   .inner-summary {
     cursor: pointer;
@@ -706,19 +741,13 @@
     .hero { grid-template-columns: 1fr; } 
     .hero-aside { position: static; } /* Quitamos sticky */
     
-    footer { 
-        /* Aseguramos que el padding del footer también respete el menú */
-        padding-left: 15px; 
-        padding-right: 15px; 
-    }
   }
 
   
   @media (max-width: 480px) { /* Móvil pequeño */
       .title { font-size: 28px; }
       .avatar { width: 70px; height: 70px; }
-      footer { flex-direction: column; gap: 15px; padding-top: 20px; padding-bottom: 20px; }
-   }
+     }
 
  </style>
 </head>
@@ -801,8 +830,13 @@
             <p data-lang="carta-p3">
               Más allá de lo técnico, le apasiona conocer mas sobre flora y fauna, además de conectar con actores por medio del proyecto <strong>ECOGAIASOS</strong> que generan acciones en pro del planeta y participar activamente en eventos de limpieza o restauración de hábitats. Sergio cree firmemente que la acción combinada con el conocimiento adecuado siempre tendrá un mejor resultado.
             </p>
-            
-          </div> 
+            <div class="copy-button-container" style="text-align: right; margin-top: 15px;">
+          <button class="btn-copy-carta" id="copy-carta-btn-bottom">
+            <i class="fa-regular fa-copy" style="margin-right: 6px;"></i>
+            <span data-lang="copy-btn-text">Copiar Texto</span>
+          </button>
+        </div>
+        </div>
         </details>
         </section>
          
@@ -1053,222 +1087,303 @@
     </script>
     
         <script>
-      document.getElementById('year').textContent = new Date().getFullYear();
-
-      /* --- CAMBIO AQUÍ --- */
-      // Se actualizaron los objetos 'en' y 'es' para las nuevas secciones.
-      const translations = {
-          'en': { 
-            'profile-title': 'Profile', 
-            'profile-p1': 'Mechatronics Engineer specializing in IoT systems, data, and sustainable solutions. I design, develop, and deploy environmental monitoring systems that integrate hardware (ESP32 and sensors), renewable energy, and data pipelines (Google Sheets / SQL, dashboards).', 
-            'profile-p2': 'Programming expertise in Python, C++/Arduino, and Google Apps Script to automate processes and create analytical models focused on optimizing resources and supporting decision-making. I seek to collaborate on projects that merge technology and nature to generate a positive environmental impact.', 
-            'carta-title': 'View Introduction', // Or "Read Introduction" if you prefer
-            'carta-p1': 'Introducing Sergio Garduño Jardón, a Mechatronics Engineer from IPN UPIITA convinced that technology and nature can and must coexist. His passion for life and the environment drives him to find innovative ways to use knowledge to aid our planet, specializing in the development of **IoT systems for ecological monitoring**.',
-            'carta-p2': 'Sergio designs and develops systems that allow us to \'listen\' to the environment\'s needs. A clear example is his thesis project on **green roofs**, where he implemented a complete autonomous monitoring system—from hardware with ESP32 and sensors to data analysis—demonstrating how technology can validate and enhance sustainable solutions. His goal is to continue applying mechatronics, programming, and data to projects that generate a positive environmental impact.',
-            'carta-p3': 'Beyond the technical, he is passionate about learning more about flora and fauna, connecting with actors generating pro-planet actions through the **ECOGAIASOS** project, and actively participating in cleanup or habitat restoration events like reforestation. Sergio firmly believes that action combined with the right knowledge always yields better results.',
-
-            'btn-view-cv-text': 'View CV', 
-            'btn-download-cv-text': 'Download CV', 
-            
-            /* --- Títulos de Sección Corregidos --- */
-            'proyectos-title': 'Personal Projects',
-            'exp-title': 'Work Experience', 
-            
-            /* --- Proyectos --- */
-            'ecogaia-role': 'Eco Gaia SOS — Environmental Impact Platform', 
-            'ecogaia-dates': '2024 – Present · CDMX', 
-            'ecogaia-l1': 'Development and implementation of a web platform for management and dissemination of environmental calls and projects.', 
-            'ecogaia-l2': 'Responsible for data organization, visualization, and local stakeholder support.', 
-            'ecogaia-btn': '🌐 Visit Eco Gaia SOS', 
-            'iot-role': 'IoT System for Green Roofs — Thesis Project', 
-            'iot-dates': '2023 – 2025 · Field Validated', 
-            'iot-l1': 'Design and deployment of an autonomous thermal monitoring system with ESP32, sensors, and solar power.', 
-            'iot-l2': 'Development of data pipeline and dashboard for validating thermal reduction on green roofs.', 
-            'iot-links': 'Project Green Roof Links', 
-            'iot-btn1': '🌐 View Dashboard (Real-time data)', 
-            'iot-btn2': '📊 View Data Sheet (Google Sheets)', 
-            'iot-btn3': '📘 View Thesis (PDF)', 
-            
-            /* --- Experiencia --- */
-            'robo-role': 'Robodacta — Design and Sales', 
-            'robo-dates': '2022 – 2024', 
-            'robo-l1': 'Design of educational kits, packaging, online courses, and audiovisual material; management of suppliers and sales.', 
-            'meta-role': 'METAMORFOZIZ — Advertising and Production', 
-            'meta-dates': '2021 – 2022', 
-            'meta-l1': 'Graphic design, production of banners and signs, management of printing materials and processes.', 
-            'ventas-role': 'Sales (Local) — Coyoacán', 
-            'ventas-dates': '2021 – 2022', 
-            'ventas-l1': 'Direct customer service, management of B2C and B2B sales, cash register operation, and inventory control.', 
-            'serv-role': 'Technical Service (Own Business)', 
-            'serv-dates': '2018 – 2020', 
-            'serv-l1': 'Repair of electronic devices, purchase and sale of spare parts, inventory control, and customer service.', 
-            
-            /* --- Resto de secciones --- */
-            'logros-title': 'Achievements', 
-            'logros-l1': 'IoT prototype validated in the field for thermal and energy monitoring (Thesis).', 
-            'logros-l2': 'Technical participation in the National Biotechnology Congress (Oaxaca, 2025).', 
-            'logros-l3': 'Implementation and development of the Eco Gaia SOS platform.', 
-            'cursos-title': 'Courses & Certificates', 
-            'cursos-l1': 'Seminar: Design of manufacturing automation and integration of programmable devices.', 
-            'cursos-l2': 'Course/Self-study: Python for data analysis (pandas) — practical projects.', 
-            'cursos-l3': 'Certification in progress: English B2.', 
-            'acad-title': 'Academic Background', 
-            'acad-uni-title': 'IPN Polytechnic',
-            'acad-eng-title': 'Mechatronics Engineering (UPIITA)', 
-            'acad-eng-dates': '2018 - 2024',
-            'acad-tech-title': 'Technician in Business Administration', 
-            'acad-tech-dates': '2015 – 2018', 
-            'contact-title': 'Contact', 
-            'tech-skills-title': 'Technical Skills', 
-            'soft-skills-title': 'Soft Skills', 
-            'skill-cpp': 'C++ / Arduino', 
-            'skill-python': 'Python (pandas)', 
-            'skill-esp32': 'ESP32 & sensors', 
-            'skill-sql': 'SQL & Google Sheets', 
-            'skill-solar': 'Solar Panels & Batteries', 
-            'skill-apps-script': 'Google Apps Script', 
-            'soft-l1': 'Leadership', 
-            'soft-l2': 'Creativity and innovation', 
-            'soft-l3': 'Project planning and management', 
-            'soft-l4': 'Teamwork', 
-            'soft-l5': 'Adaptability', 
-            'soft-l6': 'Certification in progress: English B2.', 
-            'footer-name': 'Sergio Garduño Jardón', 
-            'footer-source': 'Made with GitHub Pages', 
-            'footer-contact': 'Contact: sgj.cheko@gmail.com' 
-          },
-          'es': { 
-            /* --- CAMBIO AQUÍ --- */
-            /* Añadimos los títulos en español para que la función los encuentre */
-            'proyectos-title': 'Proyectos Personales',
-            'exp-title': 'Experiencia Laboral'
-            /* El resto de las claves ES se toman del HTML original */
-          }
-      };
-
-      let currentLanguage = 'es';
-
-      function applyText(element, text) {
-        let processedText = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
-        if (element.tagName === 'STRONG' && element.querySelector('img')) {
-          const textSpan = element.querySelector('span');
-          if (textSpan) { textSpan.innerHTML = processedText; }
-          else { element.innerHTML = processedText; }
-        } else {
-          element.innerHTML = processedText;
+    // Objeto de Traducciones
+    const translations = {
+        'en': { 
+          'profile-title': 'Profile', 
+          'profile-p1': 'Mechatronics Engineer specializing in IoT systems, data, and sustainable solutions. I design, develop, and deploy environmental monitoring systems that integrate hardware (ESP32 and sensors), renewable energy, and data pipelines (Google Sheets / SQL, dashboards).', 
+          'profile-p2': 'Programming expertise in Python, C++/Arduino, and Google Apps Script to automate processes and create analytical models focused on optimizing resources and supporting decision-making. I seek to collaborate on projects that merge technology and nature to generate a positive environmental impact.', 
+          'carta-title': 'View Introduction',
+          'carta-p1': 'Introducing Sergio Garduño Jardón, a Mechatronics Engineer from IPN UPIITA convinced that technology and nature can and must coexist. His passion for life and the environment drives him to find innovative ways to use knowledge to aid our planet, specializing in the development of <strong>IoT systems for ecological monitoring</strong>.',
+          'carta-p2': 'Sergio designs and develops systems that allow us to \'listen\' to the environment\'s needs. A clear example is his thesis project on <strong>green roofs</strong>, where he implemented a complete autonomous monitoring system—from hardware with ESP32 and sensors to data analysis—demonstrating how technology can validate and enhance sustainable solutions. His goal is to continue applying mechatronics, programming, and data to projects that generate a positive environmental impact.',
+          'carta-p3': 'Beyond the technical, he is passionate about learning more about flora and fauna, connecting with actors generating pro-planet actions through the <strong>ECOGAIASOS</strong> project, and actively participating in cleanup or habitat restoration events like reforestation. Sergio firmly believes that action combined with the right knowledge always yields better results.',
+          'copy-btn-text': 'Copy Text', // Traducción del botón
+          'btn-view-cv-text': 'View CV', 
+          'btn-download-cv-text': 'Download CV', 
+          'proyectos-title': 'Personal Projects',
+          'exp-title': 'Work Experience', 
+          'ecogaia-role': 'Eco Gaia SOS — Environmental Impact Platform', 
+          'ecogaia-dates': '2024 – Present · CDMX', 
+          'ecogaia-l1': 'Development and implementation of a web platform for management and dissemination of environmental calls and projects.', 
+          'ecogaia-l2': 'Responsible for data organization, visualization, and local stakeholder support.', 
+          'ecogaia-btn': '🌐 Visit Eco Gaia SOS', 
+          'iot-role': 'IoT System for Green Roofs — Thesis Project', 
+          'iot-dates': '2023 – 2025 · Field Validated', 
+          'iot-l1': 'Design and deployment of an autonomous thermal monitoring system with ESP32, sensors, and solar power.', 
+          'iot-l2': 'Development of data pipeline and dashboard for validating thermal reduction on green roofs.', 
+          'iot-links': 'Project Green Roof Links', 
+          'iot-btn1': '🌐 Dashboard', // Acortado
+          'iot-btn2': '📊 Data Sheet (Sheets)', // Acortado
+          'iot-btn3': '📘 View Thesis', // Acortado
+          'robo-role': 'Robodacta — Design and Sales', 
+          'robo-dates': '2022 – 2024', 
+          'robo-l1': 'Design of educational kits, packaging, online courses, and audiovisual material; management of suppliers and sales.', 
+          'meta-role': 'METAMORFOZIZ — Advertising and Production', 
+          'meta-dates': '2021 – 2022', 
+          'meta-l1': 'Graphic design, production of banners and signs, management of printing materials and processes.', 
+          'ventas-role': 'Sales (Local) — Coyoacán', 
+          'ventas-dates': '2021 – 2022', 
+          'ventas-l1': 'Direct customer service, management of B2C and B2B sales, cash register operation, and inventory control.', 
+          'serv-role': 'Technical Service (Own Business)', 
+          'serv-dates': '2018 – 2020', 
+          'serv-l1': 'Repair of electronic devices, purchase and sale of spare parts, inventory control, and customer service.', 
+          'logros-title': 'Achievements', 
+          'logros-l1': 'IoT prototype validated in the field for thermal and energy monitoring (Thesis).', 
+          'logros-l2': 'Technical participation in the National Biotechnology Congress (Oaxaca, 2025).', 
+          'logros-l3': 'Implementation and development of the Eco Gaia SOS platform.', 
+          'cursos-title': 'Courses & Certificates', 
+          'cursos-l1': 'Seminar: Design of manufacturing automation and integration of programmable devices.', 
+          'cursos-l2': 'Course/Self-study: Python for data analysis (pandas) — practical projects.', 
+          'cursos-l3': 'Certification in progress: English B2.', 
+          'acad-title': 'Academic Background', 
+          'acad-uni-title': 'IPN Polytechnic',
+          'acad-eng-title': 'Mechatronics Engineering (UPIITA)', 
+          'acad-eng-dates': '2018 - 2024',
+          'acad-tech-title': 'Technician in Business Administration', 
+          'acad-tech-dates': '2015 – 2018', 
+          'contact-title': 'Contact', 
+          'tech-skills-title': 'Technical Skills', 
+          'soft-skills-title': 'Soft Skills', 
+          'skill-cpp': 'C++ / Arduino', 
+          'skill-python': 'Python (pandas)', 
+          'skill-esp32': 'ESP32 & sensors', 
+          'skill-sql': 'SQL & Google Sheets', 
+          'skill-solar': 'Solar Panels & Batteries', 
+          'skill-apps-script': 'Google Apps Script', 
+          'soft-l1': 'Leadership', 
+          'soft-l2': 'Creativity and innovation', 
+          'soft-l3': 'Project planning and management', 
+          'soft-l4': 'Teamwork', 
+          'soft-l5': 'Adaptability', 
+          'soft-l6': 'Certification in progress: English B2.', 
+          'footer-name': 'Sergio Garduño Jardón', 
+          'footer-source': 'Made with GitHub Pages', 
+          'footer-contact': 'Contact: sgj.cheko@gmail.com' 
+        },
+        'es': { 
+          'proyectos-title': 'Proyectos Personales',
+          'exp-title': 'Experiencia Laboral',
+          'carta-title': 'Ver Carta de Presentación', // Añadido ES
+          'copy-btn-text': 'Copiar Texto', // Añadido ES
+          // ... (Asegúrate de tener TODAS las claves ES que usas en tu HTML)
+          // Si no, la función translatePage podría dar error o no traducir todo.
+          // Es mejor copiar las claves del objeto 'en' y traducirlas aquí.
+          'footer-contact': 'Contacto: sgj.cheko@gmail.com' 
         }
-      }
+    };
 
-      /* --- CAMBIO AQUÍ --- */
-      // Función de traducción mejorada para manejar mejor los fallbacks
-      function translatePage(lang) {
-        const t = translations[lang] || translations['es']; // Fallback a español
-        const isEnglish = (lang === 'en');
-        
-        document.querySelectorAll('[data-lang]').forEach(element => {
-            const key = element.getAttribute('data-lang');
-            
-            // Guarda el texto original ES la primera vez que se traduce a EN
-            if (isEnglish && !element.getAttribute('data-es-original')) {
-                 element.setAttribute('data-es-original', element.innerHTML);
-            }
+    let currentLanguage = 'es';
 
-            if (t[key] !== undefined) { // Usar traducción si existe
-                applyText(element, t[key]);
-            } else if (lang === 'es') { // Si volvemos a español
-                const originalText = element.getAttribute('data-es-original');
-                if (originalText) { applyText(element, originalText); }
-            } // Si es inglés y no hay traducción, deja el texto actual
-        });
-        
-        document.querySelectorAll('[data-lang-href-en]').forEach(button => {
-            const originalHref = button.getAttribute('data-es-href') || button.getAttribute('href');
-             if (!button.getAttribute('data-es-href')) { button.setAttribute('data-es-href', originalHref); }
-             
-            const englishHref = button.getAttribute('data-lang-href-en');
-            button.setAttribute('href', isEnglish ? englishHref : originalHref);
-        });
-        
-        // Actualizar texto específico de botones CV
-        const viewCvSpan = document.getElementById('btn-view-cv')?.querySelector('span');
-        if(viewCvSpan) viewCvSpan.textContent = t['btn-view-cv-text'] || 'Ver CV'; // Usa fallback
-        const downloadCvSpan = document.getElementById('btn-download-cv')?.querySelector('span');
-        if(downloadCvSpan) downloadCvSpan.textContent = t['btn-download-cv-text'] || 'Descargar CV'; // Usa fallback
-
-        document.getElementById('flag-es')?.classList.toggle('active', lang === 'es');
-        document.getElementById('flag-en')?.classList.toggle('active', lang === 'en');
-        currentLanguage = lang;
-        document.documentElement.lang = lang;
-      }
-
-      // INICIALIZACIÓN DE TODO
-      document.addEventListener('DOMContentLoaded', () => {
-          
-          // 1. Lógica de Traducción
-          // Guardar texto original ES al cargar
-          document.querySelectorAll('[data-lang]').forEach(element => {
-              if (!element.getAttribute('data-es-original')) {
-                   element.setAttribute('data-es-original', element.innerHTML); 
-              }
-          });
-          document.getElementById('flag-es')?.classList.add('active'); // Activar bandera ES
-          
-          // 2. LÓGICA DEL MENÚ LATERAL
-          const menuToggleBtn = document.getElementById('menu-toggle-btn');
-          const sideNavbar = document.getElementById('side-navbar');
-          
-          if (menuToggleBtn && sideNavbar) {
-            menuToggleBtn.addEventListener('click', () => {
-              sideNavbar.classList.toggle('expanded');
-              document.body.classList.toggle('menu-expanded');
-            });
-          }
+    // Función para aplicar texto (maneja <strong>)
+    function applyText(element, text) {
+      // Reemplaza **texto** con <b>texto</b> si usaras markdown, pero usamos <strong> en HTML
+      // let processedText = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>'); 
+      // Para HTML con <strong>, simplemente asignamos el innerHTML
+      if (!element) return; // Seguridad extra
       
-          // 3. LÓGICA DE ANIMACIÓN DE TARJETAS
-          const animatedCards = document.querySelectorAll('.card'); 
+      // Si el elemento es STRONG y tiene una imagen (caso especial en Proyectos), actualiza el SPAN
+      if (element.tagName === 'STRONG' && element.querySelector('img')) {
+        const textSpan = element.querySelector('span');
+        if (textSpan) { textSpan.innerHTML = text; } 
+        // else { element.innerHTML = text; } // Evita borrar la imagen si no hay span
+      } else {
+        element.innerHTML = text; // Asigna directo para la mayoría de los casos
+      }
+    }
+
+    // Función principal de traducción
+    function translatePage(lang) {
+      currentLanguage = lang; // Actualiza idioma actual
+      const t = translations[lang] || translations['es']; // Fallback a español si falta 'en'
+      const isEnglish = (lang === 'en');
+      document.documentElement.lang = lang; // Actualiza el lang del HTML
+
+      // Traduce elementos con [data-lang]
+      document.querySelectorAll('[data-lang]').forEach(element => {
+          const key = element.getAttribute('data-lang');
           
-          const revealObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                observer.unobserve(entry.target);
+          // Guarda el texto original ES la primera vez
+          if (!element.getAttribute('data-es-original')) {
+               element.setAttribute('data-es-original', element.innerHTML); 
+          }
+
+          let textToApply = '';
+          if (t[key] !== undefined) {
+              textToApply = t[key]; // Usa la traducción si existe
+          } else if (lang === 'es') {
+              const originalText = element.getAttribute('data-es-original');
+              if (originalText) { textToApply = originalText; } // Vuelve al original ES si existe
+          } else {
+               textToApply = element.getAttribute('data-es-original') || element.innerHTML; // Si es EN y no hay traducción, usa el original ES o el actual
+          }
+          
+          if (textToApply) {
+              applyText(element, textToApply);
+          }
+      });
+      
+      // Traduce atributos href
+      document.querySelectorAll('[data-lang-href-en]').forEach(button => {
+          const originalHref = button.getAttribute('data-es-href') || button.getAttribute('href');
+           if (!button.getAttribute('data-es-href')) { button.setAttribute('data-es-href', originalHref); }
+           
+          const englishHref = button.getAttribute('data-lang-href-en');
+          button.setAttribute('href', isEnglish ? englishHref : originalHref);
+      });
+
+      // Traduce atributos title (para tooltips como el del icono de copiar)
+      document.querySelectorAll('[data-lang-title-en]').forEach(element => {
+          const originalTitle = element.getAttribute('data-es-title') || element.getAttribute('title');
+          if (!element.getAttribute('data-es-title')) { element.setAttribute('data-es-title', originalTitle); }
+          
+          const englishTitleKey = element.getAttribute('data-lang-title-en'); // Obtiene la clave EN del atributo
+          const englishTitle = translations['en'][englishTitleKey] || originalTitle; // Busca la traducción EN
+          
+          element.setAttribute('title', isEnglish ? englishTitle : originalTitle);
+      });
+      
+      // Actualiza botones de idioma
+      document.getElementById('flag-es')?.classList.toggle('active', lang === 'es');
+      document.getElementById('flag-en')?.classList.toggle('active', lang === 'en');
+    }
+
+
+    // --- INICIALIZACIÓN CUANDO EL DOM ESTÁ LISTO ---
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        // --- Establece el año actual ---
+        const yearElement = document.getElementById('year');
+        if (yearElement) {
+            yearElement.textContent = new Date().getFullYear();
+        }
+
+        // --- Lógica de Traducción Inicial ---
+        document.querySelectorAll('[data-lang]').forEach(element => {
+            if (!element.getAttribute('data-es-original')) {
+                 element.setAttribute('data-es-original', element.innerHTML); 
+            }
+        });
+        // Aplica idioma inicial (si es necesario) o activa bandera correcta
+        translatePage(currentLanguage); // Llama a translatePage para asegurar estado inicial correcto
+        
+        
+        // --- Lógica del Menú Lateral ---
+        const menuToggleBtn = document.getElementById('menu-toggle-btn');
+        const sideNavbar = document.getElementById('side-navbar');
+        if (menuToggleBtn && sideNavbar) {
+          menuToggleBtn.addEventListener('click', () => {
+            sideNavbar.classList.toggle('expanded');
+            document.body.classList.toggle('menu-expanded');
+            // Actualiza aria-expanded para accesibilidad
+            const isExpanded = sideNavbar.classList.contains('expanded');
+            menuToggleBtn.setAttribute('aria-expanded', isExpanded);
+          });
+          // Establece aria-expanded inicial
+           menuToggleBtn.setAttribute('aria-expanded', sideNavbar.classList.contains('expanded'));
+        }
+    
+        // --- Lógica de Animación de Tarjetas ---
+        const animatedCards = document.querySelectorAll('.card'); 
+        if (typeof IntersectionObserver !== 'undefined') { // Verifica si el navegador soporta IntersectionObserver
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+              entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add('is-visible');
+                  observer.unobserve(entry.target);
+                }
+              });
+            }, {
+              threshold: 0.1 
+            });
+            animatedCards.forEach(card => {
+              revealObserver.observe(card);
+            });
+        } else {
+            // Fallback para navegadores viejos: simplemente muestra las tarjetas
+             animatedCards.forEach(card => card.classList.add('is-visible'));
+        }
+
+        // --- Efecto Flip Cabecera ---
+        const avatarContainerMain = document.getElementById('avatar-container-main');
+        const avatarImgMain = document.getElementById('avatar-img-main');
+        const originalSrcMain = 'perfil.png'; 
+        const qrSrcMain = 'QRHAKU.png'; 
+        let isQrModeMain = false;
+        if (avatarContainerMain && avatarImgMain) {
+          avatarContainerMain.addEventListener('click', () => {
+              if (isQrModeMain) {
+                  avatarImgMain.src = originalSrcMain;
+                  avatarImgMain.alt = 'Sergio Garduño Jardón';
+                  avatarContainerMain.classList.remove('qr-mode');
+                  avatarContainerMain.title = 'Clic para QR';
+              } else {
+                  avatarImgMain.src = qrSrcMain;
+                  avatarImgMain.alt = 'Código QR del Portafolio';
+                  avatarContainerMain.classList.add('qr-mode');
+                  avatarContainerMain.title = 'Clic para volver a la foto';
+              }
+              isQrModeMain = !isQrModeMain;
+          });
+        }
+
+        // --- Funcionalidad Copiar Carta ---
+        const copyBtnBottom = document.getElementById('copy-carta-btn-bottom');
+        const textToCopyContainer = document.getElementById('carta-text-content'); 
+        if (copyBtnBottom && textToCopyContainer) {
+          copyBtnBottom.addEventListener('click', () => {
+            const paragraphs = textToCopyContainer.querySelectorAll('p');
+            let fullText = '';
+            paragraphs.forEach((p, index) => {
+              // Intenta obtener textContent para texto plano directamente
+              let cleanText = p.textContent || p.innerText || ''; 
+              fullText += cleanText.trim(); // Usa trim para quitar espacios extra
+              if (index < paragraphs.length - 1) {
+                fullText += '\n\n'; 
               }
             });
-          }, {
-            threshold: 0.1 // Se activa cuando el 10% de la tarjeta es visible
-          });
-          
-          animatedCards.forEach(card => {
-            revealObserver.observe(card);
-          });
-      // --- AÑADE ESTO (EFECTO FLIP CABECERA) ---
-      const avatarContainerMain = document.getElementById('avatar-container-main');
-      const avatarImgMain = document.getElementById('avatar-img-main');
 
-      // Asegúrate de tener tu QR guardado como PORTAFOLIO_QR.png
-      const originalSrcMain = 'perfil.png'; 
-      const qrSrcMain = 'PORTAFOLIO_QR.png'; // <-- ¡Usa el nombre de tu nuevo QR!
+            // Verifica si la API del portapapeles está disponible
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(fullText).then(() => {
+                  const icon = copyBtnBottom.querySelector('i');
+                  const span = copyBtnBottom.querySelector('span');
+                  const originalIconClass = 'fa-copy';
+                  // Guarda el texto original usando la clave de traducción actual
+                  const originalTextKey = 'copy-btn-text'; 
+                  const originalText = translations[currentLanguage][originalTextKey] || 'Copiar Texto'; 
 
-      let isQrModeMain = false;
+                  if (icon) icon.className = 'fa-solid fa-check'; // Usa fa-solid para check
+                  if (span) span.textContent = (currentLanguage === 'en') ? 'Copied!' : '¡Copiado!'; 
+                  copyBtnBottom.classList.add('copied'); 
 
-      if (avatarContainerMain && avatarImgMain) { // Verifica si existen
-        avatarContainerMain.addEventListener('click', () => {
-            if (isQrModeMain) {
-                avatarImgMain.src = originalSrcMain;
-                avatarImgMain.alt = 'Sergio Garduño Jardón';
-                avatarContainerMain.classList.remove('qr-mode');
-                avatarContainerMain.title = 'Clic para QR';
+                  setTimeout(() => {
+                    if (icon) icon.className = `fa-regular ${originalIconClass}`; // Restaura icono
+                    if (span) span.textContent = originalText; // Restaura texto traducido
+                    copyBtnBottom.classList.remove('copied');
+                  }, 1500);
+
+                }).catch(err => {
+                  console.error('Error al copiar texto con API: ', err);
+                  alert((currentLanguage === 'en') ? 'Could not copy text.' : 'No se pudo copiar el texto.');
+                });
             } else {
-                avatarImgMain.src = qrSrcMain;
-                avatarImgMain.alt = 'Código QR del Portafolio';
-                avatarContainerMain.classList.add('qr-mode');
-                avatarContainerMain.title = 'Clic para volver a la foto';
+                // Fallback (muy viejo, puede no funcionar bien)
+                try {
+                    const textArea = document.createElement('textarea');
+                    textArea.value = fullText;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    // (Aquí podrías añadir la misma lógica de cambio de icono/texto)
+                     alert((currentLanguage === 'en') ? 'Text copied (fallback).' : 'Texto copiado (alternativo).');
+                } catch (err) {
+                    console.error('Error al copiar texto con fallback: ', err);
+                     alert((currentLanguage === 'en') ? 'Could not copy text.' : 'No se pudo copiar el texto.');
+                }
             }
-            isQrModeMain = !isQrModeMain;
-        });
-      }
-      // --- FIN DE LO AÑADIDO ---
-  }); // Cierre del DOMContentLoaded
+          });
+        }
+        
+    }); // --- FIN DEL DOMContentLoaded ---
 </script>
-  </body>
-</html>
