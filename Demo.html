@@ -543,46 +543,56 @@
     padding-left: var(--menu-width-expanded, 240px); /* Usamos 240px como valor por defecto */
   }
   
-  .side-navbar {
-    position: fixed; top: 0; left: 0;
-    height: 100vh; background: var(--card-bg);
-    border-right: 1px solid var(--card-border);
-    width: var(--menu-width-collapsed, 70px); 
-    display: flex; flex-direction: column;
-    align-items: center; padding: 20px 0;
-    z-index: 1000;
-    overflow: hidden; 
-    transition: width 0.3s ease-in-out; 
-  }
+    .side-navbar {
+      position: fixed; top: 0; left: 0;
+      height: 100vh; background: var(--card-bg);
+      border-right: 1px solid var(--card-border);
+      width: var(--menu-width-collapsed, 70px); 
+      display: flex; flex-direction: column;
+      align-items: center; padding: 20px 0;
+      z-index: 1000;
+      overflow: hidden; 
+      transition: width 0.3s ease-in-out; 
+    }
+  
+    .side-navbar.expanded {
+      width: var(--menu-width-expanded, 240px);
+      align-items: flex-start; 
+    }
+  
+    .side-navbar ul { list-style: none; padding: 0; margin: 20px 0 0 0; width: 100%; 
+      flex-grow: 1; /* Hace que la lista <ul> ocupe el espacio restante */
+      overflow-y: auto; /* Permite el scroll VERTICAL solo si es necesario */
+      overflow-x: hidden; /* Oculta el scroll horizontal */
+    }
 
-  .side-navbar.expanded {
-    width: var(--menu-width-expanded, 240px);
-    align-items: flex-start; 
-  }
-
-  .side-navbar ul { list-style: none; padding: 0; margin: 20px 0 0 0; width: 100%; 
-    flex-grow: 1; /* Hace que la lista <ul> ocupe el espacio restante */
-    overflow-y: auto; /* Permite el scroll VERTICAL solo si es necesario */
-    overflow-x: hidden; /* Oculta el scroll horizontal */
-  }
-
-  .side-navbar .nav-link {
-    display: flex; align-items: center; color: var(--fg);
-    text-decoration: none; padding: 15px 0 15px 23px; 
-    height: 50px; width: 100%;
+    .side-navbar .nav-link {
+    display: flex; 
+    align-items: flex-start; /* Cambiado a flex-start */
+    padding-top: 10px; /* Ajusta padding para alinear icono mejor */
+    padding-bottom: 10px; 
+    color: var(--fg);
+    text-decoration: none; 
+    padding-left: 23px; 
+    height: auto; /* Cambiado a auto */
+    min-height: 50px; /* Mantiene altura mínima */
+    width: 100%;
     white-space: nowrap; 
     transition: background-color 0.2s ease;
   }
+
   
   .side-navbar .nav-link:hover { background-color: rgba(255, 255, 255, 0.1); }
   
-    .side-navbar .nav-link i {
+   .side-navbar .nav-link i {
     font-size: 1.3em; 
     width: 24px; 
     text-align: center;
-    color: var(--fg); /* Icono Blanco */
+    color: var(--fg);
     transition: text-shadow 0.2s ease, transform 0.2s ease;
-    transform: scale(1); /* Estado base para el hover */
+    transform: scale(1);
+    margin-top: 3px; /* Añadido: Baja un poco el icono */
+    flex-shrink: 0; /* Asegura que no se encoja */
   }
   
   /* --- CAMBIO AQUÍ: Colores de contorno para cada icono --- */
@@ -602,12 +612,38 @@
     transform: scale(1.1); /* Crece un poco */
   }
   
+ 
   .side-navbar .link-text {
-    margin-left: 20px; font-weight: 600;
-    opacity: 0; transition: opacity 0.2s ease;
+    margin-left: 0; /* Changed */
+    font-weight: 600;
+    opacity: 0; 
+    transition: opacity 0.2s ease;
+    display: block; 
+    line-height: 1.2; 
   }
   
-  .side-navbar.expanded .link-text { opacity: 1; }
+  /* --- NUEVOS ESTILOS SUBTÍTULO MENÚ --- */
+  .link-text-container {
+    margin-left: 20px; 
+    display: flex;
+    flex-direction: column; 
+  }
+  
+  .link-subtitle {
+    font-size: 0.75em; 
+    color: var(--muted); 
+    opacity: 0; 
+    transition: opacity 0.2s ease;
+    line-height: 1.1;
+    margin-top: 2px; 
+    font-weight: 400; 
+  }
+  
+  .side-navbar.expanded .link-text,
+  .side-navbar.expanded .link-subtitle {
+    opacity: 1;
+  }
+  /* --- FIN NUEVOS ESTILOS --- */
   
   #menu-toggle-btn {
     background: none; border: none; color: var(--fg);
@@ -765,7 +801,7 @@
       <button onclick="translatePage('en')" id="flag-en">🇺🇸</button>
     </div>
       <ul>
-      <li><a href="#perfil" class="nav-link nav-link-perfil" title="Perfil"><i class="fa-solid fa-user"></i><span class="link-text">Perfil</span></a></li>
+      <li><a href="#perfil" class="nav-link nav-link-perfil" title="Perfil"><i class="fa-solid fa-user"></i><div class="link-text-container"><span class="link-text" data-lang="nav-profile">Perfil</span><span class="link-subtitle" data-lang="nav-profile-subtitle">Carta de Presentación</span></div></a></li>
       <li><a href="#proyectos" class="nav-link nav-link-proyectos" title="Proyectos"><i class="fa-solid fa-lightbulb"></i><span class="link-text">Proyectos</span></a></li>
       <li><a href="#experiencia" class="nav-link nav-link-experiencia" title="Experiencia"><i class="fa-solid fa-briefcase"></i><span class="link-text">Experiencia</span></a></li>
       <li><a href="#logros" class="nav-link nav-link-logros" title="Logros"><i class="fa-solid fa-trophy"></i><span class="link-text">Logros</span></a></li>
@@ -1090,7 +1126,9 @@
     // Objeto de Traducciones
     const translations = {
         'en': { 
-          'profile-title': 'Profile', 
+          'profile-title': 'Profile',
+          'nav-profile': 'Profile',
+          'nav-profile-subtitle': 'Introduction',
           'profile-p1': 'Mechatronics Engineer specializing in IoT systems, data, and sustainable solutions. I design, develop, and deploy environmental monitoring systems that integrate hardware (ESP32 and sensors), renewable energy, and data pipelines (Google Sheets / SQL, dashboards).', 
           'profile-p2': 'Programming expertise in Python, C++/Arduino, and Google Apps Script to automate processes and create analytical models focused on optimizing resources and supporting decision-making. I seek to collaborate on projects that merge technology and nature to generate a positive environmental impact.', 
           'carta-title': 'View Introduction',
@@ -1161,13 +1199,12 @@
           'footer-contact': 'Contact: sgj.cheko@gmail.com' 
         },
         'es': { 
+          'nav-profile': 'Perfil',
+          'nav-profile-subtitle': 'Carta de Presentación',
           'proyectos-title': 'Proyectos Personales',
           'exp-title': 'Experiencia Laboral',
-          'carta-title': 'Ver Carta de Presentación', // Añadido ES
-          'copy-btn-text': 'Copiar Texto', // Añadido ES
-          // ... (Asegúrate de tener TODAS las claves ES que usas en tu HTML)
-          // Si no, la función translatePage podría dar error o no traducir todo.
-          // Es mejor copiar las claves del objeto 'en' y traducirlas aquí.
+          'carta-title': 'Ver Carta de Presentación', 
+          'copy-btn-text': 'Copiar Texto', 
           'footer-contact': 'Contacto: sgj.cheko@gmail.com' 
         }
     };
