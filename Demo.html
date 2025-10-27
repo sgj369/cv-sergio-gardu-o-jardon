@@ -706,19 +706,13 @@
     .hero { grid-template-columns: 1fr; } 
     .hero-aside { position: static; } /* Quitamos sticky */
     
-    footer { 
-        /* Aseguramos que el padding del footer también respete el menú */
-        padding-left: 15px; 
-        padding-right: 15px; 
-    }
   }
 
   
   @media (max-width: 480px) { /* Móvil pequeño */
       .title { font-size: 28px; }
       .avatar { width: 70px; height: 70px; }
-      footer { flex-direction: column; gap: 15px; padding-top: 20px; padding-bottom: 20px; }
-   }
+     }
 
  </style>
 </head>
