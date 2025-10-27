@@ -23,20 +23,21 @@
     }
 
     /* 2. ESTILOS BASE */
-    html { background-color: var(--bg-uniform); scroll-behavior: smooth; }
+    /* --- MODIFICADO (Añadido overflow-x: hidden) --- */
+    html { background-color: var(--bg-uniform); scroll-behavior: smooth; overflow-x: hidden; }
     *{box-sizing:border-box}
     html,body{height:100%;margin:0;padding:0}
     body{
       font-family:var(--font-sans); background: transparent; color:var(--fg);
       line-height:1.5; 
-      /* --- MODIFICADO --- */
+      /* --- MODIFICADO (Padding lateral 20px) --- */
       padding: 28px 20px; 
     }
 
     /* 3. WRAP (Angosto) */
     .wrap{
-      /* --- MODIFICADO --- */
-      max-width: 400px; 
+      /* --- MODIFICADO (Reducido a 380px) --- */
+      max-width: 380px; 
       margin:0 auto; position:relative;
       display: flex; flex-direction: column; gap: 22px;
     }
@@ -46,11 +47,10 @@
       position: relative; background: var(--card-bg); border:1px solid var(--card-border);
       padding:20px; border-radius:var(--radius); 
       
-      /* --- MODIFICADO (sombra más pequeña) --- */
-      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      /* --- MODIFICADO (sombra más pequeña a 15px) --- */
+      box-shadow: 0 8px 15px rgba(0,0,0,0.25);
       
       color:var(--fg); border-left: 5px solid;
-      /* (Se ha eliminado 'overflow: hidden;') */
     }
     .card::after {
         content: ''; position: absolute; top: 0; right: 0; 
@@ -207,7 +207,7 @@
     
     /* 10. RESPONSIVE */
     @media (max-width: 480px) {
-        /* --- MODIFICADO --- */
+        /* --- MODIFICADO (Padding lateral 20px) --- */
         body { padding: 20px 20px; }
         
         .title { font-size: 28px; }
@@ -283,7 +283,7 @@
       <div style="color:var(--muted);font-size:13px">Contacto: sgj.cheko@gmail.com</div>
     </footer>
 
-  </div><script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  </div><script src="https://cdn.jso/particles.min.js"></script>
   <script>
     // --- Configuración de Partículas ---
     particlesJS("particles-js", {
