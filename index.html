@@ -308,6 +308,50 @@
   #perfil::after { background: var(--accent-blue); }
   #perfil .profile-title { color: var(--accent-blue); }
 
+    /* --- ESTILOS PARA LA CARTA DESPLEGABLE DENTRO DEL PERFIL --- */
+  .inner-details {
+    margin-top: 15px; /* Espacio extra arriba */
+    border-top: 1px solid var(--card-border); /* Línea separadora sutil */
+    padding-top: 15px;
+  }
+  
+  .inner-summary {
+    cursor: pointer;
+    display: inline-flex; /* Para alinear icono y texto */
+    align-items: center;
+    font-weight: 700;
+    color: var(--accent-gold); /* Color dorado */
+    margin-bottom: 10px; /* Espacio antes del contenido si está abierto */
+    list-style: none; /* Quita el marcador de <details> */
+    transition: opacity 0.2s ease;
+  }
+  .inner-summary:hover {
+    opacity: 0.8;
+  }
+  .inner-summary::-webkit-details-marker { 
+    display: none; /* Quita el marcador en Chrome/Safari */
+  }
+  
+  /* Flecha desplegable (similar a las secciones principales) */
+  .inner-summary::after {
+    content: '▼'; 
+    font-size: 0.8em;
+    color: var(--muted);
+    margin-left: 8px; 
+    transition: transform 0.2s ease-out;
+  }
+  .inner-details[open] > .inner-summary::after {
+    transform: rotate(180deg);
+  }
+  
+  .inner-content {
+    padding-left: 22px; /* Indentación ligera para el texto */
+    color: var(--fg); /* Asegura color de texto principal */
+    opacity: 0.9; /* Un poco más suave que el texto principal */
+  }
+  /* --- FIN ESTILOS CARTA DESPLEGABLE --- */
+
+
   /* Proyectos (Morado) */
   #proyectos > summary { color: var(--accent-purple); border-color: rgba(153, 51, 204, 0.3); }
   #proyectos .section-content .card { border-left-color: var(--accent-purple); opacity: 1; transform: none; } /*Hijos no se animan*/
@@ -726,18 +770,43 @@
 </div>
 
 
-    <section class="card" id="perfil">
-          <div class="profile-title" data-lang="profile-title">Perfil</div>
-          <div class="profile-text" style="margin-bottom: 15px;" data-lang="profile-p1">
-            Ingeniero Mecatrónico especializado en sistemas IoT, datos y soluciones sostenibles. Diseño, desarrollo y despliego sistemas de monitoreo ambiental que integran hardware (ESP32 y sensores), energía renovable y pipelines de datos (Google Sheets / SQL, dashboards).
-          </div>
-          <div class="profile-text" data-lang="profile-p2">
-            Programacion en Python, C++/Arduino y Google Apps Script para automatizar procesos y crear modelos analíticos orientados a optimizar recursos y apoyar la toma de decisiones. Me interesa colaborar en proyectos que unan tecnología y naturaleza para generar impacto ambiental positivo.
-          </div>
+         <section class="card" id="perfil">
+      
+        <div class="profile-title" data-lang="profile-title">Perfil</div>
+        
+        <div class="profile-text" style="margin-bottom: 15px;" data-lang="profile-p1">
+          Ingeniero Mecatrónico especializado en sistemas IoT, datos y soluciones sostenibles. Diseño, desarrollo y despliego sistemas de monitoreo ambiental que integran hardware (ESP32 y sensores), energía renovable y pipelines de datos (Google Sheets / SQL, dashboards).
+        </div>
+        
+        <div class="profile-text" style="margin-bottom: 20px;" data-lang="profile-p2">
+          Programacion en Python, C++/Arduino y Google Apps Script para automatizar procesos y crear modelos analíticos orientados a optimizar recursos y apoyar la toma de decisiones. Me interesa colaborar en proyectos que unan tecnología y naturaleza para generar impacto ambiental positivo.
+        </div>
+  
+        <details class="inner-details">
+          <summary class="inner-summary">
+            <i class="fa-solid fa-file-lines" style="margin-right: 8px;"></i>
+            <span data-lang="carta-title">Ver Carta de Presentación</span> 
+          </summary>
+          
+          <div class="inner-content profile-text"> 
+            
+            <p style="margin-bottom: 15px;" data-lang="carta-p1">
+              Sergio Garduño Jardón es Ingeniero Mecatrónico por el IPN de UPIITA convencido de que la tecnología y la naturaleza pueden y deben coexistir. Su pasión por la vida y el medio ambiente lo impulsa a buscar formas innovadoras de utilizar el conocimiento para auxiliar a nuestro planeta, especializándose en el desarrollo de sistemas <strong>IoT para el monitoreo ecológico</strong>.
+            </p>
+            
+            <p style="margin-bottom: 15px;" data-lang="carta-p2">
+              Sergio diseña y desarrolla sistemas que nos permiten 'escuchar' las necesidades del entorno. Un claro ejemplo es su proyecto de tesis sobre <strong>techos verdes</strong>, donde implementó un sistema de monitoreo autónomo completo —desde el hardware con ESP32 y sensores, hasta el análisis de datos— demostrando cómo la tecnología puede validar y potenciar soluciones sostenibles. Su objetivo es seguir aplicando la mecatrónica, la programación y los datos en proyectos que generen un impacto ambiental positivo.
+            </p>
+            
+            <p data-lang="carta-p3">
+              Más allá de lo técnico, le apasiona conocer mas sobre flora y fauna, además de conectar con actores por medio del proyecto <strong>ECOGAIASOS</strong> que generan acciones en pro del planeta y participar activamente en eventos de limpieza o restauración de hábitats. Sergio cree firmemente que la acción combinada con el conocimiento adecuado siempre tendrá un mejor resultado.
+            </p>
+            
+          </div> 
+        </details>
         </section>
+         
         
-        
-
         <details open id="proyectos">
           <summary>
             <h2 class="section" data-lang="proyectos-title">Proyectos Personales</h2>
@@ -993,6 +1062,11 @@
             'profile-title': 'Profile', 
             'profile-p1': 'Mechatronics Engineer specializing in IoT systems, data, and sustainable solutions. I design, develop, and deploy environmental monitoring systems that integrate hardware (ESP32 and sensors), renewable energy, and data pipelines (Google Sheets / SQL, dashboards).', 
             'profile-p2': 'Programming expertise in Python, C++/Arduino, and Google Apps Script to automate processes and create analytical models focused on optimizing resources and supporting decision-making. I seek to collaborate on projects that merge technology and nature to generate a positive environmental impact.', 
+            'carta-title': 'View Introduction', // Or "Read Introduction" if you prefer
+            'carta-p1': 'Introducing Sergio Garduño Jardón, a Mechatronics Engineer from IPN UPIITA convinced that technology and nature can and must coexist. His passion for life and the environment drives him to find innovative ways to use knowledge to aid our planet, specializing in the development of **IoT systems for ecological monitoring**.',
+            'carta-p2': 'Sergio designs and develops systems that allow us to \'listen\' to the environment\'s needs. A clear example is his thesis project on **green roofs**, where he implemented a complete autonomous monitoring system—from hardware with ESP32 and sensors to data analysis—demonstrating how technology can validate and enhance sustainable solutions. His goal is to continue applying mechatronics, programming, and data to projects that generate a positive environmental impact.',
+            'carta-p3': 'Beyond the technical, he is passionate about learning more about flora and fauna, connecting with actors generating pro-planet actions through the **ECOGAIASOS** project, and actively participating in cleanup or habitat restoration events like reforestation. Sergio firmly believes that action combined with the right knowledge always yields better results.',
+
             'btn-view-cv-text': 'View CV', 
             'btn-download-cv-text': 'Download CV', 
             
