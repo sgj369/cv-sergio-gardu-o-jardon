@@ -314,6 +314,41 @@
     border-top: 1px solid var(--card-border); /* Línea separadora sutil */
     padding-top: 15px;
   }
+
+   /* --- ESTILOS PARA EL BOTÓN COPIAR DENTRO DE LA CARTA --- */
+  .copy-button-container {
+    text-align: right; /* Alinea el botón a la derecha */
+    margin-top: 15px; /* Espacio arriba del botón */
+  }
+  
+  .btn-copy-carta {
+    background-color: transparent;
+    border: 1px solid var(--accent-gold); /* Borde dorado */
+    color: var(--accent-gold); /* Texto dorado */
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-family: var(--font-sans); /* Asegura la misma fuente */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9em; /* Un poco más pequeño */
+  }
+  .btn-copy-carta:hover {
+    background-color: rgba(255, 215, 0, 0.1); /* Relleno dorado sutil */
+    box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
+  }
+  .btn-copy-carta:active {
+    transform: scale(0.98); /* Efecto al presionar */
+  }
+  
+  /* Estilo temporal al copiar (check verde) */
+  .btn-copy-carta.copied {
+    border-color: var(--accent-green);
+    background-color: rgba(99, 185, 111, 0.1);
+    color: var(--accent-green);
+  }
+  /* --- FIN ESTILOS BOTÓN COPIAR --- */
+
   
   .inner-summary {
     cursor: pointer;
@@ -795,8 +830,13 @@
             <p data-lang="carta-p3">
               Más allá de lo técnico, le apasiona conocer mas sobre flora y fauna, además de conectar con actores por medio del proyecto <strong>ECOGAIASOS</strong> que generan acciones en pro del planeta y participar activamente en eventos de limpieza o restauración de hábitats. Sergio cree firmemente que la acción combinada con el conocimiento adecuado siempre tendrá un mejor resultado.
             </p>
-            
-          </div> 
+            <div class="copy-button-container" style="text-align: right; margin-top: 15px;">
+          <button class="btn-copy-carta" id="copy-carta-btn-bottom">
+            <i class="fa-regular fa-copy" style="margin-right: 6px;"></i>
+            <span data-lang="copy-btn-text">Copiar Texto</span>
+          </button>
+        </div>
+        </div>
         </details>
         </section>
          
@@ -1127,6 +1167,7 @@
             'soft-l4': 'Teamwork', 
             'soft-l5': 'Adaptability', 
             'soft-l6': 'Certification in progress: English B2.', 
+            'copy-btn-text': 'Copy Text',
             'footer-name': 'Sergio Garduño Jardón', 
             'footer-source': 'Made with GitHub Pages', 
             'footer-contact': 'Contact: sgj.cheko@gmail.com' 
@@ -1235,7 +1276,7 @@
           animatedCards.forEach(card => {
             revealObserver.observe(card);
           });
-      // --- AÑADE ESTO (EFECTO FLIP CABECERA) ---
+      // --- (EFECTO FLIP CABECERA) ---
       const avatarContainerMain = document.getElementById('avatar-container-main');
       const avatarImgMain = document.getElementById('avatar-img-main');
 
@@ -1261,7 +1302,56 @@
             isQrModeMain = !isQrModeMain;
         });
       }
-      // --- FIN DE LO AÑADIDO ---
+      // --- FIN efecto flip ---
+      // --- (FUNCIONALIDAD COPIAR CARTA - BOTÓN INFERIOR) ---
+      const copyBtnBottom = document.getElementById('copy-carta-btn-bottom');
+      const textToCopyContainer = document.getElementById('carta-text-content'); // El ID del div con los <p>
+
+      if (copyBtnBottom && textToCopyContainer) {
+        copyBtnBottom.addEventListener('click', () => {
+
+          // Obtener texto de los párrafos internos
+          const paragraphs = textToCopyContainer.querySelectorAll('p');
+          let fullText = '';
+          paragraphs.forEach((p, index) => {
+            // Eliminar posibles <strong> para texto plano
+            let cleanText = p.innerHTML.replace(/<\/?strong>/g, ''); 
+            fullText += cleanText;
+            // Añadir dos saltos de línea entre párrafos
+            if (index < paragraphs.length - 1) {
+              fullText += '\n\n'; 
+            }
+          });
+
+          // Usar la API del portapapeles
+          navigator.clipboard.writeText(fullText.trim()).then(() => {
+            // Éxito: Cambiar icono y texto temporalmente
+            const icon = copyBtnBottom.querySelector('i');
+            const span = copyBtnBottom.querySelector('span');
+            const originalIconClass = 'fa-copy';
+            const originalText = span.textContent; // Guardar texto original
+
+            icon.classList.remove(originalIconClass);
+            icon.classList.add('fa-check'); // Cambia a checkmark
+            span.textContent = 'Copiado'; // Cambia texto
+            copyBtnBottom.classList.add('copied'); // Pone estilo verde
+
+            // Volver al estado original después de 1.5 segundos
+            setTimeout(() => {
+              icon.classList.remove('fa-check');
+              icon.classList.add(originalIconClass);
+              span.textContent = originalText; // Restaurar texto
+              copyBtnBottom.classList.remove('copied');
+            }, 1500);
+
+          }).catch(err => {
+            console.error('Error al copiar texto: ', err);
+            alert('No se pudo copiar el texto.'); // Mensaje de error simple
+          });
+        });
+      }
+      // --- FIN FUNCIONALIDAD COPIAR CARTA ---
+        
   }); // Cierre del DOMContentLoaded
 </script>
   </body>
