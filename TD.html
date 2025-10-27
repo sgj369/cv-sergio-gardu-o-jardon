@@ -42,17 +42,19 @@
       display: flex; flex-direction: column; gap: 22px;
     }
 
-    /* 4. ESTILOS DE TARJETA */
+        /* 4. ESTILOS DE TARJETA */
     .card{
       position: relative; background: var(--card-bg); border:1px solid var(--card-border);
       padding:20px; border-radius:var(--radius); box-shadow: 0 8px 30px rgba(0,0,0,0.25);
-      color:var(--fg); overflow: hidden; border-left: 5px solid;
+      color:var(--fg); border-left: 5px solid;
     }
+    
     .card::after {
         content: ''; position: absolute; top: 0; right: 0; 
         width: 5px; height: 35px; 
         border-top-right-radius: var(--radius); z-index: 1; 
     }
+
 
     /* 5. HEADER CARD */
     .header-card {
