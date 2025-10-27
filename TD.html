@@ -28,7 +28,12 @@
     html,body{height:100%;margin:0;padding:0}
     body{
       font-family:var(--font-sans); background: transparent; color:var(--fg);
-      line-height:1.5; padding: 28px 15px; 
+      line-height:1.5; 
+      /* ANTES: */
+      /* padding: 28px 15px;  */
+      
+      /* DESPUÉS: */
+      padding: 28px 20px; /* <--- MODIFICADO (de 15px a 20px) */
     }
 
     /* 3. WRAP (Angosto) */
@@ -198,7 +203,7 @@
     
     /* 10. RESPONSIVE */
     @media (max-width: 480px) {
-        body { padding: 20px 15px; }
+        body { padding: 20px 20px; }
         .title { font-size: 28px; }
         .avatar { width: 100px; height: 100px; }
         footer { flex-direction: column; gap: 15px; justify-content: center; }
