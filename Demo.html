@@ -308,77 +308,6 @@
   #perfil::after { background: var(--accent-blue); }
   #perfil .profile-title { color: var(--accent-blue); }
 
-   /* --- ESTILOS PARA LA CARTA DESPLEGABLE DENTRO DEL PERFIL (ACTUALIZADO) --- */
-  .inner-details {
-    margin-top: 15px; 
-    border-top: 1px solid var(--card-border); 
-    padding-top: 15px;
-  }
-  
-  .inner-summary {
-    cursor: pointer;
-    display: flex; /* Cambiado a flex */
-    justify-content: space-between; /* Empuja el icono de copiar a la derecha */
-    align-items: center; /* Alinea verticalmente */
-    font-weight: 700;
-    color: var(--accent-gold); 
-    margin-bottom: 10px; 
-    list-style: none; /* Quita marcador original */
-    width: 100%; /* Asegura que ocupe todo el ancho */
-    position: relative; /* Para la flecha si es necesario */
-  }
-  .inner-summary:hover .summary-content { /* Solo atenúa el contenido izquierdo al pasar el mouse */
-    opacity: 0.8;
-  }
-  .inner-summary::-webkit-details-marker { 
-    display: none; 
-  }
-  
-  /* Contenedor del contenido izquierdo (icono + texto + flecha) */
-  .summary-content {
-      display: inline-flex; /* Mantiene icono y texto juntos */
-      align-items: center;
-      position: relative; /* Necesario para la flecha absoluta */
-      padding-right: 20px; /* Espacio para la flecha */
-      transition: opacity 0.2s ease;
-  }
-  
-  /* Flecha desplegable (Ahora posicionada absolutamente) */
-  .summary-content::after {
-    content: '▼'; 
-    font-size: 0.8em;
-    color: var(--muted);
-    transition: transform 0.2s ease-out;
-    position: absolute; /* Posición relativa a .summary-content */
-    right: 0; /* Al final del span */
-    top: 50%;
-    transform: translateY(-50%); /* Centrado vertical */
-  }
-  .inner-details[open] > .inner-summary .summary-content::after {
-    transform: translateY(-50%) rotate(180deg); /* Gira en su lugar */
-  }
-  
-  /* Estilos del icono de Copiar */
-  .copy-icon {
-    font-size: 1.1em; 
-    color: var(--muted); 
-    cursor: pointer;
-    padding: 5px; /* Área de clic más grande */
-    margin-left: 10px; /* Espacio desde la flecha */
-    transition: color 0.2s ease, transform 0.2s ease;
-  }
-  .copy-icon:hover {
-    color: var(--accent-blue); /* Color al pasar el mouse */
-    transform: scale(1.1);
-  }
-  /* Estilo temporal al copiar */
-  .copy-icon.copied {
-    color: var(--accent-green); /* Verde al copiar */
-  }
-  /* --- FIN ESTILOS CARTA DESPLEGABLE --- */
-
-
-
   /* Proyectos (Morado) */
   #proyectos > summary { color: var(--accent-purple); border-color: rgba(153, 51, 204, 0.3); }
   #proyectos .section-content .card { border-left-color: var(--accent-purple); opacity: 1; transform: none; } /*Hijos no se animan*/
@@ -810,17 +739,10 @@
         </div>
   
         <details class="inner-details">
-
-        <summary class="inner-summary">
-
-          <span class="summary-content"> 
-              <i class="fa-solid fa-file-lines" style="margin-right: 8px;"></i>
-              <span data-lang="carta-title">Ver Carta de Presentación</span>
-              </span>
-
-          <i class="fa-regular fa-copy copy-icon" title="Copiar texto" data-lang-title-en="Copy text" id="copy-carta-btn"></i> 
-
-        </summary>
+          <summary class="inner-summary">
+            <i class="fa-solid fa-file-lines" style="margin-right: 8px;"></i>
+            <span data-lang="carta-title">Ver Carta de Presentación</span> 
+          </summary>
           
           <div class="inner-content profile-text"> 
             
@@ -1096,11 +1018,6 @@
             'profile-title': 'Profile', 
             'profile-p1': 'Mechatronics Engineer specializing in IoT systems, data, and sustainable solutions. I design, develop, and deploy environmental monitoring systems that integrate hardware (ESP32 and sensors), renewable energy, and data pipelines (Google Sheets / SQL, dashboards).', 
             'profile-p2': 'Programming expertise in Python, C++/Arduino, and Google Apps Script to automate processes and create analytical models focused on optimizing resources and supporting decision-making. I seek to collaborate on projects that merge technology and nature to generate a positive environmental impact.', 
-            'carta-title': 'View Introduction', // Or "Read Introduction" if you prefer
-            'carta-p1': 'Introducing Sergio Garduño Jardón, a Mechatronics Engineer from IPN UPIITA convinced that technology and nature can and must coexist. His passion for life and the environment drives him to find innovative ways to use knowledge to aid our planet, specializing in the development of **IoT systems for ecological monitoring**.',
-            'carta-p2': 'Sergio designs and develops systems that allow us to \'listen\' to the environment\'s needs. A clear example is his thesis project on **green roofs**, where he implemented a complete autonomous monitoring system—from hardware with ESP32 and sensors to data analysis—demonstrating how technology can validate and enhance sustainable solutions. His goal is to continue applying mechatronics, programming, and data to projects that generate a positive environmental impact.',
-            'carta-p3': 'Beyond the technical, he is passionate about learning more about flora and fauna, connecting with actors generating pro-planet actions through the **ECOGAIASOS** project, and actively participating in cleanup or habitat restoration events like reforestation. Sergio firmly believes that action combined with the right knowledge always yields better results.',
-
             'btn-view-cv-text': 'View CV', 
             'btn-download-cv-text': 'Download CV', 
             
