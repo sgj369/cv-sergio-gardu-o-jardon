@@ -22,40 +22,41 @@
       --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     }
 
-        /* 2. ESTILOS BASE */
+    /* 2. ESTILOS BASE */
     html { background-color: var(--bg-uniform); scroll-behavior: smooth; }
     *{box-sizing:border-box}
     html,body{height:100%;margin:0;padding:0}
     body{
       font-family:var(--font-sans); background: transparent; color:var(--fg);
       line-height:1.5; 
-      
-      /* --- MODIFICA ESTA LÍNEA --- */
-      /* ANTES: padding: 28px 15px; */
-      padding: 28px 25px; /* <--- AUMENTA ESTE VALOR (de 15px a 25px) */
+      /* --- MODIFICADO --- */
+      padding: 28px 20px; 
     }
-
 
     /* 3. WRAP (Angosto) */
     .wrap{
-      max-width: 420px; margin:0 auto; position:relative;
+      /* --- MODIFICADO --- */
+      max-width: 400px; 
+      margin:0 auto; position:relative;
       display: flex; flex-direction: column; gap: 22px;
     }
 
-     /* 4. ESTILOS DE TARJETA */
+    /* 4. ESTILOS DE TARJETA */
     .card{
       position: relative; background: var(--card-bg); border:1px solid var(--card-border);
-      padding:20px; border-radius:var(--radius); box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+      padding:20px; border-radius:var(--radius); 
+      
+      /* --- MODIFICADO (sombra más pequeña) --- */
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      
       color:var(--fg); border-left: 5px solid;
-      /* Asegúrate que aquí NO diga "overflow: hidden;" */
+      /* (Se ha eliminado 'overflow: hidden;') */
     }
     .card::after {
         content: ''; position: absolute; top: 0; right: 0; 
         width: 5px; height: 35px; 
         border-top-right-radius: var(--radius); z-index: 1; 
     }
-
-
 
     /* 5. HEADER CARD */
     .header-card {
@@ -204,17 +205,15 @@
       background-color: var(--bg-uniform);
     }
     
-        /* 10. RESPONSIVE */
+    /* 10. RESPONSIVE */
     @media (max-width: 480px) {
-        /* --- MODIFICA ESTA LÍNEA --- */
-        /* ANTES: body { padding: 20px 15px; } */
-        body { padding: 20px 25px; } /* <--- AUMENTA ESTE VALOR (de 15px a 25px) */
-
+        /* --- MODIFICADO --- */
+        body { padding: 20px 20px; }
+        
         .title { font-size: 28px; }
         .avatar { width: 100px; height: 100px; }
         footer { flex-direction: column; gap: 15px; justify-content: center; }
     }
-
   </style>
 </head>
 <body>
