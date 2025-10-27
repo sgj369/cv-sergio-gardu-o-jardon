@@ -1278,49 +1278,6 @@
       // --- AÑADE ESTO (EFECTO FLIP CABECERA) ---
       const avatarContainerMain = document.getElementById('avatar-container-main');
       const avatarImgMain = document.getElementById('avatar-img-main');
-      // ---  (FUNCIONALIDAD COPIAR CARTA) ---
-      const copyBtn = document.getElementById('copy-carta-btn');
-      const textToCopyContainer = document.getElementById('carta-text-content');
-
-      if (copyBtn && textToCopyContainer) {
-        copyBtn.addEventListener('click', (event) => {
-          event.stopPropagation(); // Evita que el <details> se abra/cierre
-          event.preventDefault(); // Por si acaso
-
-          // Obtener texto de los párrafos internos
-          const paragraphs = textToCopyContainer.querySelectorAll('p');
-          let fullText = '';
-          paragraphs.forEach((p, index) => {
-            // Eliminar posibles <strong> para texto plano
-            let cleanText = p.innerHTML.replace(/<\/?strong>/g, ''); 
-            fullText += cleanText;
-            // Añadir dos saltos de línea entre párrafos
-            if (index < paragraphs.length - 1) {
-              fullText += '\n\n'; 
-            }
-          });
-
-          // Usar la API del portapapeles
-          navigator.clipboard.writeText(fullText.trim()).then(() => {
-            // Éxito: Cambiar icono y color temporalmente
-            copyBtn.classList.remove('fa-copy');
-            copyBtn.classList.add('fa-check'); // Cambia a checkmark
-            copyBtn.classList.add('copied');    // Pone color verde
-
-            // Volver al icono original después de 1.5 segundos
-            setTimeout(() => {
-              copyBtn.classList.remove('fa-check');
-              copyBtn.classList.remove('copied');
-              copyBtn.classList.add('fa-copy');
-            }, 1500);
-
-          }).catch(err => {
-            console.error('Error al copiar texto: ', err);
-            // (Opcional) Mostrar un mensaje de error al usuario
-          });
-        });
-      }
-      // --- FIN FUNCIONALIDAD COPIAR CARTA ---
 
       // Asegúrate de tener tu QR guardado como PORTAFOLIO_QR.png
       const originalSrcMain = 'perfil.png'; 
