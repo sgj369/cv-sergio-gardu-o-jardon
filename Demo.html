@@ -56,13 +56,15 @@
       pointer-events: none; 
     }
     
-    /* El contenedor principal de Haku y el spinner */
+    /* El contenedor principal de Haku, texto y spinner */
     .haku-visual-container {
         display: flex;
         flex-direction: column;
         align-items: center;
-        /* Este margen lo centra verticalmente en la pantalla */
+        /* Ajuste vertical y horizontal */
         margin-top: -50px; 
+        /* 🚨 NUEVO: Mueve todo el conjunto 100px a la izquierda 🚨 */
+        margin-left: -100px; 
     }
     
     /* --- SPINNER DE CARGA --- */
@@ -70,10 +72,9 @@
         position: relative;
         width: 50px; 
         height: 50px;
-        margin-bottom: 30px; /* Espacio entre el spinner y el texto */
-        /* Posición para alinearlo con la 'C' del texto, centrado respecto al contenedor */
-        margin-right: 110px; 
-        /* Para simular la forma circular y que Haku lo esté mirando */
+        margin-bottom: 30px; 
+        /* Se elimina el margin-right de antes, ya que el contenedor entero se mueve */
+        
         border: 5px solid transparent; 
         border-top: 5px solid var(--accent-blue); 
         border-radius: 50%;
@@ -94,11 +95,12 @@
         font-weight: bold;
         color: #cccccc; 
         text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
-        margin-bottom: 25px; /* Espacio entre el texto y Haku */
+        margin-bottom: 25px; 
         z-index: 10;
         display: flex; 
     }
     
+    /* Estilos para la animación de las letras */
     .loading-text span {
         opacity: 0;
         transform: translateY(-5px);
@@ -123,6 +125,7 @@
     /* ================================================= */
     /* --- ESTILOS DE TU MENÚ COLAPSADO (TD) --- */
     /* ================================================= */
+    /* (Mismos estilos de transición) */
 
     .side-navbar {
       width: var(--menu-width-collapsed);
