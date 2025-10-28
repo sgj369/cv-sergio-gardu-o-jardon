@@ -2,9 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <title>Demo Menú Activo (Colapsado) con Efecto Perrito</title>
+  <title>Demo Menú Activo (Colapsado) con Preloader</title>
   
-  <link rel="stylesheet" href="HAKU-SEE.jpg" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <style>
     :root{
@@ -26,29 +26,116 @@
       background-color: var(--bg-uniform);
       color: var(--fg);
       padding: 20px;
+      /* Oculta la barra de desplazamiento mientras está el preloader */
+      overflow: hidden; 
     }
 
-    /* --- ESTILOS DE TU MENÚ COLAPSADO --- */
+    /* ================================================= */
+    /* --- PANTALLA DE PRECARGA (HAKU) --- */
+    /* ================================================= */
+
+    #preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--bg-uniform);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999; /* Asegura que esté por encima de todo */
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.5s ease-out, visibility 0.5s ease-out; /* Transición suave */
+    }
+
+    #preloader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      /* Vuelve a habilitar el scroll una vez oculto */
+      pointer-events: none; 
+    }
+
+    .haku-loading {
+      position: relative;
+      width: 200px; /* Ajusta el tamaño del contenedor */
+      height: 200px;
+    }
+
+    .haku-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+    }
+
+    /* La "bolita" que Haku está mirando */
+    .haku-loading::before {
+      content: "";
+      position: absolute;
+      /* Posicionamiento relativo a Haku */
+      top: 20px; 
+      left: 110px;
+      width: 20px;
+      height: 20px;
+      background-color: var(--accent-blue); 
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent-blue), 0 0 20px var(--accent-blue);
+      animation:
+        flotar-bolita 2.5s ease-in-out infinite alternate,
+        latido-bolita 1s ease-in-out infinite;
+    }
+
+    /* Keyframes: Animación de la bolita */
+    @keyframes flotar-bolita {
+      0%   { transform: translate(0, 0) scale(1); }
+      50%  { transform: translate(40px, -20px) scale(1.1); }
+      100% { transform: translate(-30px, 10px) scale(1); }
+    }
+
+    @keyframes latido-bolita {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
     
+    /* ================================================= */
+    /* --- ESTILOS DE TU MENÚ COLAPSADO (TD) --- */
+    /* ================================================= */
+
     .side-navbar {
-      width: var(--menu-width-collapsed); /* <--- APLICA ANCHO COLAPSADO */
+      width: var(--menu-width-collapsed);
       background: var(--card-bg);
       border-right: 1px solid var(--card-border);
       border-radius: 14px;
       overflow: hidden;
       padding: 20px 0;
-      align-items: center; /* Centra los iconos verticalmente */
+      align-items: center;
+      /* Hace el menú invisible hasta que el preloader se oculte */
+      opacity: 0; 
+      transition: opacity 0.5s ease 0.5s; /* Animación de aparición */
     }
-  
+
+    /* El contenido principal aparece cuando el preloader se oculta */
+    body.loaded .side-navbar {
+        opacity: 1;
+    }
+    
+    body.loaded {
+        overflow-y: auto; /* Habilita el scroll */
+    }
+
+
+    /* (El resto de tus estilos DT sin cambios) */
     .side-navbar ul { list-style: none; padding: 0; margin: 0; width: 100%; }
 
     .side-navbar .nav-link {
       display: flex; 
-      align-items: center; /* Centra icono y texto (oculto) */
-      padding-left: 23px; /* Tu padding original */
+      align-items: center;
+      padding-left: 23px;
       color: var(--fg);
       text-decoration: none; 
-      height: 50px; /* Altura fija en modo colapsado */
+      height: 50px;
       width: 100%;
       white-space: nowrap; 
       transition: background-color 0.2s ease;
@@ -63,7 +150,6 @@
       color: var(--fg);
       transition: text-shadow 0.2s ease, transform 0.2s ease;
       flex-shrink: 0;
-      /* margin-top: 3px; <-- Lo quitamos para centrar mejor */
     }
   
     /* Tus colores de icono */
@@ -81,10 +167,7 @@
     .link-text, .link-subtitle { opacity: 0; }
 
 
-    /* ================================================= */
-    /* --- EL MISMO CÓDIGO DE ".ACTIVE" --- */
-    /* ================================================= */
-
+    /* CÓDIGO DE ".ACTIVE" */
     .side-navbar .nav-link.active {
         background-color: rgba(255, 255, 255, 0.1);
     }
@@ -93,65 +176,17 @@
         transform: scale(1.1);
         text-shadow: 0 0 12px var(--fg), 0 0 20px var(--fg); 
     }
-    /* ================================================= */
-    
-    /* ------------------------------------------------- */
-    /* --- EFECTO DE PERRITO "CARGANDO" (NUEVO CÓDIGO) --- */
-    /* ------------------------------------------------- */
-    
-    /* Contenedor Fijo en la esquina */
-    .perrito-cargando-container {
-      position: fixed; /* Lo fija en la pantalla */
-      bottom: 20px;    /* Distancia desde abajo */
-      right: 20px;     /* Distancia desde la derecha */
-      width: 150px;    /* Ancho del contenedor */
-      height: 150px;   /* Altura del contenedor */
-      pointer-events: none; /* Permite hacer clic a través de él si es necesario */
-      z-index: 1000;   /* Asegura que esté por encima de otros elementos */
-    }
-
-    /* Imagen del Perrito */
-    .perrito-cargando-img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain; /* Asegura que la imagen se vea bien */
-      display: block;
-      /* Aplica un pequeño resplandor para que resalte más */
-      filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
-    }
-
-    /* La "bolita" que el perrito está mirando */
-    .perrito-cargando-container::before {
-      content: "";
-      position: absolute;
-      top: 15px;      /* Posición inicial cerca de la cabeza del perro */
-      left: 70px;     /* Posición inicial */
-      width: 15px;    /* Tamaño de la bolita */
-      height: 15px;
-      background-color: var(--accent-blue); /* Color de la bolita */
-      border-radius: 50%; /* La hace redonda */
-      /* Efecto de resplandor para la bolita */
-      box-shadow: 0 0 8px var(--accent-blue), 0 0 15px var(--accent-blue);
-      animation:
-        flotar-bolita 2.5s ease-in-out infinite alternate, /* Movimiento de la bolita */
-        latido-bolita 1s ease-in-out infinite; /* Pequeño efecto de latido */
-    }
-
-    /* Keyframes: Animación de la bolita */
-    @keyframes flotar-bolita {
-      0%   { transform: translate(0, 0); }
-      50%  { transform: translate(50px, -20px); }
-      100% { transform: translate(-20px, 10px); }
-    }
-
-    @keyframes latido-bolita {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.8; transform: scale(0.9); }
-    }
 
   </style>
 </head>
-<body>
+<body class="unloaded">
+
+  <div id="preloader">
+    <div class="haku-loading">
+      <img src="HAKU-SMELL.jpg" alt="Haku Cargando" class="haku-img">
+    </div>
+  </div>
+
 
   <h2>Demo: Menú Colapsado con Enlace "Activo"</h2>
   <p>El enlace "Perfil" tiene <code>.active</code>. Nota cómo brilla el icono:</p>
@@ -187,9 +222,26 @@
       </li>
     </ul>
   </nav>
-  
-  <div class="perrito-cargando-container">
-    <img src="URL_DE_TU_IMAGEN_DEL_PERRO.png" alt="Perrito Cargando" class="perrito-cargando-img">
-  </div>
-  </body>
+
+  <script>
+    // Se ejecuta cuando toda la página (incluyendo las imágenes) ha cargado
+    window.addEventListener('load', function() {
+      // Oculta el preloader después de 3 segundos (3000 milisegundos)
+      setTimeout(function() {
+        const preloader = document.getElementById('preloader');
+        const body = document.body;
+        
+        // 1. Oculta el preloader con la clase 'hidden' (transición de opacidad)
+        preloader.classList.add('hidden');
+        
+        // 2. Después de que la transición CSS termine (0.5s), muestra el contenido
+        setTimeout(function() {
+            body.classList.add('loaded');
+        }, 500); 
+
+      }, 3000); // 👈 DURACIÓN DE LA PANTALLA DE CARGA (3 segundos)
+    });
+  </script>
+
+</body>
 </html>
