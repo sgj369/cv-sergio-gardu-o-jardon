@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sergio Garduño — Contacto</title>
+  <meta name="description" content="Contacto y perfil breve de Sergio Garduño Jardón, Ingeniero Mecatrónico." />
+
+  <link rel="icon" href="DT-HAKU.png" type="image/x-icon">
+  <meta name="theme-color" content="#072d16">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    /* 1. VARIABLES DE COLOR */
+    :root{
+      --bg-uniform: #333; --fg: #eef1f0; --muted: #a3a3a3;
+      --accent-red: #ff3366; --accent-green: #63b96f; --accent-blue: #0077b6;
+      --accent-yellow: #ffc300; --accent-purple: #9933cc; --accent-gold: #FFD700;
+      --accent-emerald: #2E8B57; --card-bg: rgba(0,0,0,0.88);
+      --card-border: rgba(255,255,255,0.1); --radius: 14px;
+      --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    /* 2. ESTILOS BASE */
+    html { background-color: var(--bg-uniform); scroll-behavior: smooth; overflow-x: hidden; }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;padding:0}
+    body{
+      font-family:var(--font-sans); background: transparent; color:var(--fg);
+      line-height:1.5; 
+      /* --- MODIFICADO: Padding lateral para la sombra --- */
+      padding: 28px 25px; 
+    }
+
+    /* 3. WRAP (Angosto) */
+    .wrap{
+      /* --- Volvemos a tu ancho original, ya no es el problema --- */
+      max-width: 420px; 
+      margin:0 auto; position:relative;
+      display: flex; flex-direction: column; gap: 22px;
+    }
+
+    /* 4. ESTILOS DE TARJETA */
+    .card{
+      position: relative; background: var(--card-bg); border:1px solid var(--card-border);
+      padding:20px; border-radius:var(--radius); 
+      /* --- Volvemos a tu sombra original --- */
+      box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+      
+      color:var(--fg); border-left: 5px solid;
+      /* (Confirmado: 'overflow: hidden;' NO está aquí) */
+    }
+    .card::after {
+        content: ''; position: absolute; top: 0; right: 0; 
+        width: 5px; height: 35px; 
+        border-top-right-radius: var(--radius); z-index: 1; 
+    }
+
+    /* 5. HEADER CARD */
+    .header-card {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 15px; padding: 25px 20px;
+      border-left-color: var(--fg);
+    }
+    .header-card::after { background: var(--fg); }
+    
+    .avatar{
+      width: 120px; height: 120px;
+      border-radius: 50%; overflow:hidden; border:2px solid var(--fg); 
+      box-shadow:0 0 15px rgba(238, 241, 240, 0.5);
+      cursor: pointer; transition: all 0.3s ease-in-out; 
+    }
+    .avatar:hover { transform: scale(1.05); }
+    .avatar.qr-mode {
+      border-radius: var(--radius); border-color: var(--accent-green);
+      transform: scale(1.1); 
+    }
+    .avatar.qr-mode:hover { transform: scale(1.1); }
+    .avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+    .title{
+      font-weight:900; font-size:32px; color: #000;
+      text-align: center;
+      text-shadow: -1px -1px 0 var(--fg), 1px -1px 0 var(--fg), -1px 1px 0 var(--fg), 1px 1px 0 var(--fg); 
+    }
+    
+    .btn-fill-white {
+      background: var(--fg); color: #333; border: 2px solid var(--fg);
+      padding: 10px 16px; border-radius: 10px; font-weight: 700; text-decoration: none;
+      display: inline-flex; gap: 8px; align-items: center;
+      transition: all 0.2s;
+      box-shadow: 0 4px 15px rgba(238, 241, 240, 0.2);
+    }
+    .btn-fill-white:hover { 
+      background: #cdd1d0; border-color: #cdd1d0;
+      box-shadow: 0 6px 20px rgba(238, 241, 240, 0.4);
+      transform: translateY(-1px);
+    }
+    .header-button-container { margin-top: 10px; text-align: center; }
+
+    /* 6. TARJETA DE PERFIL */
+    #perfil { border-left-color: var(--accent-blue); } 
+    #perfil::after { background: var(--accent-blue); }
+    #perfil .profile-title { color: var(--accent-blue); font-size:18px; font-weight:800; margin-top: 0; margin-bottom:8px }
+    #perfil .profile-text{ font-size:15px; line-height:1.6; text-align: center; }
+
+    /* 7. TARJETA DE CONTACTO */
+    #contacto { border-left-color: var(--fg); } 
+    #contacto::after { background: var(--fg); } 
+    #contacto > div:first-child { color: var(--fg); font-weight: 800; margin-bottom: 12px; font-size: 18px; }
+        
+    /* --- Cuadrícula de 2 columnas (POR DEFECTO) --- */
+    #contacto .contact-list { 
+      list-style: none; padding: 0; margin: 0; 
+      display: grid; 
+      grid-template-columns: 1fr 1fr;
+      gap: 12px; 
+    }
+
+    
+    #contacto .contact-list li.full-width-btn { grid-column: span 2; }
+    #contacto .contact-list li { display: block; }
+    #contacto .contact-btn-pressable {
+      display: flex; align-items: center; padding: 12px 16px; border-radius: 10px; 
+      text-decoration: none; font-weight: 700; color: #000; 
+      transition: all 0.2s ease-out; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    #contacto .contact-btn-pressable:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.3); }
+    #contacto .contact-btn-pressable i { font-size: 1.2em; margin-right: 12px; width: 25px text-align: center; color: inherit; }
+
+    
+    /* Correo Amarillo (El primero) */
+    #contacto .btn-email { background: var(--accent-yellow); color: #332400; }
+    #contacto .btn-email:hover { box-shadow: 0 8px 25px rgba(255, 195, 0, 0.3); }
+    #contacto .btn-email i { color: #332400; } 
+    
+    /* Correo Rojo (El segundo) */
+    #contacto .btn-email-rojo { 
+      background: var(--accent-red);
+      color: var(--fg);
+    }
+    #contacto .btn-email-rojo span {
+      font-size: 0.85em; /* Reduce el texto al 85% del tamaño normal */
+    }
+    #contacto .btn-email-rojo:hover { 
+      box-shadow: 0 8px 25px rgba(255, 51, 102, 0.3);
+    }
+    #contacto .btn-email-rojo i { color: var(--fg); }
+
+    /* Resto de botones */
+    #contacto .btn-whatsapp { background: var(--accent-green); color: #03120a; }
+    #contacto .btn-eco { background: var(--accent-purple); color: var(--fg); }
+    #contacto .btn-linkedin { background: var(--accent-blue); color: var(--fg); }
+    #contacto .btn-facebook { background: #1877F2; color: var(--fg); }
+    #contacto .btn-instagram { background: #FF5733; color: var(--fg); }
+    #contacto .btn-instagram:hover { box-shadow: 0 8px 25px rgba(255, 87, 51, 0.3); }
+    #contacto .btn-instagram i { color: var(--fg); }
+    #contacto .btn-tiktok { background: #fff; color: #000; }
+
+    /* 8. FOOTER */
+    footer{
+      text-align:center;color:var(--muted);font-size:13px;padding:26px 0 10px;display:flex;
+      align-items:center;justify-content:center;gap:10px; flex-wrap: wrap;
+    }
+    .footer-brand{display:flex;align-items:center;gap:8px}
+    .sello{
+      width:40px; height:40px; border-radius:8px; overflow:hidden;
+      transition: transform 0.2s ease;
+    }
+    .sello:hover { transform: scale(1.1); }
+    .sello img{width:100%;height:100%;object-fit:cover}
+
+    /* 9. PARTÍCULAS */
+    #particles-js {
+      position: fixed; width: 100%; height: 100%;
+      top: 0; left: 0; z-index: -1; 
+      background-color: var(--bg-uniform);
+    }
+    
+        /* 10. RESPONSIVE */
+    @media (max-width: 480px) {
+        /* Tus reglas anteriores (asegúrate que el padding del body sea 20px) */
+        body { padding: 20px 20px; }
+        .title { font-size: 28px; }
+        .avatar { width: 100px; height: 100px; }
+        footer { flex-direction: column; gap: 15px; justify-content: center; }
+
+        /* --- INICIO DE LA NUEVA SOLUCIÓN --- */
+
+        /* 1. Reducimos el espacio entre botones */
+        #contacto .contact-list {
+            gap: 8px; 
+        }
+
+        /* 2. Reducimos el padding DENTRO de los botones */
+        #contacto .contact-btn-pressable {
+            padding: 12px 10px;
+        }
+        
+        /* 3. Arreglamos el texto largo SÓLO en el botón rojo */
+        #contacto .btn-email-rojo span {
+            overflow-wrap: break-word;
+            word-break: break-all;
+            min-width: 0; /* Necesario para flexbox */
+        }
+        /* --- FIN DE LA NUEVA SOLUCIÓN --- */
+    }
+
+  </style>
+</head>
+<body>
+  
+  <div id="particles-js"></div>
+
+  <div class="wrap">
+    
+    <div class="header-card card">
+      
+      <div class="avatar" title="Clic para QR" id="avatar-container">
+          <img id="avatar-img" src="perfil.png" alt="Sergio Garduño Jardón">
+      </div>
+      
+      <div>
+          <div class="title">Sergio Garduño Jardón</div>
+      </div>
+      
+      <div class="header-button-container">
+        <a class="btn-fill-white" href="index.html" target="_blank" rel="noopener" title="Abrir Portafolio Digital">
+            <i class="fa-solid fa-briefcase"></i>
+            <span>Portafolio Digital</span>
+        </a>
+      </div>
+    </div>
+
+    <section class="card" id="perfil">
+      <div class="profile-title">Perfil</div>
+      <div class="profile-text">
+        Ingeniero Mecatrónico enfocado en desarrollos de sistemas IoT y protección de la flora y fauna, así como de iniciativas verdes.
+      </div>
+    </section>
+
+    <div class="card" id="contacto">
+      <div>Contacto</div>
+        <ul class="contact-list"> 
+          
+          <li class="full-width-btn">
+            <a href="mailto:sgj.cheko@gmail.com" class="contact-btn-pressable btn-email">
+              <i class="fa-regular fa-envelope"></i><span>sgj.cheko@gmail.com</span>
+            </a>
+          </li>
+          
+          <li class="full-width-btn">
+            <a href="mailto:sgardunoj1400@alumno.ipn.mx" class="contact-btn-pressable btn-email btn-email-rojo">
+              <i class="fa-regular fa-envelope"></i><span>sgardunoj1400@alumno.ipn.mx</span>
+            </a>
+          </li>
+
+          <li><a href="https://wa.me/5215586864746" target="_blank" rel="noopener" class="contact-btn-pressable btn-whatsapp"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></a></li>
+          <li><a href="https://ecogaiasos.github.io/web/index.html" target="_blank" rel="noopener" class="contact-btn-pressable btn-eco"><i class="fa-solid fa-seedling"></i><span>EcoGaiaSOS</span></a></li>
+
+          <li><a href="https://www.linkedin.com/in/gardu%C3%B1o-jardon-sergio-264b582b0" target="_blank" rel="noopener" class="contact-btn-pressable btn-linkedin"><i class="fa-brands fa-linkedin"></i><span>LinkedIn</span></a></li>
+          <li><a href="https://www.facebook.com/share/19FgjAa3ai/" target="_blank" rel="noopener" class="contact-btn-pressable btn-facebook"><i class="fa-brands fa-facebook"></i><span>Facebook</span></a></li>
+          <li><a href="https://www.instagram.com/cheko_sgj?igsh=amV1aTVwZ3VpeTBi" target="_blank" rel="noopener" class="contact-btn-pressable btn-instagram"><i class="fa-brands fa-instagram"></i><span>Instagram</span></a></li>
+          <li><a href="https://www.tiktok.com/@chekup00" target="_blank" rel="noopener" class="contact-btn-pressable btn-tiktok"><i class="fa-brands fa-tiktok"></i><span>TikTok</span></a></li>
+        </ul>
+    </div>
+
+    <footer>
+      <div class="footer-brand">
+        <a href="TD.png" target="_blank" title="Ver QR en grande">
+          <div class="sello"><img src="haku-logo.png" alt="Haku"></div>
+        </a>
+        <div style="color:var(--muted);font-size:13px">© <span id="year"></span> Sergio Garduño Jardón</div>
+      </div>
+      <div style="color:var(--muted);font-size:13px">Contacto: sgj.cheko@gmail.com</div>
+    </footer>
+
+  </div><script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    // --- Configuración de Partículas ---
+    particlesJS("particles-js", {
+      "particles": { "number": { "value": 80, "density": { "enable": true, "value_area": 800 }}, "color": { "value": ["#FFD700", "#63b96f", "#0077b6", "#eef1f0"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }}, "opacity": { "value": 0.6, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false }}, "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false }}, "line_linked": { "enable": true, "distance": 150, "color": "#a3a3a3", "opacity": 0.4, "width": 1 }, "move": { "enable": true, "speed": 3, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }},
+      "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" }, "resize": true }, "modes": { "grab": { "distance": 400, "line_linked": { "opacity": 1 }}, "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 }, "repulse": { "distance": 150, "duration": 0.4 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 }}},
+      "retina_detect": true
+    });
+
+    // --- Script del año ---
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    
+    // --- SCRIPT PARA EFECTO FLIP (INTERCAMBIO) ---
+    const avatarContainer = document.getElementById('avatar-container');
+    const avatarImg = document.getElementById('avatar-img');
+    
+    // Tus nombres de archivo
+    const originalSrc = 'perfil.png'; // Tu foto de perfil
+    const qrSrc = 'TD.png';       // Tu QR
+    
+    let isQrMode = false;
+
+    avatarContainer.addEventListener('click', () => {
+        if (isQrMode) {
+            // Si ESTÁ en modo QR -> Volver a la foto
+            avatarImg.src = originalSrc;
+            avatarImg.alt = 'Sergio Garduño Jardón';
+            avatarContainer.classList.remove('qr-mode');
+            avatarContainer.title = 'Clic para QR';
+        } else {
+            // Si ESTÁ en modo foto -> Cambiar al QR
+            avatarImg.src = qrSrc;
+            avatarImg.alt = 'Código QR de Contacto';
+            avatarContainer.classList.add('qr-mode');
+            avatarContainer.title = 'Clic para volver a la foto';
+        }
+        isQrMode = !isQrMode;
+    });
+
+  </script>
+</body>
+</html>
