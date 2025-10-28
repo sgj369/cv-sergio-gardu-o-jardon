@@ -1,96 +1,195 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<style>
-    /* Estilos para el demo */
-    body { 
-        background-color: #333; 
-        color: #eef1f0; 
-        font-family: sans-serif; 
-        height: 100vh; 
-        margin: 0;
-        display: grid;
-        place-items: center;
-        text-align: center;
+  <meta charset="utf-8" />
+  <title>Demo Menú Activo (Colapsado) con Efecto Perrito</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    :root{
+      /* Tus variables */
+      --bg-uniform: #333;
+      --fg: #eef1f0;
+      --muted: #a3a3a3;
+      --accent-blue: #0077b6;
+      --accent-purple: #9933cc;
+      --accent-emerald: #2E8B57;
+      
+      --card-bg: rgba(0,0,0,0.88);
+      --card-border: rgba(255,255,255,0.1); 
+      --menu-width-collapsed: 70px; /* <--- VALOR COLAPSADO */
     }
+
+    body {
+      font-family: Inter, system-ui, sans-serif;
+      background-color: var(--bg-uniform);
+      color: var(--fg);
+      padding: 20px;
+    }
+
+    /* --- ESTILOS DE TU MENÚ COLAPSADO --- */
     
-    /* --- CÓDIGO DEL PRELOADER --- */
-    #preloader {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: #333; /* Tu mismo fondo */
-        z-index: 9999;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-        transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
-        opacity: 1;
-        visibility: visible;
+    .side-navbar {
+      width: var(--menu-width-collapsed); /* <--- APLICA ANCHO COLAPSADO */
+      background: var(--card-bg);
+      border-right: 1px solid var(--card-border);
+      border-radius: 14px;
+      overflow: hidden;
+      padding: 20px 0;
+      align-items: center; /* Centra los iconos verticalmente */
+    }
+  
+    .side-navbar ul { list-style: none; padding: 0; margin: 0; width: 100%; }
+
+    .side-navbar .nav-link {
+      display: flex; 
+      align-items: center; /* Centra icono y texto (oculto) */
+      padding-left: 23px; /* Tu padding original */
+      color: var(--fg);
+      text-decoration: none; 
+      height: 50px; /* Altura fija en modo colapsado */
+      width: 100%;
+      white-space: nowrap; 
+      transition: background-color 0.2s ease;
+    }
+  
+    .side-navbar .nav-link:hover { background-color: rgba(255, 255, 255, 0.05); }
+  
+    .side-navbar .nav-link i {
+      font-size: 1.3em; 
+      width: 24px; 
+      text-align: center;
+      color: var(--fg);
+      transition: text-shadow 0.2s ease, transform 0.2s ease;
+      flex-shrink: 0;
+      /* margin-top: 3px; <-- Lo quitamos para centrar mejor */
+    }
+  
+    /* Tus colores de icono */
+    .nav-link-perfil i      { text-shadow: 0 0 5px var(--accent-blue), 0 0 10px var(--accent-blue); }
+    .nav-link-proyectos i   { text-shadow: 0 0 5px var(--accent-purple), 0 0 10px var(--accent-purple); }
+    .nav-link-experiencia i { text-shadow: 0 0 5px var(--accent-emerald), 0 0 10px var(--accent-emerald); }
+  
+    .side-navbar .nav-link:hover i { 
+      text-shadow: 0 0 12px var(--fg), 0 0 20px var(--fg);
+      transform: scale(1.1);
+    }
+  
+    /* Ocultamos el texto (como en tu CSS original) */
+    .link-text-container { margin-left: 20px; }
+    .link-text, .link-subtitle { opacity: 0; }
+
+
+    /* ================================================= */
+    /* --- EL MISMO CÓDIGO DE ".ACTIVE" --- */
+    /* ================================================= */
+
+    .side-navbar .nav-link.active {
+        background-color: rgba(255, 255, 255, 0.1);
     }
 
-    #preloader.hidden {
-        opacity: 0;
-        visibility: hidden;
+    .side-navbar .nav-link.active i {
+        transform: scale(1.1);
+        text-shadow: 0 0 12px var(--fg), 0 0 20px var(--fg); 
+    }
+    /* ================================================= */
+    
+    /* ------------------------------------------------- */
+    /* --- EFECTO DE PERRITO "CARGANDO" (NUEVO CÓDIGO) --- */
+    /* ------------------------------------------------- */
+    
+    /* Contenedor Fijo en la esquina */
+    .perrito-cargando-container {
+      position: fixed; /* Lo fija en la pantalla */
+      bottom: 20px;    /* Distancia desde abajo */
+      right: 20px;     /* Distancia desde la derecha */
+      width: 150px;    /* Ancho del contenedor */
+      height: 150px;   /* Altura del contenedor */
+      pointer-events: none; /* Permite hacer clic a través de él si es necesario */
+      z-index: 1000;   /* Asegura que esté por encima de otros elementos */
     }
 
-    /* Un spinner simple de CSS */
-    .spinner {
-        width: 50px;
-        height: 50px;
-        border: 4px solid rgba(255, 255, 255, 0.2);
-        border-top-color: #FFD700; /* Tu color dorado */
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
+    /* Imagen del Perrito */
+    .perrito-cargando-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* Asegura que la imagen se vea bien */
+      display: block;
+      /* Aplica un pequeño resplandor para que resalte más */
+      filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
     }
 
-    .preloader-text {
-        font-weight: 600;
-        font-size: 1.1em;
-        color: #a3a3a3; /* Tu color muted */
+    /* La "bolita" que el perrito está mirando */
+    .perrito-cargando-container::before {
+      content: "";
+      position: absolute;
+      top: 15px;      /* Posición inicial cerca de la cabeza del perro */
+      left: 70px;     /* Posición inicial */
+      width: 15px;    /* Tamaño de la bolita */
+      height: 15px;
+      background-color: var(--accent-blue); /* Color de la bolita */
+      border-radius: 50%; /* La hace redonda */
+      /* Efecto de resplandor para la bolita */
+      box-shadow: 0 0 8px var(--accent-blue), 0 0 15px var(--accent-blue);
+      animation:
+        flotar-bolita 2.5s ease-in-out infinite alternate, /* Movimiento de la bolita */
+        latido-bolita 1s ease-in-out infinite; /* Pequeño efecto de latido */
     }
 
-    @keyframes spin {
-        to { transform: rotate(360deg); }
+    /* Keyframes: Animación de la bolita */
+    @keyframes flotar-bolita {
+      0%   { transform: translate(0, 0); }
+      50%  { transform: translate(50px, -20px); }
+      100% { transform: translate(-20px, 10px); }
     }
-    /* --- FIN CÓDIGO PRELOADER --- */
 
-</style>
+    @keyframes latido-bolita {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(0.9); }
+    }
+
+  </style>
 </head>
 <body>
 
-    <div id="preloader">
-        <div class="spinner"></div>
-        <div class="preloader-text">Conectando bits y naturaleza...</div>
-    </div>
+  <h2>Demo: Menú Colapsado con Enlace "Activo"</h2>
+  <p>El enlace "Perfil" tiene <code>.active</code>. Nota cómo brilla el icono:</p>
 
-    <div>
-        <h1>Contenido de la Página</h1>
-        <p>Este contenido aparece después de que el preloader se oculta.</p>
-    </div>
-
-    <script>
-        // Simula la carga de la página
-        window.setTimeout(() => {
-            const loader = document.getElementById('preloader');
-            if (loader) {
-                loader.classList.add('hidden');
-            }
-        }, 2000); // 2 segundos de simulación
-
-        /* // --- PARA TU PÁGINA REAL, USA ESTO: ---
-        window.addEventListener('load', () => {
-            const loader = document.getElementById('preloader');
-            if (loader) {
-                loader.classList.add('hidden');
-            }
-        });
-        */
-    </script>
-
-</body>
+  <nav class="side-navbar">
+     <ul>
+      <li>
+        <a href="#perfil" class="nav-link nav-link-perfil active" title="Perfil">
+          <i class="fa-solid fa-user"></i>
+          <div class="link-text-container">
+            <span class="link-text">Perfil</span>
+            <span class="link-subtitle">Carta de Presentación</span>
+          </div>
+        </a>
+      </li>
+      
+      <li>
+        <a href="#proyectos" class="nav-link nav-link-proyectos" title="Proyectos">
+          <i class="fa-solid fa-lightbulb"></i>
+          <div class="link-text-container">
+            <span class="link-text">Proyectos</span>
+          </div>
+        </a>
+      </li>
+      
+      <li>
+        <a href="#experiencia" class="nav-link nav-link-experiencia" title="Experiencia">
+          <i class="fa-solid fa-briefcase"></i>
+          <div class="link-text-container">
+            <span class="link-text">Experiencia</span>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  
+  <div class="perrito-cargando-container">
+    <img src="URL_DE_TU_IMAGEN_DEL_PERRO.png" alt="Perrito Cargando" class="perrito-cargando-img">
+  </div>
+  </body>
 </html>
