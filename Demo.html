@@ -26,7 +26,7 @@
       background-color: var(--bg-uniform);
       color: var(--fg);
       padding: 20px;
-      overflow: hidden; 
+      overflow: hidden; /* Siempre oculta la barra de desplazamiento si el preloader es permanente */
     }
 
     /* ================================================= */
@@ -47,14 +47,17 @@
       z-index: 9999; 
       opacity: 1;
       visibility: visible;
-      transition: opacity 0.5s ease-out, visibility 0.5s ease-out; 
+      /* Eliminamos la transición de salida para que no desaparezca */
     }
 
+    /* Ya no se usa la clase .hidden si el preloader es permanente */
+    /*
     #preloader.hidden {
       opacity: 0;
       visibility: hidden;
       pointer-events: none; 
     }
+    */
     
     /* El contenedor principal de Haku, texto y spinner */
     .haku-visual-container {
@@ -63,29 +66,56 @@
         align-items: center;
         /* Ajuste vertical y horizontal */
         margin-top: -50px; 
-        /* 🚨 NUEVO: Mueve todo el conjunto 100px a la izquierda 🚨 */
         margin-left: -100px; 
+        position: relative; /* Necesario para posicionar la cuerda si fuera necesario con absolute */
     }
     
-    /* --- SPINNER DE CARGA --- */
-    .loading-spinner {
-        position: relative;
-        width: 50px; 
-        height: 50px;
-        margin-bottom: 30px; 
-        /* Se elimina el margin-right de antes, ya que el contenedor entero se mueve */
-        
-        border: 5px solid transparent; 
-        border-top: 5px solid var(--accent-blue); 
-        border-radius: 50%;
-        box-shadow: 0 0 15px var(--accent-blue), 0 0 30px var(--accent-blue); 
-        animation: spin 1s linear infinite;
+    /* --- Contenedor del ELEMENTO COLGANTE (Cuerda + Bolita) --- */
+    /* Este div nos ayudará a posicionar la cuerda y la bolita como un solo elemento */
+    .hanging-element {
+        position: absolute; /* Lo posicionamos respecto a .haku-visual-container */
+        top: -65px; /* Ajusta esto para que la cuerda salga de la 'C' */
+        left: -10px; /* Ajusta esto para la posición horizontal de la cuerda */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 10;
+        animation: swing-haku 3s ease-in-out infinite alternate; /* Animación de balanceo */
     }
 
-    /* Keyframes: Girar el objeto */
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    @keyframes swing-haku {
+      0%   { transform: rotate(-5deg); }
+      100% { transform: rotate(5deg); }
+    }
+
+
+    /* --- LA CUERDA --- */
+    .hanging-element::before {
+        content: "";
+        position: relative; /* Para que sea parte del flujo del flexbox */
+        width: 2px; /* Grosor de la cuerda */
+        height: 40px; /* Longitud de la cuerda */
+        background-color: #8B4513; /* Color marrón de la cuerda */
+        box-shadow: 0 0 5px rgba(0,0,0,0.5); /* Sombra para darle profundidad */
+        border-radius: 1px;
+    }
+
+    /* --- LA BOLITA (Antes spinner) --- */
+    .loading-ball {
+        position: relative;
+        width: 35px; /* Tamaño de la bolita */
+        height: 35px;
+        background-color: var(--accent-blue); /* Color de la bolita */
+        border-radius: 50%;
+        box-shadow: 0 0 15px var(--accent-blue), 0 0 30px var(--accent-blue); 
+        /* Eliminamos la animación 'spin' ya que ahora es una bolita */
+        /* Agregamos un pequeño pulso */
+        animation: pulse-ball 1.5s ease-in-out infinite alternate; 
+    }
+
+    @keyframes pulse-ball {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.05); opacity: 0.9; }
     }
 
 
@@ -100,7 +130,6 @@
         display: flex; 
     }
     
-    /* Estilos para la animación de las letras */
     .loading-text span {
         opacity: 0;
         transform: translateY(-5px);
@@ -125,7 +154,6 @@
     /* ================================================= */
     /* --- ESTILOS DE TU MENÚ COLAPSADO (TD) --- */
     /* ================================================= */
-    /* (Mismos estilos de transición) */
 
     .side-navbar {
       width: var(--menu-width-collapsed);
@@ -135,14 +163,14 @@
       overflow: hidden;
       padding: 20px 0;
       align-items: center;
-      opacity: 0; 
+      opacity: 0; /* Por si en algún momento se activa, que comience oculto */
       transition: opacity 0.5s ease 0.5s; 
     }
 
+    /* Estas clases ya no se aplicarán si el preloader es permanente */
     body.loaded .side-navbar {
         opacity: 1;
     }
-    
     body.loaded {
         overflow-y: auto;
     }
@@ -200,7 +228,9 @@
 
   <div id="preloader">
     <div class="haku-visual-container">
-        <div class="loading-spinner"></div>
+        <div class="hanging-element">
+            <div class="loading-ball"></div>
+        </div>
         
         <div class="loading-text" id="loading-text-container"></div> 
         
@@ -209,8 +239,8 @@
   </div>
 
 
-  <h2 style="margin-top: 0;">Demo: Menú Colapsado con Enlace "Activo"</h2>
-  <p>El enlace "Perfil" tiene <code>.active</code>.</p>
+  <h2 style="margin-top: 0; opacity: 0;">Demo: Menú Colapsado con Enlace "Activo"</h2>
+  <p style="opacity: 0;">El enlace "Perfil" tiene <code>.active</code>.</p>
 
   <nav class="side-navbar">
      <ul>
@@ -247,7 +277,7 @@
   <script>
     const textToAnimate = "Cargando";
     const container = document.getElementById('loading-text-container');
-    const preloaderDuration = 3000; // 3 segundos
+    // const preloaderDuration = 3000; // Ya no se usa para ocultar
 
     // Función para crear los spans y animar las letras
     function animateText() {
@@ -263,7 +293,8 @@
         }, 100); 
     }
 
-    // Ocultar el preloader después de 3 segundos
+    // Eliminamos la función hidePreloader() ya que el preloader es permanente
+    /*
     function hidePreloader() {
         const preloader = document.getElementById('preloader');
         const body = document.body;
@@ -274,11 +305,12 @@
             body.classList.add('loaded');
         }, 500); 
     }
+    */
 
     // Se ejecuta cuando la página está lista
     window.addEventListener('load', function() {
         animateText();
-        setTimeout(hidePreloader, preloaderDuration);
+        // Eliminamos la llamada a setTimeout(hidePreloader, preloaderDuration);
     });
   </script>
 
