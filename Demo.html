@@ -2,13 +2,13 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <title>Demo Menú Activo</title>
+  <title>Demo Menú Activo (Colapsado)</title>
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <style>
     :root{
-      /* Tus variables de color */
+      /* Tus variables */
       --bg-uniform: #333;
       --fg: #eef1f0;
       --muted: #a3a3a3;
@@ -18,7 +18,7 @@
       
       --card-bg: rgba(0,0,0,0.88);
       --card-border: rgba(255,255,255,0.1); 
-      --menu-width-expanded: 240px;
+      --menu-width-collapsed: 70px; /* <--- VALOR COLAPSADO */
     }
 
     body {
@@ -28,27 +28,27 @@
       padding: 20px;
     }
 
-    /* --- ESTILOS DE TU MENÚ (Simplificados para el demo) --- */
+    /* --- ESTILOS DE TU MENÚ COLAPSADO --- */
     
     .side-navbar {
-      width: var(--menu-width-expanded); /* Forzamos modo expandido */
+      width: var(--menu-width-collapsed); /* <--- APLICA ANCHO COLAPSADO */
       background: var(--card-bg);
       border-right: 1px solid var(--card-border);
-      border-radius: 14px; /* Añadido para que se vea bonito en el demo */
-      overflow: hidden; /* Para los bordes redondeados */
+      border-radius: 14px;
+      overflow: hidden;
       padding: 20px 0;
-      align-items: flex-start; 
+      align-items: center; /* Centra los iconos verticalmente */
     }
   
     .side-navbar ul { list-style: none; padding: 0; margin: 0; width: 100%; }
 
     .side-navbar .nav-link {
       display: flex; 
-      align-items: flex-start;
-      padding: 10px 23px;
+      align-items: center; /* Centra icono y texto (oculto) */
+      padding-left: 23px; /* Tu padding original */
       color: var(--fg);
       text-decoration: none; 
-      min-height: 50px;
+      height: 50px; /* Altura fija en modo colapsado */
       width: 100%;
       white-space: nowrap; 
       transition: background-color 0.2s ease;
@@ -62,8 +62,8 @@
       text-align: center;
       color: var(--fg);
       transition: text-shadow 0.2s ease, transform 0.2s ease;
-      margin-top: 3px;
       flex-shrink: 0;
+      /* margin-top: 3px; <-- Lo quitamos para centrar mejor */
     }
   
     /* Tus colores de icono */
@@ -76,28 +76,21 @@
       transform: scale(1.1);
     }
   
-    /* Estructura de texto (necesaria para el demo) */
-    .link-text-container { margin-left: 20px; display: flex; flex-direction: column; }
-    .link-text { font-weight: 600; opacity: 1; }
-    .link-subtitle { font-size: 0.75em; color: var(--muted); opacity: 1; }
+    /* Ocultamos el texto (como en tu CSS original) */
+    .link-text-container { margin-left: 20px; }
+    .link-text, .link-subtitle { opacity: 0; }
 
 
     /* ================================================= */
-    /* --- ¡AQUÍ ESTÁ EL CÓDIGO QUE PREGUNTASTE! --- */
+    /* --- EL MISMO CÓDIGO DE ".ACTIVE" --- */
     /* ================================================= */
 
-    /* Estilo para el enlace ACTIVO en el menú lateral */
     .side-navbar .nav-link.active {
-        /* 1. Fondo sutil para indicar selección */
         background-color: rgba(255, 255, 255, 0.1);
     }
 
-    /* Un indicador visual más fuerte para el ÍCONO activo */
     .side-navbar .nav-link.active i {
-        /* 2. Escala ligeramente (igual que en hover) */
         transform: scale(1.1);
-        
-        /* 3. Brillo blanco (igual que en hover) */
         text-shadow: 0 0 12px var(--fg), 0 0 20px var(--fg); 
     }
     /* ================================================= */
@@ -106,8 +99,8 @@
 </head>
 <body>
 
-  <h2>Demo de Menú con Enlace "Activo"</h2>
-  <p>El enlace "Perfil" tiene la clase <code>.active</code> aplicada para que veas el efecto:</p>
+  <h2>Demo: Menú Colapsado con Enlace "Activo"</h2>
+  <p>El enlace "Perfil" tiene <code>.active</code>. Nota cómo brilla el icono:</p>
 
   <nav class="side-navbar">
      <ul>
