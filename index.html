@@ -676,8 +676,15 @@
 
   #contacto .contact-list {
     list-style: none; padding: 0; margin: 0;
-    display: grid; gap: 12px; 
+    display: grid; 
+    grid-template-columns: 1fr 1fr;
+    gap: 12px; 
   }
+
+  #contacto .contact-list li.full-width-btn {
+    grid-column: span 2;
+   }
+    
    #contacto .contact-list li { display: block; }
 
   #contacto .contact-btn-pressable {
@@ -1046,21 +1053,22 @@
           </ul>
         </div>
         <div class="card" id="contacto">
-          <div style="font-weight:800;margin-bottom:8px" data-lang="contact-title">Contacto</div>
-            <ul class="contact-list"> 
-              <li>
-                <a href="mailto:sgj.cheko@gmail.com" class="contact-btn-pressable btn-email">
-                  <i class="fa-regular fa-envelope"></i>
-                  <span>sgj.cheko@gmail.com</span>
-                </a>
-            </li>
-            <li>
+      <div style="font-weight:800;margin-bottom:8px" data-lang="contact-title">Contacto</div>
+        <ul class="contact-list"> 
+
+          <li class="full-width-btn">
+            <a href="mailto:sgj.cheko@gmail.com" class="contact-btn-pressable btn-email">
+              <i class="fa-regular fa-envelope"></i>
+              <span>sgj.cheko@gmail.com</span>
+            </a>
+          </li>
+
+          <li class="full-width-btn">
             <a href="mailto:sgardunoj1400@alumno.ipn.mx" class="contact-btn-pressable btn-email btn-email-rojo">
               <i class="fa-regular fa-envelope"></i>
               <span>sgardunoj1400@alumno.ipn.mx</span>
             </a>
           </li>
-
               <li>
                 <a href="https://wa.me/5215586864746" target="_blank" rel="noopener" class="contact-btn-pressable btn-whatsapp">
                   <i class="fa-brands fa-whatsapp"></i>
