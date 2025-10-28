@@ -56,81 +56,70 @@
       pointer-events: none; 
     }
     
-    /* Contenedor del texto Cargando */
+    /* El contenedor principal de Haku y el spinner */
+    .haku-visual-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* Este margen lo centra verticalmente en la pantalla */
+        margin-top: -50px; 
+    }
+    
+    /* --- SPINNER DE CARGA --- */
+    .loading-spinner {
+        position: relative;
+        width: 50px; 
+        height: 50px;
+        margin-bottom: 30px; /* Espacio entre el spinner y el texto */
+        /* Posición para alinearlo con la 'C' del texto, centrado respecto al contenedor */
+        margin-right: 110px; 
+        /* Para simular la forma circular y que Haku lo esté mirando */
+        border: 5px solid transparent; 
+        border-top: 5px solid var(--accent-blue); 
+        border-radius: 50%;
+        box-shadow: 0 0 15px var(--accent-blue), 0 0 30px var(--accent-blue); 
+        animation: spin 1s linear infinite;
+    }
+
+    /* Keyframes: Girar el objeto */
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+
+    /* --- TEXTO CARGANDO --- */
     .loading-text {
-        font-size: 3.5em; /* Ligeramente más grande para que el CA sea visible */
+        font-size: 3.5em; 
         font-weight: bold;
         color: #cccccc; 
         text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
-        margin-bottom: 20px; 
+        margin-bottom: 25px; /* Espacio entre el texto y Haku */
         z-index: 10;
         display: flex; 
     }
     
-    /* Estilos iniciales de las letras para la animación */
     .loading-text span {
         opacity: 0;
         transform: translateY(-5px);
         transition: opacity 0.2s ease-out, transform 0.2s ease-out;
     }
     
-    /* Clase que activa la animación de las letras */
     .loading-text.animate span {
         opacity: 1;
         transform: translateY(0);
-        /* El retraso de la animación se aplica con JS */
     }
 
 
-    /* Contenedor de Haku y la bolita */
-    .haku-loading {
-      position: relative;
+    /* --- IMAGEN DE HAKU --- */
+    .haku-img {
       width: 250px; 
       height: 250px;
-      margin-top: -50px;
-    }
-
-    .haku-img {
-      width: 100%;
-      height: 100%;
       object-fit: contain;
       filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
     }
 
-    /* La animación de carga (Spinner azul) */
-    .haku-loading::before {
-      content: "";
-      position: absolute;
-      
-      /* 🚨 NUEVO POSICIONAMIENTO 🚨 */
-      /* Top ajustado para que quede debajo del texto */
-      top: -110px; 
-      /* Left ajustado para que quede debajo de "CA" */
-      left: 50%;
-      transform: translateX(-50%); /* Centramos el elemento */
-      
-      width: 50px; /* Tamaño ligeramente más grande como en la imagen */
-      height: 50px;
-      
-      /* Ajuste de la posición horizontal para moverlo bajo "CA" */
-      /* Necesitamos moverlo a la izquierda del centro */
-      margin-left: -55px; /* Valor ajustado experimentalmente */
 
-      /* Animación de carga tipo Spinner */
-      border: 5px solid transparent; 
-      border-top: 5px solid var(--accent-blue); 
-      border-radius: 50%;
-      box-shadow: 0 0 15px var(--accent-blue), 0 0 30px var(--accent-blue); /* Más glow */
-      animation: spin 1s linear infinite; 
-    }
-
-    /* Keyframes: Girar el objeto */
-    @keyframes spin {
-      /* Ajustamos la rotación para incluir el nuevo margin-left */
-      0% { transform: translateX(-50%) rotate(0deg); }
-      100% { transform: translateX(-50%) rotate(360deg); }
-    }
-    
     /* ================================================= */
     /* --- ESTILOS DE TU MENÚ COLAPSADO (TD) --- */
     /* ================================================= */
@@ -207,9 +196,12 @@
 <body class="unloaded">
 
   <div id="preloader">
-    <div class="loading-text" id="loading-text-container"></div> 
-    <div class="haku-loading">
-      <img src="HAKU-SEE.png" alt="Haku Cargando" class="haku-img">
+    <div class="haku-visual-container">
+        <div class="loading-spinner"></div>
+        
+        <div class="loading-text" id="loading-text-container"></div> 
+        
+        <img src="HAKU-SEE.png" alt="Haku Cargando" class="haku-img">
     </div>
   </div>
 
@@ -256,17 +248,13 @@
 
     // Función para crear los spans y animar las letras
     function animateText() {
-        // 1. Crear los spans para cada letra
         textToAnimate.split('').forEach((char, index) => {
             const span = document.createElement('span');
             span.textContent = char;
             container.appendChild(span);
-            
-            // 2. Aplicar el retraso para el efecto secuencial (e.g., 50ms)
             span.style.transitionDelay = `${index * 50}ms`; 
         });
 
-        // 3. Activar la animación
         setTimeout(() => {
             container.classList.add('animate');
         }, 100); 
@@ -277,10 +265,8 @@
         const preloader = document.getElementById('preloader');
         const body = document.body;
         
-        // Oculta el preloader
         preloader.classList.add('hidden');
         
-        // Muestra el contenido principal después de la transición (0.5s)
         setTimeout(() => {
             body.classList.add('loaded');
         }, 500); 
@@ -288,10 +274,7 @@
 
     // Se ejecuta cuando la página está lista
     window.addEventListener('load', function() {
-        // Iniciar la animación del texto
         animateText();
-        
-        // Temporizador para ocultar el preloader
         setTimeout(hidePreloader, preloaderDuration);
     });
   </script>
