@@ -1,125 +1,145 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<style>
-    :root {
-        --card-bg: rgba(0,0,0,0.88);
-        --card-border: rgba(255,255,255,0.1); 
-        --radius: 14px;
-        --accent-purple: #9933cc;
-        --accent-blue: #0077b6;
-        --accent-gold: #FFD700;
+  <meta charset="utf-8" />
+  <title>Demo Menú Activo</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    :root{
+      /* Tus variables de color */
+      --bg-uniform: #333;
+      --fg: #eef1f0;
+      --muted: #a3a3a3;
+      --accent-blue: #0077b6;
+      --accent-purple: #9933cc;
+      --accent-emerald: #2E8B57;
+      
+      --card-bg: rgba(0,0,0,0.88);
+      --card-border: rgba(255,255,255,0.1); 
+      --menu-width-expanded: 240px;
     }
-    body { background: #333; font-family: sans-serif; padding: 20px; }
-    .demo-wrap { display: flex; flex-direction: column; gap: 20px; }
-    .demo-card {
-        background: var(--card-bg);
-        border: 1px solid var(--card-border);
-        border-radius: var(--radius);
-        padding: 25px;
-        color: #eef1f0;
+
+    body {
+      font-family: Inter, system-ui, sans-serif;
+      background-color: var(--bg-uniform);
+      color: var(--fg);
+      padding: 20px;
     }
+
+    /* --- ESTILOS DE TU MENÚ (Simplificados para el demo) --- */
     
-    /* --- Efecto 1: Título con Gradiente Animado --- */
-    /* Ideal para tu nombre: "Sergio Garduño Jardón" */
-    .gradient-text-title {
-        font-size: 36px;
-        font-weight: 900;
-        background: linear-gradient(
-            90deg, 
-            var(--accent-gold), 
-            #eef1f0, 
-            var(--accent-blue), 
-            var(--accent-gold)
-        );
-        background-size: 300% 100%; /* El gradiente es 3x más ancho */
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        color: transparent;
-        animation: flow-gradient 8s linear infinite;
+    .side-navbar {
+      width: var(--menu-width-expanded); /* Forzamos modo expandido */
+      background: var(--card-bg);
+      border-right: 1px solid var(--card-border);
+      border-radius: 14px; /* Añadido para que se vea bonito en el demo */
+      overflow: hidden; /* Para los bordes redondeados */
+      padding: 20px 0;
+      align-items: flex-start; 
     }
-    @keyframes flow-gradient {
-        0% { background-position: 0% 50%; }
-        100% { background-position: 300% 50%; }
+  
+    .side-navbar ul { list-style: none; padding: 0; margin: 0; width: 100%; }
+
+    .side-navbar .nav-link {
+      display: flex; 
+      align-items: flex-start;
+      padding: 10px 23px;
+      color: var(--fg);
+      text-decoration: none; 
+      min-height: 50px;
+      width: 100%;
+      white-space: nowrap; 
+      transition: background-color 0.2s ease;
+    }
+  
+    .side-navbar .nav-link:hover { background-color: rgba(255, 255, 255, 0.05); }
+  
+    .side-navbar .nav-link i {
+      font-size: 1.3em; 
+      width: 24px; 
+      text-align: center;
+      color: var(--fg);
+      transition: text-shadow 0.2s ease, transform 0.2s ease;
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+  
+    /* Tus colores de icono */
+    .nav-link-perfil i      { text-shadow: 0 0 5px var(--accent-blue), 0 0 10px var(--accent-blue); }
+    .nav-link-proyectos i   { text-shadow: 0 0 5px var(--accent-purple), 0 0 10px var(--accent-purple); }
+    .nav-link-experiencia i { text-shadow: 0 0 5px var(--accent-emerald), 0 0 10px var(--accent-emerald); }
+  
+    .side-navbar .nav-link:hover i { 
+      text-shadow: 0 0 12px var(--fg), 0 0 20px var(--fg);
+      transform: scale(1.1);
+    }
+  
+    /* Estructura de texto (necesaria para el demo) */
+    .link-text-container { margin-left: 20px; display: flex; flex-direction: column; }
+    .link-text { font-weight: 600; opacity: 1; }
+    .link-subtitle { font-size: 0.75em; color: var(--muted); opacity: 1; }
+
+
+    /* ================================================= */
+    /* --- ¡AQUÍ ESTÁ EL CÓDIGO QUE PREGUNTASTE! --- */
+    /* ================================================= */
+
+    /* Estilo para el enlace ACTIVO en el menú lateral */
+    .side-navbar .nav-link.active {
+        /* 1. Fondo sutil para indicar selección */
+        background-color: rgba(255, 255, 255, 0.1);
     }
 
-    /* --- Efecto 2: Subtítulo con "Typewriter" (Máquina de escribir) --- */
-    /* Ideal para poner bajo tu nombre */
-    .typewriter-subtitle {
-        font-size: 20px;
-        color: #a3a3a3;
-        font-family: monospace;
-        overflow: hidden; /* Asegura que el texto no se salga */
-        white-space: nowrap; /* Mantiene el texto en una línea */
-        border-right: .15em solid var(--accent-gold); /* El cursor */
-        animation: 
-            typing 3.5s steps(40, end) infinite,
-            blink-caret .75s step-end infinite;
+    /* Un indicador visual más fuerte para el ÍCONO activo */
+    .side-navbar .nav-link.active i {
+        /* 2. Escala ligeramente (igual que en hover) */
+        transform: scale(1.1);
+        
+        /* 3. Brillo blanco (igual que en hover) */
+        text-shadow: 0 0 12px var(--fg), 0 0 20px var(--fg); 
     }
-    
-    /* Animación de tecleo */
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
-    }
+    /* ================================================= */
 
-    /* Animación del cursor */
-    @keyframes blink-caret {
-      from, to { border-color: transparent }
-      50% { border-color: var(--accent-gold); }
-    }
-    /* NOTA: Este efecto es simple. Para múltiples frases rotativas, se necesita JS.
-       ¿Te gustaría ver la versión JS que rota textos? */
-
-
-    /* --- Efecto 3: "Pulso" en Tarjetas de Sección --- */
-    /* Ideal para las tarjetas de Proyectos o Experiencia */
-    .pulse-card {
-        border-left: 5px solid var(--accent-purple);
-        /* Animación de pulso en la sombra y borde */
-        animation: pulse-shadow 2.5s infinite ease-in-out;
-    }
-    @keyframes pulse-shadow {
-        0% {
-            box-shadow: 0 8px 30px rgba(0,0,0,0.25);
-        }
-        50% {
-            /* Sombra más brillante con el color de acento */
-            box-shadow: 0 10px 40px rgba(153, 51, 204, 0.4); 
-        }
-        100% {
-            box-shadow: 0 8px 30px rgba(0,0,0,0.25);
-        }
-    }
-
-</style>
+  </style>
 </head>
 <body>
 
-<div class="demo-wrap">
+  <h2>Demo de Menú con Enlace "Activo"</h2>
+  <p>El enlace "Perfil" tiene la clase <code>.active</code> aplicada para que veas el efecto:</p>
 
-    <div class="demo-card">
-        <h3>Efecto 1: Título con Gradiente Animado</h3>
-        <p>Quedaría genial en tu nombre, en lugar del contorno blanco.</p>
-        <div class="gradient-text-title">
-            Sergio Garduño Jardón
-        </div>
-    </div>
-    
-    <div class="demo-card">
-        <h3>Efecto 2: Subtítulo "Typewriter"</h3>
-        <p>Puedes poner esto debajo de tu nombre para describir lo que haces.</p>
-        <div class="typewriter-subtitle" style="width: 20ch;">
-            Ingeniero Mecatrónico
-        </div>
-        </div>
-
-    <div class="demo-card pulse-card">
-        <h3>Efecto 3: Pulso de Tarjeta</h3>
-        <p>Un sutil pulso de luz en las tarjetas más importantes (como Proyectos) para atraer la mirada. Este usa el color morado de "Proyectos".</p>
-    </div>
-
-</div>
+  <nav class="side-navbar">
+     <ul>
+      <li>
+        <a href="#perfil" class="nav-link nav-link-perfil active" title="Perfil">
+          <i class="fa-solid fa-user"></i>
+          <div class="link-text-container">
+            <span class="link-text">Perfil</span>
+            <span class="link-subtitle">Carta de Presentación</span>
+          </div>
+        </a>
+      </li>
+      
+      <li>
+        <a href="#proyectos" class="nav-link nav-link-proyectos" title="Proyectos">
+          <i class="fa-solid fa-lightbulb"></i>
+          <div class="link-text-container">
+            <span class="link-text">Proyectos</span>
+          </div>
+        </a>
+      </li>
+      
+      <li>
+        <a href="#experiencia" class="nav-link nav-link-experiencia" title="Experiencia">
+          <i class="fa-solid fa-briefcase"></i>
+          <div class="link-text-container">
+            <span class="link-text">Experiencia</span>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </nav>
 
 </body>
 </html>
