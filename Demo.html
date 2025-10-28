@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <title>Demo Menú Activo (Colapsado) con Preloader</title>
+  <title>Demo Menú Activo (Colapsado) con Preloader Haku</title>
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
@@ -42,25 +42,41 @@
       height: 100%;
       background-color: var(--bg-uniform);
       display: flex;
+      flex-direction: column; /* Para centrar el texto y el perro */
       justify-content: center;
       align-items: center;
-      z-index: 9999; /* Asegura que esté por encima de todo */
+      z-index: 9999; 
       opacity: 1;
       visibility: visible;
-      transition: opacity 0.5s ease-out, visibility 0.5s ease-out; /* Transición suave */
+      transition: opacity 0.5s ease-out, visibility 0.5s ease-out; 
     }
 
     #preloader.hidden {
       opacity: 0;
       visibility: hidden;
-      /* Vuelve a habilitar el scroll una vez oculto */
       pointer-events: none; 
+    }
+    
+    /* El texto "Cargando" */
+    .loading-text {
+        font-size: 2.5em;
+        font-weight: bold;
+        color: var(--fg);
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        margin-bottom: -15px; /* Lo acerca al perro */
+        z-index: 10;
+        animation: pulse-text 2s infinite ease-in-out;
+    }
+    
+    @keyframes pulse-text {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.7; transform: scale(0.98); }
     }
 
     .haku-loading {
       position: relative;
-      width: 200px; /* Ajusta el tamaño del contenedor */
-      height: 200px;
+      width: 250px; /* Aumentamos el tamaño */
+      height: 250px;
     }
 
     .haku-img {
@@ -70,33 +86,36 @@
       filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
     }
 
-    /* La "bolita" que Haku está mirando */
+    /* La animación de carga (simulando una bolita o hueso) */
     .haku-loading::before {
       content: "";
       position: absolute;
-      /* Posicionamiento relativo a Haku */
-      top: 20px; 
-      left: 110px;
-      width: 20px;
-      height: 20px;
-      background-color: var(--accent-blue); 
+      /* Posicionamiento cerca de la mirada de Haku */
+      top: 30px; 
+      right: 50px; /* Lo ponemos a la derecha para que Haku lo mire */
+      width: 30px;
+      height: 30px;
+      /* Animación de carga tipo Spinner */
+      border: 4px solid var(--accent-blue);
+      border-top: 4px solid transparent; 
       border-radius: 50%;
       box-shadow: 0 0 10px var(--accent-blue), 0 0 20px var(--accent-blue);
       animation:
-        flotar-bolita 2.5s ease-in-out infinite alternate,
-        latido-bolita 1s ease-in-out infinite;
+        spin 1s linear infinite,
+        flotar-objeto 2.5s ease-in-out infinite alternate;
     }
 
-    /* Keyframes: Animación de la bolita */
-    @keyframes flotar-bolita {
-      0%   { transform: translate(0, 0) scale(1); }
-      50%  { transform: translate(40px, -20px) scale(1.1); }
-      100% { transform: translate(-30px, 10px) scale(1); }
+    /* Keyframes: Girar el objeto */
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
-    @keyframes latido-bolita {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.7; }
+    /* Keyframes: Movimiento de la bolita/hueso */
+    @keyframes flotar-objeto {
+      0%   { transform: translate(0, 0) rotate(0deg); }
+      50%  { transform: translate(-30px, -20px) rotate(10deg); } /* Mueve el objeto para que Haku lo siga */
+      100% { transform: translate(10px, 10px) rotate(-10deg); }
     }
     
     /* ================================================= */
@@ -111,18 +130,16 @@
       overflow: hidden;
       padding: 20px 0;
       align-items: center;
-      /* Hace el menú invisible hasta que el preloader se oculte */
       opacity: 0; 
-      transition: opacity 0.5s ease 0.5s; /* Animación de aparición */
+      transition: opacity 0.5s ease 0.5s; 
     }
 
-    /* El contenido principal aparece cuando el preloader se oculta */
     body.loaded .side-navbar {
         opacity: 1;
     }
     
     body.loaded {
-        overflow-y: auto; /* Habilita el scroll */
+        overflow-y: auto;
     }
 
 
@@ -182,14 +199,14 @@
 <body class="unloaded">
 
   <div id="preloader">
-    <div class="haku-loading">
+    <div class="loading-text">Cargando</div> <div class="haku-loading">
       <img src="HAKU-SEE.png" alt="Haku Cargando" class="haku-img">
     </div>
   </div>
 
 
-  <h2>Demo: Menú Colapsado con Enlace "Activo"</h2>
-  <p>El enlace "Perfil" tiene <code>.active</code>. Nota cómo brilla el icono:</p>
+  <h2 style="margin-top: 0;">Demo: Menú Colapsado con Enlace "Activo"</h2>
+  <p>El enlace "Perfil" tiene <code>.active</code>.</p>
 
   <nav class="side-navbar">
      <ul>
@@ -224,17 +241,17 @@
   </nav>
 
   <script>
-    // Se ejecuta cuando toda la página (incluyendo las imágenes) ha cargado
+    // Se ejecuta cuando toda la página ha cargado
     window.addEventListener('load', function() {
       // Oculta el preloader después de 3 segundos (3000 milisegundos)
       setTimeout(function() {
         const preloader = document.getElementById('preloader');
         const body = document.body;
         
-        // 1. Oculta el preloader con la clase 'hidden' (transición de opacidad)
+        // 1. Oculta el preloader
         preloader.classList.add('hidden');
         
-        // 2. Después de que la transición CSS termine (0.5s), muestra el contenido
+        // 2. Muestra el contenido principal después de la transición
         setTimeout(function() {
             body.classList.add('loaded');
         }, 500); 
