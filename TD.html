@@ -178,19 +178,35 @@
       background-color: var(--bg-uniform);
     }
     
-    /* 10. RESPONSIVE */
+        /* 10. RESPONSIVE */
     @media (max-width: 480px) {
+        /* Tus reglas anteriores (asegúrate que el padding del body sea 20px) */
         body { padding: 20px 20px; }
         .title { font-size: 28px; }
         .avatar { width: 100px; height: 100px; }
         footer { flex-direction: column; gap: 15px; justify-content: center; }
 
-        /* --- AÑADE ESTO --- */
-        /* Forzamos la cuadrícula a 1 columna en pantallas pequeñas */
+        /* --- INICIO DE LA NUEVA SOLUCIÓN --- */
+
+        /* 1. Reducimos el espacio entre botones */
         #contacto .contact-list {
-            grid-template-columns: 1fr;
+            gap: 8px; 
         }
+
+        /* 2. Reducimos el padding DENTRO de los botones */
+        #contacto .contact-btn-pressable {
+            padding: 12px 10px;
+        }
+        
+        /* 3. Arreglamos el texto largo SÓLO en el botón rojo */
+        #contacto .btn-email-rojo span {
+            overflow-wrap: break-word;
+            word-break: break-all;
+            min-width: 0; /* Necesario para flexbox */
+        }
+        /* --- FIN DE LA NUEVA SOLUCIÓN --- */
     }
+
   </style>
 </head>
 <body>
