@@ -500,19 +500,30 @@
   .btn-dark{background:var(--accent-purple);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;border:1px solid rgba(153, 51, 204, 0.4)}
   .iot-actions a { color: #fff; text-decoration: none; } 
 
-  footer {
-  text-align: center;
-  color: var(--muted);
-  font-size: 13px;
-  padding: 26px 15px 20px;
-  display: flex;
-  flex-direction: column; /* <-- NUEVO: Apila verticalmente */
-  align-items: center;    /* <-- NUEVO: Centra horizontalmente */
-  justify-content: center;
-  gap: 10px;
+    footer {
+    display: flex;
+    flex-direction: column; /* Apila los 3 divs (el logo, el 'Hecho con', y el email) */
+    align-items: center;    /* Centra todo horizontalmente */
+    justify-content: center;
+    gap: 10px;               /* Espacio entre las líneas */
+    
+    padding: 26px 15px 10px; /* Tu padding original está bien */
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    
+    /* ¡¡IMPORTANTE!! Asegúrate de que NO tenga ningún 'margin-left' raro */
+    margin-left: 0; 
+    width: 100%; /* Ocupa todo el ancho *de su padre* (el .wrap) */
+  }
+  
+  /* Y esta parte para el logo */
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
-  .footer-brand{display:flex;align-items:center;gap:8px}
   .sello{width:40px;height:40px;border-radius:8px;overflow:hidden}
   .sello img{width:100%;height:100%;object-fit:cover}
 
