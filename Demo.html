@@ -2,95 +2,124 @@
 <html lang="es">
 <head>
 <style>
-    /* Estilos para el demo */
-    body { 
-        background-color: #333; 
-        color: #eef1f0; 
-        font-family: sans-serif; 
-        height: 100vh; 
-        margin: 0;
-        display: grid;
-        place-items: center;
-        text-align: center;
+    :root {
+        --card-bg: rgba(0,0,0,0.88);
+        --card-border: rgba(255,255,255,0.1); 
+        --radius: 14px;
+        --accent-purple: #9933cc;
+        --accent-blue: #0077b6;
+        --accent-gold: #FFD700;
+    }
+    body { background: #333; font-family: sans-serif; padding: 20px; }
+    .demo-wrap { display: flex; flex-direction: column; gap: 20px; }
+    .demo-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius);
+        padding: 25px;
+        color: #eef1f0;
     }
     
-    /* --- CÓDIGO DEL PRELOADER --- */
-    #preloader {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: #333; /* Tu mismo fondo */
-        z-index: 9999;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-        transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
-        opacity: 1;
-        visibility: visible;
+    /* --- Efecto 1: Título con Gradiente Animado --- */
+    /* Ideal para tu nombre: "Sergio Garduño Jardón" */
+    .gradient-text-title {
+        font-size: 36px;
+        font-weight: 900;
+        background: linear-gradient(
+            90deg, 
+            var(--accent-gold), 
+            #eef1f0, 
+            var(--accent-blue), 
+            var(--accent-gold)
+        );
+        background-size: 300% 100%; /* El gradiente es 3x más ancho */
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        animation: flow-gradient 8s linear infinite;
+    }
+    @keyframes flow-gradient {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 300% 50%; }
     }
 
-    #preloader.hidden {
-        opacity: 0;
-        visibility: hidden;
+    /* --- Efecto 2: Subtítulo con "Typewriter" (Máquina de escribir) --- */
+    /* Ideal para poner bajo tu nombre */
+    .typewriter-subtitle {
+        font-size: 20px;
+        color: #a3a3a3;
+        font-family: monospace;
+        overflow: hidden; /* Asegura que el texto no se salga */
+        white-space: nowrap; /* Mantiene el texto en una línea */
+        border-right: .15em solid var(--accent-gold); /* El cursor */
+        animation: 
+            typing 3.5s steps(40, end) infinite,
+            blink-caret .75s step-end infinite;
+    }
+    
+    /* Animación de tecleo */
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
     }
 
-    /* Un spinner simple de CSS */
-    .spinner {
-        width: 50px;
-        height: 50px;
-        border: 4px solid rgba(255, 255, 255, 0.2);
-        border-top-color: #FFD700; /* Tu color dorado */
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
+    /* Animación del cursor */
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: var(--accent-gold); }
     }
+    /* NOTA: Este efecto es simple. Para múltiples frases rotativas, se necesita JS.
+       ¿Te gustaría ver la versión JS que rota textos? */
 
-    .preloader-text {
-        font-weight: 600;
-        font-size: 1.1em;
-        color: #a3a3a3; /* Tu color muted */
-    }
 
-    @keyframes spin {
-        to { transform: rotate(360deg); }
+    /* --- Efecto 3: "Pulso" en Tarjetas de Sección --- */
+    /* Ideal para las tarjetas de Proyectos o Experiencia */
+    .pulse-card {
+        border-left: 5px solid var(--accent-purple);
+        /* Animación de pulso en la sombra y borde */
+        animation: pulse-shadow 2.5s infinite ease-in-out;
     }
-    /* --- FIN CÓDIGO PRELOADER --- */
+    @keyframes pulse-shadow {
+        0% {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+        }
+        50% {
+            /* Sombra más brillante con el color de acento */
+            box-shadow: 0 10px 40px rgba(153, 51, 204, 0.4); 
+        }
+        100% {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+        }
+    }
 
 </style>
 </head>
 <body>
 
-    <div id="preloader">
-        <div class="spinner"></div>
-        <div class="preloader-text">Conectando bits y naturaleza...</div>
+<div class="demo-wrap">
+
+    <div class="demo-card">
+        <h3>Efecto 1: Título con Gradiente Animado</h3>
+        <p>Quedaría genial en tu nombre, en lugar del contorno blanco.</p>
+        <div class="gradient-text-title">
+            Sergio Garduño Jardón
+        </div>
+    </div>
+    
+    <div class="demo-card">
+        <h3>Efecto 2: Subtítulo "Typewriter"</h3>
+        <p>Puedes poner esto debajo de tu nombre para describir lo que haces.</p>
+        <div class="typewriter-subtitle" style="width: 20ch;">
+            Ingeniero Mecatrónico
+        </div>
+        </div>
+
+    <div class="demo-card pulse-card">
+        <h3>Efecto 3: Pulso de Tarjeta</h3>
+        <p>Un sutil pulso de luz en las tarjetas más importantes (como Proyectos) para atraer la mirada. Este usa el color morado de "Proyectos".</p>
     </div>
 
-    <div>
-        <h1>Contenido de la Página</h1>
-        <p>Este contenido aparece después de que el preloader se oculta.</p>
-    </div>
-
-    <script>
-        // Simula la carga de la página
-        window.setTimeout(() => {
-            const loader = document.getElementById('preloader');
-            if (loader) {
-                loader.classList.add('hidden');
-            }
-        }, 2000); // 2 segundos de simulación
-
-        /* // --- PARA TU PÁGINA REAL, USA ESTO: ---
-        window.addEventListener('load', () => {
-            const loader = document.getElementById('preloader');
-            if (loader) {
-                loader.classList.add('hidden');
-            }
-        });
-        */
-    </script>
+</div>
 
 </body>
 </html>
