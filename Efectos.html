@@ -515,4 +515,139 @@
         <a href="TD.png" target="_blank" title="Ver QR en grande">
           <div class="sello"><img src="haku-logo.png" alt="Haku"></div>
         </a>
-        <div style="color:var(--muted);font-size:13px">© <span id="year"></span>
+        <div style="color:var(--muted);font-size:13px">© <span id="year"></span> Sergio Garduño Jardón</div>
+      </div>
+      <div style="color:var(--muted);font-size:13px">Contacto: sgj.cheko@gmail.com</div>
+    </footer>
+
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    
+    /* ================================== */
+    /* JAVASCRIPT DEL PRELOADER */
+    /* ================================== */
+    const textToAnimate = "Cargando";
+    const container = document.getElementById('loading-text-container');
+    const animationDuration = (textToAnimate.length * 50) + 1000; 
+    let repeatCount = 0;
+    const maxRepeats = 2; // Dos ciclos de "Cargando"
+
+    function animateText() {
+        container.innerHTML = '';
+        container.classList.remove('animate'); 
+
+        textToAnimate.split('').forEach((char, index) => {
+            const span = document.createElement('span');
+            span.textContent = char;
+            container.appendChild(span);
+            span.style.transitionDelay = `${index * 50}ms`; 
+        });
+
+        setTimeout(() => {
+            container.classList.add('animate');
+        }, 100); 
+
+        setTimeout(() => {
+            repeatCount++;
+            if (repeatCount < maxRepeats) {
+                animateText();
+            } else {
+                hidePreloader();
+            }
+        }, animationDuration);
+    }
+
+    function hidePreloader() {
+        const preloader = document.getElementById('preloader');
+        const body = document.body;
+        
+        preloader.classList.add('hidden');
+        
+        setTimeout(() => { 
+            body.classList.add('loaded'); 
+            startTypewriterEffect(); // Inicia el efecto typewriter después de la carga
+        }, 500); 
+    }
+
+    window.addEventListener('load', function() {
+        animateText(); 
+    });
+    /* --- FIN SCRIPT PRELOADER --- */
+
+
+    
+    /* ================================== */
+    /* SCRIPT ORIGINAL DE TD Y EFECTOS */
+    /* ================================== */
+
+    // Configuración de Partículas
+    particlesJS("particles-js", {
+      "particles": { "number": { "value": 80, "density": { "enable": true, "value_area": 800 }}, "color": { "value": ["#FFD700", "#63b96f", "#0077b6", "#eef1f0"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }}, "opacity": { "value": 0.6, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false }}, "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false }}, "line_linked": { "enable": true, "distance": 150, "color": "#a3a3a3", "opacity": 0.4, "width": 1 }, "move": { "enable": true, "speed": 3, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }},
+      "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" }, "resize": true }, "modes": { "grab": { "distance": 400, "line_linked": { "opacity": 1 }}, "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 }, "repulse": { "distance": 150, "duration": 0.4 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 }}},
+      "retina_detect": true
+    });
+
+    // Script del año
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    
+    // SCRIPT PARA EFECTO FLIP (INTERCAMBIO)
+    const avatarContainer = document.getElementById('avatar-container');
+    const avatarImg = document.getElementById('avatar-img');
+    
+    const originalSrc = 'perfil.png'; 
+    const qrSrc = 'TD.png';       
+    
+    let isQrMode = false;
+
+    avatarContainer.addEventListener('click', () => {
+        if (isQrMode) {
+            avatarImg.src = originalSrc;
+            avatarImg.alt = 'Sergio Garduño Jardón';
+            avatarContainer.classList.remove('qr-mode');
+            avatarContainer.title = 'Clic para QR';
+        } else {
+            avatarImg.src = qrSrc;
+            avatarImg.alt = 'Código QR de Contacto';
+            avatarContainer.classList.add('qr-mode');
+            avatarContainer.title = 'Clic para volver a la foto';
+        }
+        isQrMode = !isQrMode;
+    });
+
+    // SCRIPT PARA EFECTO TYPEWRITER Y LEYENDA
+    const typewriterTextElement = document.getElementById('typewriter-text');
+    const profileFullDescriptionElement = document.getElementById('profile-full-description');
+    const typewriterString = "Ingeniero Mecatrónico";
+
+    function startTypewriterEffect() {
+        typewriterTextElement.textContent = ''; // Limpiar por si acaso
+        const textLength = typewriterString.length;
+        // Establecer la variable CSS para la animación 'typing'
+        typewriterTextElement.style.setProperty('--typewriter-width', `${textLength}ch`);
+        
+        let charIndex = 0;
+        const typingSpeed = 75; // Velocidad de tecleo
+        
+        function typeChar() {
+            if (charIndex < textLength) {
+                typewriterTextElement.textContent += typewriterString.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeChar, typingSpeed);
+            } else {
+                // Cuando el tecleo termina, quitar el cursor parpadeante
+                typewriterTextElement.style.borderRight = 'none'; 
+                // Y mostrar la descripción completa
+                setTimeout(() => {
+                    profileFullDescriptionElement.classList.add('visible');
+                }, 500); // Pequeño retraso para que aparezca
+            }
+        }
+        typeChar(); // Iniciar el tecleo
+    }
+
+  </script>
+</body>
+</html>
