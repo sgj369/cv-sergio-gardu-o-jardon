@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <title>Demo Preloader Haku</title>
+  <title>Demo Menú Activo (Colapsado) con Preloader Haku Animado</title>
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
@@ -18,77 +18,157 @@
       
       --card-bg: rgba(0,0,0,0.88);
       --card-border: rgba(255,255,255,0.1); 
-      --menu-width-collapsed: 70px;
+      --menu-width-collapsed: 70px; 
     }
 
-    /* ================================================= */
-    /* --- 2. CSS DEL PRELOADER (CON HAKU) --- */
-    /* ================================================= */
-    #preloader {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: var(--bg-uniform); /* Usa tu fondo */
-        z-index: 9999;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 15px; /* Espacio entre logo y texto */
-        transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
-        opacity: 1;
-        visibility: visible;
-    }
-
-    #preloader.hidden {
-        opacity: 0;
-        visibility: hidden;
-    }
-
-    /* Animación de pulso para el logo */
-    .preloader-logo {
-        width: 80px; /* Tamaño del logo en la carga */
-        height: 80px;
-        border-radius: 8px; /* Opcional: si quieres redondearlo */
-        /* Animación: 1.8s, infinito, suave */
-        animation: pulse-logo 1.8s infinite ease-in-out;
-    }
-
-    @keyframes pulse-logo {
-        0% {
-            transform: scale(1);
-            opacity: 0.8;
-        }
-        50% {
-            transform: scale(1.1); /* Crece un 10% */
-            opacity: 1;
-        }
-        100% {
-            transform: scale(1);
-            opacity: 0.8;
-        }
-    }
-
-    .preloader-text {
-        font-weight: 600;
-        font-size: 1.1em;
-        color: var(--muted); /* Tu color muted */
-        /* Texto sugerido: "Iniciando sistema..." */
-    }
-    /* --- FIN CÓDIGO PRELOADER --- */
-
-
-    /* --- Estilos base (ya los tenías) --- */
     body {
       font-family: Inter, system-ui, sans-serif;
       background-color: var(--bg-uniform);
       color: var(--fg);
       padding: 20px;
+      overflow: hidden; /* Oculta el scroll mientras se carga */
+    }
+
+    /* ================================================= */
+    /* --- PANTALLA DE PRECARGA (HAKU) --- */
+    /* ================================================= */
+
+    #preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #2c2c2c; 
+      display: flex;
+      flex-direction: column; 
+      justify-content: center;
+      align-items: center;
+      z-index: 9999; 
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.5s ease-out, visibility 0.5s ease-out; /* Para la transición de salida */
+    }
+
+    #preloader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none; 
     }
     
-    /* --- ESTILOS DE TU MENÚ (ya los tenías) --- */
+    /* El contenedor principal de Haku, texto y spinner */
+    .haku-visual-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* Ajuste vertical y horizontal */
+        margin-top: -50px; 
+        margin-left: -100px; 
+        position: relative;
+    }
+    
+    /* --- Contenedor del ELEMENTO COLGANTE (Cuerda + Bolita) --- */
+    .hanging-element {
+        position: absolute; 
+        top: 55px; /* Ajuste fino para la nueva bolita */
+        left: 5px; 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 10;
+        animation: swing-haku 3s ease-in-out infinite alternate; 
+    }
+
+    @keyframes swing-haku {
+      0%   { transform: rotate(-5deg); }
+      100% { transform: rotate(5deg); }
+    }
+
+
+    /* --- LA CUERDA --- */
+    .hanging-element::before {
+        content: "";
+        position: relative; 
+        width: 2px; 
+        height: 40px; 
+        background-color: #8B4513; 
+        box-shadow: 0 0 5px rgba(0,0,0,0.5); 
+        border-radius: 1px;
+    }
+
+    /* --- LA BOLITA (Antes spinner) --- */
+    .loading-ball {
+        position: relative;
+        width: 45px; /* 🚨 AUMENTADO PARA MÁS VISIBILIDAD 🚨 */
+        height: 45px;
+        background-color: var(--accent-blue);
+        border-radius: 50%;
+        box-shadow: 0 0 15px var(--accent-blue), 0 0 30px var(--accent-blue); 
+        animation: pulse-ball 1.5s ease-in-out infinite alternate; 
+    }
+
+    @keyframes pulse-ball {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.05); opacity: 0.9; }
+    }
+
+
+    /* --- TEXTO CARGANDO --- */
+    .loading-text {
+        font-size: 3.5em; 
+        font-weight: bold;
+        color: #cccccc; 
+        text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+        margin-bottom: 25px; 
+        z-index: 10;
+        display: flex; 
+    }
+    
+    .loading-text span {
+        opacity: 0;
+        transform: translateY(-5px);
+        transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+    }
+    
+    .loading-text.animate span {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+
+    /* --- IMAGEN DE HAKU --- */
+    .haku-img {
+      width: 350px; /* 🚨 AUMENTADO PARA MÁS VISIBILIDAD 🚨 */
+      height: 350px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+    }
+
+    /* ================================================= */
+    /* --- OPTIMIZACIÓN RESPONSIVE (MÓVIL) --- */
+    /* ================================================= */
+    @media (max-width: 600px) {
+        .haku-visual-container {
+            margin-left: -50px; /* Menos desplazamiento lateral en móvil */
+        }
+        .haku-img {
+            width: 250px; 
+            height: 250px;
+        }
+        .loading-text {
+            font-size: 2.5em;
+        }
+        .loading-ball {
+            width: 35px;
+            height: 35px;
+        }
+    }
+
+
+    /* ================================================= */
+    /* --- ESTILOS DE TU MENÚ COLAPSADO (TD) --- */
+    /* ================================================= */
+
     .side-navbar {
       width: var(--menu-width-collapsed);
       background: var(--card-bg);
@@ -97,8 +177,21 @@
       overflow: hidden;
       padding: 20px 0;
       align-items: center;
+      opacity: 0; 
+      transition: opacity 0.5s ease 0.5s; 
     }
+
+    body.loaded .side-navbar {
+        opacity: 1;
+    }
+    
+    body.loaded {
+        overflow-y: auto;
+    }
+
+    /* (Resto de tus estilos DT sin cambios) */
     .side-navbar ul { list-style: none; padding: 0; margin: 0; width: 100%; }
+
     .side-navbar .nav-link {
       display: flex; 
       align-items: center;
@@ -110,7 +203,9 @@
       white-space: nowrap; 
       transition: background-color 0.2s ease;
     }
+  
     .side-navbar .nav-link:hover { background-color: rgba(255, 255, 255, 0.05); }
+  
     .side-navbar .nav-link i {
       font-size: 1.3em; 
       width: 24px; 
@@ -119,34 +214,47 @@
       transition: text-shadow 0.2s ease, transform 0.2s ease;
       flex-shrink: 0;
     }
+  
     .nav-link-perfil i      { text-shadow: 0 0 5px var(--accent-blue), 0 0 10px var(--accent-blue); }
     .nav-link-proyectos i   { text-shadow: 0 0 5px var(--accent-purple), 0 0 10px var(--accent-purple); }
     .nav-link-experiencia i { text-shadow: 0 0 5px var(--accent-emerald), 0 0 10px var(--accent-emerald); }
+  
     .side-navbar .nav-link:hover i { 
       text-shadow: 0 0 12px var(--fg), 0 0 20px var(--fg);
       transform: scale(1.1);
     }
+  
     .link-text-container { margin-left: 20px; }
     .link-text, .link-subtitle { opacity: 0; }
+
     .side-navbar .nav-link.active {
         background-color: rgba(255, 255, 255, 0.1);
     }
+
     .side-navbar .nav-link.active i {
         transform: scale(1.1);
         text-shadow: 0 0 12px var(--fg), 0 0 20px var(--fg); 
     }
+
   </style>
 </head>
-<body>
+<body class="unloaded">
 
   <div id="preloader">
-    <img src="haku-logo.png" alt="Haku Logo" class="preloader-logo">
-    <div class="preloader-text">Iniciando sistema...</div>
+    <div class="haku-visual-container">
+        <div class="hanging-element">
+            <div class="loading-ball"></div>
+        </div>
+        
+        <div class="loading-text" id="loading-text-container"></div> 
+        
+        <img src="HAKU-SEE.png" alt="Haku Cargando" class="haku-img">
+    </div>
   </div>
 
 
-  <h2>Demo: Menú Colapsado con Enlace "Activo"</h2>
-  <p>El enlace "Perfil" tiene <code>.active</code>. Nota cómo brilla el icono:</p>
+  <h2 style="margin-top: 0;">Demo: Menú Colapsado con Enlace "Activo"</h2>
+  <p>El enlace "Perfil" tiene <code>.active</code>.</p>
 
   <nav class="side-navbar">
      <ul>
@@ -159,6 +267,7 @@
           </div>
         </a>
       </li>
+      
       <li>
         <a href="#proyectos" class="nav-link nav-link-proyectos" title="Proyectos">
           <i class="fa-solid fa-lightbulb"></i>
@@ -167,6 +276,7 @@
           </div>
         </a>
       </li>
+      
       <li>
         <a href="#experiencia" class="nav-link nav-link-experiencia" title="Experiencia">
           <i class="fa-solid fa-briefcase"></i>
@@ -177,27 +287,66 @@
       </li>
     </ul>
   </nav>
-  
-  
-  <script>
-      // Simula la carga de la página (solo para este demo)
-      window.setTimeout(() => {
-          const loader = document.getElementById('preloader');
-          if (loader) {
-              loader.classList.add('hidden');
-          }
-      }, 2500); // Se oculta después de 2.5 segundos
 
-      /* // --- PARA TU PÁGINA REAL, USA ESTE CÓDIGO EN LUGAR DEL setTimeout ---
-      // (Ponlo en tu script principal, dentro de DOMContentLoaded o al final)
-      
-      window.addEventListener('load', () => {
-          const loader = document.getElementById('preloader');
-          if (loader) {
-              loader.classList.add('hidden');
-          }
-      });
-      */
+  <script>
+    const textToAnimate = "Cargando";
+    const container = document.getElementById('loading-text-container');
+    // Calcula el tiempo total que dura el efecto de aparición de las letras
+    // (Duración por letra * cantidad de letras) + 1000ms de margen visual
+    const animationDuration = (textToAnimate.length * 50) + 1000; 
+    let repeatCount = 0;
+    const maxRepeats = 2; // Queremos que la animación se complete dos veces
+
+    // Función para crear los spans, iniciar la animación y controlar las repeticiones
+    function animateText() {
+        // Reset: Vuelve a dejar el contenedor vacío y sin la clase 'animate'
+        container.innerHTML = '';
+        container.classList.remove('animate'); 
+
+        // 1. Crear los spans para cada letra
+        textToAnimate.split('').forEach((char, index) => {
+            const span = document.createElement('span');
+            span.textContent = char;
+            container.appendChild(span);
+            span.style.transitionDelay = `${index * 50}ms`; 
+        });
+
+        // 2. Iniciar el efecto de entrada de las letras (un pequeño delay antes de añadir la clase)
+        setTimeout(() => {
+            container.classList.add('animate');
+        }, 100); 
+
+        // 3. Programar la siguiente acción (repetir o terminar)
+        setTimeout(() => {
+            repeatCount++;
+            if (repeatCount < maxRepeats) {
+                // Reiniciar la animación
+                animateText();
+            } else {
+                // Finalizado el segundo ciclo, pasar a la página
+                hidePreloader();
+            }
+        }, animationDuration);
+    }
+
+    // Función para ocultar el preloader y mostrar la página TD
+    function hidePreloader() {
+        const preloader = document.getElementById('preloader');
+        const body = document.body;
+        
+        // 1. Oculta el preloader
+        preloader.classList.add('hidden');
+        
+        // 2. Muestra el contenido principal después de la transición
+        setTimeout(() => {
+            body.classList.add('loaded');
+        }, 500); 
+    }
+
+    // Se ejecuta cuando la página está lista
+    window.addEventListener('load', function() {
+        animateText(); // Comienza el ciclo de la animación
+    });
   </script>
 
 </body>
