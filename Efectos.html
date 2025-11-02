@@ -387,11 +387,21 @@
       background-color: var(--bg-uniform);
     }
     
-    /* 10. RESPONSIVE (de TD) */
+        /* 10. RESPONSIVE (de TD) */
     @media (max-width: 480px) {
         body { padding: 20px 20px; }
-        .typewriter-title { font-size: 28px; } /* Ajuste de tamaño en móvil */
-        .profile-full-description { font-size: 13px; } /* Ajuste de tamaño en móvil */
+        
+        .typewriter-title { 
+            font-size: 28px; 
+            white-space: normal; /* <-- AÑADE ESTA LÍNEA */
+            word-break: break-word; /* <-- AÑADE ESTA LÍNEA */
+            width: 100%; /* <-- AÑADE ESTA LÍNEA (para que ocupe todo el ancho) */
+        } 
+        
+        .profile-full-description { 
+            font-size: 14px; /* <-- Ajustado un poco */
+        } 
+        
         .avatar { width: 100px; height: 100px; }
         footer { flex-direction: column; gap: 15px; justify-content: center; }
 
