@@ -1,4 +1,4 @@
-Mira este codigo es el que esta bien solo agreguemos le el brillo blanco al recuadro donde sale mi nombre y mi foto y tambien el efecto blanco a el circulo que rodea mi fotografia y tambien ponerle el efecto write a mi nombre pero para eso hay que hacer la letra mas pequeña de ahi en fuera todo esta bien <!doctype html>
+<!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8" />
@@ -192,11 +192,29 @@ Mira este codigo es el que esta bien solo agreguemos le el brillo blanco al recu
       border-radius: 50%; overflow:hidden; border:2px solid var(--fg); 
       box-shadow:0 0 15px rgba(238, 241, 240, 0.5);
       cursor: pointer; transition: all 0.3s ease-in-out; 
+      
+      /* --- ¡NUEVO! Animación de pulso para el avatar --- */
+      animation: pulse-avatar-glow 2.5s infinite ease-in-out;
     }
+    
+    /* --- ¡NUEVO! Keyframes para el pulso del avatar --- */
+    @keyframes pulse-avatar-glow {
+        0% {
+            box-shadow: 0 0 15px rgba(238, 241, 240, 0.5);
+        }
+        50% {
+            box-shadow: 0 0 30px rgba(238, 241, 240, 0.8);
+        }
+        100% {
+            box-shadow: 0 0 15px rgba(238, 241, 240, 0.5);
+        }
+    }
+    
     .avatar:hover { transform: scale(1.05); }
     .avatar.qr-mode {
       border-radius: var(--radius); border-color: var(--accent-green);
       transform: scale(1.1); 
+      animation: none; /* Pausa la animación de pulso al voltear */
     }
     .avatar.qr-mode:hover { transform: scale(1.1); }
     .avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
@@ -223,6 +241,13 @@ Mira este codigo es el que esta bien solo agreguemos le el brillo blanco al recu
         max-width: 100%;
         width: fit-content;
         box-sizing: border-box;
+        /* --- AÑADIDO: Oculto por defecto para fade-in --- */
+        opacity: 0; 
+        transition: opacity 0.8s ease-out; 
+    }
+    
+    .typewriter-title.visible {
+        opacity: 1; 
     }
     
     @keyframes typing-name {
@@ -234,8 +259,28 @@ Mira este codigo es el que esta bien solo agreguemos le el brillo blanco al recu
       from, to { border-color: transparent }
       50% { border-color: var(--accent-gold); }
     }
+
     
-    /* --- Efecto 2: "Pulso" en Tarjetas de Sección (Púrpura) --- */
+    /* --- ¡NUEVO! Efecto "Pulso" en Tarjeta (Blanca) --- */
+    .pulse-card-white {
+        border-left-color: var(--fg); 
+        animation: pulse-shadow-white 2.5s infinite ease-in-out;
+    }
+    
+    @keyframes pulse-shadow-white {
+        0% {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+        }
+        50% {
+            box-shadow: 0 10px 40px rgba(238, 241, 240, 0.3); 
+        }
+        100% {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+        }
+    }
+
+    
+    /* --- Efecto: "Pulso" en Tarjeta (Púrpura) --- */
     .pulse-card {
         border-left: 5px solid var(--accent-purple);
         animation: pulse-shadow-purple 2.5s infinite ease-in-out;
@@ -252,7 +297,7 @@ Mira este codigo es el que esta bien solo agreguemos le el brillo blanco al recu
         }
     }
 
-    /* --- Efecto 3: "Pulso" en Tarjetas de Sección (Azul, solo Contacto) --- */
+    /* --- Efecto: "Pulso" en Tarjeta (Azul) --- */
     .pulse-card-blue {
         border-left: 5px solid var(--accent-blue);
         animation: pulse-shadow-blue 2.5s infinite ease-in-out;
@@ -293,21 +338,13 @@ Mira este codigo es el que esta bien solo agreguemos le el brillo blanco al recu
     #perfil::after { background: var(--accent-blue); } 
     #perfil .profile-title { color: var(--accent-blue); font-size:18px; font-weight:800; margin-top: 0; margin-bottom:8px }
     
-    /* ESTILO MODIFICADO: Texto de perfil ahora tiene efecto de entrada */
+    /* --- CORREGIDO: Eliminada la animación en conflicto --- */
     #perfil .profile-text{ 
         font-size:15px; 
         line-height:1.6; 
         text-align: center;
-        /* --- ESTILOS PARA FADE-IN --- */
-        opacity: 0;
-        transform: translateY(10px);
-        transition: opacity 0.8s ease-out 0.5s, transform 0.8s ease-out 0.5s; /* 0.5s de retraso */
     }
-    
-    #perfil .profile-text.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    /* --- CORREGIDO: Eliminada la regla .visible conflictiva --- */
 
 
     /* 7. TARJETA DE CONTACTO (de TD) */
@@ -380,19 +417,41 @@ Mira este codigo es el que esta bien solo agreguemos le el brillo blanco al recu
         opacity: 1;
         transform: translateY(0);
     }
+
+    /* --- AÑADIDO: FIX DE ACCESIBILIDAD (REDUCIR MOVIMIENTO) --- */
+    @media (prefers-reduced-motion: reduce) {
+      .pulse-card, .pulse-card-blue, .pulse-card-white, .avatar, .hanging-element, .loading-ball {
+        animation: none !important;
+      }
+      
+      .card, footer, .typewriter-title {
+        transition: none !important;
+      }
+      
+      .card, footer, .typewriter-title {
+        opacity: 1;
+        transform: none;
+      }
+      
+      .typewriter-title {
+        border-right: none;
+      }
+    }
+
     
     /* 10. RESPONSIVE (de TD) */
     @media (max-width: 480px) {
         body { padding: 20px 20px; }
         
+        /* --- CORRECCIÓN: Ajuste de fuente para que quepa en una línea --- */
         .typewriter-title { 
-            font-size: 28px; 
-            white-space: normal; /* Permite salto de línea en móvil */
-            word-break: break-word; 
-            width: 100%; 
+            font-size: 24px; 
+            white-space: nowrap; 
+            word-break: normal; 
+            width: fit-content; 
         } 
         
-        #perfil .profile-title { text-align: center; } /* Centra título de perfil */
+        #perfil .profile-title { text-align: center; } 
         
         .avatar { width: 100px; height: 100px; }
         footer { flex-direction: column; gap: 15px; justify-content: center; }
@@ -426,16 +485,15 @@ Mira este codigo es el que esta bien solo agreguemos le el brillo blanco al recu
 
   <div class="wrap">
     
-    <div class="header-card card">
-      
+    <div class="header-card card pulse-card-white">
+ 
       <div class="avatar" title="Clic para QR" id="avatar-container">
           <img id="avatar-img" src="perfil.png" alt="Sergio Garduño Jardón">
       </div>
       
       <div>
           <div class="typewriter-title" id="typewriter-name"></div>
-          
-          </div>
+      </div>
       
       <div class="header-button-container">
         <a class="btn-fill-white" href="index.html" target="_blank" rel="noopener" title="Abrir Portafolio Digital">
@@ -444,7 +502,6 @@ Mira este codigo es el que esta bien solo agreguemos le el brillo blanco al recu
         </a>
       </div>
     </div>
-
     <section class="card pulse-card" id="perfil">
       <div class="profile-title">Perfil</div>
       
@@ -548,14 +605,12 @@ Mira este codigo es el que esta bien solo agreguemos le el brillo blanco al recu
         setTimeout(() => { 
             body.classList.add('loaded'); 
             startTypewriterNameEffect(); 
-            showPerfilText(); // <-- ACTIVA EL FADE-IN DE PERFIL
+            // --- CORREGIDO: Eliminada la llamada a showPerfilText() ---
             setupCardAnimations(); 
         }, 500); 
     }
     /* --- FIN SCRIPT PRELOADER --- */
-
-
-    
+   
     /* ================================== */
     /* SCRIPT DE TYPEWRITER (NOMBRE) */
     /* ================================== */
@@ -570,47 +625,29 @@ Mira este codigo es el que esta bien solo agreguemos le el brillo blanco al recu
         typewriterNameElement.textContent = ''; 
         const textLength = typewriterNameString.length;
         
-        const isMobile = window.innerWidth <= 480;
+        // --- CORRECCIÓN: Quitamos el if(isMobile) ---
+        // Ahora el efecto de tecleo se ejecuta siempre.
+        // El CSS se encarga de que quepa en el móvil.
+        typewriterNameElement.style.setProperty('--typewriter-width-name', `${textLength}ch`);
+        typewriterNameElement.classList.add('visible'); 
 
-        if (isMobile) {
-            // En móvil, rompemos el texto y quitamos el efecto
-            typewriterNameElement.innerHTML = "Sergio<br>Garduño Jardón";
-            typewriterNameElement.style.whiteSpace = "normal";
-            typewriterNameElement.style.width = "100%";
-            typewriterNameElement.style.borderRight = "none";
-        } else {
-            // En Escritorio, tecleamos
-            typewriterNameElement.style.setProperty('--typewriter-width-name', `${textLength}ch`);
-            
-            let charIndex = 0;
-            const typingSpeed = 75; 
-            
-            function typeChar() {
-                if (charIndex < textLength) {
-                    typewriterNameElement.textContent += typewriterNameString.charAt(charIndex);
-                    charIndex++;
-                    setTimeout(typeChar, typingSpeed);
-                } else {
-                    typewriterNameElement.style.borderRight = 'none'; 
-                    // Ya no muestra la leyenda
-                }
+        let charIndex = 0;
+        const typingSpeed = 75; 
+        
+        function typeChar() {
+            if (charIndex < textLength) {
+                typewriterNameElement.textContent += typewriterNameString.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeChar, typingSpeed);
+            } else {
+                typewriterNameElement.style.borderRight = 'none'; 
             }
-            typeChar();
         }
+        typeChar(); // Inicia el tecleo
     }
     /* --- FIN SCRIPT TYPEWRITER --- */
 
-    
-    /* ================================== */
-    /* SCRIPT PARA MOSTRAR TEXTO DE PERFIL */
-    /* ================================== */
-    function showPerfilText() {
-        const perfilText = document.getElementById('perfil-text-content');
-        if (perfilText) {
-            perfilText.classList.add('visible');
-        }
-    }
-    /* --- FIN SCRIPT PERFIL --- */
+    /* --- CORREGIDO: Eliminada la función showPerfilText() --- */
 
 
     /* ================================== */
