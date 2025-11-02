@@ -426,7 +426,7 @@
         opacity: 1;
         transform: translateY(0);
     }
-    
+
     /* --- ¡NUEVO! FIX DE ACCESIBILIDAD (REDUCIR MOVIMIENTO) --- */
     @media (prefers-reduced-motion: reduce) {
       .pulse-card, .pulse-card-blue, .pulse-card-white, .avatar, .hanging-element, .loading-ball {
@@ -496,7 +496,7 @@
   <div class="wrap">
     
     <div class="header-card card pulse-card-white">
-      
+ 
       <div class="avatar" title="Clic para QR" id="avatar-container">
           <img id="avatar-img" src="perfil.png" alt="Sergio Garduño Jardón">
       </div>
@@ -671,17 +671,16 @@
                 entries.forEach((entry, index) => {
                     if (entry.isIntersecting) {
                         setTimeout(() => {
-                            entry.target.classList.add('is-visible');
+                            // 1. Anima la tarjeta (hace 'is-visible')
+                            entry.target.classList.add('is-visible'); 
                             
-                            // --- ¡NUEVO! ---
-                            // Si la tarjeta que aparece es "perfil", activa su texto
+                            // 2. ¡NUEVO! Si la tarjeta es 'perfil', activa su texto interior
                             if (entry.target.id === 'perfil') {
                                 const perfilText = document.getElementById('perfil-text-content');
                                 if (perfilText) {
                                     perfilText.classList.add('visible');
                                 }
                             }
-                            // --- FIN NUEVO ---
                             
                         }, index * 100); 
                         
@@ -694,7 +693,7 @@
                 observer.observe(el);
             });
         } else {
-            // Fallback para navegadores viejos
+            // Fallback para navegadores viejos (mostrar todo)
             animatedElements.forEach(el => {
                 el.classList.add('is-visible');
             });
