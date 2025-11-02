@@ -224,6 +224,14 @@
         width: fit-content;
         box-sizing: border-box;
     }
+        opacity: 0; /* Oculto por defecto */
+        transition: opacity 0.8s ease-out; /* Animación de aparición */
+    }
+    
+      .typewriter-title.visible {
+        opacity: 1; /* Estado visible */
+    }
+
     
     @keyframes typing-name {
       from { width: 0 }
@@ -303,12 +311,12 @@
         transform: translateY(10px);
         transition: opacity 0.8s ease-out 0.5s, transform 0.8s ease-out 0.5s; /* 0.5s de retraso */
     }
-    
-    #perfil .profile-text.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
 
+    #perfil .profile-text{ 
+        font-size:15px; 
+        line-height:1.6; 
+        text-align: center;
+    }
 
     /* 7. TARJETA DE CONTACTO (de TD) */
     #contacto { /* Borde controlado por .pulse-card-blue */ } 
@@ -548,7 +556,6 @@
         setTimeout(() => { 
             body.classList.add('loaded'); 
             startTypewriterNameEffect(); 
-            showPerfilText(); // <-- ACTIVA EL FADE-IN DE PERFIL
             setupCardAnimations(); 
         }, 500); 
     }
@@ -562,7 +569,7 @@
     let typewriterNameElement;
     const typewriterNameString = "Sergio Garduño Jardón";
 
-    function startTypewriterNameEffect() {
+        function startTypewriterNameEffect() {
         typewriterNameElement = document.getElementById('typewriter-name');
         
         if (!typewriterNameElement) return;
@@ -573,15 +580,22 @@
         const isMobile = window.innerWidth <= 480;
 
         if (isMobile) {
-            // En móvil, rompemos el texto y quitamos el efecto
+            // En móvil, rompemos el texto y usamos el fade-in
             typewriterNameElement.innerHTML = "Sergio<br>Garduño Jardón";
             typewriterNameElement.style.whiteSpace = "normal";
             typewriterNameElement.style.width = "100%";
             typewriterNameElement.style.borderRight = "none";
+            
+            // --- ESTA LÍNEA ARREGLA EL "DE GOLPE" ---
+            typewriterNameElement.classList.add('visible'); 
+            
         } else {
             // En Escritorio, tecleamos
             typewriterNameElement.style.setProperty('--typewriter-width-name', `${textLength}ch`);
             
+            // --- ESTA LÍNEA HACE APARECER EL TEXTO ANTES DE TECLEAR ---
+            typewriterNameElement.classList.add('visible'); 
+
             let charIndex = 0;
             const typingSpeed = 75; 
             
@@ -592,26 +606,12 @@
                     setTimeout(typeChar, typingSpeed);
                 } else {
                     typewriterNameElement.style.borderRight = 'none'; 
-                    // Ya no muestra la leyenda
                 }
             }
             typeChar();
         }
     }
     /* --- FIN SCRIPT TYPEWRITER --- */
-
-    
-    /* ================================== */
-    /* SCRIPT PARA MOSTRAR TEXTO DE PERFIL */
-    /* ================================== */
-    function showPerfilText() {
-        const perfilText = document.getElementById('perfil-text-content');
-        if (perfilText) {
-            perfilText.classList.add('visible');
-        }
-    }
-    /* --- FIN SCRIPT PERFIL --- */
-
 
     /* ================================== */
     /* SCRIPT DE ANIMACIÓN DE ENTRADA */
