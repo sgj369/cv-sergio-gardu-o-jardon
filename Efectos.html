@@ -457,10 +457,10 @@
         body { padding: 20px 20px; }
         
         .typewriter-title { 
-            font-size: 28px; 
-            white-space: normal; 
-            word-break: break-word; 
-            width: 100%; 
+            font-size: 24px; 
+            white-space: nowrap; 
+            word-break: normal; 
+            width: fit-content; 
         } 
         
         #perfil .profile-title { text-align: center; } 
@@ -621,16 +621,14 @@
         }, 500); 
     }
     /* --- FIN SCRIPT PRELOADER --- */
-
-
-    
+   
     /* ================================== */
     /* SCRIPT DE TYPEWRITER (NOMBRE) */
     /* ================================== */
     let typewriterNameElement;
     const typewriterNameString = "Sergio Garduño Jardón";
 
-        function startTypewriterNameEffect() {
+    function startTypewriterNameEffect() {
         typewriterNameElement = document.getElementById('typewriter-name');
         
         if (!typewriterNameElement) return;
@@ -638,39 +636,26 @@
         typewriterNameElement.textContent = ''; 
         const textLength = typewriterNameString.length;
         
-        const isMobile = window.innerWidth <= 480;
+        // SIEMPRE ejecutamos el tecleo
+        typewriterNameElement.style.setProperty('--typewriter-width-name', `${textLength}ch`);
+        typewriterNameElement.classList.add('visible'); 
 
-        if (isMobile) {
-            // En móvil, rompemos el texto y usamos el fade-in
-            typewriterNameElement.innerHTML = "Sergio<br>Garduño Jardón";
-            typewriterNameElement.style.whiteSpace = "normal";
-            typewriterNameElement.style.width = "100%";
-            typewriterNameElement.style.borderRight = "none";
-            
-            typewriterNameElement.classList.add('visible'); 
-            
-        } else {
-            // En Escritorio, tecleamos
-            typewriterNameElement.style.setProperty('--typewriter-width-name', `${textLength}ch`);
-            
-            typewriterNameElement.classList.add('visible'); 
-
-            let charIndex = 0;
-            const typingSpeed = 75; 
-            
-            function typeChar() {
-                if (charIndex < textLength) {
-                    typewriterNameElement.textContent += typewriterNameString.charAt(charIndex);
-                    charIndex++;
-                    setTimeout(typeChar, typingSpeed);
-                } else {
-                    typewriterNameElement.style.borderRight = 'none'; 
-                }
+        let charIndex = 0;
+        const typingSpeed = 75; 
+        
+        function typeChar() {
+            if (charIndex < textLength) {
+                typewriterNameElement.textContent += typewriterNameString.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeChar, typingSpeed);
+            } else {
+                typewriterNameElement.style.borderRight = 'none'; 
             }
-            typeChar();
         }
+        typeChar(); // Inicia el tecleo
     }
     /* --- FIN SCRIPT TYPEWRITER --- */
+
 
     /* ================================== */
     /* SCRIPT DE ANIMACIÓN DE ENTRADA */
