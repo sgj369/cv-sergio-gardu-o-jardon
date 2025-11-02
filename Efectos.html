@@ -210,14 +210,14 @@
 
     
     /* ================================================= */
-    /* --- INICIO EFECTOS NUEVOS (DE DEMO) --- */
+    /* --- INICIO EFECTOS NUEVOS --- */
     /* ================================================= */
 
     /* --- Efecto 1: Título con Gradiente Animado --- */
     .gradient-text-title {
-        font-size: 32px; /* Mantenemos 32px de tu .title original */
+        font-size: 32px;
         font-weight: 900;
-        text-align: center; /* Añadido para centrar */
+        text-align: center;
         background: linear-gradient(
             90deg, 
             var(--accent-gold), 
@@ -230,7 +230,10 @@
         -webkit-text-fill-color: transparent;
         color: transparent;
         animation: flow-gradient 8s linear infinite;
-        margin-bottom: 10px; /* Espacio para el subtítulo */
+        white-space: nowrap; /* Evita que el texto se rompa */
+        overflow: hidden; /* Oculta el desbordamiento si el texto es muy largo */
+        text-overflow: ellipsis; /* Añade puntos suspensivos si se corta */
+        max-width: 100%; /* Asegura que no sobrepase el contenedor */
     }
     @keyframes flow-gradient {
         0% { background-position: 0% 50%; }
@@ -240,45 +243,84 @@
     /* --- Efecto 2: Subtítulo con "Typewriter" --- */
     .typewriter-subtitle {
         font-size: 20px;
-        color: var(--muted); /* Usando tu variable --muted */
+        color: var(--muted); 
         font-family: monospace;
         overflow: hidden; 
         white-space: nowrap; 
         border-right: .15em solid var(--accent-gold);
         animation: 
-            typing 3.5s steps(40, end) infinite,
+            typing 3.5s steps(40, end) forwards, /* 'forwards' mantiene el estado final */
             blink-caret .75s step-end infinite;
-        margin: 0 auto; /* Añadido para centrarlo */
+        margin: 0 auto; 
+        text-align: center;
+        max-width: 100%; /* Ajusta el ancho para el efecto */
+        width: fit-content; /* El ancho se ajusta al contenido tecleado */
+        box-sizing: border-box; /* Incluye padding/border en el ancho */
     }
     
     @keyframes typing {
       from { width: 0 }
-      to { width: 100% }
+      to { width: var(--typewriter-width, 100%) } /* Usar variable CSS */
     }
 
     @keyframes blink-caret {
       from, to { border-color: transparent }
       50% { border-color: var(--accent-gold); }
     }
-
-    /* --- Efecto 3: "Pulso" en Tarjetas de Sección --- */
-    .pulse-card {
-        /* Esto viene del demo y usará morado */
-        border-left: 5px solid var(--accent-purple);
-        animation: pulse-shadow 2.5s infinite ease-in-out;
+    
+    /* Nueva leyenda debajo del nombre, que aparece después del typewriter */
+    .profile-subtitle {
+        font-size: 15px;
+        line-height: 1.6;
+        color: var(--muted);
+        text-align: center;
+        margin-top: 10px; /* Espacio con el de arriba */
+        opacity: 0; /* Inicialmente oculta */
+        transition: opacity 1s ease 0.5s; /* Aparece suavemente con un retraso */
+        max-width: 90%; /* Limita el ancho del texto */
+        margin-left: auto;
+        margin-right: auto;
     }
-    @keyframes pulse-shadow {
+    .profile-subtitle.visible {
+        opacity: 1;
+    }
+
+
+    /* --- Efecto 3: "Pulso" en Tarjetas de Sección (Púrpura) --- */
+    .pulse-card {
+        border-left: 5px solid var(--accent-purple);
+        animation: pulse-shadow-purple 2.5s infinite ease-in-out;
+    }
+    @keyframes pulse-shadow-purple {
         0% {
             box-shadow: 0 8px 30px rgba(0,0,0,0.25);
         }
         50% {
-            /* Sombra más brillante con el color de acento morado */
             box-shadow: 0 10px 40px rgba(153, 51, 204, 0.4); 
         }
         100% {
             box-shadow: 0 8px 30px rgba(0,0,0,0.25);
         }
     }
+
+    /* --- NUEVO Efecto: "Pulso" en Tarjetas de Sección (Azul) --- */
+    .pulse-card-blue {
+        border-left: 5px solid var(--accent-blue); /* Borde azul */
+        animation: pulse-shadow-blue 2.5s infinite ease-in-out;
+    }
+    @keyframes pulse-shadow-blue {
+        0% {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+        }
+        50% {
+            /* Sombra más brillante con el color de acento azul */
+            box-shadow: 0 10px 40px rgba(0, 119, 182, 0.4); 
+        }
+        100% {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+        }
+    }
+
     /* ================================================= */
     /* --- FIN EFECTOS NUEVOS --- */
     /* ================================================= */
@@ -296,7 +338,7 @@
       box-shadow: 0 6px 20px rgba(238, 241, 240, 0.4);
       transform: translateY(-1px);
     }
-    .header-button-container { margin-top: 10px; text-align: center; }
+    .header-button-container { margin-top: 20px; text-align: center; } /* Más espacio */
 
     /* 6. TARJETA DE PERFIL (de TD) */
     /* La clase .pulse-card ahora controla el borde izquierdo */
@@ -306,7 +348,8 @@
     #perfil .profile-text{ font-size:15px; line-height:1.6; text-align: center; }
 
     /* 7. TARJETA DE CONTACTO (de TD) */
-    #contacto { border-left-color: var(--fg); } 
+    /* Ahora usa la clase .pulse-card-blue */
+    #contacto { /* border-left-color: var(--fg); <-- Controlado por .pulse-card-blue */ } 
     #contacto::after { background: var(--fg); } 
     #contacto > div:first-child { color: var(--fg); font-weight: 800; margin-bottom: 12px; font-size: 18px; }
         
@@ -346,6 +389,7 @@
 
 
     /* 8. FOOTER (de TD) */
+    /* Ahora usa la clase .pulse-card-blue */
     footer{
       text-align:center;color:var(--muted);font-size:13px;padding:26px 0 10px;display:flex;
       align-items:center;justify-content:center;gap:10px; flex-wrap: wrap;
@@ -375,8 +419,8 @@
     /* 10. RESPONSIVE (de TD) */
     @media (max-width: 480px) {
         body { padding: 20px 20px; }
-        /* .title { font-size: 28px; } <-- Reemplazado por .gradient-text-title */
-        .gradient-text-title { font-size: 28px; } /* Ajuste responsive */
+        .gradient-text-title { font-size: 28px; }
+        .typewriter-subtitle { font-size: 18px; } /* Ajuste de tamaño en móvil */
         .avatar { width: 100px; height: 100px; }
         footer { flex-direction: column; gap: 15px; justify-content: center; }
 
@@ -418,7 +462,11 @@
       <div>
           <div class="gradient-text-title">Sergio Garduño Jardón</div>
           
-          <div class="typewriter-subtitle" style="width: 20ch;">Ingeniero Mecatrónico</div>
+          <div class="typewriter-subtitle" id="typewriter-text" style="width: 20ch;"></div>
+          
+          <div class="profile-subtitle" id="profile-full-description">
+            Ingeniero Mecatrónico enfocado en desarrollos de sistemas IoT y protección de la flora y fauna, así como de iniciativas verdes.
+          </div>
       </div>
       
       <div class="header-button-container">
@@ -436,7 +484,7 @@
       </div>
     </section>
 
-    <div class="card" id="contacto">
+    <div class="card pulse-card-blue" id="contacto">
       <div>Contacto</div>
         <ul class="contact-list"> 
           
@@ -462,110 +510,9 @@
         </ul>
     </div>
 
-    <footer>
+    <footer class="pulse-card-blue">
       <div class="footer-brand">
         <a href="TD.png" target="_blank" title="Ver QR en grande">
           <div class="sello"><img src="haku-logo.png" alt="Haku"></div>
         </a>
-        <div style="color:var(--muted);font-size:13px">© <span id="year"></span> Sergio Garduño Jardón</div>
-      </div>
-      <div style="color:var(--muted);font-size:13px">Contacto: sgj.cheko@gmail.com</div>
-    </footer>
-
-  </div>
-  
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-  <script>
-    
-    /* ================================== */
-    /* JAVASCRIPT DEL PRELOADER */
-    /* ================================== */
-    const textToAnimate = "Cargando";
-    const container = document.getElementById('loading-text-container');
-    const animationDuration = (textToAnimate.length * 50) + 1000; 
-    let repeatCount = 0;
-    const maxRepeats = 2; // Dos ciclos de "Cargando"
-
-    function animateText() {
-        container.innerHTML = '';
-        container.classList.remove('animate'); 
-
-        textToAnimate.split('').forEach((char, index) => {
-            const span = document.createElement('span');
-            span.textContent = char;
-            container.appendChild(span);
-            span.style.transitionDelay = `${index * 50}ms`; 
-        });
-
-        setTimeout(() => {
-            container.classList.add('animate');
-        }, 100); 
-
-        setTimeout(() => {
-            repeatCount++;
-            if (repeatCount < maxRepeats) {
-                animateText();
-            } else {
-                hidePreloader();
-            }
-        }, animationDuration);
-    }
-
-    function hidePreloader() {
-        const preloader = document.getElementById('preloader');
-        const body = document.body;
-        
-        preloader.classList.add('hidden');
-        
-        setTimeout(() => { 
-            body.classList.add('loaded'); 
-        }, 500); 
-    }
-
-    window.addEventListener('load', function() {
-        animateText(); 
-    });
-    /* --- FIN SCRIPT PRELOADER --- */
-
-
-    
-    /* --- SCRIPT ORIGINAL DE TD --- */
-    
-    // Configuración de Partículas
-    particlesJS("particles-js", {
-      "particles": { "number": { "value": 80, "density": { "enable": true, "value_area": 800 }}, "color": { "value": ["#FFD700", "#63b96f", "#0077b6", "#eef1f0"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }}, "opacity": { "value": 0.6, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false }}, "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false }}, "line_linked": { "enable": true, "distance": 150, "color": "#a3a3a3", "opacity": 0.4, "width": 1 }, "move": { "enable": true, "speed": 3, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }},
-      "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" }, "resize": true }, "modes": { "grab": { "distance": 400, "line_linked": { "opacity": 1 }}, "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 }, "repulse": { "distance": 150, "duration": 0.4 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 }}},
-      "retina_detect": true
-    });
-
-    // Script del año
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    
-    // SCRIPT PARA EFECTO FLIP (INTERCAMBIO)
-    const avatarContainer = document.getElementById('avatar-container');
-    const avatarImg = document.getElementById('avatar-img');
-    
-    const originalSrc = 'perfil.png'; 
-    const qrSrc = 'TD.png';       
-    
-    let isQrMode = false;
-
-    avatarContainer.addEventListener('click', () => {
-        if (isQrMode) {
-            avatarImg.src = originalSrc;
-            avatarImg.alt = 'Sergio Garduño Jardón';
-            avatarContainer.classList.remove('qr-mode');
-            avatarContainer.title = 'Clic para QR';
-        } else {
-            avatarImg.src = qrSrc;
-            avatarImg.alt = 'Código QR de Contacto';
-            avatarContainer.classList.add('qr-mode');
-            avatarContainer.title = 'Clic para volver a la foto';
-        }
-        isQrMode = !isQrMode;
-    });
-
-  </script>
-</body>
-</html>
+        <div style="color:var(--muted);font-size:13px">© <span id="year"></span>
