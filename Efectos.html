@@ -338,13 +338,22 @@
     #perfil::after { background: var(--accent-blue); } 
     #perfil .profile-title { color: var(--accent-blue); font-size:18px; font-weight:800; margin-top: 0; margin-bottom:8px }
     
-    /* --- CORREGIDO: Eliminada la animación en conflicto --- */
+    /* --- CORREGIDO: Vuelve a tener la animación de fade-in --- */
     #perfil .profile-text{ 
         font-size:15px; 
         line-height:1.6; 
         text-align: center;
+        /* --- ESTILOS PARA FADE-IN --- */
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.8s ease-out 0.5s, transform 0.8s ease-out 0.5s; /* 0.5s de retraso */
     }
-    /* --- CORREGIDO: Eliminada la regla .visible conflictiva --- */
+    
+    #perfil .profile-text.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    /* --- FIN DE LA CORRECCIÓN --- */
 
 
     /* 7. TARJETA DE CONTACTO (de TD) */
@@ -417,19 +426,19 @@
         opacity: 1;
         transform: translateY(0);
     }
-
+    
     /* --- ¡NUEVO! FIX DE ACCESIBILIDAD (REDUCIR MOVIMIENTO) --- */
     @media (prefers-reduced-motion: reduce) {
       .pulse-card, .pulse-card-blue, .pulse-card-white, .avatar, .hanging-element, .loading-ball {
         animation: none !important;
       }
       
-      .card, footer, .typewriter-title {
+      .card, footer, .typewriter-title, #perfil .profile-text {
         transition: none !important;
       }
       
       /* Fuerza la visibilidad si las animaciones están apagadas */
-      .card, footer, .typewriter-title {
+      .card, footer, .typewriter-title, #perfil .profile-text {
         opacity: 1;
         transform: none;
       }
@@ -487,7 +496,7 @@
   <div class="wrap">
     
     <div class="header-card card pulse-card-white">
- 
+      
       <div class="avatar" title="Clic para QR" id="avatar-container">
           <img id="avatar-img" src="perfil.png" alt="Sergio Garduño Jardón">
       </div>
@@ -663,6 +672,17 @@
                     if (entry.isIntersecting) {
                         setTimeout(() => {
                             entry.target.classList.add('is-visible');
+                            
+                            // --- ¡NUEVO! ---
+                            // Si la tarjeta que aparece es "perfil", activa su texto
+                            if (entry.target.id === 'perfil') {
+                                const perfilText = document.getElementById('perfil-text-content');
+                                if (perfilText) {
+                                    perfilText.classList.add('visible');
+                                }
+                            }
+                            // --- FIN NUEVO ---
+                            
                         }, index * 100); 
                         
                         observer.unobserve(entry.target);
@@ -674,9 +694,15 @@
                 observer.observe(el);
             });
         } else {
+            // Fallback para navegadores viejos
             animatedElements.forEach(el => {
                 el.classList.add('is-visible');
             });
+            // Fallback para el texto de perfil
+            const perfilText = document.getElementById('perfil-text-content');
+            if (perfilText) {
+                perfilText.classList.add('visible');
+            }
         }
     }
     /* --- FIN SCRIPT ANIMACIÓN --- */
