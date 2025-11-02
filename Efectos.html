@@ -164,13 +164,7 @@
       max-width: 420px; 
       margin:0 auto; position:relative;
       display: flex; flex-direction: column; gap: 22px;
-      /* --- CORRECCIÓN --- */
-      /* Quitamos la opacidad y transición de aquí para que el Observer controle todo */
     }
-    
-    /* --- CORRECCIÓN --- */
-    /* Eliminamos la regla 'body.loaded .wrap' que causaba el conflicto */
-
 
     /* 4. ESTILOS DE TARJETA (de TD) */
     .card{
@@ -231,7 +225,7 @@
         box-sizing: border-box;
         
         /* --- CORRECCIÓN DE SINTAXIS --- */
-        /* Estas propiedades ahora están DENTRO de la regla */
+        /* Estas propiedades AHORA ESTÁN DENTRO de la regla */
         opacity: 0; /* Oculto por defecto */
         transition: opacity 0.8s ease-out; /* Animación de aparición */
     }
@@ -380,6 +374,7 @@
     }
 
     /* 9.5 ANIMACIÓN DE ENTRADA (Fade-in) */
+    /* Esta es la animación de "aparecer al bajar" */
     .card, footer {
         opacity: 0;
         transform: translateY(30px);
@@ -587,14 +582,12 @@
             typewriterNameElement.style.width = "100%";
             typewriterNameElement.style.borderRight = "none";
             
-            // --- ESTA LÍNEA ARREGLA EL "DE GOLPE" ---
             typewriterNameElement.classList.add('visible'); 
             
         } else {
             // En Escritorio, tecleamos
             typewriterNameElement.style.setProperty('--typewriter-width-name', `${textLength}ch`);
             
-            // --- ESTA LÍNEA HACE APARECER EL TEXTO ANTES DE TECLEAR ---
             typewriterNameElement.classList.add('visible'); 
 
             let charIndex = 0;
