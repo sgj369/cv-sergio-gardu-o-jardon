@@ -192,12 +192,9 @@
       border-radius: 50%; overflow:hidden; border:2px solid var(--fg); 
       box-shadow:0 0 15px rgba(238, 241, 240, 0.5);
       cursor: pointer; transition: all 0.3s ease-in-out; 
-      
-      /* --- ¡NUEVO! Animación de pulso para el avatar --- */
       animation: pulse-avatar-glow 2.5s infinite ease-in-out;
     }
     
-    /* --- ¡NUEVO! Keyframes para el pulso del avatar --- */
     @keyframes pulse-avatar-glow {
         0% {
             box-shadow: 0 0 15px rgba(238, 241, 240, 0.5);
@@ -214,7 +211,7 @@
     .avatar.qr-mode {
       border-radius: var(--radius); border-color: var(--accent-green);
       transform: scale(1.1); 
-      animation: none; /* Pausa la animación de pulso al voltear */
+      animation: none; 
     }
     .avatar.qr-mode:hover { transform: scale(1.1); }
     .avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
@@ -241,7 +238,6 @@
         max-width: 100%;
         width: fit-content;
         box-sizing: border-box;
-        /* --- AÑADIDO: Oculto por defecto para fade-in --- */
         opacity: 0; 
         transition: opacity 0.8s ease-out; 
     }
@@ -261,7 +257,7 @@
     }
 
     
-    /* --- ¡NUEVO! Efecto "Pulso" en Tarjeta (Blanca) --- */
+    /* --- Efecto: "Pulso" en Tarjeta (Blanca) --- */
     .pulse-card-white {
         border-left-color: var(--fg); 
         animation: pulse-shadow-white 2.5s infinite ease-in-out;
@@ -338,23 +334,11 @@
     #perfil::after { background: var(--accent-blue); } 
     #perfil .profile-title { color: var(--accent-blue); font-size:18px; font-weight:800; margin-top: 0; margin-bottom:8px }
     
-    /* --- CORREGIDO: Vuelve a tener la animación de fade-in --- */
     #perfil .profile-text{ 
         font-size:15px; 
         line-height:1.6; 
         text-align: center;
-        /* --- ESTILOS PARA FADE-IN --- */
-        opacity: 0;
-        transform: translateY(10px);
-        transition: opacity 0.8s ease-out 0.5s, transform 0.8s ease-out 0.5s; /* 0.5s de retraso */
     }
-    
-    #perfil .profile-text.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    /* --- FIN DE LA CORRECCIÓN --- */
-
 
     /* 7. TARJETA DE CONTACTO (de TD) */
     #contacto { /* Borde controlado por .pulse-card-blue */ } 
@@ -427,18 +411,17 @@
         transform: translateY(0);
     }
     
-    /* --- ¡NUEVO! FIX DE ACCESIBILIDAD (REDUCIR MOVIMIENTO) --- */
+    /* 9.6 FIX DE ACCESIBILIDAD (REDUCIR MOVIMIENTO) */
     @media (prefers-reduced-motion: reduce) {
       .pulse-card, .pulse-card-blue, .pulse-card-white, .avatar, .hanging-element, .loading-ball {
         animation: none !important;
       }
       
-      .card, footer, .typewriter-title, #perfil .profile-text {
+      .card, footer, .typewriter-title {
         transition: none !important;
       }
       
-      /* Fuerza la visibilidad si las animaciones están apagadas */
-      .card, footer, .typewriter-title, #perfil .profile-text {
+      .card, footer, .typewriter-title {
         opacity: 1;
         transform: none;
       }
@@ -450,13 +433,13 @@
 
     
     /* 10. RESPONSIVE (de TD) */
-    @media (max-width: 480px) {
+    /* --- ¡CAMBIO AQUÍ! --- */
+    @media (max-width: 768px) { /* Aumentado de 480px a 768px para incluir tablets */
         body { padding: 20px 20px; }
         
-        /* --- ¡NUEVO! Ajuste de fuente para que quepa en una línea --- */
         .typewriter-title { 
-            font-size: 24px; 
-            white-space: nowrap; 
+            font-size: 24px; /* Letra más pequeña para que quepa */
+            white-space: nowrap; /* Forzar una línea */
             word-break: normal; 
             width: fit-content; 
         } 
@@ -512,6 +495,7 @@
         </a>
       </div>
     </div>
+
     <section class="card pulse-card" id="perfil">
       <div class="profile-title">Perfil</div>
       
@@ -635,8 +619,7 @@
         typewriterNameElement.textContent = ''; 
         const textLength = typewriterNameString.length;
         
-        // --- CORRECCIÓN: Quitamos el if(isMobile) ---
-        // Ahora el efecto de tecleo se ejecuta siempre.
+        // --- ¡NUEVO! El efecto de tecleo se ejecuta siempre ---
         // El CSS se encarga de que quepa en el móvil.
         typewriterNameElement.style.setProperty('--typewriter-width-name', `${textLength}ch`);
         typewriterNameElement.classList.add('visible'); 
@@ -673,7 +656,7 @@
                         setTimeout(() => {
                             entry.target.classList.add('is-visible');
                             
-                            // --- ¡NUEVO! ---
+                            // --- CORREGIDO: Lógica de Perfil movida aquí ---
                             // Si la tarjeta que aparece es "perfil", activa su texto
                             if (entry.target.id === 'perfil') {
                                 const perfilText = document.getElementById('perfil-text-content');
@@ -681,7 +664,6 @@
                                     perfilText.classList.add('visible');
                                 }
                             }
-                            // --- FIN NUEVO ---
                             
                         }, index * 100); 
                         
@@ -698,7 +680,6 @@
             animatedElements.forEach(el => {
                 el.classList.add('is-visible');
             });
-            // Fallback para el texto de perfil
             const perfilText = document.getElementById('perfil-text-content');
             if (perfilText) {
                 perfilText.classList.add('visible');
