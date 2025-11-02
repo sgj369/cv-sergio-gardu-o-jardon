@@ -42,7 +42,7 @@
       z-index: 9999; 
       opacity: 1;
       visibility: visible;
-      transition: opacity 0.5s ease-out, visibility 0.5s ease-out; /* Para la transición de salida */
+      transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
     }
 
     #preloader.hidden {
@@ -55,14 +55,13 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-top: -50px; 
-        margin-left: -100px; 
+        /* Quitamos márgenes fijos para un centrado perfecto */
         position: relative;
     }
     
     .hanging-element {
         position: absolute; 
-        top: 60px; 
+        top: 50px; 
         left: 50px; /* Tu valor ajustado */
         display: flex;
         flex-direction: column;
@@ -131,9 +130,6 @@
 
     /* RESPONSIVE DEL PRELOADER */
     @media (max-width: 600px) {
-        .haku-visual-container {
-            margin-left: -50px;
-        }
         .haku-img {
             width: 250px; 
             height: 250px;
@@ -157,27 +153,22 @@
       font-family:var(--font-sans); background: transparent; color:var(--fg);
       line-height:1.5; 
       padding: 28px 25px; 
-      overflow: hidden; /* <-- AJUSTE 1: Oculta scroll al inicio */
+      overflow: hidden; /* Oculta scroll al inicio */
     }
 
-    /* AJUSTE 2: Devuelve el scroll cuando termina la carga */
     body.loaded {
         overflow-y: auto;
     }
-
 
     /* 3. WRAP (Angosto) */
     .wrap{
       max-width: 420px; 
       margin:0 auto; position:relative;
       display: flex; flex-direction: column; gap: 22px;
-      
-      /* AJUSTE 3: Oculta el contenido al inicio */
       opacity: 0; 
-      transition: opacity 0.5s ease 0.5s; /* 0.5s de delay */
+      transition: opacity 0.5s ease 0.5s;
     }
     
-    /* AJUSTE 4: Muestra el contenido cuando termina la carga */
     body.loaded .wrap {
         opacity: 1;
     }
@@ -217,12 +208,82 @@
     .avatar.qr-mode:hover { transform: scale(1.1); }
     .avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
 
-    .title{
-      font-weight:900; font-size:32px; color: #000;
-      text-align: center;
-      text-shadow: -1px -1px 0 var(--fg), 1px -1px 0 var(--fg), -1px 1px 0 var(--fg), 1px 1px 0 var(--fg); 
+    
+    /* ================================================= */
+    /* --- INICIO EFECTOS NUEVOS (DE DEMO) --- */
+    /* ================================================= */
+
+    /* --- Efecto 1: Título con Gradiente Animado --- */
+    .gradient-text-title {
+        font-size: 32px; /* Mantenemos 32px de tu .title original */
+        font-weight: 900;
+        text-align: center; /* Añadido para centrar */
+        background: linear-gradient(
+            90deg, 
+            var(--accent-gold), 
+            #eef1f0, 
+            var(--accent-blue), 
+            var(--accent-gold)
+        );
+        background-size: 300% 100%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        animation: flow-gradient 8s linear infinite;
+        margin-bottom: 10px; /* Espacio para el subtítulo */
+    }
+    @keyframes flow-gradient {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 300% 50%; }
+    }
+
+    /* --- Efecto 2: Subtítulo con "Typewriter" --- */
+    .typewriter-subtitle {
+        font-size: 20px;
+        color: var(--muted); /* Usando tu variable --muted */
+        font-family: monospace;
+        overflow: hidden; 
+        white-space: nowrap; 
+        border-right: .15em solid var(--accent-gold);
+        animation: 
+            typing 3.5s steps(40, end) infinite,
+            blink-caret .75s step-end infinite;
+        margin: 0 auto; /* Añadido para centrarlo */
     }
     
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: var(--accent-gold); }
+    }
+
+    /* --- Efecto 3: "Pulso" en Tarjetas de Sección --- */
+    .pulse-card {
+        /* Esto viene del demo y usará morado */
+        border-left: 5px solid var(--accent-purple);
+        animation: pulse-shadow 2.5s infinite ease-in-out;
+    }
+    @keyframes pulse-shadow {
+        0% {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+        }
+        50% {
+            /* Sombra más brillante con el color de acento morado */
+            box-shadow: 0 10px 40px rgba(153, 51, 204, 0.4); 
+        }
+        100% {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+        }
+    }
+    /* ================================================= */
+    /* --- FIN EFECTOS NUEVOS --- */
+    /* ================================================= */
+    
+
     .btn-fill-white {
       background: var(--fg); color: #333; border: 2px solid var(--fg);
       padding: 10px 16px; border-radius: 10px; font-weight: 700; text-decoration: none;
@@ -238,8 +299,9 @@
     .header-button-container { margin-top: 10px; text-align: center; }
 
     /* 6. TARJETA DE PERFIL (de TD) */
-    #perfil { border-left-color: var(--accent-blue); } 
-    #perfil::after { background: var(--accent-blue); }
+    /* La clase .pulse-card ahora controla el borde izquierdo */
+    #perfil { /* border-left-color: var(--accent-blue); <-- Controlado por .pulse-card */ } 
+    #perfil::after { background: var(--accent-blue); } /* Mantenemos el detalle azul */
     #perfil .profile-title { color: var(--accent-blue); font-size:18px; font-weight:800; margin-top: 0; margin-bottom:8px }
     #perfil .profile-text{ font-size:15px; line-height:1.6; text-align: center; }
 
@@ -265,15 +327,14 @@
     #contacto .contact-btn-pressable:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.3); }
     #contacto .contact-btn-pressable i { font-size: 1.2em; margin-right: 12px; width: 25px text-align: center; color: inherit; }
 
+    /* ... (resto de tus estilos de botones .btn-email, .btn-whatsapp, etc. sin cambios) ... */
     #contacto .btn-email { background: var(--accent-yellow); color: #332400; }
     #contacto .btn-email:hover { box-shadow: 0 8px 25px rgba(255, 195, 0, 0.3); }
     #contacto .btn-email i { color: #332400; } 
-    
     #contacto .btn-email-rojo { background: var(--accent-red); color: var(--fg); }
     #contacto .btn-email-rojo span { font-size: 0.85em; }
     #contacto .btn-email-rojo:hover { box-shadow: 0 8px 25px rgba(255, 51, 102, 0.3); }
     #contacto .btn-email-rojo i { color: var(--fg); }
-
     #contacto .btn-whatsapp { background: var(--accent-green); color: #03120a; }
     #contacto .btn-eco { background: var(--accent-purple); color: var(--fg); }
     #contacto .btn-linkedin { background: var(--accent-blue); color: var(--fg); }
@@ -283,17 +344,15 @@
     #contacto .btn-instagram i { color: var(--fg); }
     #contacto .btn-tiktok { background: #fff; color: #000; }
 
+
     /* 8. FOOTER (de TD) */
     footer{
       text-align:center;color:var(--muted);font-size:13px;padding:26px 0 10px;display:flex;
       align-items:center;justify-content:center;gap:10px; flex-wrap: wrap;
-      
-      /* AJUSTE 3 (Alternativo): Oculta el footer al inicio */
       opacity: 0; 
       transition: opacity 0.5s ease 0.5s;
     }
     
-    /* AJUSTE 4 (Alternativo): Muestra el footer cuando termina la carga */
     body.loaded footer {
         opacity: 1;
     }
@@ -316,7 +375,8 @@
     /* 10. RESPONSIVE (de TD) */
     @media (max-width: 480px) {
         body { padding: 20px 20px; }
-        .title { font-size: 28px; }
+        /* .title { font-size: 28px; } <-- Reemplazado por .gradient-text-title */
+        .gradient-text-title { font-size: 28px; } /* Ajuste responsive */
         .avatar { width: 100px; height: 100px; }
         footer { flex-direction: column; gap: 15px; justify-content: center; }
 
@@ -356,7 +416,9 @@
       </div>
       
       <div>
-          <div class="title">Sergio Garduño Jardón</div>
+          <div class="gradient-text-title">Sergio Garduño Jardón</div>
+          
+          <div class="typewriter-subtitle" style="width: 20ch;">Ingeniero Mecatrónico</div>
       </div>
       
       <div class="header-button-container">
@@ -367,7 +429,7 @@
       </div>
     </div>
 
-    <section class="card" id="perfil">
+    <section class="card pulse-card" id="perfil">
       <div class="profile-title">Perfil</div>
       <div class="profile-text">
         Ingeniero Mecatrónico enfocado en desarrollos de sistemas IoT y protección de la flora y fauna, así como de iniciativas verdes.
@@ -416,7 +478,7 @@
   <script>
     
     /* ================================== */
-    /* JAVASCRIPT DEL PRELOADER INSERTADO */
+    /* JAVASCRIPT DEL PRELOADER */
     /* ================================== */
     const textToAnimate = "Cargando";
     const container = document.getElementById('loading-text-container');
@@ -455,15 +517,13 @@
         
         preloader.classList.add('hidden');
         
-        // Retraso de 500ms para que coincida con la transición de 'hidden'
         setTimeout(() => { 
-            body.classList.add('loaded'); // Esto activa las animaciones de entrada
+            body.classList.add('loaded'); 
         }, 500); 
     }
 
-    // Espera a que TODO (imágenes, etc.) cargue antes de iniciar
     window.addEventListener('load', function() {
-        animateText(); // Comienza el ciclo de la animación
+        animateText(); 
     });
     /* --- FIN SCRIPT PRELOADER --- */
 
@@ -486,8 +546,8 @@
     const avatarContainer = document.getElementById('avatar-container');
     const avatarImg = document.getElementById('avatar-img');
     
-    const originalSrc = 'perfil.png'; // Tu foto de perfil
-    const qrSrc = 'TD.png';       // Tu QR
+    const originalSrc = 'perfil.png'; 
+    const qrSrc = 'TD.png';       
     
     let isQrMode = false;
 
