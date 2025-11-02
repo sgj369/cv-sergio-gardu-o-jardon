@@ -430,4 +430,194 @@
           <img id="avatar-img" src="perfil.png" alt="Sergio Garduño Jardón">
       </div>
       
+      <div>
+          <div class="typewriter-title" id="typewriter-name"></div>
+          
+          <div class="profile-full-description" id="profile-full-description">
+            Ingeniero Mecatrónico enfocado en desarrollos de sistemas IoT y protección de la flora y fauna, así como de iniciativas verdes.
+          </div>
+      </div>
       
+      <div class="header-button-container">
+        <a class="btn-fill-white" href="index.html" target="_blank" rel="noopener" title="Abrir Portafolio Digital">
+            <i class="fa-solid fa-briefcase"></i>
+            <span>Portafolio Digital</span>
+        </a>
+      </div>
+    </div>
+
+    <section class="card pulse-card" id="perfil">
+      <div class="profile-title">Perfil</div>
+      <div class="profile-text">
+        Ingeniero Mecatrónico enfocado en desarrollos de sistemas IoT y protección de la flora y fauna, así como de iniciativas verdes.
+      </div>
+    </section>
+
+    <div class="card pulse-card-blue" id="contacto">
+      <div>Contacto</div>
+        <ul class="contact-list"> 
+          
+          <li class="full-width-btn">
+            <a href="mailto:sgj.cheko@gmail.com" class="contact-btn-pressable btn-email">
+              <i class="fa-regular fa-envelope"></i><span>sgj.cheko@gmail.com</span>
+            </a>
+          </li>
+          
+          <li class="full-width-btn">
+            <a href="mailto:sgardunoj1400@alumno.ipn.mx" class="contact-btn-pressable btn-email btn-email-rojo">
+              <i class="fa-regular fa-envelope"></i><span>sgardunoj1400@alumno.ipn.mx</span>
+            </a>
+          </li>
+
+          <li><a href="https://wa.me/5215586864746" target="_blank" rel="noopener" class="contact-btn-pressable btn-whatsapp"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></a></li>
+          <li><a href="https://ecogaiasos.github.io/web/index.html" target="_blank" rel="noopener" class="contact-btn-pressable btn-eco"><i class="fa-solid fa-seedling"></i><span>EcoGaiaSOS</span></a></li>
+
+          <li><a href="https://www.linkedin.com/in/gardu%C3%B1o-jardon-sergio-264b582b0" target="_blank" rel="noopener" class="contact-btn-pressable btn-linkedin"><i class="fa-brands fa-linkedin"></i><span>LinkedIn</span></a></li>
+          <li><a href="https://www.facebook.com/share/19FgjAa3ai/" target="_blank" rel="noopener" class="contact-btn-pressable btn-facebook"><i class="fa-brands fa-facebook"></i><span>Facebook</span></a></li>
+          <li><a href="https://www.instagram.com/cheko_sgj?igsh=amV1aTVwZ3VpeTBi" target="_blank" rel="noopener" class="contact-btn-pressable btn-instagram"><i class="fa-brands fa-instagram"></i><span>Instagram</span></a></li>
+          <li><a href="https://www.tiktok.com/@chekup00" target="_blank" rel="noopener" class="contact-btn-pressable btn-tiktok"><i class="fa-brands fa-tiktok"></i><span>TikTok</span></a></li>
+        </ul>
+    </div>
+
+    <footer>
+      <div class="footer-brand">
+        <a href="TD.png" target="_blank" title="Ver QR en grande">
+          <div class="sello"><img src="haku-logo.png" alt="Haku"></div>
+        </a>
+        <div style="color:var(--muted);font-size:13px">© <span id="year"></span> Sergio Garduño Jardón</div>
+      </div>
+      <div style="color:var(--muted);font-size:13px">Contacto: sgj.cheko@gmail.com</div>
+    </footer>
+
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    
+    /* ================================== */
+    /* JAVASCRIPT DEL PRELOADER */
+    /* ================================== */
+    const textToAnimate = "Cargando";
+    const loadingTextContainer = document.getElementById('loading-text-container'); // Renombrado para evitar conflicto
+    const animationDuration = (textToAnimate.length * 50) + 1000; 
+    let repeatCount = 0;
+    const maxRepeats = 2; // Dos ciclos de "Cargando"
+
+    function animateText() {
+        loadingTextContainer.innerHTML = '';
+        loadingTextContainer.classList.remove('animate'); 
+
+        textToAnimate.split('').forEach((char, index) => {
+            const span = document.createElement('span');
+            span.textContent = char;
+            loadingTextContainer.appendChild(span);
+            span.style.transitionDelay = `${index * 50}ms`; 
+        });
+
+        setTimeout(() => {
+            loadingTextContainer.classList.add('animate');
+        }, 100); 
+
+        setTimeout(() => {
+            repeatCount++;
+            if (repeatCount < maxRepeats) {
+                animateText();
+            } else {
+                hidePreloader();
+            }
+        }, animationDuration);
+    }
+
+    function hidePreloader() {
+        const preloader = document.getElementById('preloader');
+        const body = document.body;
+        
+        preloader.classList.add('hidden');
+        
+        setTimeout(() => { 
+            body.classList.add('loaded'); 
+            startTypewriterNameEffect(); // Inicia el efecto typewriter en el nombre
+        }, 500); 
+    }
+
+    window.addEventListener('load', function() {
+        animateText(); 
+    });
+    /* --- FIN SCRIPT PRELOADER --- */
+
+
+    
+    /* ================================== */
+    /* SCRIPT ORIGINAL DE TD Y EFECTOS */
+    /* ================================== */
+
+    // Configuración de Partículas
+    particlesJS("particles-js", {
+      "particles": { "number": { "value": 80, "density": { "enable": true, "value_area": 800 }}, "color": { "value": ["#FFD700", "#63b96f", "#0077b6", "#eef1f0"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }}, "opacity": { "value": 0.6, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false }}, "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false }}, "line_linked": { "enable": true, "distance": 150, "color": "#a3a3a3", "opacity": 0.4, "width": 1 }, "move": { "enable": true, "speed": 3, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }},
+      "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" }, "resize": true }, "modes": { "grab": { "distance": 400, "line_linked": { "opacity": 1 }}, "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 }, "repulse": { "distance": 150, "duration": 0.4 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 }}},
+      "retina_detect": true
+    });
+
+    // Script del año
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    
+    // SCRIPT PARA EFECTO FLIP (INTERCAMBIO)
+    const avatarContainer = document.getElementById('avatar-container');
+    const avatarImg = document.getElementById('avatar-img');
+    
+    const originalSrc = 'perfil.png'; 
+    const qrSrc = 'TD.png';       
+    
+    let isQrMode = false;
+
+    avatarContainer.addEventListener('click', () => {
+        if (isQrMode) {
+            avatarImg.src = originalSrc;
+            avatarImg.alt = 'Sergio Garduño Jardón';
+            avatarContainer.classList.remove('qr-mode');
+            avatarContainer.title = 'Clic para QR';
+        } else {
+            avatarImg.src = qrSrc;
+            avatarImg.alt = 'Código QR de Contacto';
+            avatarContainer.classList.add('qr-mode');
+            avatarContainer.title = 'Clic para volver a la foto';
+        }
+        isQrMode = !isQrMode;
+    });
+
+    // SCRIPT PARA EFECTO TYPEWRITER EN EL NOMBRE Y LEYENDA
+    const typewriterNameElement = document.getElementById('typewriter-name');
+    const profileFullDescriptionElement = document.getElementById('profile-full-description');
+    const typewriterNameString = "Sergio Garduño Jardón";
+
+    function startTypewriterNameEffect() {
+        typewriterNameElement.textContent = ''; 
+        const textLength = typewriterNameString.length;
+        
+        // Ajustar la variable CSS para el ancho de la animación del nombre
+        typewriterNameElement.style.setProperty('--typewriter-width-name', `${textLength}ch`);
+        
+        let charIndex = 0;
+        const typingSpeed = 75; // Velocidad de tecleo
+        
+        function typeChar() {
+            if (charIndex < textLength) {
+                typewriterNameElement.textContent += typewriterNameString.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeChar, typingSpeed);
+            } else {
+                // Cuando el tecleo del nombre termina, quitar el cursor parpadeante
+                typewriterNameElement.style.borderRight = 'none'; 
+                // Y mostrar la descripción completa con un retraso
+                setTimeout(() => {
+                    profileFullDescriptionElement.classList.add('visible');
+                }, 500); 
+            }
+        }
+        typeChar(); // Iniciar el tecleo del nombre
+    }
+
+  </script>
+</body>
+</html>
