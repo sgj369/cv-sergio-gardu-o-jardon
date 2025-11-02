@@ -396,6 +396,61 @@
         opacity: 1;
         transform: translateY(0);
     }
+
+    /* ================================================= */
+    /* --- 9.6 FIX DE ACCESIBILIDAD (REDUCIR MOVIMIENTO) --- */
+    /* ================================================= */
+    
+    @media (prefers-reduced-motion: reduce) {
+      /* Desactiva todas las animaciones y transiciones */
+      .pulse-card, .pulse-card-blue, .pulse-card-white, .avatar {
+        animation: none !important;
+      }
+      
+      .card, footer {
+        transition: none !importa
+      }
+      
+      /* ESTA ES LA LÍNEA MÁS IMPORTANTE: 
+        Fuerza a que las tarjetas sean visibles si las animaciones están apagadas.
+      */
+      .card, footer {
+        opacity: 1;
+        transform: none;
+      }
+      
+      /* Oculta el cursor de tecleo si las animaciones están apagadas */
+      .typewriter-title {
+        border-right: none;
+      }
+    }
+
+        /* ================================================= */
+    /* --- 9.7 ANIMACIÓN DE PULSO PARA AVATAR --- */
+    /* ================================================= */
+
+    /* Añade la animación a tu avatar */
+    .avatar {
+        animation: pulse-avatar-glow 2.5s infinite ease-in-out;
+    }
+    
+    /* Define la animación */
+    @keyframes pulse-avatar-glow {
+        0% {
+            /* Tu sombra original */
+            box-shadow: 0 0 15px rgba(238, 241, 240, 0.5);
+        }
+        50% {
+            /* Sombra más intensa */
+            box-shadow: 0 0 30px rgba(238, 241, 240, 0.8); 
+        }
+        100% {
+            /* Vuelve a la original */
+            box-shadow: 0 0 15px rgba(238, 241, 240, 0.5);
+        }
+    }
+
+
     
     /* 10. RESPONSIVE (de TD) */
     @media (max-width: 480px) {
