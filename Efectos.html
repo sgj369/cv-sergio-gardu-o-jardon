@@ -164,12 +164,6 @@
       max-width: 420px; 
       margin:0 auto; position:relative;
       display: flex; flex-direction: column; gap: 22px;
-      opacity: 0; 
-      transition: opacity 0.5s ease 0.5s;
-    }
-    
-    body.loaded .wrap {
-        opacity: 1;
     }
 
     /* 4. ESTILOS DE TARJETA (de TD) */
@@ -213,16 +207,15 @@
     /* ================================================= */
 
     /* --- Efecto 1: Título con Typewriter --- */
-    /* Ahora para el nombre completo */
     .typewriter-title {
         font-size: 32px;
         font-weight: 900;
-        color: #eef1f0; /* Color blanco directo para el texto */
-        text-shadow: 0 0 10px rgba(238, 241, 240, 0.7); /* Sombra sutil */
+        color: #eef1f0; 
+        text-shadow: 0 0 10px rgba(238, 241, 240, 0.7); 
         text-align: center;
         overflow: hidden; 
         white-space: nowrap; 
-        border-right: .15em solid var(--accent-gold); /* Cursor dorado */
+        border-right: .15em solid var(--accent-gold); 
         animation: 
             typing-name var(--typing-speed, 3.5s) steps(var(--typing-steps, 40), end) forwards,
             blink-caret .75s step-end infinite;
@@ -242,23 +235,6 @@
       50% { border-color: var(--accent-gold); }
     }
     
-    /* Leyenda debajo del nombre */
-    .profile-full-description {
-        font-size: 15px;
-        line-height: 1.6;
-        color: var(--muted);
-        text-align: center;
-        margin-top: 10px; 
-        opacity: 0; 
-        transition: opacity 1s ease 0.5s; 
-        max-width: 90%; 
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .profile-full-description.visible {
-        opacity: 1;
-    }
-
     /* --- Efecto 2: "Pulso" en Tarjetas de Sección (Púrpura) --- */
     .pulse-card {
         border-left: 5px solid var(--accent-purple);
@@ -278,7 +254,7 @@
 
     /* --- Efecto 3: "Pulso" en Tarjetas de Sección (Azul, solo Contacto) --- */
     .pulse-card-blue {
-        border-left: 5px solid var(--accent-blue); /* Borde azul */
+        border-left: 5px solid var(--accent-blue);
         animation: pulse-shadow-blue 2.5s infinite ease-in-out;
     }
     @keyframes pulse-shadow-blue {
@@ -313,14 +289,29 @@
     .header-button-container { margin-top: 20px; text-align: center; } 
 
     /* 6. TARJETA DE PERFIL (de TD) */
-    #perfil { /* border-left-color está en .pulse-card */ } 
+    #perfil { /* Borde controlado por .pulse-card */ } 
     #perfil::after { background: var(--accent-blue); } 
-    #perfil .profile-title { color: var(--accent-blue); font-size:18px; font-weight:800; margin-top: 0; margin-bottom:8px; text-align: center;}
-    #perfil .profile-text{ font-size:15px; line-height:1.6; text-align: center; }
+    #perfil .profile-title { color: var(--accent-blue); font-size:18px; font-weight:800; margin-top: 0; margin-bottom:8px }
+    
+    /* ESTILO MODIFICADO: Texto de perfil ahora tiene efecto de entrada */
+    #perfil .profile-text{ 
+        font-size:15px; 
+        line-height:1.6; 
+        text-align: center;
+        /* --- ESTILOS PARA FADE-IN --- */
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.8s ease-out 0.5s, transform 0.8s ease-out 0.5s; /* 0.5s de retraso */
+    }
+    
+    #perfil .profile-text.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
 
     /* 7. TARJETA DE CONTACTO (de TD) */
-    /* Ahora usa la clase .pulse-card-blue */
-    #contacto { /* border-left-color está en .pulse-card-blue */ } 
+    #contacto { /* Borde controlado por .pulse-card-blue */ } 
     #contacto::after { background: var(--fg); } 
     #contacto > div:first-child { color: var(--fg); font-weight: 800; margin-bottom: 12px; font-size: 18px; }
         
@@ -341,7 +332,6 @@
     #contacto .contact-btn-pressable:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.3); }
     #contacto .contact-btn-pressable i { font-size: 1.2em; margin-right: 12px; width: 25px text-align: center; color: inherit; }
 
-    /* ... (resto de tus estilos de botones .btn-email, .btn-whatsapp, etc. sin cambios) ... */
     #contacto .btn-email { background: var(--accent-yellow); color: #332400; }
     #contacto .btn-email:hover { box-shadow: 0 8px 25px rgba(255, 195, 0, 0.3); }
     #contacto .btn-email i { color: #332400; } 
@@ -360,16 +350,9 @@
 
 
     /* 8. FOOTER (de TD) */
-    /* Vuelve a su estado normal, sin pulso */
     footer{
       text-align:center;color:var(--muted);font-size:13px;padding:26px 0 10px;display:flex;
       align-items:center;justify-content:center;gap:10px; flex-wrap: wrap;
-      opacity: 0; 
-      transition: opacity 0.5s ease 0.5s;
-    }
-    
-    body.loaded footer {
-        opacity: 1;
     }
     
     .footer-brand{display:flex;align-items:center;gap:8px}
@@ -387,35 +370,29 @@
       background-color: var(--bg-uniform);
     }
 
-        /* 9.5 ANIMACIÓN DE ENTRADA (Fade-in) */
+    /* 9.5 ANIMACIÓN DE ENTRADA (Fade-in) */
     .card, footer {
-        /* Estado inicial: oculto y movido hacia abajo */
         opacity: 0;
         transform: translateY(30px);
         transition: opacity 0.6s ease-out, transform 0.6s ease-out;
     }
-
-    /* Estado visible (cuando lo activa el JS) */
     .card.is-visible, footer.is-visible {
         opacity: 1;
         transform: translateY(0);
     }
-
     
-        /* 10. RESPONSIVE (de TD) */
+    /* 10. RESPONSIVE (de TD) */
     @media (max-width: 480px) {
         body { padding: 20px 20px; }
         
         .typewriter-title { 
             font-size: 28px; 
-            white-space: normal; /* <-- AÑADE ESTA LÍNEA */
-            word-break: break-word; /* <-- AÑADE ESTA LÍNEA */
-            width: 100%; /* <-- AÑADE ESTA LÍNEA (para que ocupe todo el ancho) */
+            white-space: normal; /* Permite salto de línea en móvil */
+            word-break: break-word; 
+            width: 100%; 
         } 
         
-        .profile-full-description { 
-            font-size: 14px; /* <-- Ajustado un poco */
-        } 
+        #perfil .profile-title { text-align: center; } /* Centra título de perfil */
         
         .avatar { width: 100px; height: 100px; }
         footer { flex-direction: column; gap: 15px; justify-content: center; }
@@ -458,10 +435,7 @@
       <div>
           <div class="typewriter-title" id="typewriter-name"></div>
           
-          <div class="profile-full-description" id="profile-full-description">
-            Ingeniero Mecatrónico enfocado en desarrollos de sistemas IoT y protección de la flora y fauna, así como de iniciativas verdes.
           </div>
-      </div>
       
       <div class="header-button-container">
         <a class="btn-fill-white" href="index.html" target="_blank" rel="noopener" title="Abrir Portafolio Digital">
@@ -473,11 +447,13 @@
 
     <section class="card pulse-card" id="perfil">
       <div class="profile-title">Perfil</div>
-      <div class="profile-text">
+      
+      <div class="profile-text" id="perfil-text-content">
         Ingeniero Mecatrónico enfocado en desarrollos de sistemas IoT y protección de la flora y fauna, así como de iniciativas verdes.
       </div>
     </section>
 
+    
     <div class="card pulse-card-blue" id="contacto">
       <div>Contacto</div>
         <ul class="contact-list"> 
@@ -504,6 +480,7 @@
         </ul>
     </div>
 
+    
     <footer>
       <div class="footer-brand">
         <a href="TD.png" target="_blank" title="Ver QR en grande">
@@ -517,18 +494,27 @@
   </div>
   
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  
   <script>
     
     /* ================================== */
     /* JAVASCRIPT DEL PRELOADER */
     /* ================================== */
     const textToAnimate = "Cargando";
-    const loadingTextContainer = document.getElementById('loading-text-container'); // Renombrado para evitar conflicto
     const animationDuration = (textToAnimate.length * 50) + 1000; 
     let repeatCount = 0;
-    const maxRepeats = 2; // Dos ciclos de "Cargando"
+    const maxRepeats = 2; 
+    let loadingTextContainer; 
 
     function animateText() {
+        if (!loadingTextContainer) {
+             loadingTextContainer = document.getElementById('loading-text-container');
+             if (!loadingTextContainer) {
+                hidePreloader(); 
+                return;
+             }
+        }
+        
         loadingTextContainer.innerHTML = '';
         loadingTextContainer.classList.remove('animate'); 
 
@@ -557,127 +543,43 @@
         const preloader = document.getElementById('preloader');
         const body = document.body;
         
-        preloader.classList.add('hidden');
+        if (preloader) preloader.classList.add('hidden');
         
         setTimeout(() => { 
             body.classList.add('loaded'); 
-            startTypewriterNameEffect(); // Inicia el efecto typewriter en el nombre
+            startTypewriterNameEffect(); 
+            showPerfilText(); // <-- ACTIVA EL FADE-IN DE PERFIL
             setupCardAnimations(); 
         }, 500); 
     }
-
-    window.addEventListener('load', function() {
-        animateText(); 
-    });
     /* --- FIN SCRIPT PRELOADER --- */
-        /* ================================== */
-    /* SCRIPT DE ANIMACIÓN DE ENTRADA */
-    /* ================================== */
-    function setupCardAnimations() {
-        const animatedElements = document.querySelectorAll('.card, footer');
-        
-        if ("IntersectionObserver" in window) {
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach((entry, index) => {
-                    if (entry.isIntersecting) {
-                        // Añadimos un pequeño retraso escalonado
-                        setTimeout(() => {
-                            entry.target.classList.add('is-visible');
-                        }, index * 100); // 100ms de retraso entre cada tarjeta
-                        
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1 }); // Se activa al ver el 10%
-
-            animatedElements.forEach(el => {
-                observer.observe(el);
-            });
-        } else {
-            // Si el navegador es muy viejo, solo muéstralas
-            animatedElements.forEach(el => {
-                el.classList.add('is-visible');
-            });
-        }
-    }
-    /* --- FIN SCRIPT ANIMACIÓN --- */
 
 
     
     /* ================================== */
-    /* SCRIPT ORIGINAL DE TD Y EFECTOS */
+    /* SCRIPT DE TYPEWRITER (NOMBRE) */
     /* ================================== */
-
-    // Configuración de Partículas
-    particlesJS("particles-js", {
-      "particles": { "number": { "value": 80, "density": { "enable": true, "value_area": 800 }}, "color": { "value": ["#FFD700", "#63b96f", "#0077b6", "#eef1f0"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }}, "opacity": { "value": 0.6, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false }}, "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false }}, "line_linked": { "enable": true, "distance": 150, "color": "#a3a3a3", "opacity": 0.4, "width": 1 }, "move": { "enable": true, "speed": 3, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }},
-      "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" }, "resize": true }, "modes": { "grab": { "distance": 400, "line_linked": { "opacity": 1 }}, "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 }, "repulse": { "distance": 150, "duration": 0.4 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 }}},
-      "retina_detect": true
-    });
-
-    // Script del año
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    
-    // SCRIPT PARA EFECTO FLIP (INTERCAMBIO)
-    const avatarContainer = document.getElementById('avatar-container');
-    const avatarImg = document.getElementById('avatar-img');
-    
-    const originalSrc = 'perfil.png'; 
-    const qrSrc = 'TD.png';       
-    
-    let isQrMode = false;
-
-    avatarContainer.addEventListener('click', () => {
-        if (isQrMode) {
-            avatarImg.src = originalSrc;
-            avatarImg.alt = 'Sergio Garduño Jardón';
-            avatarContainer.classList.remove('qr-mode');
-            avatarContainer.title = 'Clic para QR';
-        } else {
-            avatarImg.src = qrSrc;
-            avatarImg.alt = 'Código QR de Contacto';
-            avatarContainer.classList.add('qr-mode');
-            avatarContainer.title = 'Clic para volver a la foto';
-        }
-        isQrMode = !isQrMode;
-    });
-
-        // SCRIPT PARA EFECTO TYPEWRITER EN EL NOMBRE Y LEYENDA
-    const typewriterNameElement = document.getElementById('typewriter-name');
-    const profileFullDescriptionElement = document.getElementById('profile-full-description');
+    let typewriterNameElement;
     const typewriterNameString = "Sergio Garduño Jardón";
 
     function startTypewriterNameEffect() {
-        if (!typewriterNameElement || !profileFullDescriptionElement) {
-             console.error("Typewriter: No se encontraron elementos.");
-             return;
-        }
+        typewriterNameElement = document.getElementById('typewriter-name');
+        
+        if (!typewriterNameElement) return;
 
         typewriterNameElement.textContent = ''; 
         const textLength = typewriterNameString.length;
         
-        // --- INICIO DE LA SOLUCIÓN ---
-        // Comprobar si estamos en un móvil (pantalla pequeña)
         const isMobile = window.innerWidth <= 480;
 
         if (isMobile) {
-            // En móvil, rompemos el texto en dos líneas
-            // y ajustamos el estilo para que se vea bien
-            typewriterNameElement.innerHTML = "Sergio<br>Garduño Jardón"; // Rompe la línea
-            typewriterNameElement.style.whiteSpace = "normal"; // Permite salto de línea
-            typewriterNameElement.style.width = "100%"; // Ocupa todo el ancho
-            typewriterNameElement.style.borderRight = "none"; // Quita el cursor
-            
-            // Hacemos aparecer la descripción directamente
-            profileFullDescriptionElement.classList.add('visible');
-            
-            // NOTA: Saltamos el efecto de tecleo en móvil
-            // porque es muy complejo de manejar con saltos de línea.
-            // Es mejor mostrar el texto completo directamente.
-            
+            // En móvil, rompemos el texto y quitamos el efecto
+            typewriterNameElement.innerHTML = "Sergio<br>Garduño Jardón";
+            typewriterNameElement.style.whiteSpace = "normal";
+            typewriterNameElement.style.width = "100%";
+            typewriterNameElement.style.borderRight = "none";
         } else {
-            // En Tablet/Escritorio, hacemos el efecto de tecleo normal
+            // En Escritorio, tecleamos
             typewriterNameElement.style.setProperty('--typewriter-width-name', `${textLength}ch`);
             
             let charIndex = 0;
@@ -690,16 +592,103 @@
                     setTimeout(typeChar, typingSpeed);
                 } else {
                     typewriterNameElement.style.borderRight = 'none'; 
-                    setTimeout(() => {
-                        profileFullDescriptionElement.classList.add('visible');
-                    }, 500); 
+                    // Ya no muestra la leyenda
                 }
             }
-            typeChar(); // Iniciar el tecleo
+            typeChar();
         }
-        // --- FIN DE LA SOLUCIÓN ---
     }
+    /* --- FIN SCRIPT TYPEWRITER --- */
 
+    
+    /* ================================== */
+    /* SCRIPT PARA MOSTRAR TEXTO DE PERFIL */
+    /* ================================== */
+    function showPerfilText() {
+        const perfilText = document.getElementById('perfil-text-content');
+        if (perfilText) {
+            perfilText.classList.add('visible');
+        }
+    }
+    /* --- FIN SCRIPT PERFIL --- */
+
+
+    /* ================================== */
+    /* SCRIPT DE ANIMACIÓN DE ENTRADA */
+    /* ================================== */
+    function setupCardAnimations() {
+        const animatedElements = document.querySelectorAll('.card, footer');
+        
+        if ("IntersectionObserver" in window) {
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('is-visible');
+                        }, index * 100); 
+                        
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 }); 
+
+            animatedElements.forEach(el => {
+                observer.observe(el);
+            });
+        } else {
+            animatedElements.forEach(el => {
+                el.classList.add('is-visible');
+            });
+        }
+    }
+    /* --- FIN SCRIPT ANIMACIÓN --- */
+
+
+    
+    /* ================================== */
+    /* --- INICIALIZACIÓN PRINCIPAL --- */
+    /* ================================== */
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        // 1. Inicia el preloader
+        loadingTextContainer = document.getElementById('loading-text-container');
+        animateText(); 
+        
+        // 2. Configura el script del año
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // 3. Configura el Flip del Avatar
+        const avatarContainer = document.getElementById('avatar-container');
+        const avatarImg = document.getElementById('avatar-img');
+        const originalSrc = 'perfil.png'; 
+        const qrSrc = 'TD.png';       
+        let isQrMode = false;
+
+        if (avatarContainer) { 
+            avatarContainer.addEventListener('click', () => {
+                if (isQrMode) {
+                    avatarImg.src = originalSrc;
+                    avatarImg.alt = 'Sergio Garduño Jardón';
+                    avatarContainer.classList.remove('qr-mode');
+                    avatarContainer.title = 'Clic para QR';
+                } else {
+                    avatarImg.src = qrSrc;
+                    avatarImg.alt = 'Código QR de Contacto';
+                    avatarContainer.classList.add('qr-mode');
+                    avatarContainer.title = 'Clic para volver a la foto';
+                }
+                isQrMode = !isQrMode;
+            });
+        }
+
+        // 4. Inicia las partículas
+        particlesJS("particles-js", {
+          "particles": { "number": { "value": 80, "density": { "enable": true, "value_area": 800 }}, "color": { "value": ["#FFD700", "#63b96f", "#0077b6", "#eef1f0"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }}, "opacity": { "value": 0.6, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false }}, "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false }}, "line_linked": { "enable": true, "distance": 150, "color": "#a3a3a3", "opacity": 0.4, "width": 1 }, "move": { "enable": true, "speed": 3, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }},
+          "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" }, "resize": true }, "modes": { "grab": { "distance": 400, "line_linked": { "opacity": 1 }}, "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 }, "repulse": { "distance": 150, "duration": 0.4 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 }}},
+          "retina_detect": true
+        });
+
+    }); 
 
   </script>
 </body>
