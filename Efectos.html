@@ -164,7 +164,13 @@
       max-width: 420px; 
       margin:0 auto; position:relative;
       display: flex; flex-direction: column; gap: 22px;
+      /* --- CORRECCIÓN --- */
+      /* Quitamos la opacidad y transición de aquí para que el Observer controle todo */
     }
+    
+    /* --- CORRECCIÓN --- */
+    /* Eliminamos la regla 'body.loaded .wrap' que causaba el conflicto */
+
 
     /* 4. ESTILOS DE TARJETA (de TD) */
     .card{
@@ -223,15 +229,17 @@
         max-width: 100%;
         width: fit-content;
         box-sizing: border-box;
-    }
+        
+        /* --- CORRECCIÓN DE SINTAXIS --- */
+        /* Estas propiedades ahora están DENTRO de la regla */
         opacity: 0; /* Oculto por defecto */
         transition: opacity 0.8s ease-out; /* Animación de aparición */
     }
+    /* El '}' extra fue eliminado */
     
-      .typewriter-title.visible {
+    .typewriter-title.visible {
         opacity: 1; /* Estado visible */
     }
-
     
     @keyframes typing-name {
       from { width: 0 }
@@ -301,22 +309,15 @@
     #perfil::after { background: var(--accent-blue); } 
     #perfil .profile-title { color: var(--accent-blue); font-size:18px; font-weight:800; margin-top: 0; margin-bottom:8px }
     
-    /* ESTILO MODIFICADO: Texto de perfil ahora tiene efecto de entrada */
+    /* --- CORRECCIÓN --- */
+    /* Eliminamos la regla duplicada y la que tenía 'opacity: 0' */
     #perfil .profile-text{ 
         font-size:15px; 
         line-height:1.6; 
         text-align: center;
-        /* --- ESTILOS PARA FADE-IN --- */
-        opacity: 0;
-        transform: translateY(10px);
-        transition: opacity 0.8s ease-out 0.5s, transform 0.8s ease-out 0.5s; /* 0.5s de retraso */
+        /* El texto ahora aparecerá con su tarjeta padre */
     }
 
-    #perfil .profile-text{ 
-        font-size:15px; 
-        line-height:1.6; 
-        text-align: center;
-    }
 
     /* 7. TARJETA DE CONTACTO (de TD) */
     #contacto { /* Borde controlado por .pulse-card-blue */ } 
