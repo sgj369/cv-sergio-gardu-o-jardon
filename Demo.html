@@ -916,50 +916,49 @@
 
 
 /* ============================================= */
-/* 3. Efecto de Tecleo (Typewriter) en tu Nombre */
+/* 3. Efecto de Tecleo (Typewriter) (Lógica) */
 /* ============================================= */
+    
+function startTypewriterNameEffect(name) {
+    // CAMBIO 1: Buscar el elemento por el nuevo ID (Asegúrate de que tu HTML tenga id="typewriter-name-container")
+    const titleElement = document.getElementById('typewriter-name-container');
+    if (!titleElement) return;
 
-.typewriter-title {
-  /* Estilo base */
-  font-size: 36px;
-  font-weight: 900;
-  color: #000;
-  text-shadow: -1px -1px 0 var(--fg), 1px -1px 0 var(--fg), -1px 1px 0 var(--fg), 1px 1px 0 var(--fg);
-  text-align: center;
-  
-  /* Propiedades de Typewriter */
-  overflow: hidden; /* Oculta el texto hasta que se escribe */
-  border-right: 3px solid var(--accent-gold); /* Cursor simulado */
-  white-space: nowrap; /* Mantiene el texto en una sola línea */
-  width: 0; /* Ancho inicial 0 */
-  opacity: 0; /* Oculto inicialmente */
-  transition: opacity 0.1s ease;
+    // CAMBIO 2: Ya no reemplazamos el inner HTML. Solo añadimos la clase de estilo.
+    titleElement.classList.add('typewriter-title');
+    
+    // CAMBIO 3: titleElement AHORA ES EL ELEMENTO DE ESCRITURA
+    const typewriterElement = titleElement; // Usamos titleElement directamente
+    
+    // 2. Calcula el ancho real del texto para la animación
+    // Inicia el cálculo del ancho para la animación CSS
+    const tempSpan = document.createElement('span');
+    tempSpan.textContent = name;
+    tempSpan.style.visibility = 'hidden';
+    tempSpan.style.position = 'absolute';
+    tempSpan.style.fontSize = getComputedStyle(typewriterElement).fontSize;
+    tempSpan.style.fontWeight = getComputedStyle(typewriterElement).fontWeight;
+    tempSpan.style.fontFamily = getComputedStyle(typewriterElement).fontFamily;
+    document.body.appendChild(tempSpan);
+    const nameWidth = tempSpan.offsetWidth + 2; // + 2px de margen
+    document.body.removeChild(tempSpan); // Elimina el elemento de medición
+
+    // 3. Establece variables CSS
+    const chars = name.length;
+    const totalTime = 3.0; // Duración total de la animación en segundos
+    typewriterElement.style.setProperty('--typewriter-width-name', `${nameWidth}px`);
+    typewriterElement.style.setProperty('--typewriter-chars', chars);
+    typewriterElement.style.setProperty('--typewriter-time', `${totalTime}s`);
+    
+    // 4. Inicia la animación de CSS
+    typewriterElement.classList.add('visible');
+
+    // 5. Oculta el cursor después de que termine la animación de tecleo
+    setTimeout(() => {
+        typewriterElement.style.borderRight = 'none';
+    }, totalTime * 1000 + 500); // 3.0 segundos + 0.5s extra
 }
 
-.typewriter-title.visible {
-  opacity: 1;
-  /* El width de la animación se define con una variable CSS desde JS: --typewriter-width-name */
-  animation: typing-name var(--typewriter-time) steps(var(--typewriter-chars)) forwards,
-             blink-caret 0.5s step-end infinite;
-}
-
-/* La animación 'typing-name' usa la variable --typewriter-width-name */
-@keyframes typing-name {
-  from { width: 0; }
-  to { width: var(--typewriter-width-name); } 
-}
-
-@keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: var(--accent-gold); }
-}
-
-/* Responsive: Asegura que el nombre quepa en el móvil */
-@media (max-width: 480px) {
-  .typewriter-title { 
-    font-size: 28px; 
-  }
-}
 
 /* ============================================= */
 /* 4. Animación de Entrada (Aparecer al Bajar) (Complemento) */
