@@ -805,13 +805,13 @@
      }
      
 /* ============================================= */
-/* 1. Preloader con GIF y Texto Animado */
+/* 1. Preloader con GIF y Texto Animado (AJUSTADO TD) */
 /* ============================================= */
 #preloader {
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background-color: var(--bg-uniform); /* Fondo oscuro */
+  background-color: var(--bg-uniform); /* Usamos el color de fondo uniforme */
   z-index: 9999;
   display: flex;
   flex-direction: column;
@@ -824,7 +824,7 @@
 
 #preloader.hidden {
   opacity: 0;
-  pointer-events: none; /* Inhabilita interacciones una vez oculto */
+  pointer-events: none;
 }
 
 .haku-visual-container {
@@ -836,17 +836,18 @@
 .haku-img {
   width: 120px;
   height: 120px;
-  /* Animación de giro eliminada para el hakuwalk.gif */
+  /* Animación de giro eliminada */
 }
 
-/* @keyframes spin ELIMINADO */
-
 .loading-text {
-  font-size: 1.8em;
-  font-weight: 700;
-  color: var(--accent-gold); /* Dorado */
+  /* --- AJUSTES DE COLOR Y TAMAÑO --- */
+  font-size: 3.5em; /* Tamaño más grande (3.5em) */
+  font-weight: bold;
+  color: var(--fg); /* Color Blanco/Gris suave (eef1f0) */
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.4); /* Sombra de brillo blanco */
   white-space: nowrap;
-  letter-spacing: 2px;
+  letter-spacing: normal; /* Espaciado normal */
+  /* -------------------------------- */
 }
 
 .loading-text span {
@@ -861,6 +862,13 @@
   transform: translateY(0);
 }
 
+/* Responsive para móvil */
+@media (max-width: 600px) {
+    .loading-text {
+        font-size: 2.5em; /* Reducción a 2.5em en móvil */
+    }
+}
+
 /* ============================================= */
 /* 2. Efecto de Pulso (Brillo) en Tarjetas y Avatar (CORREGIDO Y ESPECÍFICO) */
 /* ============================================= */
@@ -868,7 +876,7 @@
 /* Brillo del Avatar (Foto de Perfil) */
 .avatar {
   /* ... (Mantén los estilos existentes) ... */
-  animation: pulse-avatar-glow 2s infinite alternate ease-in-out;
+  animation: pulse-avatar-glow 1.5s infinite alternate ease-in-out;
 }
 
 @keyframes pulse-avatar-glow {
@@ -884,7 +892,7 @@
 .card.pulse-card-red,
 .card.pulse-card-blue {
     /* Establece una animación base, pero el keyframe usa el color de acento del borde */
-    animation: pulse-color-shadow 3s infinite alternate ease-in-out;
+    animation: pulse-color-shadow 1.5s infinite alternate ease-in-out;
 }
 
 @keyframes pulse-color-shadow {
@@ -899,7 +907,7 @@
 
 /* Sobrescribe para el Card Blanco (Header) - Usa el blanco puro */
 .card.pulse-card-white {
-    animation: pulse-shadow-white 3s infinite alternate ease-in-out;
+    animation: pulse-shadow-white 1.5s infinite alternate ease-in-out;
 }
 @keyframes pulse-shadow-white {
   from { box-shadow: 0 10px 30px rgba(238, 241, 240, 0.1), 0 0 5px rgba(238, 241, 240, 0.05); }
