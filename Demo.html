@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <title>Demo Menú Superior Dinámico con Preloader Haku</title>
+  <title>Demo Menú Lateral Fijo Desplegable</title>
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
@@ -18,87 +18,78 @@
       
       --card-bg: rgba(0,0,0,0.88);
       --card-border: rgba(255,255,255,0.1); 
-      /* --menu-width-collapsed: 70px;  <-- YA NO SE USA */
-      --menu-height: 70px; /* Altura del nuevo menú superior */
+      --menu-width: 250px; /* Ancho del menú desplegado */
     }
 
     body {
       font-family: Inter, system-ui, sans-serif;
       background-color: var(--bg-uniform);
       color: var(--fg);
-      padding: 20px;
-      overflow: hidden; 
+      padding: 0; /* Quitamos padding para que el menú toque el borde */
+      margin: 0;
+      min-height: 100vh; /* Asegura que se pueda hacer scroll */
     }
-    
-    /* 🚨 ESPACIO PARA EL MENÚ SUPERIOR FIJO 🚨 */
-    /* Este padding empuja el contenido hacia abajo para que no quede debajo del menú */
-    body.loaded {
-      padding-top: var(--menu-height); 
-      overflow-y: auto;
-    }
-
 
     /* ================================================= */
-    /* --- MENÚ SUPERIOR DINÁMICO (Antes .side-navbar) --- */
+    /* --- BOTÓN DE TOGGLE (HAMBURGUESA) --- */
+    /* ================================================= */
+    #menu-toggle-btn {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 1000;
+        cursor: pointer;
+        padding: 10px 12px;
+        background-color: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 8px;
+        color: var(--fg);
+        font-size: 1.5em;
+        transition: background-color 0.3s;
+    }
+
+    #menu-toggle-btn:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    /* ================================================= */
+    /* --- MENÚ LATERAL DESPLEGABLE --- */
     /* ================================================= */
     
     .side-navbar {
-      /* 🚨 POSICIÓN SUPERIOR FIJA 🚨 */
+      /* 🚨 FIJO EN PANTALLA 🚨 */
       position: fixed;
       top: 0;
-      left: 0;
-      width: 100%;
-      height: var(--menu-height);
+      bottom: 0; /* Se extiende por toda la altura */
+      width: var(--menu-width); 
       
       background: var(--card-bg);
-      border-bottom: 1px solid var(--card-border); /* Borde inferior */
-      border-radius: 0 0 14px 14px; /* Bordes inferiores redondeados */
-      overflow: hidden;
-      padding: 0 20px; /* Padding horizontal */
-      z-index: 998; /* Un poco menos que el preloader */
+      border-right: 1px solid var(--card-border);
+      border-radius: 0 14px 14px 0; /* Solo bordes derechos redondeados */
+      overflow-y: auto; /* Permite scroll si hay muchos ítems */
+      padding: 20px 0;
+      z-index: 999;
       
-      /* 🚨 TRANSICIÓN PARA EL EFECTO SCROLL 🚨 */
-      transition: top 0.3s ease-out, opacity 0.5s ease 0.5s;
-      
-      /* Estilos Flexbox para alinear los enlaces horizontalmente */
-      display: flex;
-      justify-content: flex-start; /* Alinea los ítems a la izquierda */
-      align-items: center;
-      
-      opacity: 0; /* Empieza oculto y aparece con JS */
+      /* 🚨 ESTADO INICIAL: OCULTO FUERA DE PANTALLA 🚨 */
+      left: calc(0px - var(--menu-width)); /* Mueve el menú a la izquierda */
+      transition: left 0.3s ease-out; /* Animación de despliegue */
     }
     
-    /* Clase que se añade con JS para ocultar el menú al hacer scroll down */
-    .side-navbar.hidden-scroll {
-        top: calc(0px - var(--menu-height)); /* Lo mueve hacia arriba fuera de la pantalla */
+    /* 🚨 ESTADO VISIBLE: SE APLICA CON JS AL HACER CLIC 🚨 */
+    .side-navbar.active {
+        left: 0; /* Lo desliza hacia la vista */
     }
-
-    body.loaded .side-navbar {
-        opacity: 1;
-    }
-    
-    /* Reajuste de la lista y los enlaces para ser horizontales */
-    .side-navbar ul { 
-        list-style: none; 
-        padding: 0; 
-        margin: 0; 
-        width: auto; /* Ancho automático */
-        display: flex; /* La lista es un flex container */
-    }
-    
-    .side-navbar li {
-        margin-right: 20px; /* Espacio entre los ítems */
-    }
+  
+    .side-navbar ul { list-style: none; padding: 0; margin: 0; width: 100%; }
 
     .side-navbar .nav-link {
       display: flex; 
-      align-items: center;
-      justify-content: center; /* Centra contenido del enlace */
-      padding: 0 15px; /* Padding dentro del enlace */
+      align-items: center; 
+      padding-left: 23px;
       color: var(--fg);
       text-decoration: none; 
-      height: var(--menu-height); /* Altura igual al menú */
-      width: auto;
+      height: 50px; 
+      width: 100%;
       white-space: nowrap; 
       transition: background-color 0.2s ease;
     }
@@ -113,9 +104,9 @@
       transition: text-shadow 0.2s ease, transform 0.2s ease;
       flex-shrink: 0;
     }
-  
-    /* Hacemos el texto visible, ya que en un menú superior no está 'colapsado' */
-    .link-text-container { margin-left: 10px; }
+    
+    /* El texto del menú debe ser visible por defecto en este diseño */
+    .link-text-container { margin-left: 20px; }
     .link-text, .link-subtitle { opacity: 1; transition: none; }
 
 
@@ -137,178 +128,31 @@
         transform: scale(1.1);
         text-shadow: 0 0 12px var(--fg), 0 0 20px var(--fg); 
     }
-    
-    /* (Mantenemos los estilos del Preloader y Haku tal cual) */
-    /* ... (Estilos del Preloader aquí) ... */
 
-    /* ================================================= */
-    /* --- PANTALLA DE PRECARGA (HAKU) --- */
-    /* ================================================= */
-
-    #preloader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: #2c2c2c; 
-      display: flex;
-      flex-direction: column; 
-      justify-content: center;
-      align-items: center;
-      z-index: 9999; 
-      opacity: 1;
-      visibility: visible;
-      transition: opacity 0.5s ease-out, visibility 0.5s ease-out; 
+    /* 🚨 ESTILOS PARA EL CONTENIDO PRINCIPAL 🚨 */
+    /* Empuja el contenido para que no quede detrás del botón y tenga espacio */
+    .main-content {
+        padding-top: 80px;
+        padding-left: 40px; 
     }
-
-    #preloader.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none; 
-    }
-    
-    /* El contenedor principal de Haku, texto y spinner */
-    .haku-visual-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        /* Ajuste vertical y horizontal */
-        margin-top: -50px; 
-        margin-left: -100px; 
-        position: relative;
-    }
-    
-    /* --- Contenedor del ELEMENTO COLGANTE (Cuerda + Bolita) --- */
-    .hanging-element {
-        position: absolute; 
-        top: 55px;
-        left: 5px; 
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        z-index: 10;
-        animation: swing-haku 3s ease-in-out infinite alternate; 
-    }
-
-    @keyframes swing-haku {
-      0%   { transform: rotate(-5deg); }
-      100% { transform: rotate(5deg); }
-    }
-
-
-    /* --- LA CUERDA --- */
-    .hanging-element::before {
-        content: "";
-        position: relative; 
-        width: 2px; 
-        height: 40px; 
-        background-color: #8B4513; 
-        box-shadow: 0 0 5px rgba(0,0,0,0.5); 
-        border-radius: 1px;
-    }
-
-    /* --- LA BOLITA (Antes spinner) --- */
-    .loading-ball {
-        position: relative;
-        width: 45px;
-        height: 45px;
-        background-color: var(--accent-blue);
-        border-radius: 50%;
-        box-shadow: 0 0 15px var(--accent-blue), 0 0 30px var(--accent-blue); 
-        animation: pulse-ball 1.5s ease-in-out infinite alternate; 
-    }
-
-    @keyframes pulse-ball {
-        0%, 100% { transform: scale(1); opacity: 1; }
-        50% { transform: scale(1.05); opacity: 0.9; }
-    }
-
-
-    /* --- TEXTO CARGANDO --- */
-    .loading-text {
-        font-size: 3.5em; 
-        font-weight: bold;
-        color: #cccccc; 
-        text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
-        margin-bottom: 25px; 
-        z-index: 10;
-        display: flex; 
-    }
-    
-    .loading-text span {
-        opacity: 0;
-        transform: translateY(-5px);
-        transition: opacity 0.2s ease-out, transform 0.2s ease-out;
-    }
-    
-    .loading-text.animate span {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-
-    /* --- IMAGEN DE HAKU --- */
-    .haku-img {
-      width: 350px; 
-      height: 350px;
-      object-fit: contain;
-      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
-    }
-
-    /* ================================================= */
-    /* --- OPTIMIZACIÓN RESPONSIVE (MÓVIL) --- */
-    /* ================================================= */
-    @media (max-width: 600px) {
-        .haku-visual-container {
-            margin-left: -50px; 
-        }
-        .haku-img {
-            width: 250px; 
-            height: 250px;
-        }
-        .loading-text {
-            font-size: 2.5em;
-        }
-        .loading-ball {
-            width: 35px;
-            height: 35px;
-        }
-        /* Alinea el menú superior en móvil */
-        .side-navbar ul {
-            justify-content: space-around;
-            width: 100%;
-        }
-    }
-
 
   </style>
 </head>
-<body class="unloaded">
-
-  <div id="preloader">
-    <div class="haku-visual-container">
-        <div class="hanging-element">
-            <div class="loading-ball"></div>
-        </div>
-        
-        <div class="loading-text" id="loading-text-container"></div> 
-        
-        <img src="HAKU-SEE.png" alt="Haku Cargando" class="haku-img">
-    </div>
+<body>
+  
+  <div id="menu-toggle-btn">
+    <i class="fa-solid fa-bars"></i>
   </div>
 
 
-  <h2 style="margin-top: 0;">Demo: Menú Superior Dinámico (Scroll Up/Down)</h2>
-  <p>El enlace "Perfil" tiene <code>.active</code>. Haz scroll para ver el efecto.</p>
-
-  <nav id="main-header" class="side-navbar">
+  <nav id="main-menu" class="side-navbar">
      <ul>
       <li>
         <a href="#perfil" class="nav-link nav-link-perfil active" title="Perfil">
           <i class="fa-solid fa-user"></i>
           <div class="link-text-container">
             <span class="link-text">Perfil</span>
+            <span class="link-subtitle">Carta de Presentación</span>
           </div>
         </a>
       </li>
@@ -333,86 +177,50 @@
     </ul>
   </nav>
   
-  <div style="height: 1500px; padding: 20px;">
-      <p>Baja el scroll para ocultar el menú. Sube el scroll para que el menú reaparezca.</p>
-      <p>...</p>
-      <p>El contenido sigue aquí abajo...</p>
+  
+  <div class="main-content">
+      <h2>Demo: Menú Lateral Fijo y Desplegable</h2>
+      <p>El botón de la esquina superior izquierda permanece fijo, permitiendo acceder al menú en cualquier momento.</p>
+      
+      <p>Haz clic en el icono <i class="fa-solid fa-bars"></i> para desplegar el menú.</p>
+      
+      <div style="height: 1500px; margin-top: 50px;">
+          <p>Baja el scroll. Notarás que el menú (oculto o visible) y el botón no se mueven.</p>
+          <p>...</p>
+          <p>El contenido sigue aquí abajo...</p>
+      </div>
   </div>
 
 
   <script>
-    // --- LÓGICA DEL PRELOADER ---
-    const textToAnimate = "Cargando";
-    const container = document.getElementById('loading-text-container');
-    const animationDuration = (textToAnimate.length * 50) + 1000; 
-    let repeatCount = 0;
-    const maxRepeats = 2; 
-
-    function animateText() {
-        container.innerHTML = '';
-        container.classList.remove('animate'); 
-
-        textToAnimate.split('').forEach((char, index) => {
-            const span = document.createElement('span');
-            span.textContent = char;
-            container.appendChild(span);
-            span.style.transitionDelay = `${index * 50}ms`; 
-        });
-
-        setTimeout(() => {
-            container.classList.add('animate');
-        }, 100); 
-
-        setTimeout(() => {
-            repeatCount++;
-            if (repeatCount < maxRepeats) {
-                animateText();
-            } else {
-                hidePreloader();
-                // 🚨 INICIA LA LÓGICA DEL SCROLL DESPUÉS DE LA CARGA 🚨
-                initScrollBehavior();
-            }
-        }, animationDuration);
-    }
-
-    function hidePreloader() {
-        const preloader = document.getElementById('preloader');
-        const body = document.body;
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleBtn = document.getElementById('menu-toggle-btn');
+        const menu = document.getElementById('main-menu');
         
-        preloader.classList.add('hidden');
-        
-        setTimeout(() => {
-            body.classList.add('loaded');
-        }, 500); 
-    }
-
-    // --- NUEVA LÓGICA DEL SCROLL (Scroll Up/Down) ---
-    function initScrollBehavior() {
-        const header = document.getElementById('main-header');
-        const headerHeight = header.offsetHeight;
-        let lastScrollTop = 0; 
-        
-        window.addEventListener('scroll', function() {
-            const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-
-            if (currentScroll > lastScrollTop) {
-                // SCROLL DOWN (Bajando): Esconde el menú
-                // Ocultamos el menú solo si hemos bajado más allá de la altura del menú
-                if (currentScroll > headerHeight) {
-                    header.classList.add('hidden-scroll');
-                }
-            } else {
-                // SCROLL UP (Subiendo): Muestra el menú
-                header.classList.remove('hidden-scroll');
-            }
+        toggleBtn.addEventListener('click', function() {
+            // Añade o quita la clase 'active' para mostrar/ocultar el menú
+            menu.classList.toggle('active');
             
-            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; 
+            // Opcional: Cambiar el icono del botón (hamburguesa <-> X)
+            const icon = toggleBtn.querySelector('i');
+            if (menu.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark'); // Usamos el ícono de 'X' cuando está abierto
+            } else {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars'); // Vuelve al ícono de hamburguesa
+            }
         });
-    }
-
-    // --- INICIO DE LA APLICACIÓN ---
-    window.addEventListener('load', function() {
-        animateText(); 
+        
+        // Opcional: Cerrar el menú al hacer clic en un enlace
+        const navLinks = menu.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                menu.classList.remove('active');
+                toggleBtn.querySelector('i').classList.remove('fa-xmark');
+                toggleBtn.querySelector('i').classList.add('fa-bars');
+            });
+        });
     });
   </script>
 
