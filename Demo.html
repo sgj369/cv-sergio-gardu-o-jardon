@@ -3,24 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vista Previa: Carta de Presentación con PDF</title>
+    <title>Vista Previa: Carta de Presentación (Imagen)</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
     <style>
-        /* --- VARIABLES --- */
+        /* --- VARIABLES (Simulando tu diseño) --- */
         :root {
-            --fg: #eef1f0;
-            --accent-gold: #FFD700;
-            --card-bg: rgba(0, 0, 0, 0.88);
-            --text-color: #333;
+            --fg: #eef1f0; /* Blanco/Claro */
+            --accent-gold: #FFD700; /* Dorado de acento */
+            --card-bg: rgba(0, 0, 0, 0.88); /* Fondo oscuro de la tarjeta */
+            --card-border: rgba(255, 255, 255, 0.2);
+            --text-color: #333; /* Texto oscuro para botones claros */
         }
 
         /* --- ESTILOS DE PRUEBA --- */
         body {
-            background-color: #333;
+            background-color: #1a1a1a;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* Alineación superior para que se vea mejor */
             padding: 40px;
         }
 
@@ -29,7 +30,7 @@
             max-width: 500px;
             width: 100%;
             padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--card-border);
             background-color: var(--card-bg);
             border-radius: 14px;
             color: var(--fg);
@@ -37,7 +38,7 @@
             font-family: Arial, sans-serif;
         }
         
-        /* Estilo del Sumario (como el de la carta) */
+        /* Estilo del Sumario (Ver Carta de Presentación) */
         .inner-summary {
             font-weight: 700;
             color: var(--accent-gold);
@@ -46,19 +47,27 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid var(--card-border);
             padding-bottom: 10px;
         }
 
-        /* Estilo para el Visor de PDF */
-        .pdf-view-container iframe {
-            width: 100%; 
-            height: 400px; 
-            border: 1px solid rgba(255, 255, 255, 0.3); 
-            border-radius: 8px;
+        /* Estilo para el Contenedor de la Imagen */
+        .image-view-container {
+            margin-top: 15px; 
+            margin-bottom: 20px; 
+            border: 1px solid var(--card-border); 
+            border-radius: 8px; 
+            overflow: hidden;
         }
 
-        /* Estilos de Botones (Simulando tu diseño) */
+        /* Estilo de la Imagen */
+        .image-view-container img {
+            width: 100%; 
+            height: auto; 
+            display: block; 
+        }
+
+        /* Estilos de Botones */
         .button-container {
             display: flex; 
             justify-content: flex-end; 
@@ -109,13 +118,16 @@
                 <span>Ver Carta de Presentación</span>
             </summary>
             
-            <div class="pdf-view-container">
-                <iframe src="CDP.pdf" title="Carta de Presentación en PDF"></iframe>
+            <div class="image-view-container">
+                <img 
+                    src="CDP.jpg" 
+                    alt="Carta de Presentación de Sergio Garduño Jardón" 
+                >
             </div>
             
             <div class="button-container">
                 
-                <a class="btn-fill-white" href="Carta_de_presentación (1).pdf" download="Carta_de_presentación.pdf" title="Descargar Carta de Presentación">
+                <a class="btn-fill-white" href="CDP.pdf" download="Carta_de_presentación.pdf" title="Descargar Carta de Presentación">
                     <i class="fa-solid fa-file-pdf"></i> Descargar PDF
                 </a>
 
