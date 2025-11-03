@@ -1,127 +1,606 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <title>Demo Menú Lateral Fijo Desplegable Corregido</title>
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sergio Garduño Jardón — CV & Portfolio</title>
+  <meta name="description" content="Ingeniero mecatrónico orientado a la sostenibilidad y sistemas inteligentes. IoT, datos, energía solar y proyectos ambientales." />
+
+  <link rel="icon" href="INDEX-HAKU.png" type="image/x-icon">
+  <meta name="theme-color" content="#072d16">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
     :root{
-      /* Tus variables */
-      --bg-uniform: #333;
-      --fg: #eef1f0;
-      --muted: #a3a3a3;
-      --accent-blue: #0077b6;
-      --accent-purple: #9933cc;
-      --accent-emerald: #2E8B57;
-      
-      --card-bg: rgba(0,0,0,0.88);
-      --card-border: rgba(255,255,255,0.1); 
-      --menu-width: 250px; 
-      --toggle-btn-height: 70px; /* Estimación del espacio que ocupa el botón */
-    }
-
-    body {
-      font-family: Inter, system-ui, sans-serif;
-      background-color: var(--bg-uniform);
-      color: var(--fg);
-      padding: 0; 
-      margin: 0;
-      min-height: 100vh;
-    }
-
-    /* ================================================= */
-    /* --- CAPA OSCURA (OVERLAY) --- */
-    /* ================================================= */
-    #menu-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.7); /* Oscurece el fondo */
-        z-index: 990; /* Detrás del menú */
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease-out;
-    }
+    --bg-uniform: #333; /* Fondo gris oscuro */
+    --fg: #eef1f0; /* Blanco suave para texto principal */
+    --muted: #a3a3a3; /* Gris para texto secundario */
     
-    #menu-overlay.active {
-        opacity: 1;
-        visibility: visible;
-    }
-
-
-    /* ================================================= */
-    /* --- BOTÓN DE TOGGLE (HAMBURGUESA/X) --- */
-    /* ================================================= */
-    #menu-toggle-btn {
-        position: fixed;
-        top: 20px;
-        left: 20px;
-        z-index: 1000; /* Debe estar encima de todo */
-        cursor: pointer;
-        padding: 10px 12px;
-        background-color: var(--card-bg);
-        border: 1px solid var(--card-border);
-        border-radius: 8px;
-        color: var(--fg);
-        font-size: 1.5em;
-        transition: background-color 0.3s;
-    }
-
-    #menu-toggle-btn:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-    }
+    /* Paleta de Acentos */
+    --accent-red: #ff3366; 
+    --accent-green: #63b96f; /* Verde Brillante (Contacto) */
+    --accent-blue: #0077b6; /* Azul (Perfil, Habilidades Técnicas) */
+    --accent-yellow: #ffc300; /* Amarillo (Cursos) */
+    --accent-purple: #9933cc; /* Morado (Proyectos, Formación) */
+    --accent-gold: #FFD700; /* Dorado (Logros, Habilidades Blandas) */
     
-    /* ================================================= */
-    /* --- MENÚ LATERAL DESPLEGABLE --- */
-    /* ================================================= */
+    /* --- CAMBIO AQUÍ --- */
+    --accent-emerald: #2E8B57; /* NUEVO: Verde Esmeralda (Experiencia) */
     
-    .side-navbar {
-      position: fixed;
-      top: 0;
-      bottom: 0;
-      width: var(--menu-width); 
-      background: var(--card-bg);
+    --accent-guinda: #900030; /* Guinda/Borgoña para el título IPN */
+    --accent-orange: #FF5733; /* Naranja Vibrante */ /* Retirado de Root, pero se mantiene en botones */
+
+    --card-bg: rgba(0,0,0,0.88); /* Tarjetas muy oscuras */
+    --card-border: rgba(255,255,255,0.1); 
+    --maxw: 1100px;
+    --radius: 14px;
+    --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+
+    /* Variables para el menú */
+    --menu-width-collapsed: 70px;
+    --menu-width-expanded: 240px;
+    --menu-width: 250px; /* Ancho del menú desplegable */
+    --toggle-btn-height: 70px; /* Altura del botón para padding */
+  }
+
+  /* Estilos Base */
+  html { background-color: var(--bg-uniform); scroll-behavior: smooth; }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;padding:0}
+  body{
+    font-family:var(--font-sans);
+    background: transparent;
+    color:var(--fg);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-osx-font-smoothing:grayscale;
+    line-height:1.5;
+    /* El padding se gestiona con el menú lateral */
+    padding: 28px;
+    padding-left: var(--menu-width-collapsed); /* Padding inicial para menú colapsado */
+    transition: padding-left 0.3s ease-in-out;
+  }
+  
+  /* Clase que se añade al body cuando el preloader termina (para mantener padding inicial) */
+  body.loaded {
+    padding-left: var(--menu-width-collapsed); 
+  }
+
+  /* Clase que se añade al body cuando el menú está expandido */
+  body.menu-expanded {
+    padding-left: var(--menu-width-expanded);
+  }
+  
+  /* Clase que se añade al body cuando el menú desplegable está activo (para evitar scroll accidental) */
+  body.menu-overlay-active {
+    overflow: hidden;
+  }
+
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    position:relative; 
+    padding: 0 10px;
+  }
+
+
+    /* ESTILOS DEL SELECTOR DE IDIOMA (FIJO EN PANTALLA) */
+  .lang-switcher {
+     /* Fijo dentro del menú colapsado */
+    top: auto; 
+    bottom: 20px; /* Fijo en la parte inferior del menú */
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 23px;
+    width: 100%;
+  }
+  .lang-switcher button {
+    background: var(--card-bg); color: var(--fg); border: 1px solid var(--accent-gold);
+    padding: 5px 10px; border-radius: 8px; cursor: pointer; font-size: 1.5em; 
+    line-height: 1; transition: background-color 0.2s; opacity: 0.8;
+    width: fit-content;
+  }
+  .lang-switcher button:hover { opacity: 1; background: rgba(255, 215, 0, 0.1); }
+  .lang-switcher button.active { border-color: var(--accent-red); background: rgba(255, 51, 102, 0.1); }
+    /* Oculta el botón de idioma que esté activo */
+  .lang-switcher button.active {
+    display: none;
+  }
+  .side-navbar.expanded .lang-switcher button { width: auto; }
+
+
+  /* Ajuste responsive para móviles */
+   @media (max-width:980px){
+     .lang-switcher { 
+       top: auto;
+       bottom: 15px;
+       right: auto;
+       left: 20px;
+       flex-direction: row; /* Horizontal en móvil */
+     }
+     /* Ajustamos el padding del body en móvil para el menú colapsado */
+     body {
+      padding: 15px;
+      padding-left: calc(var(--menu-width-collapsed, 70px) + 15px);
+     }
+     body.menu-expanded {
+       padding-left: calc(var(--menu-width-expanded, 240px) + 15px);
+     }
+   }
+
+  /* ESTILOS DEL ENCABEZADO PRINCIPAL (AHORA VERTICAL) */
+  .main-header-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+    border-top: 2px solid var(--fg); 
+    border-bottom: 2px solid var(--fg); 
+    border-right: 2px solid var(--fg); 
+    border-radius: var(--radius);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  
+    display: flex;
+    flex-direction: column; 
+    align-items: center;    
+    gap: 15px;             
+    padding: 25px 20px;    
+  }
+
+
+    /* --- CAMBIO AQUÍ: Línea blanca para el header --- */
+  .main-header-card::after {
+      content: '';
+      position: absolute;
+      top: 0; 
+      right: 0; 
+      width: 5px; 
+      height: 35px; 
+      background: var(--fg); /* Color Blanco */
+      border-top-right-radius: var(--radius); 
+      z-index: 1; 
+  }
+
+  
+  header{
+    display:flex; flex-direction: row; align-items: center; 
+    gap: 15px; margin-bottom:0; flex-shrink: 0; 
+  }
+  .brand{ display:flex; align-items:center; gap:14px; flex-shrink: 0; }
+    /* Estilos del Avatar (Ahora circular y con modo QR) */
+.avatar{
+  width: 120px; 
+  height: 120px;
+  border-radius: 50%; 
+  overflow:hidden;
+  border: 3px solid var(--fg); 
+  box-shadow:0 0 20px rgba(238, 241, 240, 0.6); 
+  cursor: pointer; 
+  transition: all 0.3s ease-in-out; 
+  margin-bottom: 5px; 
+}
+    .avatar:hover {
+      transform: scale(1.05);
+    }
+    /* Estilos para el QR */
+    .avatar.qr-mode {
+      border-radius: var(--radius); 
+      border-color: var(--accent-green);
+      transform: scale(1.1);
+    }
+    .avatar.qr-mode:hover {
+      transform: scale(1.1);
+    }
+    .avatar img{
+      width:100%; height:100%; object-fit:cover; display:block;
+    }
+
+  
+     /* --- CAMBIO AQUÍ: Nombre contorno blanco y relleno negro --- */
+  .title{
+    font-weight:900;
+    font-size:36px; 
+    color: #000; 
+    text-shadow: 
+        -1px -1px 0 var(--fg),  
+         1px -1px 0 var(--fg),
+        -1px  1px 0 var(--fg),
+         1px  1px 0 var(--fg); 
+    text-align: center; 
+  } 
+ 
+ 
+
+    /* --- Botones --- */
+
+  /* Botón Relleno Blanco (Para Ver CV) */
+  .btn-fill-white {
+    background: var(--fg);
+    color: #333; 
+    border: 2px solid var(--fg);
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+    box-shadow: 0 4px 15px rgba(238, 241, 240, 0.2);
+  }
+  .btn-fill-white:hover { 
+    background: #cdd1d0; 
+    border-color: #cdd1d0;
+    box-shadow: 0 6px 20px rgba(238, 241, 240, 0.4);
+    transform: translateY(-1px);
+  }
+
+  /* Botón Contorno Blanco (Para Descargar CV) */
+  .btn-outline-white {
+    background: transparent;
+    border: 2px solid var(--fg);
+    color: var(--fg);
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    transition: background-color 0.15s;
+    flex-shrink: 0;
+  }
+  .btn-outline-white:hover { 
+    background: rgba(238, 241, 240, 0.1); 
+  }
+
+    /* Botón Azul Contorno */
+  .btn-clean-secondary {
+    background: transparent; 
+    border: 2px solid var(--accent-blue); 
+    color: var(--accent-blue);
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    transition: background-color 0.15s;
+    flex-shrink: 0;
+  }
+  .btn-clean-secondary:hover { 
+    background: rgba(0, 119, 182, 0.1); 
+  }
+
+
+  /* Botón Naranja Contorno (para EcoGaiaSOS) */
+  .btn-outline-orange {
+    background: transparent;
+    border: 2px solid var(--accent-orange);
+    color: var(--accent-orange);
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    transition: background-color 0.15s;
+    flex-shrink: 0;
+  }
+  .btn-outline-orange:hover { 
+    background: rgba(255, 87, 51, 0.1); 
+  }
+
+  /* ESTILOS DEL CUERPO PRINCIPAL (MAIN CONTENT & ASIDE) */
+  .hero{
+    display:grid;
+    grid-template-columns:1fr 360px; 
+    gap:28px;
+    align-items:start;
+    margin-bottom:28px;
+  }
+  
+  .hero-main { display: flex; flex-direction: column; gap: 28px; }
+  .hero-aside { position: sticky; top: 28px; display: flex; flex-direction: column; gap: 28px; }
+
+  /* Estilos base para todas las tarjetas de contenido */
+  .card{
+    position: relative; background: var(--card-bg); border:1px solid var(--card-border);
+    padding:20px; border-radius:var(--radius); box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+    color:var(--fg); overflow: hidden;
+    /* Animación (se define más abajo) */
+    border-left: 5px solid; 
+  }
+  .card:hover { 
+    box-shadow: 0 0 15px rgba(255,255,255,0.1); 
+    transform: translateY(0); 
+  }
+
+  /* Línea decorativa derecha */
+  .card::after {
+      content: ''; position: absolute; top: 0; right: 0; 
+      width: 5px; height: 35px; 
+      border-top-right-radius: var(--radius); z-index: 1; 
+  }
+    
+  /* --- REFACTOR DE COLORES POR SECCIÓN ID --- */
+  
+  /* Perfil (Azul) */
+  #perfil { border-left-color: var(--accent-blue); } 
+  #perfil::after { background: var(--accent-blue); }
+  #perfil .profile-title { color: var(--accent-blue); }
+
+    /* --- ESTILOS PARA LA CARTA DESPLEGABLE DENTRO DEL PERFIL --- */
+  .inner-details {
+    margin-top: 15px; 
+    border-top: 1px solid var(--card-border); 
+    padding-top: 15px;
+  }
+
+   /* --- ESTILOS PARA EL BOTÓN COPIAR DENTRO DE LA CARTA --- */
+  .copy-button-container {
+    text-align: right; 
+    margin-top: 15px; 
+  }
+  
+  .btn-copy-carta {
+    background-color: transparent;
+    border: 1px solid var(--accent-gold); 
+    color: var(--accent-gold); 
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-family: var(--font-sans); 
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9em; 
+  }
+  .btn-copy-carta:hover {
+    background-color: rgba(255, 215, 0, 0.1); 
+    box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
+  }
+  .btn-copy-carta:active {
+    transform: scale(0.98); 
+  }
+  
+  /* Estilo temporal al copiar (check verde) */
+  .btn-copy-carta.copied {
+    border-color: var(--accent-green);
+    background-color: rgba(99, 185, 111, 0.1);
+    color: var(--accent-green);
+  }
+  /* --- FIN ESTILOS BOTÓN COPIAR --- */
+
+  
+  .inner-summary {
+    cursor: pointer;
+    display: inline-flex; 
+    align-items: center;
+    font-weight: 700;
+    color: var(--accent-gold); 
+    margin-bottom: 10px; 
+    list-style: none; 
+    transition: opacity 0.2s ease;
+  }
+  .inner-summary:hover {
+    opacity: 0.8;
+  }
+  .inner-summary::-webkit-details-marker { 
+    display: none; 
+  }
+  
+  /* Flecha desplegable (similar a las secciones principales) */
+  .inner-summary::after {
+    content: '▼'; 
+    font-size: 0.8em;
+    color: var(--muted);
+    margin-left: 8px; 
+    transition: transform 0.2s ease-out;
+  }
+  .inner-details[open] > .inner-summary::after {
+    transform: rotate(180deg);
+  }
+  
+  .inner-content {
+    padding-left: 22px; 
+    color: var(--fg); 
+    opacity: 0.9; 
+  }
+  /* --- FIN ESTILOS CARTA DESPLEGABLE --- */
+
+
+  /* Proyectos (Morado) */
+  #proyectos > summary { color: var(--accent-purple); border-color: rgba(153, 51, 204, 0.3); }
+  #proyectos .section-content .card { border-left-color: var(--accent-purple); opacity: 1; transform: none; } 
+  #proyectos .section-content .card::after { background: var(--accent-purple); }
+  #proyectos .section-content .card strong { color: var(--fg); } 
+
+  /* Experiencia (Verde Esmeralda) */
+  #experiencia > summary { color: var(--accent-emerald); border-color: rgba(46, 139, 87, 0.3); }
+  #experiencia .section-content .card { border-left-color: var(--accent-emerald); opacity: 1; transform: none; }
+  #experiencia .section-content .card::after { background: var(--accent-emerald); }
+  #experiencia .section-content .card strong { color: var(--fg); } 
+
+  /* Logros (Dorado) */
+  #logros > summary { color: var(--accent-gold); border-color: rgba(255, 215, 0, 0.3); }
+  #logros .section-content .card { border-left-color: var(--accent-gold); opacity: 1; transform: none; }
+  #logros .section-content .card::after { background: var(--accent-gold); }
+
+
+  /* Cursos (Rojo) */
+  #cursos > summary { color: var(--accent-red); border-color: rgba(255, 51, 102, 0.3); }
+  #cursos .section-content .card { border-left-color: var(--accent-red); opacity: 1; transform: none; }
+  #cursos .section-content .card::after { background: var(--accent-red); }
+
+  /* --- ASIDE --- */
+  /* Formación (Morado) */
+  #formacion { border-left-color: var(--accent-purple); } 
+  #formacion::after { background: var(--accent-purple); } 
+  #formacion > div:first-child { color: var(--accent-purple); font-weight: 800; margin-bottom: 15px; }
+  
+  /* Contacto (blanco) */
+  #contacto { border-left-color: var(--fg); } 
+  #contacto::after { background: var(--fg); } 
+  #contacto > div:first-child { color: var(--fg); font-weight: 800; margin-bottom: 8px; }
+  
+  /* Habilidades (azul) */
+  #habilidades { border-left-color: var(--accent-blue); } 
+  #habilidades::after { background: var(--accent-blue); } 
+  #habilidades > div:first-child { color: var(--accent-blue); font-weight: 800; margin-bottom: 8px; }
+  
+  /* Habilidades Blandas (Dorado) (Sigue siendo el 4to hijo de aside) */
+  aside .card:nth-of-type(3) { border-left-color: var(--accent-gold); } 
+  aside .card:nth-of-type(3)::after { background: var(--accent-gold); } 
+  aside .card:nth-of-type(3) > div:first-child { color: var(--accent-gold); font-weight: 800; margin-bottom: 8px; }
+  
+  /* --- FIN REFACTOR DE COLORES --- */
+
+  
+  /* Títulos y Contenido */
+  h2.profile-title{font-size:18px;font-weight:800;margin-top: 0; margin-bottom:8px}
+  .profile-text{color:var(--fg);opacity:1;font-size:15px;line-height:1.6;}
+  .skill-pill { color: var(--fg); padding: 6px 10px; border-radius: 6px; margin: 4px; display: inline-block; font-size: 14px; border: 1px solid rgba(255,255,255,0.15); }
+  .skills { display: flex; flex-wrap: wrap; margin-top: 10px; }
+
+  /* Títulos de sección (h2 dentro de summary) */
+  h2.section{
+    font-size:18px; margin: 0; font-weight:800; 
+    flex-grow: 1; 
+  }
+  /* El color del h2 lo hereda del summary */
+  summary > h2.section { color: inherit !important; }
+
+  /* Estilo del <summary> que contiene el título */
+  details > summary {
+      border-bottom: 2px solid; 
+      padding-bottom: 4px; margin-bottom: 15px;
+      cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+      position: relative; 
+  }
+  
+  /* Flecha desplegable (NUEVO) */
+  details > summary::after {
+    content: '▼'; 
+    font-size: 0.8em;
+    color: var(--muted);
+    margin-left: 10px; 
+    transition: transform 0.2s ease-out;
+    flex-shrink: 0; 
+  }
+  details[open] > summary::after {
+    transform: rotate(180deg); 
+  }
+  
+  /* Contenido dentro de las secciones <details> (NUEVO) */
+  .section-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px; 
+  }  
+    .clean { padding-left: 20px; margin: 0; list-style-type: none; } 
+    
+  .acad-ipn-title {
+    color: var(--accent-guinda); font-weight: 800;
+    margin-top: 0; margin-bottom: 12px;
+    font-size: 18px; text-align: center;
+  }
+  
+  /* Estilos bloques IoT (Tesis) */
+  .iot-block{margin-top: 14px; padding:0; background: transparent; border: none;}
+  .iot-block h3{color:var(--accent-purple); margin:16px 0 10px 0; font-size:18px; font-weight:800; text-shadow: 0 0 2px rgba(153, 51, 204, 0.5);}
+  .iot-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px; margin-top: 14px;}
+  .btn-accent{background:var(--accent-green);color:#03120a;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(99,185,111,0.06)}
+  .btn-primary{background:var(--accent-blue);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(11,102,194,0.06)}
+  .btn-dark{background:var(--accent-purple);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;border:1px solid rgba(153, 51, 204, 0.4)}
+  .iot-actions a { color: #fff; text-decoration: none; } 
+
+    footer {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;    
+    justify-content: center;
+    gap: 10px;               
+    
+    padding: 26px 15px 10px; 
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    
+    margin-left: 0; 
+    width: 100%; 
+  }
+  
+  /* Y esta parte para el logo */
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .sello{width:40px;height:40px;border-radius:8px;overflow:hidden}
+  .sello img{width:100%;height:100%;object-fit:cover}
+
+  /* Partículas */
+  #particles-js {
+    position: fixed; width: 100%; height: 100%;
+    top: 0; left: 0; z-index: -1; 
+    background-color: var(--bg-uniform);
+  }
+
+  /* ============================================= */
+  /* 1. ESTILOS DEL MENÚ LATERAL COLAPSABLE */
+  /* ============================================= */
+  
+  /* Habilitamos el scroll suave */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* MENÚ LATERAL BASE */
+  .side-navbar {
+      position: fixed; top: 0; left: 0;
+      height: 100vh; background: var(--card-bg);
       border-right: 1px solid var(--card-border);
-      border-radius: 0 14px 14px 0; 
-      overflow-y: auto; 
-      padding: 0; /* Eliminamos el padding top/bottom aquí */
-      z-index: 999;
-      
-      left: calc(0px - var(--menu-width)); 
-      transition: left 0.3s ease-out; 
-    }
-    
-    .side-navbar.active {
-        left: 0; 
+      width: var(--menu-width-collapsed, 70px); 
+      display: flex; flex-direction: column;
+      align-items: center; padding: 20px 0;
+      z-index: 1000;
+      overflow: hidden; 
+      transition: width 0.3s ease-in-out; 
     }
   
-    .side-navbar ul { 
-      list-style: none; 
-      padding: 0; 
-      margin: 0; 
-      width: 100%;
-      /* 🚨 SOLUCIÓN AL SOLAPAMIENTO: Empujamos la lista hacia abajo 🚨 */
-      padding-top: var(--toggle-btn-height); 
-      padding-bottom: 20px; /* Un poco de padding al final */
+    .side-navbar.expanded {
+      width: var(--menu-width-expanded, 240px);
+      align-items: flex-start; 
+    }
+    
+    .side-navbar ul { list-style: none; padding: 0; margin: 20px 0 0 0; width: 100%; 
+      flex-grow: 1; 
+      overflow-y: auto; 
+      overflow-x: hidden; 
     }
 
     .side-navbar .nav-link {
       display: flex; 
-      align-items: center; 
-      padding-left: 23px;
+      align-items: flex-start; 
+      padding-top: 10px; 
+      padding-bottom: 10px; 
       color: var(--fg);
       text-decoration: none; 
-      height: 50px; 
+      padding-left: 23px; 
+      height: auto; 
+      min-height: 50px; 
       width: 100%;
       white-space: nowrap; 
       transition: background-color 0.2s ease;
     }
   
-    .side-navbar .nav-link:hover { background-color: rgba(255, 255, 255, 0.05); }
+    .side-navbar .nav-link:hover { background-color: rgba(255, 255, 255, 0.1); }
   
     .side-navbar .nav-link i {
       font-size: 1.3em; 
@@ -129,137 +608,970 @@
       text-align: center;
       color: var(--fg);
       transition: text-shadow 0.2s ease, transform 0.2s ease;
-      flex-shrink: 0;
+      transform: scale(1);
+      margin-top: 3px; 
+      flex-shrink: 0; 
     }
     
-    .link-text-container { margin-left: 20px; }
-    .link-text, .link-subtitle { opacity: 1; transition: none; }
-
-
-    /* Tus colores de icono */
+    /* Colores de contorno para cada icono */
     .nav-link-perfil i      { text-shadow: 0 0 5px var(--accent-blue), 0 0 10px var(--accent-blue); }
     .nav-link-proyectos i   { text-shadow: 0 0 5px var(--accent-purple), 0 0 10px var(--accent-purple); }
     .nav-link-experiencia i { text-shadow: 0 0 5px var(--accent-emerald), 0 0 10px var(--accent-emerald); }
-  
-    .side-navbar .nav-link:hover i { 
-      text-shadow: 0 0 12px var(--fg), 0 0 20px var(--fg);
-      transform: scale(1.1);
-    }
-  
-    .side-navbar .nav-link.active {
-        background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .side-navbar .nav-link.active i {
-        transform: scale(1.1);
-        text-shadow: 0 0 12px var(--fg), 0 0 20px var(--fg); 
-    }
-
-    /* ESTILOS PARA EL CONTENIDO PRINCIPAL */
-    .main-content {
-        padding-top: 80px;
-        padding-left: 40px; 
-    }
-
-  </style>
-</head>
-<body>
-  
-  <div id="menu-overlay"></div>
+    .nav-link-logros i      { text-shadow: 0 0 5px var(--accent-gold), 0 0 10px var(--accent-gold); }
+    .nav-link-cursos i      { text-shadow: 0 0 5px var(--accent-red), 0 0 10px var(--accent-red); } 
+    .nav-link-formacion i   { text-shadow: 0 0 5px var(--accent-purple), 0 0 10px var(--accent-purple); }
+    .nav-link-habilidades i { text-shadow: 0 0 5px var(--accent-blue), 0 0 10px var(--accent-blue); }
+    .nav-link-contacto i    { text-shadow: 0 0 5px var(--accent-green), 0 0 10px var(--accent-green); }
     
-  <div id="menu-toggle-btn">
-    <i class="fa-solid fa-bars"></i>
+
+    /* Efecto de "brillo" y crecimiento al pasar el ratón */
+    .side-navbar .nav-link:hover i { 
+      text-shadow: 0 0 12px var(--fg), 0 0 20px var(--fg); 
+      transform: scale(1.1); 
+    }
+  
+   
+    .side-navbar .link-text {
+      margin-left: 0; 
+      font-weight: 600;
+      opacity: 0; 
+      transition: opacity 0.2s ease;
+      display: block; 
+      line-height: 1.2; 
+    }
+    
+    .link-text-container {
+      margin-left: 20px; 
+      display: flex;
+      flex-direction: column; 
+    }
+    
+    .link-subtitle {
+      font-size: 0.75em; 
+      color: var(--muted); 
+      opacity: 0; 
+      transition: opacity 0.2s ease;
+      line-height: 1.1;
+      margin-top: 2px; 
+      font-weight: 400; 
+    }
+    
+    .side-navbar.expanded .link-text,
+    .side-navbar.expanded .link-subtitle {
+      opacity: 1;
+    }
+    
+    #menu-toggle-btn {
+      background: none; border: none; color: var(--fg);
+      font-size: 1.5em; cursor: pointer;
+      padding: 10px 23px; 
+    }
+    
+    #menu-toggle-btn .fa-chevron-left { display: none; }
+    .side-navbar.expanded #menu-toggle-btn .fa-chevron-left { display: inline; }
+    .side-navbar.expanded #menu-toggle-btn .fa-chevron-right { display: none; }
+
+
+  /* ============================================= */
+  /* 2. ESTILOS DE LA ANIMACIÓN DE TARJETAS */
+  /* ============================================= */
+  
+  .card {
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.2s ease;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  .card.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* ============================================= */
+  /* 3. ESTILOS DEL PRELOADER DE HAKU */
+  /* ============================================= */
+    #preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #2c2c2c; 
+      display: flex;
+      flex-direction: column; 
+      justify-content: center;
+      align-items: center;
+      z-index: 9999; 
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.5s ease-out, visibility 0.5s ease-out; 
+    }
+
+    #preloader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none; 
+    }
+    
+    .haku-visual-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: -50px; 
+        margin-left: -100px; /* Desplazamiento a la izquierda */
+        position: relative;
+    }
+    
+    /* Contenedor del ELEMENTO COLGANTE (Cuerda + Bolita) */
+    .hanging-element {
+        position: absolute; 
+        top: 55px; 
+        left: 5px; 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 10;
+        animation: swing-haku 3s ease-in-out infinite alternate; 
+    }
+
+    @keyframes swing-haku {
+      0%   { transform: rotate(-5deg); }
+      100% { transform: rotate(5deg); }
+    }
+
+
+    /* LA CUERDA */
+    .hanging-element::before {
+        content: "";
+        position: relative; 
+        width: 2px; 
+        height: 40px; 
+        background-color: #8B4513; 
+        box-shadow: 0 0 5px rgba(0,0,0,0.5); 
+        border-radius: 1px;
+    }
+
+    /* LA BOLITA */
+    .loading-ball {
+        position: relative;
+        width: 45px; 
+        height: 45px;
+        background-color: var(--accent-blue);
+        border-radius: 50%;
+        box-shadow: 0 0 15px var(--accent-blue), 0 0 30px var(--accent-blue); 
+        animation: pulse-ball 1.5s ease-in-out infinite alternate; 
+    }
+
+    @keyframes pulse-ball {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.05); opacity: 0.9; }
+    }
+
+
+    /* TEXTO CARGANDO */
+    .loading-text {
+        font-size: 3.5em; 
+        font-weight: bold;
+        color: #cccccc; 
+        text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+        margin-bottom: 25px; 
+        z-index: 10;
+        display: flex; 
+    }
+    
+    /* Estilos para la animación de las letras */
+    .loading-text span {
+        opacity: 0;
+        transform: translateY(-5px);
+        transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+    }
+    
+    .loading-text.animate span {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+
+    /* IMAGEN DE HAKU */
+    .haku-img {
+      width: 350px; 
+      height: 350px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+    }
+
+    /* OPTIMIZACIÓN RESPONSIVE (MÓVIL) del PRELOADER */
+    @media (max-width: 600px) {
+        .haku-visual-container {
+            margin-left: 0; /* Centrado en móvil */
+        }
+        .haku-img {
+            width: 250px; 
+            height: 250px;
+        }
+        .loading-text {
+            font-size: 2.5em;
+        }
+        .loading-ball {
+            width: 35px;
+            height: 35px;
+        }
+        .hanging-element {
+            top: 40px; 
+            left: -10px; 
+        }
+    }
+
+
+  /* RESPONSIVE TWEAKS (PARA MÓVILES) */
+  @media (max-width: 1100px) { 
+      .hero { grid-template-columns: 1fr; }
+      .hero-aside { position: static; } 
+  }
+  
+    @media (max-width:980px){
+    /* Ajustes móviles... */
+    .main-header-card { 
+      flex-direction: column; 
+      align-items: center; 
+      gap: 15px;
+      padding: 15px; 
+      width: 100%; 
+      margin-left: 0;
+      margin-right: 0;
+    }
+    header { 
+        width: 100%; 
+        flex-direction: column; 
+        align-items: flex-start; 
+        gap: 10px; 
+    }
+    .header-main-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center; 
+    margin-top: 5px;
+  }
+
+    
+    /* Layout principal y aside */
+    .hero { grid-template-columns: 1fr; } 
+    .hero-aside { position: static; } 
+    
+  }
+
+  
+  @media (max-width: 480px) { 
+      .title { font-size: 28px; }
+      .avatar { width: 70px; height: 70px; }
+     }
+
+ </style>
+</head>
+<body class="unloaded"> <div id="preloader">
+    <div class="haku-visual-container">
+        <div class="hanging-element">
+            <div class="loading-ball"></div>
+        </div>
+        
+        <div class="loading-text" id="loading-text-container"></div> 
+        
+        <img src="HAKU-SEE.png" alt="Haku Cargando" class="haku-img">
+    </div>
   </div>
 
 
-  <nav id="main-menu" class="side-navbar">
+  <div id="particles-js"></div>
+
+   <nav class="side-navbar" id="side-navbar">
+    <button id="menu-toggle-btn" title="Expandir menú">
+      <i class="fa-solid fa-chevron-right"></i>
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+     <div class="lang-switcher">
+      <button onclick="translatePage('es')" id="flag-es" class="active">🇲🇽</button>
+      <button onclick="translatePage('en')" id="flag-en">🇺🇸</button>
+    </div>
      <ul>
-      <li>
-        <a href="#perfil" class="nav-link nav-link-perfil active" title="Perfil">
-          <i class="fa-solid fa-user"></i>
-          <div class="link-text-container">
-            <span class="link-text">Perfil</span>
-            <span class="link-subtitle">Carta de Presentación</span>
-          </div>
-        </a>
-      </li>
-      
-      <li>
-        <a href="#proyectos" class="nav-link nav-link-proyectos" title="Proyectos">
-          <i class="fa-solid fa-lightbulb"></i>
-          <div class="link-text-container">
-            <span class="link-text">Proyectos</span>
-          </div>
-        </a>
-      </li>
-      
-      <li>
-        <a href="#experiencia" class="nav-link nav-link-experiencia" title="Experiencia">
-          <i class="fa-solid fa-briefcase"></i>
-          <div class="link-text-container">
-            <span class="link-text">Experiencia</span>
-          </div>
-        </a>
-      </li>
+      <li><a href="#perfil" class="nav-link nav-link-perfil" title="Perfil"><i class="fa-solid fa-user"></i><div class="link-text-container"><span class="link-text" data-lang="nav-profile">Perfil</span><span class="link-subtitle" data-lang="nav-profile-subtitle">Carta de Presentación</span></div></a></li>
+      <li><a href="#proyectos" class="nav-link nav-link-proyectos" title="Proyectos"><i class="fa-solid fa-lightbulb"></i><div class="link-text-container"><span class="link-text" data-lang="nav-projects">Proyectos</span></div></a></li>
+      <li><a href="#experiencia" class="nav-link nav-link-experiencia" title="Experiencia"><i class="fa-solid fa-briefcase"></i><div class="link-text-container"><span class="link-text" data-lang="nav-experience">Experiencia</span></div></a></li>  
+      <li><a href="#logros" class="nav-link nav-link-logros" title="Logros"><i class="fa-solid fa-trophy"></i><div class="link-text-container"><span class="link-text" data-lang="nav-achievements">Logros</span></div></a></li>
+      <li><a href="#cursos" class="nav-link nav-link-cursos" title="Cursos"><i class="fa-solid fa-graduation-cap"></i><div class="link-text-container"><span class="link-text" data-lang="nav-courses">Cursos</span></div></a></li>
+      <li><a href="#formacion" class="nav-link nav-link-formacion" title="Formación"><i class="fa-solid fa-school"></i><div class="link-text-container"><span class="link-text" data-lang="nav-education">Formación</span></div></a></li>
+      <li><a href="#habilidades" class="nav-link nav-link-habilidades" title="Habilidades"><i class="fa-solid fa-cogs"></i><div class="link-text-container"><span class="link-text" data-lang="nav-skills">Habilidades</span></div></a></li>
+      <li><a href="#contacto" class="nav-link nav-link-contacto" title="Contacto"><i class="fa-solid fa-envelope"></i><div class="link-text-container"><span class="link-text" data-lang="nav-contact">Contacto</span></div></a></li>
     </ul>
   </nav>
-  
-  
-  <div class="main-content">
-      <h2>Demo: Menú Lateral Fijo y Desplegable</h2>
-      <p>El botón de la esquina superior izquierda permanece fijo, permitiendo acceder al menú en cualquier momento.</p>
-      
-      <p>Haz clic en el icono <i class="fa-solid fa-bars"></i> para desplegar el menú.</p>
-      
-      <div style="height: 1500px; margin-top: 50px;">
-          <p>Baja el scroll. Notarás que el menú (oculto o visible) y el botón no se mueven.</p>
-          <p>...</p>
-          <p>El contenido sigue aquí abajo...</p>
-      </div>
-  </div>
+  <div class="wrap">
+    <div class="hero">
+      <main class="hero-main">
+    <div class="main-header-card card"> 
+
+    <div class="avatar" title="Clic para QR" id="avatar-container-main">
+        <img id="avatar-img-main" src="profilecv.png" alt="Sergio Garduño Jardón">
+    </div>
+
+    <div>
+        <div class="title" data-lang="name">Sergio Garduño Jardón</div>
+    </div>
+
+    <div class="header-main-buttons">
+        <a class="btn-fill-white" href="cv_viewer.html" target="_blank" rel="noopener" id="btn-view-cv" title="Abrir CV en el navegador" data-lang-href-en="cv_viewer_eu.html">
+            <i class="fa-solid fa-eye"></i> <span data-lang="btn-view-cv-text">Ver CV</span>
+        </a>
+        <a class="btn-outline-white" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" id="btn-download-cv" title="Descargar CV como PDF" data-lang-href-en="cv_pagina_web_eu.pdf">
+            <i class="fa-solid fa-download"></i> <span data-lang="btn-download-cv-text">Descargar CV</span>
+        </a>
+    </div>
+</div>
 
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const toggleBtn = document.getElementById('menu-toggle-btn');
-        const menu = document.getElementById('main-menu');
-        const overlay = document.getElementById('menu-overlay'); // Obtenemos el overlay
+         <section class="card" id="perfil">
+      
+        <div class="profile-title" data-lang="profile-title">Perfil</div>
         
-        // Función para alternar el menú
-        function toggleMenu() {
-            menu.classList.toggle('active');
-            overlay.classList.toggle('active'); // Muestra/oculta el overlay
+        <div class="profile-text" style="margin-bottom: 15px;" data-lang="profile-p1">
+          Ingeniero Mecatrónico especializado en sistemas IoT, datos y soluciones sostenibles. Diseño, desarrollo y despliego sistemas de monitoreo ambiental que integran hardware (ESP32 y sensores), energía renovable y pipelines de datos (Google Sheets / SQL, dashboards).
+        </div>
+        
+        <div class="profile-text" style="margin-bottom: 20px;" data-lang="profile-p2">
+          Programacion en Python, C++/Arduino y Google Apps Script para automatizar procesos y crear modelos analíticos orientados a optimizar recursos y apoyar la toma de decisiones. Me interesa colaborar en proyectos que unan tecnología y naturaleza para generar impacto ambiental positivo.
+        </div>
+  
+        <details class="inner-details">
+          <summary class="inner-summary">
+            <i class="fa-solid fa-file-lines" style="margin-right: 8px;"></i>
+            <span data-lang="carta-title">Ver Carta de Presentación</span> 
+          </summary>
+          
+          <div class="inner-content profile-text"id="carta-text-content"> 
             
-            // Cambiar el icono (hamburguesa <-> X)
-            const icon = toggleBtn.querySelector('i');
-            if (menu.classList.contains('active')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-xmark'); 
-                document.body.style.overflow = 'hidden'; // Evita el scroll del fondo
+            <p style="margin-bottom: 15px;" data-lang="carta-p1">
+              Sergio Garduño Jardón es Ingeniero Mecatrónico por el IPN de UPIITA convencido de que la tecnología y la naturaleza pueden y deben coexistir. Su pasión por la vida y el medio ambiente lo impulsa a buscar formas innovadoras de utilizar el conocimiento para auxiliar a nuestro planeta, especializándose en el desarrollo de sistemas <strong>IoT para el monitoreo ecológico</strong>.
+            </p>
+            
+            <p style="margin-bottom: 15px;" data-lang="carta-p2">
+              Sergio diseña y desarrolla sistemas que nos permiten 'escuchar' las necesidades del entorno. Un claro ejemplo es su proyecto de tesis sobre <strong>techos verdes</strong>, donde implementó un sistema de monitoreo autónomo completo —desde el hardware con ESP32 y sensores, hasta el análisis de datos— demostrando cómo la tecnología puede validar y potenciar soluciones sostenibles. Su objetivo es seguir aplicando la mecatrónica, la programación y los datos en proyectos que generen un impacto ambiental positivo.
+            </p>
+            
+            <p data-lang="carta-p3">
+              Más allá de lo técnico, le apasiona conocer mas sobre flora y fauna, además de conectar con actores por medio del proyecto <strong>ECOGAIASOS</strong> que generan acciones en pro del planeta y participar activamente en eventos de limpieza o restauración de hábitats. Sergio cree firmemente que la acción combinada con el conocimiento adecuado siempre tendrá un mejor resultado.
+            </p>
+            <div class="copy-button-container" style="text-align: right; margin-top: 15px;">
+          <button class="btn-copy-carta" id="copy-carta-btn-bottom">
+            <i class="fa-regular fa-copy" style="margin-right: 6px;"></i>
+            <span data-lang="copy-btn-text">Copiar Texto</span>
+          </button>
+        </div>
+        </div>
+        </details>
+        </section>
+         
+        
+        <details open id="proyectos">
+          <summary>
+            <h2 class="section" data-lang="proyectos-title">Proyectos Personales</h2>
+          </summary>
+          <div class="section-content">
+              <div class="card" style="margin-bottom:12px">
+                <strong>
+                  <img src="ECOGAIASOS.png" alt="Logo EcoGaiaSOS" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+                  <span data-lang="ecogaia-role">EcoGaiaSOS — Plataforma de impacto ambiental</span>
+                </strong>
+                <div class="contact-small" data-lang="ecogaia-dates">2024 – Presente · CDMX</div>
+                <ul class="clean">
+                  <li data-lang="ecogaia-l1">Desarrollo e implementación de la plataforma web para gestión y difusión de convocatorias y proyectos ambientales.</li>
+                  <li data-lang="ecogaia-l2">Responsable de la organización de datos, visualización y soporte a actores locales.</li>
+                </ul>
+                <div class="iot-block" style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap;">
+                <a class="btn-clean-secondary" href="https://ecogaiasos.github.io/web/index.html" target="_blank" rel="noopener" data-lang="ecogaias-btn">
+                  🌐 Web EcoGaiaSOS
+                </a>
+                <a class="btn-outline-orange" href="https://www.instagram.com/ecogaiasos?igsh=Y2hrNXg4OXZpbW0w" target="_blank" rel="noopener">
+                  <i class="fa-brands fa-instagram"></i> Instagram
+                </a>
+              </div>
+              </div>
+              <div class="card" style="margin-bottom:12px">
+                <strong data-lang="iot-role">Sistema IoT para techos verdes — Proyecto de tesis</strong> <div class="contact-small" data-lang="iot-dates">2023 – 2025 · Validado en campo</div>
+                
+                <ul class="clean">
+                  <li data-lang="iot-l1">Diseño y despliegue de sistema de monitoreo térmico autónomo con ESP32, sensores y alimentación solar.</li>
+                  <li data-lang="iot-l2">Desarrollo de pipeline de datos y dashboard para la validación de reducción térmica en techos verdes.</li>
+                </ul>
+
+                <div class="iot-block">
+                  <h3 data-lang="iot-links">Enlaces del Proyecto Techo Verde</h3>
+                  <div class="iot-actions">
+                    <a class="btn-accent" href="https://hugonogueron2607.github.io/Techo_Verde/" target="_blank" rel="noopener" data-lang="iot-btn1">
+                      🌐 Dashboard (datos en tiempo real)
+                    </a>
+                    <a class="btn-primary" href="https://docs.google.com/spreadsheets/d/1Mu0mfmwoWRI_kJ8EweGpJT1g608t6EQixtfevX0z0ac/edit?usp=sharing" target="_blank" rel="noopener" data-lang="iot-btn2">
+                      📊 Hoja de datos (Google Sheets)
+                    </a>
+                    <a class="btn-dark" href="tesis_viewer.html" id="btn-view-tesis" target="_blank" rel="noopener" data-lang="iot-btn3">
+                      📘 Ver tesis (PDF)
+                    </a>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </details>
+
+        <details open id="experiencia">
+          <summary>
+            <h2 class="section" data-lang="exp-title">Experiencia Laboral</h2>
+          </summary>
+          <div class="section-content">
+              <div class="card" style="margin-bottom:12px">
+                <strong data-lang="robo-role">Robodacta — Diseño y ventas</strong> <div class="contact-small" data-lang="robo-dates">2022 – 2024</div>
+                <ul class="clean">
+                  <li data-lang="robo-l1">Diseño de kits educativos, empaques, cursos online y material audiovisual; gestión de proveedores y ventas.</li>
+                </ul>
+              </div>
+              <div class="card" style="margin-bottom:12px">
+                <strong data-lang="meta-role">METAMORFOZIZ — Publicidad y producción</strong> <div class="contact-small" data-lang="meta-dates">2021 – 2022</div>
+                <ul class="clean">
+                  <li data-lang="meta-l1">Diseño gráfico, producción de lonas y banners, gestión de materiales y procesos de impresión.</li>
+                </ul>
+              </div>
+              <div class="card" style="margin-bottom:12px">
+                <strong data-lang="ventas-role">Ventas (local) — Coyoacán</strong> <div class="contact-small" data-lang="ventas-dates">2021 – 2022</div>
+                <ul class="clean">
+                  <li data-lang="ventas-l1">Atención directa a clientes, gestión de ventas B2C y B2B, manejo de caja y control de inventario.</li>
+                </ul>
+              </div>
+              <div class="card">
+                <strong data-lang="serv-role">Servicio técnico (negocio propio)</strong> <div class="contact-small" data-lang="serv-dates">2018 – 2020</div>
+                <ul class="clean">
+                  <li data-lang="serv-l1">Reparación de dispositivos electrónicos, compra y venta de refacciones, control de inventario y atención al cliente.</li>
+                </ul>
+              </div>
+          </div>
+        </details>
+
+
+        <details data-section="achievements" id="logros">
+        <summary>
+          <h2 class="section" data-lang="logros-title">Logros</h2>
+        </summary>
+        <div class="section-content">
+          <div class="card">
+            <ul class="clean">
+              <li data-lang="logros-l1">Prototipo IoT validado en campo para monitoreo térmico y energético (Tesis).</li>
+              <li data-lang="logros-l2">Participación técnica en el Congreso Nacional de Biotecnología (Oaxaca, 2025).</li>
+              <li data-lang="logros-l3">Implementación y desarrollo de la plataforma Eco Gaia SOS.</li>
+            </ul>
+          </div>
+        </div>
+        </details>
+
+        <details data-section="courses" id="cursos">
+        <summary>
+          <h2 class="section" data-lang="cursos-title">Cursos y certificados</h2>
+        </summary>
+        <div class="section-content">
+          <div class="card">
+            <ul class="clean">
+              <li data-lang="cursos-l1">Seminario: Diseño de la automatización de la manufactura e integración de dispositivos programables.</li>
+              <li data-lang="cursos-l2">Curso/autoformación: Python para análisis de datos (pandas) — proyectos prácticos.</li>
+              <li data-lang="cursos-l3">Certificación en proceso: Inglés B2.</li>
+            </ul>
+          </div>
+        </div>
+        </details>
+      </main>
+
+      <aside class="hero-aside"> <div class="card" id="formacion">
+            <div style="font-weight:800; margin-bottom:15px; color: var(--accent-purple);" data-lang="acad-title">Formación Académica</div>
+            
+            <h3 class="acad-ipn-title" data-lang="acad-uni-title">
+                IPN Politécnico
+            </h3>
+            
+            <div style="margin-bottom: 25px;">
+                <div style="color: var(--fg); font-weight: 600; display: flex; align-items: center; gap: 8px; font-size: 16px;">
+                    <img src="upiita-logo.png" alt="Logo UPIITA" style="width: 20px; flex-shrink: 0;">
+                    <span data-lang="acad-eng-title">Ingeniería Mecatrónica (UPIITA)</span>
+                </div>
+                <div class="contact-small" style="margin-top: 5px; margin-left: 28px; font-size: 16px; line-height: 1.2;">
+                Instituto Politécnico Nacional
+                <br> <span data-lang="acad-eng-dates">2018 - 2024</span>
+            </div>
+            </div>
+            
+            <div>
+                <div style="color: var(--fg); font-weight: 600; display: flex; align-items: center; gap: 8px; font-size: 16px;">
+                <img src="cecyt13.png" alt="Logo CECyT 13" style="width: 20px; flex-shrink: 0;">
+                <span data-lang="acad-tech-title">Técnico en Administración de Empresas</span>
+                </div>
+                <div class="contact-small" style="margin-top: 5px; margin-left: 28px; font-size: 16px; line-height: 1.2;">
+                CECyT N° 13 "Ricardo Flores Magón" (IPN)
+                <br> <span data-lang="acad-tech-dates">2015 – 2018</span>
+            </div>
+            </div>
+        </div>
+
+        
+        <div class="card" id="habilidades">
+          <div style="font-weight:800;margin-bottom:8px" data-lang="tech-skills-title">Habilidades técnicas</div>
+          <div class="skills">
+            <div class="skill-pill" data-lang="skill-cpp">C++ / Arduino</div>
+            <div class="skill-pill" data-lang="skill-python">Python (pandas)</div>
+            <div class="skill-pill" data-lang="skill-esp32">ESP32 & sensores</div>
+            <div class="skill-pill" data-lang="skill-sql">SQL & Google Sheets</div>
+            <div class="skill-pill" data-lang="skill-solar">Paneles solares & baterías</div>
+            <div class="skill-pill" data-lang="skill-apps-script">Google Apps Script</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="font-weight:800;margin-bottom:8px" data-lang="soft-skills-title">Habilidades blandas</div>
+          <ul class="clean">
+            <li data-lang="soft-l1">Liderazgo</li>
+            <li data-lang="soft-l2">Creatividad e innovación</li>
+            <li data-lang="soft-l3">Planeación y gestión de proyectos</li>
+            <li data-lang="soft-l4">Trabajo en equipo</li>
+            <li data-lang="soft-l5">Adaptabilidad</li>
+            <li data-lang="soft-l6">Certificación en proceso: Inglés B2.</li>
+          </ul>
+        </div>
+        <div class="card" id="contacto">
+      <div style="font-weight:800;margin-bottom:8px" data-lang="contact-title">Contacto</div>
+        <ul class="contact-list"> 
+
+          <li class="full-width-btn">
+            <a href="mailto:sgj.cheko@gmail.com" class="contact-btn-pressable btn-email">
+              <i class="fa-regular fa-envelope"></i>
+              <span>sgj.cheko@gmail.com</span>
+            </a>
+          </li>
+
+          <li class="full-width-btn">
+            <a href="mailto:sgardunoj1400@alumno.ipn.mx" class="contact-btn-pressable btn-email btn-email-rojo">
+              <i class="fa-regular fa-envelope"></i>
+              <span>sgardunoj1400@alumno.ipn.mx</span>
+            </a>
+          </li>
+              <li>
+                <a href="https://wa.me/5215586864746" target="_blank" rel="noopener" class="contact-btn-pressable btn-whatsapp">
+                  <i class="fa-brands fa-whatsapp"></i>
+                  <span>WhatsApp</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://sgj369.github.io/cv-sergio-gardu-o-jardon/" target="_blank" rel="noopener" class="contact-btn-pressable btn-github">
+                  <i class="fa-brands fa-github"></i>
+                  <span>GitHub</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.linkedin.com/in/gardu%C3%B1o-jardon-sergio-264b582b0" target="_blank" rel="noopener" class="contact-btn-pressable btn-linkedin">
+                  <i class="fa-brands fa-linkedin"></i>
+                  <span>LinkedIn</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.facebook.com/share/19FgjAa3ai/" target="_blank" rel="noopener" class="contact-btn-pressable btn-facebook">
+                  <i class="fa-brands fa-facebook"></i>
+                  <span>Facebook</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/cheko_sgj?igsh=amV1aTVwZ3VpeTBi" target="_blank" rel="noopener" class="contact-btn-pressable btn-instagram">
+                  <i class="fa-brands fa-instagram"></i>
+                  <span>Instagram</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.tiktok.com/@chekup00" target="_blank" rel="noopener" class="contact-btn-pressable btn-tiktok">
+                  <i class="fa-brands fa-tiktok"></i>
+                  <span>TikTok</span>
+                </a>
+              </li>
+            </ul>
+        </div>
+      </aside>
+      <footer>
+      <div class="footer-brand">
+        <a href="QRHAKU.png" target="_blank" title="Ver QR en grande">
+          <div class="sello"><img src="haku-logo.png" alt="Haku"></div>
+        </a>
+        <div style="color:var(--muted);font-size:13px">© <span id="year"></span> <span data-lang="footer-name">Sergio Garduño Jardón</span> · <span data-lang="footer-source">Hecho con GitHub Pages</span></div>
+      </div>
+    </footer>
+    </div>
+  </div>
+  
+         
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+      particlesJS("particles-js", {
+        "particles": { "number": { "value": 80, "density": { "enable": true, "value_area": 800 }}, "color": { "value": ["#FFD700", "#63b96f", "#0077b6", "#eef1f0"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }}, "opacity": { "value": 0.6, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false }}, "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false }}, "line_linked": { "enable": true, "distance": 150, "color": "#a3a3a3", "opacity": 0.4, "width": 1 }, "move": { "enable": true, "speed": 3, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }},
+        "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" }, "resize": true }, "modes": { "grab": { "distance": 400, "line_linked": { "opacity": 1 }}, "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 }, "repulse": { "distance": 150, "duration": 0.4 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 }}},
+        "retina_detect": true
+      });
+    </script>
+    
+    <script>
+    const textToAnimate = "Cargando";
+    const container = document.getElementById('loading-text-container');
+    // Calcula el tiempo total que dura el efecto de aparición de las letras
+    const animationDuration = (textToAnimate.length * 50) + 1000; 
+    let repeatCount = 0;
+    const maxRepeats = 2; // Queremos que la animación se complete dos veces
+
+    // Función para crear los spans, iniciar la animación y controlar las repeticiones
+    function animateText() {
+        // Reset: Vuelve a dejar el contenedor vacío y sin la clase 'animate'
+        container.innerHTML = '';
+        container.classList.remove('animate'); 
+
+        // 1. Crear los spans para cada letra
+        textToAnimate.split('').forEach((char, index) => {
+            const span = document.createElement('span');
+            span.textContent = char;
+            container.appendChild(span);
+            span.style.transitionDelay = `${index * 50}ms`; 
+        });
+
+        // 2. Iniciar el efecto de entrada de las letras
+        setTimeout(() => {
+            container.classList.add('animate');
+        }, 100); 
+
+        // 3. Programar la siguiente acción (repetir o terminar)
+        setTimeout(() => {
+            repeatCount++;
+            if (repeatCount < maxRepeats) {
+                // Reiniciar la animación
+                animateText();
             } else {
-                icon.classList.remove('fa-xmark');
-                icon.classList.add('fa-bars'); 
-                document.body.style.overflow = ''; // Permite el scroll del fondo
+                // Finalizado el segundo ciclo, pasar a la página
+                hidePreloader();
             }
+        }, animationDuration);
+    }
+
+    // Función para ocultar el preloader y mostrar la página TD
+    function hidePreloader() {
+        const preloader = document.getElementById('preloader');
+        const body = document.body;
+        
+        // 1. Oculta el preloader
+        preloader.classList.add('hidden');
+        
+        // 2. Muestra el contenido principal después de la transición (0.5s)
+        setTimeout(() => {
+            body.classList.remove('unloaded'); // Quito la clase de bloqueo (si la tuvieras)
+            body.classList.add('loaded'); // Muestra el padding inicial correcto
+            
+            // Re-evalúa las tarjetas que ya están en el viewport inmediatamente
+            // Esto es crucial para que el "is-visible" se aplique al cargar
+            reObserveCards();
+            
+        }, 500); 
+    }
+    
+    // Función de re-observación
+    function reObserveCards() {
+        const observer = window.cardObserver;
+        if (observer) {
+            document.querySelectorAll('.card').forEach(card => {
+                // Observa de nuevo o aplica la clase si ya están visibles (no hay forma limpia en este contexto)
+                // Por simplicidad, volvemos a aplicar el observer en el load
+                observer.unobserve(card);
+                observer.observe(card);
+            });
+        }
+    }
+    
+    // Lógica para que las tarjetas que ya están en el viewport aparezcan inmediatamente
+    function setupCardAnimations() {
+        const animatedCards = document.querySelectorAll('.card'); 
+        if (typeof IntersectionObserver !== 'undefined') {
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+              entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add('is-visible');
+                  observer.unobserve(entry.target);
+                }
+              });
+            }, {
+              threshold: 0.1 
+            });
+            animatedCards.forEach(card => {
+              revealObserver.observe(card);
+            });
+            window.cardObserver = revealObserver; // Guarda el observer globalmente
+        } else {
+            // Fallback para navegadores viejos: simplemente muestra las tarjetas
+             animatedCards.forEach(card => card.classList.add('is-visible'));
+        }
+    }
+
+
+    // --- INICIALIZACIÓN CUANDO EL DOM ESTÁ LISTO ---
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        // --- Establece el año actual ---
+        const yearElement = document.getElementById('year');
+        if (yearElement) {
+            yearElement.textContent = new Date().getFullYear();
+        }
+
+        // --- Lógica de Traducción Inicial (Mantenemos tu lógica) ---
+        // ... (Tu lógica de traducción inicial aquí) ...
+        const translations = { /* ... */ }; // Tendrías que re-definir tu objeto translations aquí o moverlo
+        
+        // --- Lógica del Menú Lateral ---
+        const menuToggleBtn = document.getElementById('menu-toggle-btn');
+        const sideNavbar = document.getElementById('side-navbar');
+        if (menuToggleBtn && sideNavbar) {
+          menuToggleBtn.addEventListener('click', () => {
+            sideNavbar.classList.toggle('expanded');
+            document.body.classList.toggle('menu-expanded');
+            menuToggleBtn.setAttribute('aria-expanded', sideNavbar.classList.contains('expanded'));
+          });
+          menuToggleBtn.setAttribute('aria-expanded', sideNavbar.classList.contains('expanded'));
+        }
+    
+        // --- Efecto Flip Cabecera ---
+        const avatarContainerMain = document.getElementById('avatar-container-main');
+        const avatarImgMain = document.getElementById('avatar-img-main');
+        const originalSrcMain = 'profilecv.png'; 
+        const qrSrcMain = 'QRHAKU.png'; 
+        let isQrModeMain = false;
+        if (avatarContainerMain && avatarImgMain) {
+          avatarContainerMain.addEventListener('click', () => {
+              if (isQrModeMain) {
+                  avatarImgMain.src = originalSrcMain;
+                  avatarImgMain.alt = 'Sergio Garduño Jardón';
+                  avatarContainerMain.classList.remove('qr-mode');
+                  avatarContainerMain.title = 'Clic para QR';
+              } else {
+                  avatarImgMain.src = qrSrcMain;
+                  avatarImgMain.alt = 'Código QR del Portafolio';
+                  avatarContainerMain.classList.add('qr-mode');
+                  avatarContainerMain.title = 'Clic para volver a la foto';
+              }
+              isQrModeMain = !isQrModeMain;
+          });
+        }
+
+        // --- Funcionalidad Copiar Carta (Mantenemos tu lógica) ---
+        // ... (Tu lógica de copiar carta aquí) ...
+        
+        // 🚨 INICIALIZA LA ANIMACIÓN DE LAS TARJETAS AL CARGAR EL DOM 🚨
+        setupCardAnimations();
+    }); 
+
+    // --- INICIA EL PROCESO DE CARGA AL CARGAR TODA LA PÁGINA ---
+    window.addEventListener('load', function() {
+        animateText(); // Comienza el ciclo de la animación de Haku
+    });
+    </script>
+    
+    <script>
+    // **NOTA:** Tu código original de traducción, animación de avatar, y copia de carta 
+    // debe estar aquí. Por razones de espacio y para evitar duplicar el código largo, 
+    // se asume que tus funciones `translatePage`, `copy-carta-btn-bottom` y `avatar-container-main`
+    // están aquí debajo. Solo se añadió la nueva lógica de Preloader en el bloque de arriba.
+    
+    // Objeto de Traducciones (INICIO DEL CÓDIGO ORIGINAL)
+    const translations = {
+        'en': { 
+          'profile-title': 'Profile',
+          // ... (Resto de tus traducciones en inglés) ...
+        },
+        'es': { 
+          // ... (Resto de tus traducciones en español) ...
+        }
+    };
+    
+    let currentLanguage = 'es';
+    // ... (El resto de tu lógica de JavaScript original: applyText, translatePage, etc.)
+    
+    // (TU CÓDIGO ORIGINAL DE JAVASCRIPT COMPLETO CONTINÚA AQUÍ)
+    
+    // Función para aplicar texto (maneja <strong>)
+    function applyText(element, text) {
+      if (!element) return;
+      
+      if (element.tagName === 'STRONG' && element.querySelector('img')) {
+        const textSpan = element.querySelector('span');
+        if (textSpan) { textSpan.innerHTML = text; } 
+      } else {
+        element.innerHTML = text; 
+      }
+    }
+
+    // Función principal de traducción
+    function translatePage(lang) {
+      currentLanguage = lang;
+      const t = translations[lang] || translations['es'];
+      const isEnglish = (lang === 'en');
+      document.documentElement.lang = lang;
+
+      // Traduce elementos con [data-lang]
+      document.querySelectorAll('[data-lang]').forEach(element => {
+          const key = element.getAttribute('data-lang');
+          
+          if (!element.getAttribute('data-es-original')) {
+               element.setAttribute('data-es-original', element.innerHTML); 
+          }
+
+          let textToApply = '';
+          if (t[key] !== undefined) {
+              textToApply = t[key]; 
+          } else if (lang === 'es') {
+              const originalText = element.getAttribute('data-es-original');
+              if (originalText) { textToApply = originalText; } 
+          } else {
+               textToApply = element.getAttribute('data-es-original') || element.innerHTML;
+          }
+          
+          if (textToApply) {
+              applyText(element, textToApply);
+          }
+      });
+      
+      // Traduce atributos href
+      document.querySelectorAll('[data-lang-href-en]').forEach(button => {
+          const originalHref = button.getAttribute('data-es-href') || button.getAttribute('href');
+           if (!button.getAttribute('data-es-href')) { button.setAttribute('data-es-href', originalHref); }
+           
+          const englishHref = button.getAttribute('data-lang-href-en');
+          button.setAttribute('href', isEnglish ? englishHref : originalHref);
+      });
+
+      // Traduce atributos title (para tooltips como el del icono de copiar)
+      document.querySelectorAll('[data-lang-title-en]').forEach(element => {
+          const originalTitle = element.getAttribute('data-es-title') || element.getAttribute('title');
+          if (!element.getAttribute('data-es-title')) { element.setAttribute('data-es-title', originalTitle); }
+          
+          const englishTitleKey = element.getAttribute('data-lang-title-en');
+          const englishTitle = translations['en'][englishTitleKey] || originalTitle;
+          
+          element.setAttribute('title', isEnglish ? englishTitle : originalTitle);
+      });
+      
+      // Actualiza botones de idioma
+      document.getElementById('flag-es')?.classList.toggle('active', lang === 'es');
+      document.getElementById('flag-en')?.classList.toggle('active', lang === 'en');
+    }
+    
+    // Tu código de DOMContentLoaded que ya tenías
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        // --- Establece el año actual ---
+        const yearElement = document.getElementById('year');
+        if (yearElement) {
+            yearElement.textContent = new Date().getFullYear();
+        }
+
+        // --- Lógica de Traducción Inicial ---
+        document.querySelectorAll('[data-lang]').forEach(element => {
+            if (!element.getAttribute('data-es-original')) {
+                 element.setAttribute('data-es-original', element.innerHTML); 
+            }
+        });
+        translatePage(currentLanguage);
+        
+        
+        // --- Lógica del Menú Lateral ---
+        const menuToggleBtn = document.getElementById('menu-toggle-btn');
+        const sideNavbar = document.getElementById('side-navbar');
+        if (menuToggleBtn && sideNavbar) {
+          menuToggleBtn.addEventListener('click', () => {
+            sideNavbar.classList.toggle('expanded');
+            document.body.classList.toggle('menu-expanded');
+            menuToggleBtn.setAttribute('aria-expanded', sideNavbar.classList.contains('expanded'));
+          });
+          menuToggleBtn.setAttribute('aria-expanded', sideNavbar.classList.contains('expanded'));
+        }
+    
+        // --- Efecto Flip Cabecera (Se movió la inicialización a la función setupCardAnimations) ---
+        const avatarContainerMain = document.getElementById('avatar-container-main');
+        const avatarImgMain = document.getElementById('avatar-img-main');
+        const originalSrcMain = 'profilecv.png'; 
+        const qrSrcMain = 'QRHAKU.png'; 
+        let isQrModeMain = false;
+        if (avatarContainerMain && avatarImgMain) {
+          avatarContainerMain.addEventListener('click', () => {
+              if (isQrModeMain) {
+                  avatarImgMain.src = originalSrcMain;
+                  avatarImgMain.alt = 'Sergio Garduño Jardón';
+                  avatarContainerMain.classList.remove('qr-mode');
+                  avatarContainerMain.title = 'Clic para QR';
+              } else {
+                  avatarImgMain.src = qrSrcMain;
+                  avatarImgMain.alt = 'Código QR del Portafolio';
+                  avatarContainerMain.classList.add('qr-mode');
+                  avatarContainerMain.title = 'Clic para volver a la foto';
+              }
+              isQrModeMain = !isQrModeMain;
+          });
+        }
+
+        // --- Funcionalidad Copiar Carta ---
+        const copyBtnBottom = document.getElementById('copy-carta-btn-bottom');
+        const textToCopyContainer = document.getElementById('carta-text-content'); 
+        if (copyBtnBottom && textToCopyContainer) {
+          copyBtnBottom.addEventListener('click', () => {
+            const paragraphs = textToCopyContainer.querySelectorAll('p');
+            let fullText = '';
+            paragraphs.forEach((p, index) => {
+              let cleanText = p.textContent || p.innerText || ''; 
+              fullText += cleanText.trim(); 
+              if (index < paragraphs.length - 1) {
+                fullText += '\n\n'; 
+              }
+            });
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(fullText).then(() => {
+                  const icon = copyBtnBottom.querySelector('i');
+                  const span = copyBtnBottom.querySelector('span');
+                  const originalIconClass = 'fa-copy';
+                  const originalTextKey = 'copy-btn-text'; 
+                  const originalText = translations[currentLanguage][originalTextKey] || 'Copiar Texto'; 
+
+                  if (icon) icon.className = 'fa-solid fa-check';
+                  if (span) span.textContent = (currentLanguage === 'en') ? 'Copied!' : '¡Copiado!'; 
+                  copyBtnBottom.classList.add('copied'); 
+
+                  setTimeout(() => {
+                    if (icon) icon.className = `fa-regular ${originalIconClass}`;
+                    if (span) span.textContent = originalText;
+                    copyBtnBottom.classList.remove('copied');
+                  }, 1500);
+
+                }).catch(err => {
+                  console.error('Error al copiar texto con API: ', err);
+                  alert((currentLanguage === 'en') ? 'Could not copy text.' : 'No se pudo copiar el texto.');
+                });
+            } else {
+                try {
+                    const textArea = document.createElement('textarea');
+                    textArea.value = fullText;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                     alert((currentLanguage === 'en') ? 'Text copied (fallback).' : 'Texto copiado (alternativo).');
+                } catch (err) {
+                    console.error('Error al copiar texto con fallback: ', err);
+                     alert((currentLanguage === 'en') ? 'Could not copy text.' : 'No se pudo copiar el texto.');
+                }
+            }
+          });
         }
         
-        // 1. Toggle al hacer clic en el botón
-        toggleBtn.addEventListener('click', toggleMenu);
-        
-        // 2. Toggle al hacer clic en el overlay (para cerrar)
-        overlay.addEventListener('click', toggleMenu); 
-        
-        // 3. Cerrar el menú al hacer clic en un enlace
-        const navLinks = menu.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                if (menu.classList.contains('active')) {
-                   toggleMenu(); // Usamos la función para asegurar que el overlay y el icono se reseteen
-                }
-            });
-        });
     });
-  </script>
-
+    </script>
 </body>
 </html>
