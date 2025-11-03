@@ -862,11 +862,12 @@
 }
 
 /* ============================================= */
-/* 2. Efecto de Pulso (Brillo) en Tarjetas y Avatar (CORREGIDO) */
+/* 2. Efecto de Pulso (Brillo) en Tarjetas y Avatar (CORREGIDO Y ESPECÍFICO) */
 /* ============================================= */
 
 /* Brillo del Avatar (Foto de Perfil) */
 .avatar {
+  /* ... (Mantén los estilos existentes) ... */
   animation: pulse-avatar-glow 2s infinite alternate ease-in-out;
 }
 
@@ -875,30 +876,28 @@
   to { box-shadow: 0 0 30px rgba(238, 241, 240, 0.8); }
 }
 
-/* Base para el Pulso de TODAS las Tarjetas de Contenido (usa el color del borde izquierdo) */
-.card.pulse-card, 
-.card.pulse-card-blue { /* Mantengo pulse-card-blue por si quieres que pulse el contacto, pero ya no es necesario */
-    animation: pulse-shadow 3s infinite alternate ease-in-out;
+/* Base para TODAS las tarjetas de contenido con su color de acento */
+.card.pulse-card-white,
+.card.pulse-card-purple,
+.card.pulse-card-emerald,
+.card.pulse-card-gold,
+.card.pulse-card-red,
+.card.pulse-card-blue {
+    /* Establece una animación base, pero el keyframe usa el color de acento del borde */
+    animation: pulse-color-shadow 3s infinite alternate ease-in-out;
 }
 
-@keyframes pulse-shadow {
-  from { 
-    box-shadow: 0 8px 30px rgba(0,0,0,0.25), 
-                0 0 2px rgba(0,0,0,0.1); 
-  }
+@keyframes pulse-color-shadow {
+  from { box-shadow: 0 8px 30px rgba(0,0,0,0.25); }
   to { 
-    /* Esta solución utiliza la propiedad 'currentColor' para heredar el color
-       del elemento más cercano. En las tarjetas, a menudo hereda el color del texto (white).
-       Para forzar el color del borde, es necesario CSS más avanzado, pero este da
-       un efecto de brillo blanco/gris general que funciona bien con el diseño oscuro.
-    */
+    /* Esta técnica usa variables de color para inyectar el brillo */
     box-shadow: 0 8px 40px rgba(0,0,0,0.5), 
-                0 0 10px var(--fg), /* Usamos el color blanco primario como brillo */
-                0 0 15px rgba(255, 255, 255, 0.1); 
+                0 0 10px var(--pulse-color), /* Usamos la variable CSS */
+                0 0 15px rgba(255, 255, 255, 0.05); 
   }
 }
 
-/* Sobrescribe para el Card Blanco (Header) para asegurar el color blanco puro */
+/* Sobrescribe para el Card Blanco (Header) - Usa el blanco puro */
 .card.pulse-card-white {
     animation: pulse-shadow-white 3s infinite alternate ease-in-out;
 }
@@ -906,6 +905,7 @@
   from { box-shadow: 0 10px 30px rgba(238, 241, 240, 0.1), 0 0 5px rgba(238, 241, 240, 0.05); }
   to { box-shadow: 0 10px 30px rgba(238, 241, 240, 0.3), 0 0 15px rgba(238, 241, 240, 0.15); }
 }
+
 
 
 /* ============================================= */
@@ -1051,7 +1051,7 @@ footer.is-visible {
   <div class="wrap">
     <div class="hero">
       <main class="hero-main">
-    <div class="main-header-card card pulse-card-white"> 
+    <div class="main-header-card card pulse-card-white" style="--pulse-color: var(--fg);"> 
 
     <div class="avatar" title="Clic para QR" id="avatar-container-main">
         <img id="avatar-img-main" src="profilecv.png" alt="Sergio Garduño Jardón">
@@ -1071,7 +1071,7 @@ footer.is-visible {
     </div>
 </div>
 
-         <section class="card pulse-card" id="perfil">
+         <section class="card pulse-card-blue" id="perfil" style="--pulse-color: var(--accent-blue);">
       
         <div class="profile-title" data-lang="profile-title">Perfil</div>
         
@@ -1118,7 +1118,7 @@ footer.is-visible {
             <h2 class="section" data-lang="proyectos-title">Proyectos Personales</h2>
           </summary>
           <div class="section-content">
-              <div class="card pulse-card" style="margin-bottom:12px">
+              <div class="card pulse-card-purple" style="margin-bottom:12px; --pulse-color: var(--accent-purple);">
                 <strong>
                   <img src="ECOGAIASOS.png" alt="Logo EcoGaiaSOS" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
                   <span data-lang="ecogaia-role">EcoGaiaSOS — Plataforma de impacto ambiental</span>
@@ -1137,7 +1137,7 @@ footer.is-visible {
                 </a>
               </div>
               </div>
-              <div class="card pulse-card" style="margin-bottom:12px">
+              <div class="card pulse-card-purple" style="margin-bottom:12px; --pulse-color: var(--accent-purple);">
                 <strong data-lang="iot-role">Sistema IoT para techos verdes — Proyecto de tesis</strong> <div class="contact-small" data-lang="iot-dates">2023 – 2025 · Validado en campo</div>
                 
                 <ul class="clean">
@@ -1168,25 +1168,25 @@ footer.is-visible {
             <h2 class="section" data-lang="exp-title">Experiencia Laboral</h2>
           </summary>
           <div class="section-content">
-              <div class="card pulse-card" style="margin-bottom:12px">
+              <div class="card pulse-card-emerald" style="margin-bottom:12px; --pulse-color: var(--accent-emerald);">
                 <strong data-lang="robo-role">Robodacta — Diseño y ventas</strong> <div class="contact-small" data-lang="robo-dates">2022 – 2024</div>
                 <ul class="clean">
                   <li data-lang="robo-l1">Diseño de kits educativos, empaques, cursos online y material audiovisual; gestión de proveedores y ventas.</li>
                 </ul>
               </div>
-              <div class="card pulse-card" style="margin-bottom:12px">
+              <div class="card pulse-card-emerald" style="margin-bottom:12px; --pulse-color: var(--accent-emerald);">
                 <strong data-lang="meta-role">METAMORFOZIZ — Publicidad y producción</strong> <div class="contact-small" data-lang="meta-dates">2021 – 2022</div>
                 <ul class="clean">
                   <li data-lang="meta-l1">Diseño gráfico, producción de lonas y banners, gestión de materiales y procesos de impresión.</li>
                 </ul>
               </div>
-              <div class="card pulse-card" style="margin-bottom:12px">
+              <div class="card pulse-card-emerald" style="margin-bottom:12px; --pulse-color: var(--accent-emerald);">
                 <strong data-lang="ventas-role">Ventas (local) — Coyoacán</strong> <div class="contact-small" data-lang="ventas-dates">2021 – 2022</div>
                 <ul class="clean">
                   <li data-lang="ventas-l1">Atención directa a clientes, gestión de ventas B2C y B2B, manejo de caja y control de inventario.</li>
                 </ul>
               </div>
-              <div class="card pulse-card">
+              <div class="card pulse-card-emerald" style="--pulse-color: var(--accent-emerald);">
                 <strong data-lang="serv-role">Servicio técnico (negocio propio)</strong> <div class="contact-small" data-lang="serv-dates">2018 – 2020</div>
                 <ul class="clean">
                   <li data-lang="serv-l1">Reparación de dispositivos electrónicos, compra y venta de refacciones, control de inventario y atención al cliente.</li>
@@ -1197,38 +1197,38 @@ footer.is-visible {
 
 
         <details data-section="achievements" id="logros">
-        <summary>
-          <h2 class="section" data-lang="logros-title">Logros</h2>
-        </summary>
-        <div class="section-content">
-          <div class="card pulse-card">
-            <ul class="clean">
-              <li data-lang="logros-l1">Prototipo IoT validado en campo para monitoreo térmico y energético (Tesis).</li>
-              <li data-lang="logros-l2">Participación técnica en el Congreso Nacional de Biotecnología (Oaxaca, 2025).</li>
-              <li data-lang="logros-l3">Implementación y desarrollo de la plataforma Eco Gaia SOS.</li>
-            </ul>
+          <summary>
+            <h2 class="section" data-lang="logros-title">Logros</h2>
+          </summary>
+          <div class="section-content">
+            <div class="card pulse-card-gold" style="--pulse-color: var(--accent-gold);">
+              <ul class="clean">
+                <li data-lang="logros-l1">Prototipo IoT validado en campo para monitoreo térmico y energético (Tesis).</li>
+                <li data-lang="logros-l2">Participación técnica en el Congreso Nacional de Biotecnología (Oaxaca, 2025).</li>
+                <li data-lang="logros-l3">Implementación y desarrollo de la plataforma Eco Gaia SOS.</li>
+              </ul>
+            </div>
           </div>
-        </div>
         </details>
 
         <details data-section="courses" id="cursos">
-        <summary>
-          <h2 class="section" data-lang="cursos-title">Cursos y certificados</h2>
-        </summary>
-        <div class="section-content">
-          <div class="card pulse-card">
-            <ul class="clean">
-              <li data-lang="cursos-l1">Seminario: Diseño de la automatización de la manufactura e integración de dispositivos programables.</li>
-              <li data-lang="cursos-l2">Curso/autoformación: Python para análisis de datos (pandas) — proyectos prácticos.</li>
-              <li data-lang="cursos-l3">Certificación en proceso: Inglés B2.</li>
-            </ul>
+          <summary>
+            <h2 class="section" data-lang="cursos-title">Cursos y certificados</h2>
+          </summary>
+          <div class="section-content">
+            <div class="card pulse-card-red" style="--pulse-color: var(--accent-red);">
+              <ul class="clean">
+                <li data-lang="cursos-l1">Seminario: Diseño de la automatización de la manufactura e integración de dispositivos programables.</li>
+                <li data-lang="cursos-l2">Curso/autoformación: Python para análisis de datos (pandas) — proyectos prácticos.</li>
+                <li data-lang="cursos-l3">Certificación en proceso: Inglés B2.</li>
+              </ul>
+            </div>
           </div>
-        </div>
         </details>
       </main>
 
       <aside class="hero-aside"> 
-        <div class="card pulse-card" id="formacion">
+        <div class="card pulse-card-purple" id="formacion" style="--pulse-color: var(--accent-purple);">
             <div style="font-weight:800; margin-bottom:15px; color: var(--accent-purple);" data-lang="acad-title">Formación Académica</div>
             
             <h3 class="acad-ipn-title" data-lang="acad-uni-title">
@@ -1258,8 +1258,7 @@ footer.is-visible {
             </div>
         </div>
 
-        
-        <div class="card pulse-card" id="habilidades">
+        <div class="card pulse-card-blue" id="habilidades" style="--pulse-color: var(--accent-blue);">
           <div style="font-weight:800;margin-bottom:8px" data-lang="tech-skills-title">Habilidades técnicas</div>
           <div class="skills">
             <div class="skill-pill" data-lang="skill-cpp">C++ / Arduino</div>
@@ -1271,7 +1270,7 @@ footer.is-visible {
           </div>
         </div>
 
-        <div class="card pulse-card">
+        <div class="card pulse-card-gold" style="--pulse-color: var(--accent-gold);">
           <div style="font-weight:800;margin-bottom:8px" data-lang="soft-skills-title">Habilidades blandas</div>
           <ul class="clean">
             <li data-lang="soft-l1">Liderazgo</li>
@@ -1282,7 +1281,7 @@ footer.is-visible {
             <li data-lang="soft-l6">Certificación en proceso: Inglés B2.</li>
           </ul>
         </div>
-        <div class="card pulse-card" id="contacto">
+        <div class="card pulse-card-white" id="contacto" style="--pulse-color: var(--fg);">
       <div style="font-weight:800;margin-bottom:8px" data-lang="contact-title">Contacto</div>
         <ul class="contact-list"> 
 
