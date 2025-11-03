@@ -1062,8 +1062,10 @@ footer.is-visible {
     <div class="avatar" title="Clic para QR" id="avatar-container-main">
         <img id="avatar-img-main" src="profilecv.png" alt="Sergio Garduño Jardón">
     </div>
-
+   
+    <div>
     <div class="title" data-lang="name" id="typewriter-name-container"></div>
+    </div>
 
 
 
@@ -1595,37 +1597,43 @@ footer.is-visible {
     /* ============================================= */
         
     function startTypewriterNameEffect(name) {
-        // CAMBIO 1: Buscar el elemento por el nuevo ID
-        const titleElement = document.getElementById('typewriter-name-container');
-        if (!titleElement) return;
+        // 1. Busca el elemento por el ID correcto
+        const typewriterElement = document.getElementById('typewriter-name-container');
+        if (!typewriterElement) return;
     
-        // CAMBIO 2: YA NO REEMPLAZAR EL INNER HTML. El elemento ya existe.
-        // Solo añadimos la clase de estilo (typewriter-title) que contiene la animación de CSS.
-        titleElement.classList.add('typewriter-title');
+        // 2. Añade la clase de estilo Typewriter. Esto lo prepara para la animación CSS.
+        typewriterElement.classList.add('typewriter-title');
         
-        // CAMBIO 3: titleElement AHORA ES EL ELEMENTO DE ESCRITURA
-        const typewriterElement = titleElement; // Usamos titleElement directamente
-        // Nota: titleElement aún tiene la clase .title, pero ahora funciona como contenedor
+        // 3. Calcula el ancho real del texto para la animación CSS
+        const tempSpan = document.createElement('span');
+        tempSpan.textContent = name;
+        tempSpan.style.visibility = 'hidden';
+        tempSpan.style.position = 'absolute';
+        // Usamos getComputedStyle para asegurar la precisión del cálculo:
+        tempSpan.style.fontSize = getComputedStyle(typewriterElement).fontSize;
+        tempSpan.style.fontWeight = getComputedStyle(typewriterElement).fontWeight;
+        tempSpan.style.fontFamily = getComputedStyle(typewriterElement).fontFamily;
         
-        // 2. Calcula el ancho real del texto para la animación
-        // ... (el código de cálculo del ancho es igual) ...
+        document.body.appendChild(tempSpan);
+        const nameWidth = tempSpan.offsetWidth + 2; // + 2px de margen
+        document.body.removeChild(tempSpan);
     
-        // 3. Establece variables CSS
+        // 4. Establece las variables CSS para la animación
         const chars = name.length;
-        const totalTime = 3.0; // Duración total de la animación en segundos
+        const totalTime = 3.0; 
         typewriterElement.style.setProperty('--typewriter-width-name', `${nameWidth}px`);
         typewriterElement.style.setProperty('--typewriter-chars', chars);
         typewriterElement.style.setProperty('--typewriter-time', `${totalTime}s`);
         
-        // 4. Inicia la animación de CSS
+        // 5. Inicia la animación CSS
         typewriterElement.classList.add('visible');
     
-        // 5. Oculta el cursor después de que termine la animación de tecleo
-        // El resto de la función es igual...
+        // 6. Oculta el cursor al finalizar
         setTimeout(() => {
             typewriterElement.style.borderRight = 'none';
-        }, totalTime * 1000 + 500); // 3.0 segundos + 0.5s extra
+        }, totalTime * 1000 + 500); 
     }
+
 
     
     
