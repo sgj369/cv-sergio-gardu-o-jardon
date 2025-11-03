@@ -171,6 +171,7 @@
   
      /* --- CAMBIO AQUÍ: Nombre contorno blanco y relleno negro --- */
   .title{
+    /* ESTOS ESTILOS BASE SON PARA EL EFECTO TYPEWRITER. EL JS SE ENCARGA DEL RESTO */
     font-weight:900;
     font-size:36px; 
     color: #000; /* Relleno Negro */
@@ -289,7 +290,7 @@
     border-left: 5px solid; /* Borde izquierdo base (color se aplica por ID) */
   }
   .card:hover { 
-    box-shadow: 0 0 15px rgba(255,255,255,0.1); 
+    /*box-shadow: 0 0 15px rgba(255,255,255,0.1); */ /* Eliminado para no interferir con el pulso */
     transform: translateY(0); /* Evita saltos en hover */
   }
 
@@ -802,6 +803,216 @@
       .title { font-size: 28px; }
       .avatar { width: 70px; height: 70px; }
      }
+     
+/* ============================================= */
+/* 1. Preloader con GIF y Texto Animado */
+/* ============================================= */
+#preloader {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: var(--bg-uniform); /* Fondo oscuro */
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+}
+
+#preloader.hidden {
+  opacity: 0;
+  pointer-events: none; /* Inhabilita interacciones una vez oculto */
+}
+
+.haku-visual-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.haku-img {
+  width: 120px;
+  height: 120px;
+  animation: spin 1s linear infinite; /* Animación de giro para el GIF */
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 1.8em;
+  font-weight: 700;
+  color: var(--accent-gold); /* Dorado */
+  white-space: nowrap;
+  letter-spacing: 2px;
+}
+
+.loading-text span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.loading-text.animate span {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================= */
+/* 2. Efecto de Pulso (Brillo) en Tarjetas y Avatar */
+/* ============================================= */
+
+/* Brillo del Avatar (Foto de Perfil) */
+.avatar {
+  /* ... (Mantén los estilos existentes) ... */
+  animation: pulse-avatar-glow 2s infinite alternate ease-in-out;
+}
+
+@keyframes pulse-avatar-glow {
+  from { box-shadow: 0 0 20px rgba(238, 241, 240, 0.4); }
+  to { box-shadow: 0 0 30px rgba(238, 241, 240, 0.8); }
+}
+
+/* Brillo Blanco (Tarjeta de Encabezado) */
+.pulse-card-white {
+  animation: pulse-shadow-white 3s infinite alternate ease-in-out;
+}
+@keyframes pulse-shadow-white {
+  from { box-shadow: 0 10px 30px rgba(238, 241, 240, 0.1), 0 0 5px rgba(238, 241, 240, 0.05); }
+  to { box-shadow: 0 10px 30px rgba(238, 241, 240, 0.3), 0 0 15px rgba(238, 241, 240, 0.15); }
+}
+
+/* Brillo Púrpura (Tarjetas de Formación y Proyectos - Asignadas con .pulse-card) */
+.pulse-card {
+  animation: pulse-shadow-purple 3s infinite alternate ease-in-out;
+}
+@keyframes pulse-shadow-purple {
+  from { box-shadow: 0 10px 30px rgba(153, 51, 204, 0.1), 0 0 5px rgba(153, 51, 204, 0.05); }
+  to { box-shadow: 0 10px 30px rgba(153, 51, 204, 0.3), 0 0 15px rgba(153, 51, 204, 0.15); }
+}
+
+/* Brillo Azul (Tarjeta de Contacto - Asignada con .pulse-card-blue) */
+.pulse-card-blue {
+  animation: pulse-shadow-blue 3s infinite alternate ease-in-out;
+}
+@keyframes pulse-shadow-blue {
+  from { box-shadow: 0 10px 30px rgba(0, 119, 182, 0.1), 0 0 5px rgba(0, 119, 182, 0.05); }
+  to { box-shadow: 0 10px 30px rgba(0, 119, 182, 0.3), 0 0 15px rgba(0, 119, 182, 0.15); }
+}
+
+/* ============================================= */
+/* 3. Efecto de Tecleo (Typewriter) en tu Nombre */
+/* ============================================= */
+
+.typewriter-title {
+  /* Estilo base */
+  font-size: 36px;
+  font-weight: 900;
+  color: #000;
+  text-shadow: -1px -1px 0 var(--fg), 1px -1px 0 var(--fg), -1px 1px 0 var(--fg), 1px 1px 0 var(--fg);
+  text-align: center;
+  
+  /* Propiedades de Typewriter */
+  overflow: hidden; /* Oculta el texto hasta que se escribe */
+  border-right: 3px solid var(--accent-gold); /* Cursor simulado */
+  white-space: nowrap; /* Mantiene el texto en una sola línea */
+  width: 0; /* Ancho inicial 0 */
+  opacity: 0; /* Oculto inicialmente */
+  transition: opacity 0.1s ease;
+}
+
+.typewriter-title.visible {
+  opacity: 1;
+  /* El width de la animación se define con una variable CSS desde JS: --typewriter-width-name */
+  animation: typing-name var(--typewriter-time) steps(var(--typewriter-chars)) forwards,
+             blink-caret 0.5s step-end infinite;
+}
+
+/* La animación 'typing-name' usa la variable --typewriter-width-name */
+@keyframes typing-name {
+  from { width: 0; }
+  to { width: var(--typewriter-width-name); } 
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: var(--accent-gold); }
+}
+
+/* Responsive: Asegura que el nombre quepa en el móvil */
+@media (max-width: 480px) {
+  .typewriter-title { 
+    font-size: 28px; 
+  }
+}
+
+/* ============================================= */
+/* 4. Animación de Entrada (Aparecer al Bajar) (Complemento) */
+/* ============================================= */
+
+/* Footer también se anima */
+footer {
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  opacity: 0;
+  transform: translateY(30px);
+}
+footer.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Sub-animación del texto dentro de la tarjeta Perfil (Efecto "Perfil") */
+#perfil .profile-text, #perfil .inner-details {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  transition-delay: 0.5s; /* Retraso para que aparezca después de la tarjeta */
+}
+
+#perfil .profile-text.visible, #perfil .inner-details.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================= */
+/* 5. "Fix" de Accesibilidad (Para Teléfonos) */
+/* ============================================= */
+@media (prefers-reduced-motion: reduce) {
+  /* Desactiva todas las animaciones y transiciones */
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  /* Asegura que los elementos que dependen de JS para volverse visibles lo hagan inmediatamente */
+  .card, footer {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  
+  /* Asegura que el título y el texto del perfil sean visibles */
+  .typewriter-title,
+  #perfil .profile-text,
+  #perfil .inner-details,
+  #preloader {
+    opacity: 1 !important;
+    transform: none !important;
+    /* El preloader debe ocultarse si el movimiento está reducido */
+    display: none !important; 
+  }
+  
+  /* Quita el cursor del Typewriter */
+  .typewriter-title {
+    border-right: none !important;
+    width: auto !important;
+  }
+}
 
  </style>
 </head>
@@ -809,7 +1020,13 @@
   
   <div id="particles-js"></div>
 
-   <nav class="side-navbar" id="side-navbar">
+  <div id="preloader">
+    <div class="haku-visual-container">
+      <img src="hakuball.gif" alt="Cargando..." class="haku-img"> 
+    </div>
+    <div class="loading-text" id="loading-text-container">Cargando</div>
+  </div>
+  <nav class="side-navbar" id="side-navbar">
     <button id="menu-toggle-btn" title="Expandir menú">
       <i class="fa-solid fa-chevron-right"></i>
       <i class="fa-solid fa-chevron-left"></i>
@@ -832,14 +1049,14 @@
   <div class="wrap">
     <div class="hero">
       <main class="hero-main">
-    <div class="main-header-card card"> 
+    <div class="main-header-card card pulse-card-white"> 
 
     <div class="avatar" title="Clic para QR" id="avatar-container-main">
         <img id="avatar-img-main" src="profilecv.png" alt="Sergio Garduño Jardón">
     </div>
 
     <div>
-        <div class="title" data-lang="name">Sergio Garduño Jardón</div>
+        <div class="title" data-lang="name"></div>
     </div>
 
     <div class="header-main-buttons">
@@ -1009,7 +1226,8 @@
         </details>
       </main>
 
-      <aside class="hero-aside"> <div class="card" id="formacion">
+      <aside class="hero-aside"> 
+        <div class="card pulse-card" id="formacion">
             <div style="font-weight:800; margin-bottom:15px; color: var(--accent-purple);" data-lang="acad-title">Formación Académica</div>
             
             <h3 class="acad-ipn-title" data-lang="acad-uni-title">
@@ -1063,7 +1281,7 @@
             <li data-lang="soft-l6">Certificación en proceso: Inglés B2.</li>
           </ul>
         </div>
-        <div class="card" id="contacto">
+        <div class="card pulse-card-blue" id="contacto">
       <div style="font-weight:800;margin-bottom:8px" data-lang="contact-title">Contacto</div>
         <ul class="contact-list"> 
 
@@ -1131,17 +1349,16 @@
   </div>
   
          
-
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script>
-      particlesJS("particles-js", {
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script>
+    // Inicializa particles.js (Código que ya tenías)
+    particlesJS("particles-js", {
         "particles": { "number": { "value": 80, "density": { "enable": true, "value_area": 800 }}, "color": { "value": ["#FFD700", "#63b96f", "#0077b6", "#eef1f0"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }}, "opacity": { "value": 0.6, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false }}, "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false }}, "line_linked": { "enable": true, "distance": 150, "color": "#a3a3a3", "opacity": 0.4, "width": 1 }, "move": { "enable": true, "speed": 3, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }},
         "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" }, "resize": true }, "modes": { "grab": { "distance": 400, "line_linked": { "opacity": 1 }}, "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 }, "repulse": { "distance": 150, "duration": 0.4 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 }}},
         "retina_detect": true
-      });
-    </script>
-    
-        <script>
+    });
+
+
     // Objeto de Traducciones
     const translations = {
         'en': { 
@@ -1246,47 +1463,36 @@
 
     // Función para aplicar texto (maneja <strong>)
     function applyText(element, text) {
-      // Reemplaza **texto** con <b>texto</b> si usaras markdown, pero usamos <strong> en HTML
-      // let processedText = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>'); 
-      // Para HTML con <strong>, simplemente asignamos el innerHTML
-      if (!element) return; // Seguridad extra
-      
-      // Si el elemento es STRONG y tiene una imagen (caso especial en Proyectos), actualiza el SPAN
+      if (!element) return;
       if (element.tagName === 'STRONG' && element.querySelector('img')) {
         const textSpan = element.querySelector('span');
         if (textSpan) { textSpan.innerHTML = text; } 
-        // else { element.innerHTML = text; } // Evita borrar la imagen si no hay span
       } else {
-        element.innerHTML = text; // Asigna directo para la mayoría de los casos
+        element.innerHTML = text; 
       }
     }
 
     // Función principal de traducción
     function translatePage(lang) {
-      currentLanguage = lang; // Actualiza idioma actual
-      const t = translations[lang] || translations['es']; // Fallback a español si falta 'en'
+      currentLanguage = lang;
+      const t = translations[lang] || translations['es'];
       const isEnglish = (lang === 'en');
-      document.documentElement.lang = lang; // Actualiza el lang del HTML
+      document.documentElement.lang = lang;
 
-      // Traduce elementos con [data-lang]
       document.querySelectorAll('[data-lang]').forEach(element => {
           const key = element.getAttribute('data-lang');
-          
-          // Guarda el texto original ES la primera vez
           if (!element.getAttribute('data-es-original')) {
                element.setAttribute('data-es-original', element.innerHTML); 
           }
-
           let textToApply = '';
           if (t[key] !== undefined) {
-              textToApply = t[key]; // Usa la traducción si existe
+              textToApply = t[key];
           } else if (lang === 'es') {
               const originalText = element.getAttribute('data-es-original');
-              if (originalText) { textToApply = originalText; } // Vuelve al original ES si existe
+              if (originalText) { textToApply = originalText; }
           } else {
-               textToApply = element.getAttribute('data-es-original') || element.innerHTML; // Si es EN y no hay traducción, usa el original ES o el actual
+               textToApply = element.getAttribute('data-es-original') || element.innerHTML;
           }
-          
           if (textToApply) {
               applyText(element, textToApply);
           }
@@ -1296,30 +1502,180 @@
       document.querySelectorAll('[data-lang-href-en]').forEach(button => {
           const originalHref = button.getAttribute('data-es-href') || button.getAttribute('href');
            if (!button.getAttribute('data-es-href')) { button.setAttribute('data-es-href', originalHref); }
-           
           const englishHref = button.getAttribute('data-lang-href-en');
           button.setAttribute('href', isEnglish ? englishHref : originalHref);
       });
 
-      // Traduce atributos title (para tooltips como el del icono de copiar)
+      // Traduce atributos title
       document.querySelectorAll('[data-lang-title-en]').forEach(element => {
           const originalTitle = element.getAttribute('data-es-title') || element.getAttribute('title');
           if (!element.getAttribute('data-es-title')) { element.setAttribute('data-es-title', originalTitle); }
-          
-          const englishTitleKey = element.getAttribute('data-lang-title-en'); // Obtiene la clave EN del atributo
-          const englishTitle = translations['en'][englishTitleKey] || originalTitle; // Busca la traducción EN
-          
+          const englishTitleKey = element.getAttribute('data-lang-title-en'); 
+          const englishTitle = translations['en'][englishTitleKey] || originalTitle; 
           element.setAttribute('title', isEnglish ? englishTitle : originalTitle);
       });
       
-      // Actualiza botones de idioma
       document.getElementById('flag-es')?.classList.toggle('active', lang === 'es');
       document.getElementById('flag-en')?.classList.toggle('active', lang === 'en');
+    }
+    
+    
+    /* ============================================= */
+    /* 1. Preloader con GIF y Texto Animado (Lógica) */
+    /* ============================================= */
+    
+    const preloader = document.getElementById('preloader');
+    const loadingTextContainer = document.getElementById('loading-text-container');
+    const maxRepeats = 2; // Número de veces que se repite la animación de texto
+    let repeatCount = 0;
+    const nameToType = "Sergio Garduño Jardón"; // Nombre para el efecto Typewriter
+    
+    // Función de animación del texto "Cargando"
+    function animateText() {
+        if (!loadingTextContainer) return;
+        
+        // Crea los <span> para cada letra la primera vez
+        if (loadingTextContainer.children.length === 0) {
+            const text = loadingTextContainer.textContent;
+            loadingTextContainer.textContent = ''; // Limpia el texto original
+            text.split('').forEach((char, index) => {
+                const span = document.createElement('span');
+                span.textContent = char;
+                span.style.transitionDelay = `${index * 0.08}s`; // Retraso escalonado
+                loadingTextContainer.appendChild(span);
+            });
+        }
+
+        // Ejecuta la animación
+        loadingTextContainer.classList.add('animate');
+
+        // Espera a que la animación termine (depende del número de letras y el delay)
+        const totalDelay = loadingTextContainer.children.length * 80 + 300; // Total de delay + un extra
+
+        setTimeout(() => {
+            loadingTextContainer.classList.remove('animate'); // Quita la clase para reiniciar
+            
+            repeatCount++;
+            if (repeatCount < maxRepeats) {
+                // Espera un momento antes de la siguiente repetición
+                setTimeout(animateText, 500); 
+            } else {
+                // Termina y oculta el preloader
+                hidePreloader();
+            }
+        }, totalDelay);
+    }
+    
+    // Función para ocultar el preloader y empezar la página
+    function hidePreloader() {
+        if (preloader) {
+            preloader.classList.add('hidden');
+            document.body.classList.add('loaded'); // Útil si quieres más animaciones al cargar
+            startTypewriterNameEffect(nameToType); // Inicia el efecto Typewriter
+            // Limpieza después de que la transición CSS termine
+            setTimeout(() => {
+                preloader.style.display = 'none';
+            }, 500);
+        } else {
+             // Si no hay preloader, inicia directamente el typewriter
+            startTypewriterNameEffect(nameToType);
+        }
+    }
+    
+    
+    /* ============================================= */
+    /* 3. Efecto de Tecleo (Typewriter) (Lógica) */
+    /* ============================================= */
+    
+    function startTypewriterNameEffect(name) {
+        const titleElement = document.querySelector('.title');
+        if (!titleElement) return;
+
+        // 1. Reemplaza el div con el efecto de tecleo
+        titleElement.innerHTML = `<div id="typewriter-name" class="typewriter-title"></div>`;
+        const typewriterElement = document.getElementById('typewriter-name');
+        if (!typewriterElement) return;
+
+        // 2. Calcula el ancho real del texto para la animación
+        // Se crea un span temporal invisible para medir el ancho
+        const tempSpan = document.createElement('span');
+        tempSpan.textContent = name;
+        tempSpan.style.visibility = 'hidden';
+        tempSpan.style.position = 'absolute';
+        tempSpan.style.fontSize = getComputedStyle(typewriterElement).fontSize;
+        tempSpan.style.fontWeight = getComputedStyle(typewriterElement).fontWeight;
+        tempSpan.style.fontFamily = getComputedStyle(typewriterElement).fontFamily;
+        document.body.appendChild(tempSpan);
+        const nameWidth = tempSpan.offsetWidth + 2; // + 2px de margen
+        document.body.removeChild(tempSpan);
+
+        // 3. Establece variables CSS
+        const chars = name.length;
+        const totalTime = 3.0; // Duración total de la animación en segundos
+        typewriterElement.style.setProperty('--typewriter-width-name', `${nameWidth}px`);
+        typewriterElement.style.setProperty('--typewriter-chars', chars);
+        typewriterElement.style.setProperty('--typewriter-time', `${totalTime}s`);
+        
+        // 4. Inicia la animación de CSS
+        // Se añade la clase 'visible' para activar la animación CSS (typing-name y blink-caret)
+        typewriterElement.classList.add('visible');
+
+        // 5. Oculta el cursor después de que termine la animación de tecleo
+        setTimeout(() => {
+            typewriterElement.style.borderRight = 'none';
+        }, totalTime * 1000 + 500); // 3.0 segundos + 0.5s extra
+    }
+    
+    
+    /* ============================================= */
+    /* 4. Animación de Entrada (Aparecer al Bajar) (Lógica) */
+    /* ============================================= */
+
+    function setupCardAnimations() {
+        // Selecciona todos los elementos .card y el footer
+        const targetElements = document.querySelectorAll('.card, footer');
+        
+        // No hace nada si no hay IntersectionObserver (el fix de accesibilidad se encarga)
+        if (typeof IntersectionObserver === 'undefined') {
+             targetElements.forEach(el => el.classList.add('is-visible'));
+             // Si no hay observer, asegura que el texto de perfil también se vea
+             document.querySelectorAll('#perfil .profile-text').forEach(el => el.classList.add('visible'));
+             document.querySelectorAll('#perfil .inner-details').forEach(el => el.classList.add('visible'));
+             return;
+        }
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                    
+                    // Lógica adicional para la tarjeta 'Perfil' (Efecto "Perfil")
+                    if (entry.target.id === 'perfil') {
+                        // Hace visible el texto dentro de la tarjeta Perfil después de un retraso
+                        const profileTexts = entry.target.querySelectorAll('.profile-text, .inner-details');
+                        profileTexts.forEach(el => el.classList.add('visible'));
+                    }
+                }
+            });
+        }, {
+            rootMargin: '0px',
+            threshold: 0.1 // Inicia cuando el 10% del elemento es visible
+        });
+
+        targetElements.forEach(el => {
+            // No observa los hijos de las secciones <details> para evitar animaciones dobles
+            if (!el.closest('#proyectos') && !el.closest('#experiencia') && !el.closest('#logros') && !el.closest('#cursos')) {
+                revealObserver.observe(el);
+            }
+        });
     }
 
 
     // --- INICIALIZACIÓN CUANDO EL DOM ESTÁ LISTO ---
     document.addEventListener('DOMContentLoaded', () => {
+        
+        // Inicia el preloader y el ciclo de la página
         
         // --- Establece el año actual ---
         const yearElement = document.getElementById('year');
@@ -1333,8 +1689,7 @@
                  element.setAttribute('data-es-original', element.innerHTML); 
             }
         });
-        // Aplica idioma inicial (si es necesario) o activa bandera correcta
-        translatePage(currentLanguage); // Llama a translatePage para asegurar estado inicial correcto
+        translatePage(currentLanguage); 
         
         
         // --- Lógica del Menú Lateral ---
@@ -1344,34 +1699,15 @@
           menuToggleBtn.addEventListener('click', () => {
             sideNavbar.classList.toggle('expanded');
             document.body.classList.toggle('menu-expanded');
-            // Actualiza aria-expanded para accesibilidad
             const isExpanded = sideNavbar.classList.contains('expanded');
             menuToggleBtn.setAttribute('aria-expanded', isExpanded);
           });
-          // Establece aria-expanded inicial
            menuToggleBtn.setAttribute('aria-expanded', sideNavbar.classList.contains('expanded'));
         }
     
-        // --- Lógica de Animación de Tarjetas ---
-        const animatedCards = document.querySelectorAll('.card'); 
-        if (typeof IntersectionObserver !== 'undefined') { // Verifica si el navegador soporta IntersectionObserver
-            const revealObserver = new IntersectionObserver((entries, observer) => {
-              entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                  entry.target.classList.add('is-visible');
-                  observer.unobserve(entry.target);
-                }
-              });
-            }, {
-              threshold: 0.1 
-            });
-            animatedCards.forEach(card => {
-              revealObserver.observe(card);
-            });
-        } else {
-            // Fallback para navegadores viejos: simplemente muestra las tarjetas
-             animatedCards.forEach(card => card.classList.add('is-visible'));
-        }
+        // 4. Inicia el observador de animaciones de scroll
+        setupCardAnimations();
+
 
         // --- Efecto Flip Cabecera ---
         const avatarContainerMain = document.getElementById('avatar-container-main');
@@ -1383,16 +1719,18 @@
           avatarContainerMain.addEventListener('click', () => {
               if (isQrModeMain) {
                   avatarImgMain.src = originalSrcMain;
-                  avatarImgMain.alt = 'Sergio Garduño Jardón';
                   avatarContainerMain.classList.remove('qr-mode');
-                  avatarContainerMain.title = 'Clic para QR';
               } else {
                   avatarImgMain.src = qrSrcMain;
-                  avatarImgMain.alt = 'Código QR del Portafolio';
                   avatarContainerMain.classList.add('qr-mode');
-                  avatarContainerMain.title = 'Clic para volver a la foto';
               }
               isQrModeMain = !isQrModeMain;
+              // Actualiza el 'title' (tooltip) en función del idioma
+              const titleKey = isQrModeMain ? 'clic-to-photo' : 'clic-to-qr';
+              avatarContainerMain.setAttribute('title', (currentLanguage === 'en') ? 'Click to return to photo' : 'Clic para volver a la foto');
+              if (!isQrModeMain) {
+                   avatarContainerMain.setAttribute('title', (currentLanguage === 'en') ? 'Click for QR' : 'Clic para QR');
+              }
           });
         }
 
@@ -1404,40 +1742,34 @@
             const paragraphs = textToCopyContainer.querySelectorAll('p');
             let fullText = '';
             paragraphs.forEach((p, index) => {
-              // Intenta obtener textContent para texto plano directamente
-              let cleanText = p.textContent || p.innerText || ''; 
-              fullText += cleanText.trim(); // Usa trim para quitar espacios extra
+              let cleanText = (p.textContent || p.innerText || '').replace(/(\r\n|\n|\r)/gm, " ").trim();
+              fullText += cleanText.trim(); 
               if (index < paragraphs.length - 1) {
                 fullText += '\n\n'; 
               }
             });
 
-            // Verifica si la API del portapapeles está disponible
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(fullText).then(() => {
                   const icon = copyBtnBottom.querySelector('i');
                   const span = copyBtnBottom.querySelector('span');
                   const originalIconClass = 'fa-copy';
-                  // Guarda el texto original usando la clave de traducción actual
-                  const originalTextKey = 'copy-btn-text'; 
-                  const originalText = translations[currentLanguage][originalTextKey] || 'Copiar Texto'; 
+                  const originalText = translations[currentLanguage]['copy-btn-text'] || 'Copiar Texto'; 
 
-                  if (icon) icon.className = 'fa-solid fa-check'; // Usa fa-solid para check
+                  if (icon) icon.className = 'fa-solid fa-check'; 
                   if (span) span.textContent = (currentLanguage === 'en') ? 'Copied!' : '¡Copiado!'; 
                   copyBtnBottom.classList.add('copied'); 
 
                   setTimeout(() => {
-                    if (icon) icon.className = `fa-regular ${originalIconClass}`; // Restaura icono
-                    if (span) span.textContent = originalText; // Restaura texto traducido
+                    if (icon) icon.className = `fa-regular ${originalIconClass}`; 
+                    if (span) span.textContent = originalText; 
                     copyBtnBottom.classList.remove('copied');
                   }, 1500);
 
                 }).catch(err => {
                   console.error('Error al copiar texto con API: ', err);
-                  alert((currentLanguage === 'en') ? 'Could not copy text.' : 'No se pudo copiar el texto.');
                 });
             } else {
-                // Fallback (muy viejo, puede no funcionar bien)
                 try {
                     const textArea = document.createElement('textarea');
                     textArea.value = fullText;
@@ -1445,15 +1777,23 @@
                     textArea.select();
                     document.execCommand('copy');
                     document.body.removeChild(textArea);
-                    // (Aquí podrías añadir la misma lógica de cambio de icono/texto)
-                     alert((currentLanguage === 'en') ? 'Text copied (fallback).' : 'Texto copiado (alternativo).');
                 } catch (err) {
                     console.error('Error al copiar texto con fallback: ', err);
-                     alert((currentLanguage === 'en') ? 'Could not copy text.' : 'No se pudo copiar el texto.');
                 }
             }
           });
         }
         
+        // 1. Llama al preloader al final del DOMContentLoaded
+        // Solo inicia si el usuario NO tiene reducido movimiento
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            animateText();
+        } else {
+            // Si el movimiento está reducido, oculta el preloader inmediatamente
+            hidePreloader(); 
+        }
+
     }); // --- FIN DEL DOMContentLoaded ---
 </script>
+</body>
+</html>
