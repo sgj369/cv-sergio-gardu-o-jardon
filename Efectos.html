@@ -8,7 +8,7 @@
   
   <meta name="description" content="Contacto y perfil breve de Sergio Garduño Jardón, Ingeniero Mecatrónico." />
 
-  <link rel="icon" href="DT-HAKU.png" type="image/x-icon">
+  <link rel="icon" href="hakuball.gif" type="image/x-icon">
   <meta name="theme-color" content="#072d16">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -69,36 +69,7 @@
         animation: swing-haku 3s ease-in-out infinite alternate; 
     }
 
-    @keyframes swing-haku {
-      0%   { transform: rotate(-5deg); }
-      100% { transform: rotate(5deg); }
-    }
-
-    .hanging-element::before {
-        content: "";
-        position: relative; 
-        width: 2px; 
-        height: 40px; 
-        background-color: #8B4513; 
-        box-shadow: 0 0 5px rgba(0,0,0,0.5); 
-        border-radius: 1px;
-    }
-
-    .loading-ball {
-        position: relative;
-        width: 45px;
-        height: 45px;
-        background-color: var(--accent-blue);
-        border-radius: 50%;
-        box-shadow: 0 0 15px var(--accent-blue), 0 0 30px var(--accent-blue); 
-        animation: pulse-ball 1.5s ease-in-out infinite alternate; 
-    }
-
-    @keyframes pulse-ball {
-        0%, 100% { transform: scale(1); opacity: 1; }
-        50% { transform: scale(1.05); opacity: 0.9; }
-    }
-
+    
     .loading-text {
         font-size: 3.5em; 
         font-weight: bold;
@@ -132,6 +103,7 @@
         .haku-img {
             width: 250px; 
             height: 250px;
+            margin-top: -30px;
         }
         .loading-text {
             font-size: 2.5em;
