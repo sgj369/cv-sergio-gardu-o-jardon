@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Sergio Garduño Jardón — CV & Portfolio</title>
+  <title>Sergio Garduño Jardón — CV & Portfolio (Demo Tab Menu)</title>
   <meta name="description" content="Ingeniero mecatrónico orientado a la sostenibilidad y sistemas inteligentes. IoT, datos, energía solar y proyectos ambientales." />
 
   <link rel="icon" href="INDEX-HAKU.png" type="image/x-icon">
@@ -12,132 +12,38 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
+    /* VARIABLES GLOBALES */
     :root{
-    --bg-uniform: #333; /* Fondo gris oscuro */
-    --fg: #eef1f0; /* Blanco suave para texto principal */
-    --muted: #a3a3a3; /* Gris para texto secundario */
-    
-    /* Paleta de Acentos */
-    --accent-red: #ff3366; 
-    --accent-green: #63b96f; /* Verde Brillante (Contacto) */
-    --accent-blue: #0077b6; /* Azul (Perfil, Habilidades Técnicas) */
-    --accent-yellow: #ffc300; /* Amarillo (Cursos) */
-    --accent-purple: #9933cc; /* Morado (Proyectos, Formación) */
-    --accent-gold: #FFD700; /* Dorado (Logros, Habilidades Blandas) */
-    
-    --accent-emerald: #2E8B57; /* Verde Esmeralda (Experiencia) */
-    
-    --accent-guinda: #900030; /* Guinda/Borgoña para el título IPN */
-
-    --card-bg: rgba(0,0,0,0.88); /* Tarjetas muy oscuras */
-    --card-border: rgba(255,255,255,0.1); 
-    --maxw: 1100px;
-    --radius: 14px;
-    --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-
-    /* Variables para el menú (se usan más abajo) */
-    --menu-width-expanded: 240px;
-    --accent-orange: #FF5733; /* Naranja Vibrante */
-    /* Variable para el padding del menú lateral (ajustado para el nuevo sistema) */
-    --toggle-btn-height-adjusted: 70px;
-    /* NUEVA VARIABLE: Ancho de la pestaña lateral fija */
-    --tab-width: 50px; 
-  }
-
-  /* Estilos Base */
-  html { background-color: var(--bg-uniform); scroll-behavior: smooth; }
-  *{box-sizing:border-box}
-  html,body{height:100%;margin:0;padding:0}
-  body{
-    font-family:var(--font-sans);
-    background: transparent;
-    color:var(--fg);
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-osx-font-smoothing:grayscale;
-    line-height:1.5;
-    /* Padding del body para evitar que el contenido se solape con la pestaña fija */
-    padding: 28px;
-    padding-left: calc(28px + var(--tab-width)); /* Mueve el contenido a la derecha de la pestaña */
-    transition: none;
-    min-height: 100vh;
-  }
-  
-  /* Clase para evitar el scroll del fondo cuando el menú está abierto */
-  body.menu-active-no-scroll {
-      overflow: hidden;
-  }
-
-  .wrap{
-    max-width:var(--maxw);
-    margin:0 auto;
-    position:relative; 
-    padding: 0 10px;
-  }
-
-
-    /* ================================================= */
-    /* --- PESTAÑA DE TOGGLE Y BOTÓN DE IDIOMA (FIJOS) --- */
-    /* ================================================= */
-    #toggle-tab-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: var(--tab-width); /* Ancho fijo de la pestaña */
-      z-index: 1000;
-      background: var(--card-bg); /* Fondo igual al menú */
-      border-right: 1px solid var(--card-border);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 20px;
+        --bg-uniform: #333; 
+        --fg: #eef1f0; 
+        --muted: #a3a3a3; 
+        --accent-blue: #0077b6;
+        --card-bg: rgba(0,0,0,0.88); 
+        --card-border: rgba(255,255,255,0.1); 
+        --radius: 14px;
+        --menu-width-expanded: 240px;
+        /* NUEVAS VARIABLES PARA LA PESTAÑA */
+        --tab-height: 100px;
+        --tab-width: 40px; /* Ancho de la pestaña que sobresale */
+        --tab-bg: var(--card-bg);
     }
 
-    #menu-toggle-btn {
-        width: 100%;
-        height: 70px; /* Altura de la pestaña de toggle */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        padding: 10px 0;
-        background-color: transparent;
-        border: none;
-        border-bottom: 1px solid var(--card-border);
-        color: var(--fg);
-        font-size: 1.5em;
-        transition: background-color 0.3s;
+    /* ESTILOS BASE */
+    html { background-color: var(--bg-uniform); scroll-behavior: smooth; }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;padding:0}
+    body{
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: transparent;
+      color:var(--fg);
+      line-height:1.5;
+      padding: 28px;
+      padding-left: 28px; 
+      transition: none; 
+      min-height: 100vh;
     }
-
-    #menu-toggle-btn:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-    }
-    
-    /* ESTILOS DEL SELECTOR DE IDIOMA */
-    .lang-switcher {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      padding: 15px 0;
-      border-bottom: 1px solid var(--card-border); /* Separador */
-    }
-    .lang-switcher button {
-      /* Estilos existentes */
-      background: var(--card-bg); color: var(--fg); border: 1px solid var(--accent-gold);
-      padding: 5px 10px; border-radius: 8px; cursor: pointer; font-size: 1.5em; 
-      line-height: 1; transition: background-color 0.2s; opacity: 0.8;
-      width: 40px; height: 35px; /* Ajustamos el tamaño para la pestaña */
-      margin: 0 auto; /* Centrar bandera */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .lang-switcher button:hover { opacity: 1; background: rgba(255, 215, 0, 0.1); }
-    .lang-switcher button.active { border-color: var(--accent-red); background: rgba(255, 51, 102, 0.1); }
-      /* Oculta el botón de idioma que esté activo */
-    .lang-switcher button.active {
-      display: none;
-    }
+    body.menu-active-no-scroll { overflow: hidden; }
+    .wrap{ max-width: 1100px; margin:0 auto; position:relative; padding: 0 10px; }
 
     /* ================================================= */
     /* --- CAPA OSCURA (OVERLAY) --- */
@@ -148,8 +54,8 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.7); /* Oscurece el fondo */
-        z-index: 990; /* Detrás del menú */
+        background-color: rgba(0, 0, 0, 0.7); 
+        z-index: 990; 
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.3s ease-out;
@@ -161,222 +67,204 @@
     }
 
     /* ================================================= */
-    /* --- MENÚ LATERAL DESPLEGABLE --- */
+    /* --- MENÚ LATERAL DESPLEGABLE (Contenedor principal) --- */
     /* ================================================= */
+
     .side-navbar {
       position: fixed;
       top: 0;
       bottom: 0;
-      /* Mueve el menú a la derecha de la pestaña fija */
-      left: var(--tab-width); 
-      /* Usaremos la variable de tu index para el ancho */
-      width: var(--menu-width-expanded, 240px); 
+      width: var(--menu-width-expanded); 
       background: var(--card-bg);
       border-right: 1px solid var(--card-border);
-      border-radius: 0 var(--radius) var(--radius) 0;
-      overflow-y: auto; 
+      border-radius: 0 var(--radius) var(--radius) 0; 
+      overflow-y: hidden; /* Controlado internamente */
       padding: 0; 
       z-index: 999;
       
-      /* Estado inicial: fuera de pantalla, desplazado por su propio ancho */
-      transform: translateX(calc(-1 * var(--menu-width-expanded, 240px)));
-      transition: transform 0.3s ease-out; 
+      /* Estado inicial: Fuera de pantalla menos el ancho de la pestaña */
+      left: calc(0px - var(--menu-width-expanded) + var(--tab-width)); 
+      transition: left 0.3s ease-out; 
     }
 
     .side-navbar.active {
-        /* Estado activo: en su posición original, visible */
-        transform: translateX(0); 
+        left: 0; /* Estado activo: Totalmente visible */
     }
 
+    /* Contenido interno del menú (Scrollable) */
     .side-navbar ul { 
       list-style: none; 
       padding: 0; 
       margin: 0; 
       width: 100%;
-      /* Eliminamos el padding top ya que el menú no tiene el botón de toggle */
-      padding-top: 20px; 
+      /* Usamos Flexbox para empujar la pestaña y el selector */
+      height: 100%; 
+      overflow-y: auto; 
+      padding-top: var(--tab-height); /* Espacio para la pestaña */
       padding-bottom: 20px; 
     }
-
-    .side-navbar .nav-link {
-      display: flex; 
-      align-items: center; 
-      padding-left: 23px;
-      color: var(--fg);
-      text-decoration: none; 
-      height: 50px; 
-      width: 100%;
-      white-space: nowrap; 
-      transition: background-color 0.2s ease;
+    
+    /* ================================================= */
+    /* --- PESTAÑA LATERAL (#menu-tab-btn) --- */
+    /* ================================================= */
+    
+    #menu-tab-container {
+        position: absolute;
+        top: 0; /* Pégalo al borde superior del menú */
+        right: 0; /* Pégalo al borde derecho del menú */
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end; /* Asegura que la pestaña se alinee a la derecha */
+        height: var(--tab-height);
+        background-color: transparent;
+        z-index: 100; /* Encima de los enlaces */
     }
 
-    .side-navbar .nav-link:hover { background-color: rgba(255, 255, 255, 0.05); }
-
-    .side-navbar .nav-link i {
-      font-size: 1.3em; 
-      width: 24px; 
-      text-align: center;
-      color: var(--fg);
-      transition: text-shadow 0.2s ease, transform 0.2s ease;
-      flex-shrink: 0;
+    #menu-tab-btn {
+        height: 100%;
+        width: calc(var(--tab-width) + 1px); /* 40px visible + 1px de border */
+        position: relative; /* Para alinear los elementos internos */
+        
+        /* Estilos visuales de la pestaña */
+        background-color: var(--tab-bg);
+        border: 1px solid var(--card-border);
+        border-left: 2px solid var(--accent-blue); /* Borde de acento */
+        border-top-right-radius: var(--radius);
+        border-bottom-right-radius: var(--radius);
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+        
+        cursor: pointer;
+        color: var(--fg);
+        font-size: 1.5em;
+        transition: transform 0.3s ease-out, background-color 0.2s;
+        
+        /* Contenido centrado */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        /* Mueve la pestaña fuera del área desplegada para que solo se vea el 'tab' */
+        transform: translateX(calc(var(--menu-width-expanded) - var(--tab-width))); 
     }
     
-    /* Colores de contorno para cada icono (se mantienen) */
-    .nav-link-perfil i      { text-shadow: 0 0 5px var(--accent-blue), 0 0 10px var(--accent-blue); }
-    .nav-link-proyectos i   { text-shadow: 0 0 5px var(--accent-purple), 0 0 10px var(--accent-purple); }
-    .nav-link-experiencia i { text-shadow: 0 0 5px var(--accent-emerald), 0 0 10px var(--accent-emerald); }
-    .nav-link-logros i      { text-shadow: 0 0 5px var(--accent-gold), 0 0 10px var(--accent-gold); }
-    .nav-link-cursos i      { text-shadow: 0 0 5px var(--accent-red), 0 0 10px var(--accent-red); } 
-    .nav-link-formacion i   { text-shadow: 0 0 5px var(--accent-purple), 0 0 10px var(--accent-purple); }
-    .nav-link-habilidades i { text-shadow: 0 0 5px var(--accent-blue), 0 0 10px var(--accent-blue); }
-    .nav-link-contacto i    { text-shadow: 0 0 5px var(--accent-green), 0 0 10px var(--accent-green); }
-    
-
-    /* Efecto de "brillo" y crecimiento al pasar el ratón */
-    .side-navbar .nav-link:hover i { 
-      text-shadow: 0 0 12px var(--fg), 0 0 20px var(--fg); 
-      transform: scale(1.1); 
+    /* Estado del menú desplegado */
+    .side-navbar.active #menu-tab-btn {
+        transform: translateX(0); /* La pestaña se desliza a la posición normal */
+        border-color: var(--card-border);
+        border-right-color: transparent;
+        border-left: 1px solid var(--card-border);
+        border-radius: var(--radius) 0 0 var(--radius); /* Esquinas internas redondeadas */
     }
     
-  
-    .link-text-container {
-      margin-left: 20px; 
+    #menu-tab-btn i {
+        /* Para que el icono gire de barras a flecha/X */
+        transition: transform 0.3s ease-out;
+    }
+
+    /* Icono en estado colapsado (barras) */
+    .side-navbar:not(.active) #menu-tab-btn .fa-bars {
+        display: block;
+        transform: rotate(0deg);
+    }
+    
+    /* Icono en estado desplegado (flecha hacia la izquierda, simulando una X/cerrar) */
+    .side-navbar.active #menu-tab-btn .fa-bars {
+        display: block;
+        transform: rotate(90deg); /* Gira las barras 90 grados como una forma de 'X' o 'Cerrar' */
+    }
+    
+    /* Oculta el icono de la X/Chevron si lo necesitas, aquí usamos fa-bars y lo rotamos */
+    .fa-xmark { display: none; }
+    
+    /* ================================================= */
+    /* --- Selector de Idioma (Debajo de la Pestaña) --- */
+    /* ================================================= */
+    .lang-switcher {
+      /* Le damos un poco de espacio para que no se pegue al borde */
+      padding: 15px 23px 0 23px;
+      margin-top: auto; /* Empuja al fondo del contenedor */
+      border-top: 1px solid var(--card-border);
       display: flex;
-      flex-direction: column; 
+      flex-direction: row; /* Coloca las banderas en fila */
+      justify-content: space-around; /* Espacio entre las banderas */
+      align-items: center;
+      width: 100%;
     }
     
-    .link-text {
-      font-weight: 600;
-      opacity: 1;
-      transition: none;
-      display: block; 
-      line-height: 1.2; 
+    .lang-switcher button {
+      background: var(--card-bg); color: var(--fg); border: 1px solid var(--card-border);
+      padding: 5px 10px; border-radius: 8px; cursor: pointer; font-size: 1.5em; 
+      line-height: 1; transition: background-color 0.2s; opacity: 0.8;
     }
+    .lang-switcher button:hover { opacity: 1; background: rgba(255, 255, 255, 0.1); }
+    .lang-switcher button.active { border-color: var(--accent-blue); background: rgba(0, 119, 182, 0.1); display: none; }
+
+    /* Estilos de los enlaces del menú (sin cambios grandes) */
+    .side-navbar .nav-link {
+        display: flex; align-items: center; height: 50px;
+        padding-left: 23px; color: var(--fg); text-decoration: none;
+        white-space: nowrap; transition: background-color 0.2s ease;
+    }
+    .link-text-container { margin-left: 20px; }
+    .link-text, .link-subtitle { opacity: 1; transition: none; }
     
-    .link-subtitle {
-      font-size: 0.75em; 
-      color: var(--muted); 
-      opacity: 1; 
-      transition: none;
-      line-height: 1.1;
-      margin-top: 2px; 
-      font-weight: 400; 
+    /* Responsive: Ocultamos la pestaña en móviles pequeños para que no estorbe */
+    @media (max-width: 480px) {
+        .side-navbar:not(.active) {
+             /* Escondemos completamente el menú cuando no está activo */
+            left: calc(0px - var(--menu-width-expanded)); 
+        }
+        #menu-tab-btn {
+            /* Ocultamos la pestaña cuando el menú está colapsado */
+            display: none; 
+        }
+        /* Restauramos el botón de toggle flotante en móviles (si lo quieres) */
+        /* Si quieres el botón de hamburguesa flotante en móviles, descomenta esto */
+        /* #menu-toggle-btn-mobile {
+            display: block; 
+            position: fixed;
+            top: 10px; left: 10px; z-index: 1000;
+            cursor: pointer; padding: 10px;
+            background-color: var(--card-bg); border-radius: 8px;
+            color: var(--fg); font-size: 1.5em;
+        } 
+        */
     }
 
 
-    /* ============================================= */
-    /* 2. ESTILOS DE LA ANIMACIÓN DE TARJETAS (Se mantienen) */
-    /* ============================================= */
+    /* (El resto de tus estilos .card, .hero, etc. irían aquí sin cambios) */
     
-    .card {
-      transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.2s ease;
-      opacity: 0;
-      transform: translateY(30px);
+    /* Ejemplo de otros estilos necesarios (simulando el index.html) */
+    .main-header-card { 
+        background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.1); 
+        padding: 25px 20px; border-radius: var(--radius); 
     }
-    .card.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
+    .main-header-card .title { color: var(--fg); }
+    /* Fin de simulación de estilos */
     
-    /* RESPONSIVE TWEAKS (PARA MÓVILES) */
-    @media (max-width: 980px){
-      /* En móviles, ocultamos la pestaña lateral y el botón de toggle se queda flotante (hamburguesa) 
-         para no ocupar espacio valioso en el borde. */
-      #toggle-tab-container {
-        display: none; 
-      }
-      
-      body {
-        padding: 15px; /* Restablecemos padding normal en móvil */
-        padding-left: 15px; 
-      }
-      
-      /* Reintegramos el botón de hamburguesa flotante solo para móvil */
-      /* Usamos la misma ID pero con estilos móviles */
-      #menu-toggle-btn-mobile {
-          position: fixed;
-          top: 15px;
-          left: 15px;
-          z-index: 1000; 
-          cursor: pointer;
-          padding: 10px 12px;
-          background-color: var(--card-bg);
-          border: 1px solid var(--card-border);
-          border-radius: 8px;
-          color: var(--fg);
-          font-size: 1.5em;
-          transition: background-color 0.3s;
-          display: block; /* Solo visible en móvil */
-      }
-      #menu-toggle-btn-mobile:hover {
-          background-color: rgba(255, 255, 255, 0.1);
-      }
-      
-      /* El menú debe ajustarse para desplegarse correctamente en móvil */
-      .side-navbar {
-        left: 0; /* Empieza desde el borde izquierdo de la pantalla */
-        transform: translateX(calc(-1 * var(--menu-width-expanded, 240px)));
-      }
-      
-      /* En móvil, la bandera de idioma flotante debe estar oculta o moverse al menú */
-      .lang-switcher-mobile {
-         position: fixed;
-         top: 80px; /* Debajo de la hamburguesa móvil */
-         left: 15px;
-         z-index: 1000;
-         display: flex;
-         flex-direction: column;
-         gap: 10px;
-      }
-      .lang-switcher-mobile button {
-         /* Estilos iguales al lang-switcher normal, pero fijo */
-         background: var(--card-bg); color: var(--fg); border: 1px solid var(--accent-gold);
-         padding: 5px 10px; border-radius: 8px; cursor: pointer; font-size: 1.5em; 
-         width: 40px; height: 35px;
-         display: flex;
-         align-items: center;
-         justify-content: center;
-      }
-      .lang-switcher-mobile button.active {
-          display: none;
-      }
-    }
-    
-    @media (min-width: 981px) {
-        /* Asegura que el botón de toggle móvil esté oculto en escritorio */
-        #menu-toggle-btn-mobile { display: none; }
-        /* Asegura que la bandera de idioma flotante esté oculta en escritorio */
-        .lang-switcher-mobile { display: none; }
-    }
-     
- </style>
+  </style>
 </head>
 <body>
   
   <div id="particles-js"></div>
-  
   <div id="menu-overlay"></div>
   
-  <div id="toggle-tab-container">
-    <button id="menu-toggle-btn" title="Desplegar menú">
-      <i class="fa-solid fa-bars" id="toggle-icon-bars"></i>
-      <i class="fa-solid fa-xmark" id="toggle-icon-x" style="display:none;"></i>
-    </button>
-    <div class="lang-switcher">
-      <button onclick="translatePage('es')" id="flag-es" class="active" title="Cambiar a Español">🇲🇽</button>
-      <button onclick="translatePage('en')" id="flag-en" title="Switch to English">🇺🇸</button>
-    </div>
-  </div>
-  
-  <div id="menu-toggle-btn-mobile" title="Desplegar menú">
-    <i class="fa-solid fa-bars"></i>
-  </div>
-  <div class="lang-switcher-mobile">
-      <button onclick="translatePage('es')" id="flag-es-mobile" class="active" title="Cambiar a Español">🇲🇽</button>
-      <button onclick="translatePage('en')" id="flag-en-mobile" title="Switch to English">🇺🇸</button>
-  </div>
   <nav class="side-navbar" id="side-navbar">
+    
+    <div id="menu-tab-container">
+        
+        <button id="menu-tab-btn" title="Desplegar menú">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        
+        <div class="lang-switcher">
+            <button onclick="translatePage('es')" id="flag-es" class="active">🇲🇽</button>
+            <button onclick="translatePage('en')" id="flag-en">🇺🇸</button>
+        </div>
+    </div>
     <ul>
       <li><a href="#perfil" class="nav-link nav-link-perfil" title="Perfil"><i class="fa-solid fa-user"></i><div class="link-text-container"><span class="link-text" data-lang="nav-profile">Perfil</span><span class="link-subtitle" data-lang="nav-profile-subtitle">Carta de Presentación</span></div></a></li>
       <li><a href="#proyectos" class="nav-link nav-link-proyectos" title="Proyectos"><i class="fa-solid fa-lightbulb"></i><div class="link-text-container"><span class="link-text" data-lang="nav-projects">Proyectos</span></div></a></li>
@@ -388,698 +276,93 @@
       <li><a href="#contacto" class="nav-link nav-link-contacto" title="Contacto"><i class="fa-solid fa-envelope"></i><div class="link-text-container"><span class="link-text" data-lang="nav-contact">Contacto</span></div></a></li>
     </ul>
   </nav>
+  
   <div class="wrap">
-    <div class="hero">
-      <main class="hero-main">
-    <div class="main-header-card card"> 
-
-    <div class="avatar" title="Clic para QR" id="avatar-container-main">
-        <img id="avatar-img-main" src="profilecv.png" alt="Sergio Garduño Jardón">
-    </div>
-
-    <div>
-        <div class="title" data-lang="name">Sergio Garduño Jardón</div>
-    </div>
-
-    <div class="header-main-buttons">
-        <a class="btn-fill-white" href="cv_viewer.html" target="_blank" rel="noopener" id="btn-view-cv" title="Abrir CV en el navegador" data-lang-href-en="cv_viewer_eu.html">
-            <i class="fa-solid fa-eye"></i> <span data-lang="btn-view-cv-text">Ver CV</span>
-        </a>
-        <a class="btn-outline-white" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" id="btn-download-cv" title="Descargar CV como PDF" data-lang-href-en="cv_pagina_web_eu.pdf">
-            <i class="fa-solid fa-download"></i> <span data-lang="btn-download-cv-text">Descargar CV</span>
-        </a>
-    </div>
-</div>
-
-
-         <section class="card" id="perfil">
-      
-        <div class="profile-title" data-lang="profile-title">Perfil</div>
-        
-        <div class="profile-text" style="margin-bottom: 15px;" data-lang="profile-p1">
-          Ingeniero Mecatrónico especializado en sistemas IoT, datos y soluciones sostenibles. Diseño, desarrollo y despliego sistemas de monitoreo ambiental que integran hardware (ESP32 y sensores), energía renovable y pipelines de datos (Google Sheets / SQL, dashboards).
-        </div>
-        
-        <div class="profile-text" style="margin-bottom: 20px;" data-lang="profile-p2">
-          Programacion en Python, C++/Arduino y Google Apps Script para automatizar procesos y crear modelos analíticos orientados a optimizar recursos y apoyar la toma de decisiones. Me interesa colaborar en proyectos que unan tecnología y naturaleza para generar impacto ambiental positivo.
-        </div>
-  
-        <details class="inner-details">
-          <summary class="inner-summary">
-            <i class="fa-solid fa-file-lines" style="margin-right: 8px;"></i>
-            <span data-lang="carta-title">Ver Carta de Presentación</span> 
-          </summary>
-          
-          <div class="inner-content profile-text"id="carta-text-content"> 
-            
-            <p style="margin-bottom: 15px;" data-lang="carta-p1">
-              Sergio Garduño Jardón es Ingeniero Mecatrónico por el IPN de UPIITA convencido de que la tecnología y la naturaleza pueden y deben coexistir. Su pasión por la vida y el medio ambiente lo impulsa a buscar formas innovadoras de utilizar el conocimiento para auxiliar a nuestro planeta, especializándose en el desarrollo de sistemas <strong>IoT para el monitoreo ecológico</strong>.
-            </p>
-            
-            <p style="margin-bottom: 15px;" data-lang="carta-p2">
-              Sergio diseña y desarrolla sistemas que nos permiten 'escuchar' las necesidades del entorno. Un claro ejemplo es su proyecto de tesis sobre <strong>techos verdes</strong>, donde implementó un sistema de monitoreo autónomo completo —desde el hardware con ESP32 y sensores, hasta el análisis de datos— demostrando cómo la tecnología puede validar y potenciar soluciones sostenibles. Su objetivo es seguir aplicando la mecatrónica, la programación y los datos en proyectos que generen un impacto ambiental positivo.
-            </p>
-            
-            <p data-lang="carta-p3">
-              Más allá de lo técnico, le apasiona conocer mas sobre flora y fauna, además de conectar con actores por medio del proyecto <strong>ECOGAIASOS</strong> que generan acciones en pro del planeta y participar activamente en eventos de limpieza o restauración de hábitats. Sergio cree firmemente que la acción combinada con el conocimiento adecuado siempre tendrá un mejor resultado.
-            </p>
-            <div class="copy-button-container" style="text-align: right; margin-top: 15px;">
-          <button class="btn-copy-carta" id="copy-carta-btn-bottom">
-            <i class="fa-regular fa-copy" style="margin-right: 6px;"></i>
-            <span data-lang="copy-btn-text">Copiar Texto</span>
-          </button>
-        </div>
-        </div>
-        </details>
-        </section>
-         
-        
-        <details open id="proyectos">
-          <summary>
-            <h2 class="section" data-lang="proyectos-title">Proyectos Personales</h2>
-          </summary>
-          <div class="section-content">
-              <div class="card" style="margin-bottom:12px">
-                <strong>
-                  <img src="ECOGAIASOS.png" alt="Logo EcoGaiaSOS" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
-                  <span data-lang="ecogaia-role">EcoGaiaSOS — Plataforma de impacto ambiental</span>
-                </strong>
-                <div class="contact-small" data-lang="ecogaia-dates">2024 – Presente · CDMX</div>
-                <ul class="clean">
-                  <li data-lang="ecogaia-l1">Desarrollo e implementación de la plataforma web para gestión y difusión de convocatorias y proyectos ambientales.</li>
-                  <li data-lang="ecogaia-l2">Responsable de la organización de datos, visualización y soporte a actores locales.</li>
-                </ul>
-                <div class="iot-block" style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap;">
-                <a class="btn-clean-secondary" href="https://ecogaiasos.github.io/web/index.html" target="_blank" rel="noopener" data-lang="ecogaias-btn">
-                  🌐 Web EcoGaiaSOS
-                </a>
-                <a class="btn-outline-orange" href="https://www.instagram.com/ecogaiasos?igsh=Y2hrNXg4OXZpbW0w" target="_blank" rel="noopener">
-                  <i class="fa-brands fa-instagram"></i> Instagram
-                </a>
-              </div>
-              </div>
-              <div class="card" style="margin-bottom:12px">
-                <strong data-lang="iot-role">Sistema IoT para techos verdes — Proyecto de tesis</strong> <div class="contact-small" data-lang="iot-dates">2023 – 2025 · Validado en campo</div>
-                
-                <ul class="clean">
-                  <li data-lang="iot-l1">Diseño y despliegue de sistema de monitoreo térmico autónomo con ESP32, sensores y alimentación solar.</li>
-                  <li data-lang="iot-l2">Desarrollo de pipeline de datos y dashboard para la validación de reducción térmica en techos verdes.</li>
-                </ul>
-
-                <div class="iot-block">
-                  <h3 data-lang="iot-links">Enlaces del Proyecto Techo Verde</h3>
-                  <div class="iot-actions">
-                    <a class="btn-accent" href="https://hugonogueron2607.github.io/Techo_Verde/" target="_blank" rel="noopener" data-lang="iot-btn1">
-                      🌐 Dashboard (datos en tiempo real)
-                    </a>
-                    <a class="btn-primary" href="https://docs.google.com/spreadsheets/d/1Mu0mfmwoWRI_kJ8EweGpJT1g608t6EQixtfevX0z0ac/edit?usp=sharing" target="_blank" rel="noopener" data-lang="iot-btn2">
-                      📊 Hoja de datos (Google Sheets)
-                    </a>
-                    <a class="btn-dark" href="tesis_viewer.html" id="btn-view-tesis" target="_blank" rel="noopener" data-lang="iot-btn3">
-                      📘 Ver tesis (PDF)
-                    </a>
-                  </div>
-                </div>
-              </div>
-          </div>
-        </details>
-
-        <details open id="experiencia">
-          <summary>
-            <h2 class="section" data-lang="exp-title">Experiencia Laboral</h2>
-          </summary>
-          <div class="section-content">
-              <div class="card" style="margin-bottom:12px">
-                <strong data-lang="robo-role">Robodacta — Diseño y ventas</strong> <div class="contact-small" data-lang="robo-dates">2022 – 2024</div>
-                <ul class="clean">
-                  <li data-lang="robo-l1">Diseño de kits educativos, empaques, cursos online y material audiovisual; gestión de proveedores y ventas.</li>
-                </ul>
-              </div>
-              <div class="card" style="margin-bottom:12px">
-                <strong data-lang="meta-role">METAMORFOZIZ — Publicidad y producción</strong> <div class="contact-small" data-lang="meta-dates">2021 – 2022</div>
-                <ul class="clean">
-                  <li data-lang="meta-l1">Diseño gráfico, producción de lonas y banners, gestión de materiales y procesos de impresión.</li>
-                </ul>
-              </div>
-              <div class="card" style="margin-bottom:12px">
-                <strong data-lang="ventas-role">Ventas (local) — Coyoacán</strong> <div class="contact-small" data-lang="ventas-dates">2021 – 2022</div>
-                <ul class="clean">
-                  <li data-lang="ventas-l1">Atención directa a clientes, gestión de ventas B2C y B2B, manejo de caja y control de inventario.</li>
-                </ul>
-              </div>
-              <div class="card">
-                <strong data-lang="serv-role">Servicio técnico (negocio propio)</strong> <div class="contact-small" data-lang="serv-dates">2018 – 2020</div>
-                <ul class="clean">
-                  <li data-lang="serv-l1">Reparación de dispositivos electrónicos, compra y venta de refacciones, control de inventario y atención al cliente.</li>
-                </ul>
-              </div>
-          </div>
-        </details>
-
-
-        <details data-section="achievements" id="logros">
-        <summary>
-          <h2 class="section" data-lang="logros-title">Logros</h2>
-        </summary>
-        <div class="section-content">
-          <div class="card">
-            <ul class="clean">
-              <li data-lang="logros-l1">Prototipo IoT validado en campo para monitoreo térmico y energético (Tesis).</li>
-              <li data-lang="logros-l2">Participación técnica en el Congreso Nacional de Biotecnología (Oaxaca, 2025).</li>
-              <li data-lang="logros-l3">Implementación y desarrollo de la plataforma Eco Gaia SOS.</li>
-            </ul>
-          </div>
-        </div>
-        </details>
-
-        <details data-section="courses" id="cursos">
-        <summary>
-          <h2 class="section" data-lang="cursos-title">Cursos y certificados</h2>
-        </summary>
-        <div class="section-content">
-          <div class="card">
-            <ul class="clean">
-              <li data-lang="cursos-l1">Seminario: Diseño de la automatización de la manufactura e integración de dispositivos programables.</li>
-              <li data-lang="cursos-l2">Curso/autoformación: Python para análisis de datos (pandas) — proyectos prácticos.</li>
-              <li data-lang="cursos-l3">Certificación en proceso: Inglés B2.</li>
-            </ul>
-          </div>
-        </div>
-        </details>
-      </main>
-
-      <aside class="hero-aside"> <div class="card" id="formacion">
-            <div style="font-weight:800; margin-bottom:15px; color: var(--accent-purple);" data-lang="acad-title">Formación Académica</div>
-            
-            <h3 class="acad-ipn-title" data-lang="acad-uni-title">
-                IPN Politécnico
-            </h3>
-            
-            <div style="margin-bottom: 25px;">
-                <div style="color: var(--fg); font-weight: 600; display: flex; align-items: center; gap: 8px; font-size: 16px;">
-                    <img src="upiita-logo.png" alt="Logo UPIITA" style="width: 20px; flex-shrink: 0;">
-                    <span data-lang="acad-eng-title">Ingeniería Mecatrónica (UPIITA)</span>
-                </div>
-                <div class="contact-small" style="margin-top: 5px; margin-left: 28px; font-size: 16px; line-height: 1.2;">
-                Instituto Politécnico Nacional
-                <br> <span data-lang="acad-eng-dates">2018 - 2024</span>
-            </div>
-            </div>
-            
-            <div>
-                <div style="color: var(--fg); font-weight: 600; display: flex; align-items: center; gap: 8px; font-size: 16px;">
-                <img src="cecyt13.png" alt="Logo CECyT 13" style="width: 20px; flex-shrink: 0;">
-                <span data-lang="acad-tech-title">Técnico en Administración de Empresas</span>
-                </div>
-                <div class="contact-small" style="margin-top: 5px; margin-left: 28px; font-size: 16px; line-height: 1.2;">
-                CECyT N° 13 "Ricardo Flores Magón" (IPN)
-                <br> <span data-lang="acad-tech-dates">2015 – 2018</span>
-            </div>
-            </div>
-        </div>
-
-        
-        <div class="card" id="habilidades">
-          <div style="font-weight:800;margin-bottom:8px" data-lang="tech-skills-title">Habilidades técnicas</div>
-          <div class="skills">
-            <div class="skill-pill" data-lang="skill-cpp">C++ / Arduino</div>
-            <div class="skill-pill" data-lang="skill-python">Python (pandas)</div>
-            <div class="skill-pill" data-lang="skill-esp32">ESP32 & sensores</div>
-            <div class="skill-pill" data-lang="skill-sql">SQL & Google Sheets</div>
-            <div class="skill-pill" data-lang="skill-solar">Paneles solares & baterías</div>
-            <div class="skill-pill" data-lang="skill-apps-script">Google Apps Script</div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div style="font-weight:800;margin-bottom:8px" data-lang="soft-skills-title">Habilidades blandas</div>
-          <ul class="clean">
-            <li data-lang="soft-l1">Liderazgo</li>
-            <li data-lang="soft-l2">Creatividad e innovación</li>
-            <li data-lang="soft-l3">Planeación y gestión de proyectos</li>
-            <li data-lang="soft-l4">Trabajo en equipo</li>
-            <li data-lang="soft-l5">Adaptabilidad</li>
-            <li data-lang="soft-l6">Certificación en proceso: Inglés B2.</li>
-          </ul>
-        </div>
-        <div class="card" id="contacto">
-      <div style="font-weight:800;margin-bottom:8px" data-lang="contact-title">Contacto</div>
-        <ul class="contact-list"> 
-
-          <li class="full-width-btn">
-            <a href="mailto:sgj.cheko@gmail.com" class="contact-btn-pressable btn-email">
-              <i class="fa-regular fa-envelope"></i>
-              <span>sgj.cheko@gmail.com</span>
-            </a>
-          </li>
-
-          <li class="full-width-btn">
-            <a href="mailto:sgardunoj1400@alumno.ipn.mx" class="contact-btn-pressable btn-email btn-email-rojo">
-              <i class="fa-regular fa-envelope"></i>
-              <span>sgardunoj1400@alumno.ipn.mx</span>
-            </a>
-          </li>
-              <li>
-                <a href="https://wa.me/5215586864746" target="_blank" rel="noopener" class="contact-btn-pressable btn-whatsapp">
-                  <i class="fa-brands fa-whatsapp"></i>
-                  <span>WhatsApp</span>
-                </a>
-              </li>
-              <li>
-                <a href="https://sgj369.github.io/cv-sergio-gardu-o-jardon/" target="_blank" rel="noopener" class="contact-btn-pressable btn-github">
-                  <i class="fa-brands fa-github"></i>
-                  <span>GitHub</span>
-                </a>
-              </li>
-              <li>
-                <a href="https://www.linkedin.com/in/gardu%C3%B1o-jardon-sergio-264b582b0" target="_blank" rel="noopener" class="contact-btn-pressable btn-linkedin">
-                  <i class="fa-brands fa-linkedin"></i>
-                  <span>LinkedIn</span>
-                </a>
-              </li>
-              <li>
-                <a href="https://www.facebook.com/share/19FgjAa3ai/" target="_blank" rel="noopener" class="contact-btn-pressable btn-facebook">
-                  <i class="fa-brands fa-facebook"></i>
-                  <span>Facebook</span>
-                </a>
-              </li>
-              <li>
-                <a href="https://www.instagram.com/cheko_sgj?igsh=amV1aTVwZ3VpeTBi" target="_blank" rel="noopener" class="contact-btn-pressable btn-instagram">
-                  <i class="fa-brands fa-instagram"></i>
-                  <span>Instagram</span>
-                </a>
-              </li>
-              <li>
-                <a href="https://www.tiktok.com/@chekup00" target="_blank" rel="noopener" class="contact-btn-pressable btn-tiktok">
-                  <i class="fa-brands fa-tiktok"></i>
-                  <span>TikTok</span>
-                </a>
-              </li>
-            </ul>
-        </div>
-      </aside>
-      <footer>
-      <div class="footer-brand">
-        <a href="QRHAKU.png" target="_blank" title="Ver QR en grande">
-          <div class="sello"><img src="haku-logo.png" alt="Haku"></div>
-        </a>
-        <div style="color:var(--muted);font-size:13px">© <span id="year"></span> <span data-lang="footer-name">Sergio Garduño Jardón</span> · <span data-lang="footer-source">Hecho con GitHub Pages</span></div>
+      <div class="main-header-card card"> 
+          <div class="title">Demo: Menú Lateral con Pestaña Fija</div>
+          <p style="text-align: center; color: var(--muted);">Haz clic en la pestaña que sobresale del lado izquierdo (<i class="fa-solid fa-bars"></i>) para desplegar el menú.</p>
+          <p style="text-align: center; color: var(--muted);">Las banderas ahora están debajo de la pestaña, dentro del menú.</p>
       </div>
-    </footer>
-    </div>
   </div>
-  
-         
+
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
+      // Simulamos la inicialización de partículas y un mínimo de traducciones
       particlesJS("particles-js", {
-        "particles": { "number": { "value": 80, "density": { "enable": true, "value_area": 800 }}, "color": { "value": ["#FFD700", "#63b96f", "#0077b6", "#eef1f0"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }}, "opacity": { "value": 0.6, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false }}, "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false }}, "line_linked": { "enable": true, "distance": 150, "color": "#a3a3a3", "opacity": 0.4, "width": 1 }, "move": { "enable": true, "speed": 3, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }},
-        "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" }, "resize": true }, "modes": { "grab": { "distance": 400, "line_linked": { "opacity": 1 }}, "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 }, "repulse": { "distance": 150, "duration": 0.4 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 }}},
+        "particles": { "number": { "value": 80 }, "color": { "value": ["#FFD700", "#63b96f", "#0077b6", "#eef1f0"] }, "line_linked": { "enable": true, "distance": 150, "color": "#a3a3a3" }, "move": { "enable": true, "speed": 3 }},
+        "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" }, "resize": true }},
         "retina_detect": true
       });
-    </script>
-    
-        <script>
-    // Objeto de Traducciones
-    const translations = {
-        'en': { 
-          'profile-title': 'Profile',
-          'nav-profile': 'Profile',
-          'nav-profile-subtitle': 'Introduction',
-          'nav-projects': 'Projects',
-          'nav-experience': 'Experience',
-          'nav-achievements': 'Achievements',
-          'nav-courses': 'Courses',
-          'nav-education': 'Education',
-          'nav-skills': 'Skills',
-          'nav-contact': 'Contact',
-          'profile-p1': 'Mechatronics Engineer specializing in IoT systems, data, and sustainable solutions. I design, develop, and deploy environmental monitoring systems that integrate hardware (ESP32 and sensors), renewable energy, and data pipelines (Google Sheets / SQL, dashboards).', 
-          'profile-p2': 'Programming expertise in Python, C++/Arduino, and Google Apps Script to automate processes and create analytical models focused on optimizing resources and supporting decision-making. I seek to collaborate on projects that merge technology and nature to generate a positive environmental impact.', 
-          'carta-title': 'View Introduction',
-          'carta-p1': 'Introducing Sergio Garduño Jardón, a Mechatronics Engineer from IPN UPIITA convinced that technology and nature can and must coexist. His passion for life and the environment drives him to find innovative ways to use knowledge to aid our planet, specializing in the development of <strong>IoT systems for ecological monitoring</strong>.',
-          'carta-p2': 'Sergio designs and develops systems that allow us to \'listen\' to the environment\'s needs. A clear example is his thesis project on <strong>green roofs</strong>, where he implemented a complete autonomous monitoring system—from hardware with ESP32 and sensors to data analysis—demonstrating how technology can validate and enhance sustainable solutions. His goal is to continue applying mechatronics, programming, and data to projects that generate a positive environmental impact.',
-          'carta-p3': 'Beyond the technical, he is passionate about learning more about flora and fauna, connecting with actors generating pro-planet actions through the <strong>ECOGAIASOS</strong> project, and actively participating in cleanup or habitat restoration events like reforestation. Sergio firmly believes that action combined with the right knowledge always yields better results.',
-          'copy-btn-text': 'Copy Text', // Traducción del botón
-          'btn-view-cv-text': 'View CV', 
-          'btn-download-cv-text': 'Download CV', 
-          'proyectos-title': 'Personal Projects',
-          'exp-title': 'Work Experience', 
-          'ecogaia-role': 'Eco Gaia SOS — Environmental Impact Platform', 
-          'ecogaia-dates': '2024 – Present · CDMX', 
-          'ecogaia-l1': 'Development and implementation of a web platform for management and dissemination of environmental calls and projects.', 
-          'ecogaia-l2': 'Responsible for data organization, visualization, and local stakeholder support.', 
-          'ecogaia-btn': '🌐 Visit Eco Gaia SOS', 
-          'iot-role': 'IoT System for Green Roofs — Thesis Project', 
-          'iot-dates': '2023 – 2025 · Field Validated', 
-          'iot-l1': 'Design and deployment of an autonomous thermal monitoring system with ESP32, sensors, and solar power.', 
-          'iot-l2': 'Development of data pipeline and dashboard for validating thermal reduction on green roofs.', 
-          'iot-links': 'Project Green Roof Links', 
-          'iot-btn1': '🌐 Dashboard', // Acortado
-          'iot-btn2': '📊 Data Sheet (Sheets)', // Acortado
-          'iot-btn3': '📘 View Thesis', // Acortado
-          'robo-role': 'Robodacta — Design and Sales', 
-          'robo-dates': '2022 – 2024', 
-          'robo-l1': 'Design of educational kits, packaging, online courses, and audiovisual material; management of suppliers and sales.', 
-          'meta-role': 'METAMORFOZIZ — Advertising and Production', 
-          'meta-dates': '2021 – 2022', 
-          'meta-l1': 'Graphic design, production of banners and signs, management of printing materials and processes.', 
-          'ventas-role': 'Sales (Local) — Coyoacán', 
-          'ventas-dates': '2021 – 2022', 
-          'ventas-l1': 'Direct customer service, management of B2C and B2B sales, cash register operation, and inventory control.', 
-          'serv-role': 'Technical Service (Own Business)', 
-          'serv-dates': '2018 – 2020', 
-          'serv-l1': 'Repair of electronic devices, purchase and sale of spare parts, inventory control, and customer service.', 
-          'logros-title': 'Achievements', 
-          'logros-l1': 'IoT prototype validated in the field for thermal and energy monitoring (Thesis).', 
-          'logros-l2': 'Technical participation in the National Biotechnology Congress (Oaxaca, 2025).', 
-          'logros-l3': 'Implementation and development of the Eco Gaia SOS platform.', 
-          'cursos-title': 'Courses & Certificates', 
-          'cursos-l1': 'Seminar: Design of manufacturing automation and integration of programmable devices.', 
-          'cursos-l2': 'Course/Self-study: Python for data analysis (pandas) — practical projects.', 
-          'cursos-l3': 'Certification in progress: English B2.', 
-          'acad-title': 'Academic Background', 
-          'acad-uni-title': 'IPN Polytechnic',
-          'acad-eng-title': 'Mechatronics Engineering (UPIITA)', 
-          'acad-eng-dates': '2018 - 2024',
-          'acad-tech-title': 'Technician in Business Administration', 
-          'acad-tech-dates': '2015 – 2018', 
-          'contact-title': 'Contact', 
-          'tech-skills-title': 'Technical Skills', 
-          'soft-skills-title': 'Soft Skills', 
-          'skill-cpp': 'C++ / Arduino', 
-          'skill-python': 'Python (pandas)', 
-          'skill-esp32': 'ESP32 & sensors', 
-          'skill-sql': 'SQL & Google Sheets', 
-          'skill-solar': 'Solar Panels & Batteries', 
-          'skill-apps-script': 'Google Apps Script', 
-          'soft-l1': 'Leadership', 
-          'soft-l2': 'Creativity and innovation', 
-          'soft-l3': 'Project planning and management', 
-          'soft-l4': 'Teamwork', 
-          'soft-l5': 'Adaptability', 
-          'soft-l6': 'Certification in progress: English B2.', 
-          'footer-name': 'Sergio Garduño Jardón', 
-          'footer-source': 'Made with GitHub Pages', 
-          'footer-contact': 'Contact: sgj.cheko@gmail.com' 
-        },
-        'es': { 
-          'nav-profile': 'Perfil',
-          'nav-profile-subtitle': 'Carta de Presentación',
-          'nav-projects': 'Proyectos',
-          'nav-experience': 'Experiencia',
-          'nav-achievements': 'Logros',
-          'nav-courses': 'Cursos',
-          'nav-education': 'Formación',
-          'nav-skills': 'Habilidades',
-          'nav-contact': 'Contacto',
-          'proyectos-title': 'Proyectos Personales',
-          'exp-title': 'Experiencia Laboral',
-          'carta-title': 'Ver Carta de Presentación', 
-          'copy-btn-text': 'Copiar Texto', 
-          'footer-contact': 'Contacto: sgj.cheko@gmail.com' 
-        }
-    };
-
-    let currentLanguage = 'es';
-
-    // Función para aplicar texto (maneja <strong>)
-    function applyText(element, text) {
-      if (!element) return; 
       
-      if (element.tagName === 'STRONG' && element.querySelector('img')) {
-        const textSpan = element.querySelector('span');
-        if (textSpan) { textSpan.innerHTML = text; } 
-      } else {
-        element.innerHTML = text; 
+      const translations = { 'en': { 'nav-profile': 'Profile', 'nav-profile-subtitle': 'Introduction' }, 'es': { 'nav-profile': 'Perfil', 'nav-profile-subtitle': 'Carta de Presentación' } };
+      let currentLanguage = 'es';
+
+      function applyText(element, text) { if (element) { element.innerHTML = text; } }
+      function translatePage(lang) {
+          currentLanguage = lang;
+          // Lógica de traducción simplificada solo para el demo
+          document.getElementById('flag-es')?.classList.toggle('active', lang === 'es');
+          document.getElementById('flag-en')?.classList.toggle('active', lang === 'en');
+          
+          const sideNavbar = document.getElementById('side-navbar');
+          if (sideNavbar && sideNavbar.classList.contains('active')) {
+              toggleMenu(); // Cierra el menú al cambiar de idioma
+          }
       }
-    }
-
-    // Función principal de traducción (AJUSTADA)
-    function translatePage(lang) {
-      currentLanguage = lang; // Actualiza idioma actual
-      const t = translations[lang] || translations['es']; // Fallback a español si falta 'en'
-      const isEnglish = (lang === 'en');
-      document.documentElement.lang = lang; // Actualiza el lang del HTML
-
-      // 1. Traduce elementos con [data-lang]
-      document.querySelectorAll('[data-lang]').forEach(element => {
-          const key = element.getAttribute('data-lang');
-          
-          if (!element.getAttribute('data-es-original')) {
-               element.setAttribute('data-es-original', element.innerHTML); 
-          }
-
-          let textToApply = '';
-          if (t[key] !== undefined) {
-              textToApply = t[key]; 
-          } else if (lang === 'es') {
-              const originalText = element.getAttribute('data-es-original');
-              if (originalText) { textToApply = originalText; } 
-          } else {
-               textToApply = element.getAttribute('data-es-original') || element.innerHTML; 
-          }
-          
-          if (textToApply) {
-              applyText(element, textToApply);
-          }
-      });
       
-      // 2. Traduce atributos href
-      document.querySelectorAll('[data-lang-href-en]').forEach(button => {
-          const originalHref = button.getAttribute('data-es-href') || button.getAttribute('href');
-           if (!button.getAttribute('data-es-href')) { button.setAttribute('data-es-href', originalHref); }
-           
-          const englishHref = button.getAttribute('data-lang-href-en');
-          button.setAttribute('href', isEnglish ? englishHref : originalHref);
-      });
-
-      // 3. Traduce atributos title
-      document.querySelectorAll('[data-lang-title-en]').forEach(element => {
-          const originalTitle = element.getAttribute('data-es-title') || element.getAttribute('title');
-          if (!element.getAttribute('data-es-title')) { element.setAttribute('data-es-title', originalTitle); }
-          
-          const englishTitleKey = element.getAttribute('data-lang-title-en'); 
-          const englishTitle = translations['en'][englishTitleKey] || originalTitle; 
-          
-          element.setAttribute('title', isEnglish ? englishTitle : originalTitle);
-      });
-      
-      // 4. Actualiza botones de idioma (Para la pestaña fija y móvil)
-      document.getElementById('flag-es')?.classList.toggle('active', lang === 'es');
-      document.getElementById('flag-en')?.classList.toggle('active', lang === 'en');
-      document.getElementById('flag-es-mobile')?.classList.toggle('active', lang === 'es');
-      document.getElementById('flag-en-mobile')?.classList.toggle('active', lang === 'en');
-      
-      // 5. Cierra el menú si estaba abierto después de cambiar el idioma
+      // --- Lógica de Menú (Adaptada para Pestaña) ---
+      const tabBtn = document.getElementById('menu-tab-btn'); // NUEVO ID
       const sideNavbar = document.getElementById('side-navbar');
-      if (sideNavbar && sideNavbar.classList.contains('active')) {
-          toggleMenu(); // Llama a la función de toggle para cerrar
+      const overlay = document.getElementById('menu-overlay'); 
+      const navLinks = sideNavbar ? sideNavbar.querySelectorAll('.nav-link') : [];
+
+      // Función para alternar el menú (USA EL BOTÓN PESTAÑA)
+      function toggleMenu() {
+          if (!sideNavbar || !overlay || !tabBtn) return; 
+
+          sideNavbar.classList.toggle('active'); 
+          overlay.classList.toggle('active'); 
+          
+          const isActive = sideNavbar.classList.contains('active');
+          if (isActive) {
+              document.body.classList.add('menu-active-no-scroll');
+              tabBtn.setAttribute('aria-expanded', 'true');
+              tabBtn.title = "Cerrar menú";
+          } else {
+              document.body.classList.remove('menu-active-no-scroll');
+              tabBtn.setAttribute('aria-expanded', 'false');
+              tabBtn.title = "Desplegar menú";
+          }
       }
-    }
 
-
-    // --- NUEVA LÓGICA DE MENÚ LATERAL ---
-    const menuToggleBtn = document.getElementById('menu-toggle-btn');
-    const menuToggleBtnMobile = document.getElementById('menu-toggle-btn-mobile');
-    const sideNavbar = document.getElementById('side-navbar'); 
-    const overlay = document.getElementById('menu-overlay'); 
-    const navLinks = sideNavbar ? sideNavbar.querySelectorAll('.nav-link') : [];
-
-    // Función para alternar el menú
-    function toggleMenu() {
-        if (!sideNavbar || !overlay) return; 
-
-        const isActive = sideNavbar.classList.contains('active');
-
-        sideNavbar.classList.toggle('active'); 
-        overlay.classList.toggle('active'); 
-        
-        // Lógica de íconos para la pestaña de ESCRITORIO
-        const iconBars = document.getElementById('toggle-icon-bars');
-        const iconX = document.getElementById('toggle-icon-x');
-
-        // Lógica de íconos para el botón MÓVIL
-        const iconMobile = menuToggleBtnMobile ? menuToggleBtnMobile.querySelector('i') : null;
-
-
-        if (!isActive) {
-            // ABRIR MENÚ
-            document.body.classList.add('menu-active-no-scroll'); 
-            
-            // Escritorio
-            if (iconBars && iconX) {
-                iconBars.style.display = 'none';
-                iconX.style.display = 'inline';
-                menuToggleBtn.setAttribute('aria-expanded', 'true');
-            }
-            // Móvil
-            if (iconMobile) {
-                iconMobile.classList.remove('fa-bars');
-                iconMobile.classList.add('fa-xmark');
-                menuToggleBtnMobile.setAttribute('aria-expanded', 'true');
-            }
-            
-        } else {
-            // CERRAR MENÚ
-            document.body.classList.remove('menu-active-no-scroll'); 
-            
-            // Escritorio
-            if (iconBars && iconX) {
-                iconBars.style.display = 'inline';
-                iconX.style.display = 'none';
-                menuToggleBtn.setAttribute('aria-expanded', 'false');
-            }
-            // Móvil
-            if (iconMobile) {
-                iconMobile.classList.remove('fa-xmark');
-                iconMobile.classList.add('fa-bars');
-                menuToggleBtnMobile.setAttribute('aria-expanded', 'false');
-            }
-        }
-    }
-    // --- FIN NUEVA LÓGICA DE MENÚ LATERAL ---
-
-
-    // --- INICIALIZACIÓN CUANDO EL DOM ESTÁ LISTO ---
-    document.addEventListener('DOMContentLoaded', () => {
-        
-        // --- Establece el año actual ---
-        const yearElement = document.getElementById('year');
-        if (yearElement) {
-            yearElement.textContent = new Date().getFullYear();
-        }
-
-        // --- Lógica de Traducción Inicial ---
-        document.querySelectorAll('[data-lang]').forEach(element => {
-            if (!element.getAttribute('data-es-original')) {
-                 element.setAttribute('data-es-original', element.innerHTML); 
-            }
-        });
-        // Aplica idioma inicial 
-        translatePage(currentLanguage); 
-        
-        
-        // --- Lógica de Eventos del Menú Lateral (Pestaña Escritorio) ---
-        if (menuToggleBtn && sideNavbar && overlay) {
-            menuToggleBtn.addEventListener('click', toggleMenu);
-            overlay.addEventListener('click', toggleMenu); 
-            menuToggleBtn.setAttribute('aria-expanded', 'false');
-        }
-
-        // --- Lógica de Eventos del Menú Lateral (Botón Móvil) ---
-        if (menuToggleBtnMobile) {
-            menuToggleBtnMobile.addEventListener('click', toggleMenu);
-            menuToggleBtnMobile.setAttribute('aria-expanded', 'false');
-        }
-    
-        // --- Cerrar menú al hacer clic en un enlace ---
-        navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                if (sideNavbar && sideNavbar.classList.contains('active')) {
-                   toggleMenu(); 
-                }
-            });
-        });
-    
-        // --- Lógica de Animación de Tarjetas (Se mantiene) ---
-        const animatedCards = document.querySelectorAll('.card'); 
-        if (typeof IntersectionObserver !== 'undefined') { 
-            const revealObserver = new IntersectionObserver((entries, observer) => {
-              entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                  entry.target.classList.add('is-visible');
-                  observer.unobserve(entry.target);
-                }
+      document.addEventListener('DOMContentLoaded', () => {
+          // Inicializar traducciones (simplificado para el demo)
+          document.querySelectorAll('[data-lang]').forEach(element => {
+              if (!element.getAttribute('data-es-original')) {
+                   element.setAttribute('data-es-original', element.innerHTML); 
+              }
+          });
+          translatePage(currentLanguage); 
+          
+          // Asignar eventos al nuevo botón Pestaña
+          if (tabBtn && sideNavbar && overlay) {
+              tabBtn.addEventListener('click', toggleMenu);
+              overlay.addEventListener('click', toggleMenu); 
+              
+              // Cerrar al hacer clic en un enlace
+              navLinks.forEach(link => {
+                  link.addEventListener('click', function() {
+                      if (sideNavbar.classList.contains('active')) {
+                         toggleMenu(); 
+                      }
+                  });
               });
-            }, {
-              threshold: 0.1 
-            });
-            animatedCards.forEach(card => {
-              revealObserver.observe(card);
-            });
-        } else {
-             animatedCards.forEach(card => card.classList.add('is-visible'));
-        }
-
-        // --- Efecto Flip Cabecera (Se mantiene) ---
-        const avatarContainerMain = document.getElementById('avatar-container-main');
-        const avatarImgMain = document.getElementById('avatar-img-main');
-        const originalSrcMain = 'profilecv.png'; 
-        const qrSrcMain = 'QRHAKU.png'; 
-        let isQrModeMain = false;
-        if (avatarContainerMain && avatarImgMain) {
-          avatarContainerMain.addEventListener('click', () => {
-              if (isQrModeMain) {
-                  avatarImgMain.src = originalSrcMain;
-                  avatarImgMain.alt = 'Sergio Garduño Jardón';
-                  avatarContainerMain.classList.remove('qr-mode');
-                  avatarContainerMain.title = 'Clic para QR';
-              } else {
-                  avatarImgMain.src = qrSrcMain;
-                  avatarImgMain.alt = 'Código QR del Portafolio';
-                  avatarContainerMain.classList.add('qr-mode');
-                  avatarContainerMain.title = 'Clic para volver a la foto';
-              }
-              isQrModeMain = !isQrModeMain;
-          });
-        }
-
-        // --- Funcionalidad Copiar Carta (Se mantiene) ---
-        const copyBtnBottom = document.getElementById('copy-carta-btn-bottom');
-        const textToCopyContainer = document.getElementById('carta-text-content'); 
-        if (copyBtnBottom && textToCopyContainer) {
-          copyBtnBottom.addEventListener('click', () => {
-            const paragraphs = textToCopyContainer.querySelectorAll('p');
-            let fullText = '';
-            paragraphs.forEach((p, index) => {
-              let cleanText = p.textContent || p.innerText || ''; 
-              fullText += cleanText.trim(); 
-              if (index < paragraphs.length - 1) {
-                fullText += '\n\n'; 
-              }
-            });
-
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(fullText).then(() => {
-                  const icon = copyBtnBottom.querySelector('i');
-                  const span = copyBtnBottom.querySelector('span');
-                  const originalIconClass = 'fa-copy';
-                  const originalTextKey = 'copy-btn-text'; 
-                  const originalText = translations[currentLanguage][originalTextKey] || 'Copiar Texto'; 
-
-                  if (icon) icon.className = 'fa-solid fa-check'; 
-                  if (span) span.textContent = (currentLanguage === 'en') ? 'Copied!' : '¡Copiado!'; 
-                  copyBtnBottom.classList.add('copied'); 
-
-                  setTimeout(() => {
-                    if (icon) icon.className = `fa-regular ${originalIconClass}`; 
-                    if (span) span.textContent = originalText; 
-                    copyBtnBottom.classList.remove('copied');
-                  }, 1500);
-
-                }).catch(err => {
-                  console.error('Error al copiar texto con API: ', err);
-                  alert((currentLanguage === 'en') ? 'Could not copy text.' : 'No se pudo copiar el texto.');
-                });
-            } else {
-                try {
-                    const textArea = document.createElement('textarea');
-                    textArea.value = fullText;
-                    document.body.appendChild(textArea);
-                    textArea.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(textArea);
-                     alert((currentLanguage === 'en') ? 'Text copied (fallback).' : 'Texto copiado (alternativo).');
-                } catch (err) {
-                    console.error('Error al copiar texto con fallback: ', err);
-                     alert((currentLanguage === 'en') ? 'Could not copy text.' : 'No se pudo copiar el texto.');
-                }
-            }
-          });
-        }
-        
-    }); 
-</script>
+              tabBtn.setAttribute('aria-expanded', 'false');
+          }
+          
+      }); 
+      // --- Fin de Lógica de Menú ---
+    </script>
 </body>
 </html>
