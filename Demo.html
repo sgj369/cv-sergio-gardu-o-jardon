@@ -1007,12 +1007,53 @@ footer.is-visible {
     display: none !important; 
   }
   
+  /* ============================================= */
+  /* 3. Efecto de Tecleo (Typewriter) (Lógica) - SOLUCIÓN FINAL CSS */
+  /* ============================================= */
+  
   .typewriter-title {
-  overflow: hidden; 
-  white-space: nowrap; 
-  border-right: 3px solid var(--accent-gold); /* Cursor simulado */
-  opacity: 1; /* HACEMOS EL ELEMENTO VISIBLE DESDE EL INICIO */
-  transition: opacity 0.1s ease;
+    /* Estilo base */
+    font-size: 36px;
+    font-weight: 900;
+    color: #000;
+    text-shadow: -1px -1px 0 var(--fg), 1px -1px 0 var(--fg), -1px 1px 0 var(--fg), 1px 1px 0 var(--fg);
+    text-align: center;
+    
+    /* Propiedades de Typewriter: CRÍTICO */
+    overflow: hidden; /* Asegura que solo se vea lo tecleado */
+    white-space: nowrap; /* Mantiene el texto en una sola línea */
+    
+    /* El JS teclea el texto, el CSS solo muestra el cursor */
+    border-right: 3px solid var(--accent-gold); /* Cursor simulado */
+    width: 100%; /* Permitir que el texto se escriba */
+    opacity: 1; /* HACER EL CONTENEDOR VISIBLE INMEDIATAMENTE */
+    
+    /* Eliminamos todas las animaciones @keyframes typing-name/blink-caret para esta versión */
+  }
+  
+  /* El .visible aquí solo asegura que no se mueva, pero la visibilidad ya es 1 */
+  .typewriter-title.visible {
+      opacity: 1;
+  }
+  
+  /* Mantener el cursor parpadeando */
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: var(--accent-gold); }
+  }
+  
+  /* Responsive: Asegura que el nombre quepa en el móvil */
+  @media (max-width: 480px) {
+    .typewriter-title { 
+      font-size: 28px; 
+    }
+  }
+  
+  /* ** CRÍTICO: Ajuste Adicional para Móviles (Para que quepa) ** */
+  @media (max-width: 600px) {
+      #typewriter-name-container {
+          font-size: 1.8rem !important; /* Reducción de la fuente para móvil */
+      }
   }
 }
 
@@ -1588,54 +1629,37 @@ footer.is-visible {
     
     
     /* ============================================= */
-/* 3. Efecto de Tecleo (Typewriter) (Lógica) - VERSIÓN FINAL CORREGIDA */
-/* ============================================= */
+    /* 3. Efecto de Tecleo (Typewriter) (Lógica) - VERSIÓN POR CARÁCTER (FINAL) */
+    /* ============================================= */
+        
+    function startTypewriterNameEffect(name) {
+        // 1. Busca el elemento por el ID
+        const typewriterElement = document.getElementById('typewriter-name-container');
+        if (!typewriterElement) return;
     
-function startTypewriterNameEffect(name) {
-    // 1. Busca el elemento por el ID
-    const typewriterElement = document.getElementById('typewriter-name-container');
-    if (!typewriterElement) return;
+        // CRÍTICO: Prepara el elemento
+        typewriterElement.textContent = ''; // Asegura que esté VACÍO antes de empezar
+        typewriterElement.classList.add('typewriter-title');
+        typewriterElement.classList.add('visible'); // Lo hace visible (opacity: 1)
+        
+        // 2. Lógica de tecleo
+        let charIndex = 0;
+        const typingSpeed = 75; // Velocidad en milisegundos
     
-    // 2. Añade la clase de estilo Typewriter.
-    typewriterElement.classList.add('typewriter-title');
-    
-    // 3. Calcula el ancho real del texto para la animación CSS.
-    // Usamos el propio elemento para medir su estilo, no la etiqueta temporal.
-    const computedStyle = window.getComputedStyle(typewriterElement);
-    
-    const tempSpan = document.createElement('span');
-    tempSpan.textContent = name;
-    tempSpan.style.visibility = 'hidden';
-    tempSpan.style.position = 'absolute';
-    
-    // Copiar estilos esenciales para la medición precisa
-    tempSpan.style.fontSize = computedStyle.fontSize;
-    tempSpan.style.fontWeight = computedStyle.fontWeight;
-    tempSpan.style.fontFamily = computedStyle.fontFamily;
-    
-    document.body.appendChild(tempSpan);
-    const nameWidth = tempSpan.offsetWidth + 2; // El ancho + 2px de margen
-    document.body.removeChild(tempSpan);
-
-    // 4. Establece las variables CSS para la animación
-    const chars = name.length;
-    const totalTime = 3.0; // Duración total de la animación en segundos
-    
-    typewriterElement.style.setProperty('--typewriter-width-name', `${nameWidth}px`);
-    typewriterElement.style.setProperty('--typewriter-chars', chars);
-    typewriterElement.style.setProperty('--typewriter-time', `${totalTime}s`);
-    
-    // 5. Inicia la animación CSS
-    typewriterElement.classList.add('visible');
-    
-    // 6. Finalmente, escribe el texto completo.
-    // Esto se hace justo antes de que la animación termine, para que el nombre quede fijo
-    // y el efecto se vea fluido.
-    setTimeout(() => {
-        typewriterElement.textContent = name; // Escribe el nombre completo
-        typewriterElement.style.borderRight = 'none'; // Oculta el cursor
-    }, totalTime * 1000); // Se sincroniza con el final de la animación
-}
+        function typeChar() {
+            if (charIndex < name.length) {
+                typewriterElement.textContent += name.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeChar, typingSpeed);
+            } else {
+                // Cuando termina, oculta el cursor
+                typewriterElement.style.borderRight = 'none'; 
+            }
+        }
+        
+        // Inicia el tecleo después de una breve pausa
+        setTimeout(typeChar, 100); 
+    }
 
 
 
