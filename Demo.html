@@ -40,6 +40,8 @@
     --accent-orange: #FF5733; /* Naranja Vibrante */
     /* Variable para el padding del menú lateral (ajustado para el nuevo sistema) */
     --toggle-btn-height-adjusted: 70px;
+    /* NUEVA VARIABLE: Ancho de la pestaña lateral fija */
+    --tab-width: 50px; 
   }
 
   /* Estilos Base */
@@ -53,10 +55,10 @@
     -webkit-font-smoothing:antialiased;
     -moz-osx-osx-font-smoothing:grayscale;
     line-height:1.5;
-    /* El padding lateral se deja base ya que el menú cubre */
+    /* Padding del body para evitar que el contenido se solape con la pestaña fija */
     padding: 28px;
-    padding-left: 28px; /* Restaura tu padding base */
-    transition: none; /* Elimina la transición de padding */
+    padding-left: calc(28px + var(--tab-width)); /* Mueve el contenido a la derecha de la pestaña */
+    transition: none;
     min-height: 100vh;
   }
   
@@ -73,740 +75,281 @@
   }
 
 
-    /* ESTILOS DEL SELECTOR DE IDIOMA (FIJO EN PANTALLA) */
-  .lang-switcher {
-     /* Ahora está dentro del menú, lo dejamos como estaba en tu index */
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 10px 0; /* Agregamos un poco de padding para separarlo */
-  }
-  .lang-switcher button {
-    background: var(--card-bg); color: var(--fg); border: 1px solid var(--accent-gold);
-    padding: 5px 10px; border-radius: 8px; cursor: pointer; font-size: 1.5em; 
-    line-height: 1; transition: background-color 0.2s; opacity: 0.8;
-  }
-  .lang-switcher button:hover { opacity: 1; background: rgba(255, 215, 0, 0.1); }
-  .lang-switcher button.active { border-color: var(--accent-red); background: rgba(255, 51, 102, 0.1); }
-    /* Oculta el botón de idioma que esté activo */
-  .lang-switcher button.active {
-    display: none;
-  }
-
-  /* Ajuste responsive para móviles */
-   @media (max-width:980px){
-     /* El lang-switcher ya no es fijo, se queda en el menú */
-     /* Mantenemos el ajuste para el body en móvil */
-    body {
-        padding: 15px; /* Padding móvil general más pequeño */
-        padding-left: 15px; 
-    }
-   }
-
-  /* ESTILOS DEL ENCABEZADO PRINCIPAL (AHORA VERTICAL) */
-  .main-header-card {
-    background: var(--card-bg);
-    border: 1px solid rgba(255, 255, 255, 0.1); 
-    border-top: 2px solid var(--fg); 
-    border-bottom: 2px solid var(--fg); 
-    border-right: 2px solid var(--fg); 
-    border-radius: var(--radius);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-  
-    display: flex;
-    flex-direction: column; /* Apila verticalmente */
-    align-items: center;    /* Centra horizontalmente */
-    gap: 15px;             /* Espacio entre foto, nombre y botones */
-    padding: 25px 20px;    /* Padding ajustado */
-  }
-
-
-    /* Línea blanca para el header */
-  .main-header-card::after {
-      content: '';
-      position: absolute;
-      top: 0; 
-      right: 0; 
-      width: 5px; 
-      height: 35px; 
-      background: var(--fg); /* Color Blanco */
-      border-top-right-radius: var(--radius); 
-      z-index: 1; 
-  }
-
-  
-  header{
-    display:flex; flex-direction: row; align-items: center; 
-    gap: 15px; margin-bottom:0; flex-shrink: 0; 
-  }
-  .brand{ display:flex; align-items:center; gap:14px; flex-shrink: 0; }
-    /* Estilos del Avatar (Ahora circular y con modo QR) */
-.avatar{
-  width: 120px; /* Más grande */
-  height: 120px;
-  border-radius: 50%; /* Circular */
-  overflow:hidden;
-  border: 3px solid var(--fg); /* Borde un poco más grueso */
-  box-shadow:0 0 20px rgba(238, 241, 240, 0.6); /* Sombra más pronunciada */
-  cursor: pointer; 
-  transition: all 0.3s ease-in-out; 
-  margin-bottom: 5px; /* Pequeño espacio debajo */
-}
-    .avatar:hover {
-      transform: scale(1.05);
-    }
-    /* Estilos para el QR */
-    .avatar.qr-mode {
-      border-radius: var(--radius); /* Cuadrado para el QR */
-      border-color: var(--accent-green);
-      transform: scale(1.1);
-    }
-    .avatar.qr-mode:hover {
-      transform: scale(1.1);
-    }
-    .avatar img{
-      width:100%; height:100%; object-fit:cover; display:block;
-    }
-
-  
-     /* Nombre contorno blanco y relleno negro */
-  .title{
-    font-weight:900;
-    font-size:36px; 
-    color: #000; /* Relleno Negro */
-    text-shadow: /* Contorno Blanco */
-        -1px -1px 0 var(--fg),  
-         1px -1px 0 var(--fg),
-        -1px  1px 0 var(--fg),
-         1px  1px 0 var(--fg); 
-    text-align: center; 
-  } 
- 
- 
-
-    /* Botón Relleno Blanco (Para Ver CV) */
-  .btn-fill-white {
-    background: var(--fg);
-    color: #333; /* Texto oscuro */
-    border: 2px solid var(--fg);
-    padding: 8px 12px;
-    border-radius: 10px;
-    font-weight: 700;
-    text-decoration: none;
-    display: inline-flex;
-    gap: 8px;
-    align-items: center;
-    transition: all 0.2s;
-    flex-shrink: 0;
-    box-shadow: 0 4px 15px rgba(238, 241, 240, 0.2);
-  }
-  .btn-fill-white:hover { 
-    background: #cdd1d0; /* Un gris claro al pasar el ratón */
-    border-color: #cdd1d0;
-    box-shadow: 0 6px 20px rgba(238, 241, 240, 0.4);
-    transform: translateY(-1px);
-  }
-
-  /* Botón Contorno Blanco (Para Descargar CV) */
-  .btn-outline-white {
-    background: transparent;
-    border: 2px solid var(--fg);
-    color: var(--fg);
-    padding: 8px 12px;
-    border-radius: 10px;
-    font-weight: 700;
-    text-decoration: none;
-    display: inline-flex;
-    gap: 8px;
-    align-items: center;
-    transition: background-color 0.15s;
-    flex-shrink: 0;
-  }
-  .btn-outline-white:hover { 
-    background: rgba(238, 241, 240, 0.1); /* Relleno blanco sutil */
-  }
-
-    /* Botón Azul Contorno */
-  .btn-clean-secondary {
-    background: transparent; 
-    border: 2px solid var(--accent-blue); 
-    color: var(--accent-blue);
-    padding: 8px 12px;
-    border-radius: 10px;
-    font-weight: 700;
-    text-decoration: none;
-    display: inline-flex;
-    gap: 8px;
-    align-items: center;
-    transition: background-color 0.15s;
-    flex-shrink: 0;
-  }
-  .btn-clean-secondary:hover { 
-    background: rgba(0, 119, 182, 0.1); /* Relleno azul sutil */
-  }
-
-
-  /* Botón Naranja Contorno (para EcoGaiaSOS) */
-  .btn-outline-orange {
-    background: transparent;
-    border: 2px solid var(--accent-orange);
-    color: var(--accent-orange);
-    padding: 8px 12px;
-    border-radius: 10px;
-    font-weight: 700;
-    text-decoration: none;
-    display: inline-flex;
-    gap: 8px;
-    align-items: center;
-    transition: background-color 0.15s;
-    flex-shrink: 0;
-  }
-  .btn-outline-orange:hover { 
-    background: rgba(255, 87, 51, 0.1); /* Relleno naranja sutil */
-  }
-
-  /* ESTILOS DEL CUERPO PRINCIPAL (MAIN CONTENT & ASIDE) */
-  .hero{
-    display:grid;
-    grid-template-columns:1fr 360px; /* Columna principal y barra lateral */
-    gap:28px;
-    align-items:start;
-    margin-bottom:28px;
-  }
-  
-  .hero-main { display: flex; flex-direction: column; gap: 28px; }
-  .hero-aside { position: sticky; top: 28px; display: flex; flex-direction: column; gap: 28px; }
-
-  /* Estilos base para todas las tarjetas de contenido */
-  .card{
-    position: relative; background: var(--card-bg); border:1px solid var(--card-border);
-    padding:20px; border-radius:var(--radius); box-shadow: 0 8px 30px rgba(0,0,0,0.25);
-    color:var(--fg); overflow: hidden;
-    /* Animación (se define más abajo) */
-    border-left: 5px solid; /* Borde izquierdo base (color se aplica por ID) */
-  }
-  .card:hover { 
-    box-shadow: 0 0 15px rgba(255,255,255,0.1); 
-    transform: translateY(0); /* Evita saltos en hover */
-  }
-
-  /* Línea decorativa derecha */
-  .card::after {
-      content: ''; position: absolute; top: 0; right: 0; 
-      width: 5px; height: 35px; 
-      border-top-right-radius: var(--radius); z-index: 1; 
-  }
-    
-  /* REFACTOR DE COLORES POR SECCIÓN ID */
-  
-  /* Perfil (Azul) */
-  #perfil { border-left-color: var(--accent-blue); } 
-  #perfil::after { background: var(--accent-blue); }
-  #perfil .profile-title { color: var(--accent-blue); }
-
-    /* ESTILOS PARA LA CARTA DESPLEGABLE DENTRO DEL PERFIL */
-  .inner-details {
-    margin-top: 15px; 
-    border-top: 1px solid var(--card-border); 
-    padding-top: 15px;
-  }
-
-   /* ESTILOS PARA EL BOTÓN COPIAR DENTRO DE LA CARTA */
-  .copy-button-container {
-    text-align: right; 
-    margin-top: 15px; 
-  }
-  
-  .btn-copy-carta {
-    background-color: transparent;
-    border: 1px solid var(--accent-gold); 
-    color: var(--accent-gold); 
-    padding: 6px 12px;
-    border-radius: 8px;
-    font-weight: 600;
-    font-family: var(--font-sans); 
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-size: 0.9em; 
-  }
-  .btn-copy-carta:hover {
-    background-color: rgba(255, 215, 0, 0.1); 
-    box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
-  }
-  .btn-copy-carta:active {
-    transform: scale(0.98); 
-  }
-  
-  /* Estilo temporal al copiar (check verde) */
-  .btn-copy-carta.copied {
-    border-color: var(--accent-green);
-    background-color: rgba(99, 185, 111, 0.1);
-    color: var(--accent-green);
-  }
-  /* FIN ESTILOS BOTÓN COPIAR */
-
-  
-  .inner-summary {
-    cursor: pointer;
-    display: inline-flex; 
-    align-items: center;
-    font-weight: 700;
-    color: var(--accent-gold); 
-    margin-bottom: 10px; 
-    list-style: none; 
-    transition: opacity 0.2s ease;
-  }
-  .inner-summary:hover {
-    opacity: 0.8;
-  }
-  .inner-summary::-webkit-details-marker { 
-    display: none; 
-  }
-  
-  /* Flecha desplegable (similar a las secciones principales) */
-  .inner-summary::after {
-    content: '▼'; 
-    font-size: 0.8em;
-    color: var(--muted);
-    margin-left: 8px; 
-    transition: transform 0.2s ease-out;
-  }
-  .inner-details[open] > .inner-summary::after {
-    transform: rotate(180deg);
-  }
-  
-  .inner-content {
-    padding-left: 22px; 
-    color: var(--fg); 
-    opacity: 0.9; 
-  }
-  /* FIN ESTILOS CARTA DESPLEGABLE */
-
-
-  /* Proyectos (Morado) */
-  #proyectos > summary { color: var(--accent-purple); border-color: rgba(153, 51, 204, 0.3); }
-  #proyectos .section-content .card { border-left-color: var(--accent-purple); opacity: 1; transform: none; } 
-  #proyectos .section-content .card::after { background: var(--accent-purple); }
-  #proyectos .section-content .card strong { color: var(--fg); } 
-
-  /* Experiencia (Verde Esmeralda) */
-  #experiencia > summary { color: var(--accent-emerald); border-color: rgba(46, 139, 87, 0.3); }
-  #experiencia .section-content .card { border-left-color: var(--accent-emerald); opacity: 1; transform: none; }
-  #experiencia .section-content .card::after { background: var(--accent-emerald); }
-  #experiencia .section-content .card strong { color: var(--fg); } 
-
-  /* Logros (Dorado) */
-  #logros > summary { color: var(--accent-gold); border-color: rgba(255, 215, 0, 0.3); }
-  #logros .section-content .card { border-left-color: var(--accent-gold); opacity: 1; transform: none; }
-  #logros .section-content .card::after { background: var(--accent-gold); }
-
-
-  /* Cursos (Rojo) */
-  #cursos > summary { color: var(--accent-red); border-color: rgba(255, 51, 102, 0.3); }
-  #cursos .section-content .card { border-left-color: var(--accent-red); opacity: 1; transform: none; }
-  #cursos .section-content .card::after { background: var(--accent-red); }
-
-  /* ASIDE */
-  /* Formación (Morado) */
-  #formacion { border-left-color: var(--accent-purple); } 
-  #formacion::after { background: var(--accent-purple); } 
-  #formacion > div:first-child { color: var(--accent-purple); font-weight: 800; margin-bottom: 15px; }
-  
-  /* Contacto (blanco) */
-  #contacto { border-left-color: var(--fg); } 
-  #contacto::after { background: var(--fg); } 
-  #contacto > div:first-child { color: var(--fg); font-weight: 800; margin-bottom: 8px; }
-  
-  /* Habilidades (azul) */
-  #habilidades { border-left-color: var(--accent-blue); } 
-  #habilidades::after { background: var(--accent-blue); } 
-  #habilidades > div:first-child { color: var(--accent-blue); font-weight: 800; margin-bottom: 8px; }
-  
-  /* Habilidades Blandas (Dorado) (Sigue siendo el 4to hijo de aside) */
-  aside .card:nth-of-type(3) { border-left-color: var(--accent-gold); } 
-  aside .card:nth-of-type(3)::after { background: var(--accent-gold); } 
-  aside .card:nth-of-type(3) > div:first-child { color: var(--accent-gold); font-weight: 800; margin-bottom: 8px; }
-  
-  /* FIN REFACTOR DE COLORES */
-
-  
-  /* Títulos y Contenido */
-  h2.profile-title{font-size:18px;font-weight:800;margin-top: 0; margin-bottom:8px}
-  .profile-text{color:var(--fg);opacity:1;font-size:15px;line-height:1.6;}
-  .skill-pill { color: var(--fg); padding: 6px 10px; border-radius: 6px; margin: 4px; display: inline-block; font-size: 14px; border: 1px solid rgba(255,255,255,0.15); }
-  .skills { display: flex; flex-wrap: wrap; margin-top: 10px; }
-
-  /* Estilos de Títulos de Sección */
-  
-  /* Títulos de sección (h2 dentro de summary) */
-  h2.section{
-    font-size:18px; margin: 0; font-weight:800; 
-    flex-grow: 1; 
-  }
-  /* El color del h2 lo hereda del summary */
-  summary > h2.section { color: inherit !important; }
-
-  /* Estilo del <summary> que contiene el título */
-  details > summary {
-      /* El color de texto y borde se aplica por ID */
-      border-bottom: 2px solid; 
-      padding-bottom: 4px; margin-bottom: 15px;
-      cursor: pointer; display: flex; justify-content: space-between; align-items: center;
-      position: relative; 
-  }
-  
-  /* Flecha desplegable (NUEVO) */
-  details > summary::after {
-    content: '▼'; /* Flecha hacia abajo */
-    font-size: 0.8em;
-    color: var(--muted);
-    margin-left: 10px; 
-    transition: transform 0.2s ease-out;
-    flex-shrink: 0; 
-  }
-  details[open] > summary::after {
-    transform: rotate(180deg); /* Flecha hacia arriba */
-  }
-  
-  /* Contenido dentro de las secciones <details> (NUEVO) */
-  .section-content {
-    display: flex;
-    flex-direction: column;
-    gap: 12px; 
-  }  
-    .clean { padding-left: 20px; margin: 0; list-style-type: none; } 
-    
-  .acad-ipn-title {
-    color: var(--accent-guinda); font-weight: 800;
-    margin-top: 0; margin-bottom: 12px;
-    font-size: 18px; text-align: center;
-  }
-  
-  /* Estilos de Contacto simplificados */
-  .contact-small { font-size: 0.9em; color: var(--muted); }
-
-
-  /* Estilos bloques IoT (Tesis) */
-  .iot-block{margin-top: 14px; padding:0; background: transparent; border: none;}
-  .iot-block h3{color:var(--accent-purple); margin:16px 0 10px 0; font-size:18px; font-weight:800; text-shadow: 0 0 2px rgba(153, 51, 204, 0.5);}
-  .iot-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px; margin-top: 14px;}
-  .btn-accent{background:var(--accent-green);color:#03120a;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(99,185,111,0.06)}
-  .btn-primary{background:var(--accent-blue);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(11,102,194,0.06)}
-  .btn-dark{background:var(--accent-purple);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;border:1px solid rgba(153, 51, 204, 0.4)}
-  .iot-actions a { color: #fff; text-decoration: none; } 
-
-    footer {
-    display: flex;
-    flex-direction: column; 
-    align-items: center;    
-    justify-content: center;
-    gap: 10px;               
-    
-    padding: 26px 15px 10px; 
-    text-align: center;
-    color: var(--muted);
-    font-size: 13px;
-    
-    margin-left: 0; 
-    width: 100%; 
-  }
-  
-  /* Y esta parte para el logo */
-  .footer-brand {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .sello{width:40px;height:40px;border-radius:8px;overflow:hidden}
-  .sello img{width:100%;height:100%;object-fit:cover}
-
-  /* Partículas */
-  #particles-js {
-    position: fixed; width: 100%; height: 100%;
-    top: 0; left: 0; z-index: -1; 
-    background-color: var(--bg-uniform);
-  }
-
-  /* ============================================= */
-  /* 1. ESTILOS DEL MENÚ LATERAL FIJO (Navegación) */
-  /* ============================================= */
-  
-  /* Habilitamos el scroll suave */
-  html {
-    scroll-behavior: smooth;
-  }
-  
-  /* --- CAPA OSCURA (OVERLAY) --- */
-  #menu-overlay {
+    /* ================================================= */
+    /* --- PESTAÑA DE TOGGLE Y BOTÓN DE IDIOMA (FIJOS) --- */
+    /* ================================================= */
+    #toggle-tab-container {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.7); /* Oscurece el fondo */
-      z-index: 990; /* Detrás del menú */
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease-out;
-  }
+      width: var(--tab-width); /* Ancho fijo de la pestaña */
+      z-index: 1000;
+      background: var(--card-bg); /* Fondo igual al menú */
+      border-right: 1px solid var(--card-border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 20px;
+    }
 
-  #menu-overlay.active {
-      opacity: 1;
-      visibility: visible;
-  }
+    #menu-toggle-btn {
+        width: 100%;
+        height: 70px; /* Altura de la pestaña de toggle */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        padding: 10px 0;
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid var(--card-border);
+        color: var(--fg);
+        font-size: 1.5em;
+        transition: background-color 0.3s;
+    }
 
+    #menu-toggle-btn:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    /* ESTILOS DEL SELECTOR DE IDIOMA */
+    .lang-switcher {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--card-border); /* Separador */
+    }
+    .lang-switcher button {
+      /* Estilos existentes */
+      background: var(--card-bg); color: var(--fg); border: 1px solid var(--accent-gold);
+      padding: 5px 10px; border-radius: 8px; cursor: pointer; font-size: 1.5em; 
+      line-height: 1; transition: background-color 0.2s; opacity: 0.8;
+      width: 40px; height: 35px; /* Ajustamos el tamaño para la pestaña */
+      margin: 0 auto; /* Centrar bandera */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .lang-switcher button:hover { opacity: 1; background: rgba(255, 215, 0, 0.1); }
+    .lang-switcher button.active { border-color: var(--accent-red); background: rgba(255, 51, 102, 0.1); }
+      /* Oculta el botón de idioma que esté activo */
+    .lang-switcher button.active {
+      display: none;
+    }
 
-  /* --- BOTÓN DE TOGGLE (HAMBURGUESA/X) --- */
-  #menu-toggle-btn {
+    /* ================================================= */
+    /* --- CAPA OSCURA (OVERLAY) --- */
+    /* ================================================= */
+    #menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7); /* Oscurece el fondo */
+        z-index: 990; /* Detrás del menú */
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease-out;
+    }
+
+    #menu-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* ================================================= */
+    /* --- MENÚ LATERAL DESPLEGABLE --- */
+    /* ================================================= */
+    .side-navbar {
       position: fixed;
-      top: 20px;
-      left: 20px;
-      z-index: 1000; /* Debe estar encima de todo */
-      cursor: pointer;
-      padding: 10px 12px;
-      background-color: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 8px;
-      color: var(--fg);
-      font-size: 1.5em;
-      transition: background-color 0.3s;
-  }
-
-  #menu-toggle-btn:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-  }
-
-  /* --- MENÚ LATERAL DESPLEGABLE --- */
-  .side-navbar {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    /* Usaremos la variable de tu index para el ancho */
-    width: var(--menu-width-expanded, 240px); 
-    background: var(--card-bg);
-    border-right: 1px solid var(--card-border);
-    border-radius: 0 var(--radius) var(--radius) 0; /* Usamos tu variable de borde */
-    overflow-y: auto; 
-    padding: 0; 
-    z-index: 999;
-    
-    /* Estado inicial: fuera de pantalla */
-    left: calc(0px - var(--menu-width-expanded, 240px)); 
-    transition: left 0.3s ease-out; 
-  }
-
-  .side-navbar.active {
-      left: 0; /* Estado activo: dentro de pantalla */
-  }
-
-  .side-navbar ul { 
-    list-style: none; 
-    padding: 0; 
-    margin: 0; 
-    width: 100%;
-    /* Espacio superior para el botón de toggle que está afuera */
-    padding-top: var(--toggle-btn-height-adjusted); 
-    padding-bottom: 20px; 
-  }
-
-  .side-navbar .nav-link {
-    display: flex; 
-    align-items: center; 
-    padding-left: 23px;
-    color: var(--fg);
-    text-decoration: none; 
-    height: 50px; 
-    width: 100%;
-    white-space: nowrap; 
-    transition: background-color 0.2s ease;
-  }
-
-  .side-navbar .nav-link:hover { background-color: rgba(255, 255, 255, 0.05); }
-
-  .side-navbar .nav-link i {
-    font-size: 1.3em; 
-    width: 24px; 
-    text-align: center;
-    color: var(--fg);
-    transition: text-shadow 0.2s ease, transform 0.2s ease;
-    flex-shrink: 0;
-  }
-  
-  /* Colores de contorno para cada icono */
-  .nav-link-perfil i      { text-shadow: 0 0 5px var(--accent-blue), 0 0 10px var(--accent-blue); }
-  .nav-link-proyectos i   { text-shadow: 0 0 5px var(--accent-purple), 0 0 10px var(--accent-purple); }
-  .nav-link-experiencia i { text-shadow: 0 0 5px var(--accent-emerald), 0 0 10px var(--accent-emerald); }
-  .nav-link-logros i      { text-shadow: 0 0 5px var(--accent-gold), 0 0 10px var(--accent-gold); }
-  .nav-link-cursos i      { text-shadow: 0 0 5px var(--accent-red), 0 0 10px var(--accent-red); } 
-  .nav-link-formacion i   { text-shadow: 0 0 5px var(--accent-purple), 0 0 10px var(--accent-purple); }
-  .nav-link-habilidades i { text-shadow: 0 0 5px var(--accent-blue), 0 0 10px var(--accent-blue); }
-  .nav-link-contacto i    { text-shadow: 0 0 5px var(--accent-green), 0 0 10px var(--accent-green); }
-  
-
-  /* Efecto de "brillo" y crecimiento al pasar el ratón */
-  .side-navbar .nav-link:hover i { 
-    text-shadow: 0 0 12px var(--fg), 0 0 20px var(--fg); 
-    transform: scale(1.1); 
-  }
-  
- 
-  .link-text-container {
-    margin-left: 20px; 
-    display: flex;
-    flex-direction: column; 
-  }
-  
-  .link-text {
-    font-weight: 600;
-    opacity: 1; /* Siempre visible ya que el menú está desplegado */
-    transition: none;
-    display: block; 
-    line-height: 1.2; 
-  }
-  
-  .link-subtitle {
-    font-size: 0.75em; 
-    color: var(--muted); 
-    opacity: 1; 
-    transition: none;
-    line-height: 1.1;
-    margin-top: 2px; 
-    font-weight: 400; 
-  }
-
-
-  /* ============================================= */
-  /* 2. ESTILOS DE LA ANIMACIÓN DE TARJETAS */
-  /* ============================================= */
-  
-  .card {
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.2s ease;
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  .card.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  /* ============================================= */
-  /* 3. NUEVOS ESTILOS PARA CONTACTO (Presionables) */
-  /* ============================================= */
-
-  #contacto .contact-list {
-    list-style: none; padding: 0; margin: 0;
-    display: grid; 
-    grid-template-columns: 1fr 1fr;
-    gap: 12px; 
-  }
-
-  #contacto .contact-list li.full-width-btn {
-    grid-column: span 2;
-   }
-    
-   #contacto .contact-list li { display: block; }
-
-  #contacto .contact-btn-pressable {
-    display: flex; align-items: center; padding: 12px 16px;
-    border-radius: 10px; text-decoration: none; font-weight: 700;
-    color: #000; 
-    transition: all 0.2s ease-out;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  }
-  #contacto .contact-btn-pressable:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-  }
-  #contacto .contact-btn-pressable i {
-    font-size: 1.2em; margin-right: 12px;
-    width: 25px; text-align: center; color: inherit; 
-  }
-
-  #contacto .btn-email { background: var(--accent-yellow); color: #332400; }
-  #contacto .btn-email:hover { box-shadow: 0 8px 25px rgba(255, 195, 0, 0.3); }
-  #contacto .btn-email i { color: #332400; } 
-
-
-  #contacto .btn-email-rojo {background: var(--accent-red);color: var(--fg);}
-  #contacto .btn-email-rojo:hover {box-shadow: 0 8px 25px rgba(255, 51, 102, 0.3);}
-  #contacto .btn-email-rojo i {color: var(--fg); } 
-
-  #contacto .btn-whatsapp { background: var(--accent-green); color: #03120a; }
-  #contacto .btn-whatsapp:hover { box-shadow: 0 8px 25px rgba(99, 185, 111, 0.3); }
-  #contacto .btn-whatsapp i { color: #03120a; }
-
-  #contacto .btn-github { background: var(--accent-purple); color: var(--fg); }
-  #contacto .btn-github:hover { box-shadow: 0 8px 25px rgba(153, 51, 204, 0.3); }
-  #contacto .btn-github i { color: var(--fg); }
-
-  #contacto .btn-linkedin { background: var(--accent-blue); color: var(--fg); }
-  #contacto .btn-linkedin:hover { box-shadow: 0 8px 25px rgba(0, 119, 182, 0.3); }
-  #contacto .btn-linkedin i { color: var(--fg); }
-
-  #contacto .btn-facebook { background: #1877F2; color: var(--fg); }
-  #contacto .btn-facebook:hover { box-shadow: 0 8px 25px rgba(24, 119, 242, 0.3); }
-  #contacto .btn-facebook i { color: var(--fg); }
-
-  #contacto .btn-instagram { background: var(--accent-orange); color: var(--fg); }
-  #contacto .btn-instagram:hover { box-shadow: 0 8px 25px rgba(255, 87, 51, 0.3); }
-  #contacto .btn-instagram i { color: var(--fg); }
-
-  
-  #contacto .btn-tiktok { background: #fff; color: #000; }
-  #contacto .btn-tiktok:hover { box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3); }
-  #contacto .btn-tiktok i { color: #000; }
-  
-  
-  /* RESPONSIVE TWEAKS (PARA MÓVILES) */
-  @media (max-width: 1100px) { /* Tablet y móvil */
-      .hero { grid-template-columns: 1fr; }
-      .hero-aside { position: static; } /* Quitamos sticky */
-  }
-  
-    @media (max-width:980px){
-    body {
-        padding: 15px; /* Padding móvil general más pequeño */
-        padding-left: 15px; 
+      top: 0;
+      bottom: 0;
+      /* Mueve el menú a la derecha de la pestaña fija */
+      left: var(--tab-width); 
+      /* Usaremos la variable de tu index para el ancho */
+      width: var(--menu-width-expanded, 240px); 
+      background: var(--card-bg);
+      border-right: 1px solid var(--card-border);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      overflow-y: auto; 
+      padding: 0; 
+      z-index: 999;
+      
+      /* Estado inicial: fuera de pantalla, desplazado por su propio ancho */
+      transform: translateX(calc(-1 * var(--menu-width-expanded, 240px)));
+      transition: transform 0.3s ease-out; 
     }
-        
-    .main-header-card { 
-      flex-direction: column; 
+
+    .side-navbar.active {
+        /* Estado activo: en su posición original, visible */
+        transform: translateX(0); 
+    }
+
+    .side-navbar ul { 
+      list-style: none; 
+      padding: 0; 
+      margin: 0; 
+      width: 100%;
+      /* Eliminamos el padding top ya que el menú no tiene el botón de toggle */
+      padding-top: 20px; 
+      padding-bottom: 20px; 
+    }
+
+    .side-navbar .nav-link {
+      display: flex; 
       align-items: center; 
-      gap: 15px;
-      padding: 15px; 
-      width: 100%; 
-      margin-left: 0;
-      margin-right: 0;
+      padding-left: 23px;
+      color: var(--fg);
+      text-decoration: none; 
+      height: 50px; 
+      width: 100%;
+      white-space: nowrap; 
+      transition: background-color 0.2s ease;
     }
-    header { 
-        width: 100%; 
-        flex-direction: column; 
-        align-items: flex-start; 
-        gap: 10px; 
+
+    .side-navbar .nav-link:hover { background-color: rgba(255, 255, 255, 0.05); }
+
+    .side-navbar .nav-link i {
+      font-size: 1.3em; 
+      width: 24px; 
+      text-align: center;
+      color: var(--fg);
+      transition: text-shadow 0.2s ease, transform 0.2s ease;
+      flex-shrink: 0;
     }
-    .header-main-buttons {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center; 
-    margin-top: 5px;
-  }
-
     
-    /* Layout principal y aside */
-    .hero { grid-template-columns: 1fr; } 
-    .hero-aside { position: static; } 
+    /* Colores de contorno para cada icono (se mantienen) */
+    .nav-link-perfil i      { text-shadow: 0 0 5px var(--accent-blue), 0 0 10px var(--accent-blue); }
+    .nav-link-proyectos i   { text-shadow: 0 0 5px var(--accent-purple), 0 0 10px var(--accent-purple); }
+    .nav-link-experiencia i { text-shadow: 0 0 5px var(--accent-emerald), 0 0 10px var(--accent-emerald); }
+    .nav-link-logros i      { text-shadow: 0 0 5px var(--accent-gold), 0 0 10px var(--accent-gold); }
+    .nav-link-cursos i      { text-shadow: 0 0 5px var(--accent-red), 0 0 10px var(--accent-red); } 
+    .nav-link-formacion i   { text-shadow: 0 0 5px var(--accent-purple), 0 0 10px var(--accent-purple); }
+    .nav-link-habilidades i { text-shadow: 0 0 5px var(--accent-blue), 0 0 10px var(--accent-blue); }
+    .nav-link-contacto i    { text-shadow: 0 0 5px var(--accent-green), 0 0 10px var(--accent-green); }
     
-  }
 
+    /* Efecto de "brillo" y crecimiento al pasar el ratón */
+    .side-navbar .nav-link:hover i { 
+      text-shadow: 0 0 12px var(--fg), 0 0 20px var(--fg); 
+      transform: scale(1.1); 
+    }
+    
   
-  @media (max-width: 480px) { /* Móvil pequeño */
-      .title { font-size: 28px; }
-      .avatar { width: 70px; height: 70px; }
-     }
+    .link-text-container {
+      margin-left: 20px; 
+      display: flex;
+      flex-direction: column; 
+    }
+    
+    .link-text {
+      font-weight: 600;
+      opacity: 1;
+      transition: none;
+      display: block; 
+      line-height: 1.2; 
+    }
+    
+    .link-subtitle {
+      font-size: 0.75em; 
+      color: var(--muted); 
+      opacity: 1; 
+      transition: none;
+      line-height: 1.1;
+      margin-top: 2px; 
+      font-weight: 400; 
+    }
 
+
+    /* ============================================= */
+    /* 2. ESTILOS DE LA ANIMACIÓN DE TARJETAS (Se mantienen) */
+    /* ============================================= */
+    
+    .card {
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.2s ease;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .card.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    
+    /* RESPONSIVE TWEAKS (PARA MÓVILES) */
+    @media (max-width: 980px){
+      /* En móviles, ocultamos la pestaña lateral y el botón de toggle se queda flotante (hamburguesa) 
+         para no ocupar espacio valioso en el borde. */
+      #toggle-tab-container {
+        display: none; 
+      }
+      
+      body {
+        padding: 15px; /* Restablecemos padding normal en móvil */
+        padding-left: 15px; 
+      }
+      
+      /* Reintegramos el botón de hamburguesa flotante solo para móvil */
+      /* Usamos la misma ID pero con estilos móviles */
+      #menu-toggle-btn-mobile {
+          position: fixed;
+          top: 15px;
+          left: 15px;
+          z-index: 1000; 
+          cursor: pointer;
+          padding: 10px 12px;
+          background-color: var(--card-bg);
+          border: 1px solid var(--card-border);
+          border-radius: 8px;
+          color: var(--fg);
+          font-size: 1.5em;
+          transition: background-color 0.3s;
+          display: block; /* Solo visible en móvil */
+      }
+      #menu-toggle-btn-mobile:hover {
+          background-color: rgba(255, 255, 255, 0.1);
+      }
+      
+      /* El menú debe ajustarse para desplegarse correctamente en móvil */
+      .side-navbar {
+        left: 0; /* Empieza desde el borde izquierdo de la pantalla */
+        transform: translateX(calc(-1 * var(--menu-width-expanded, 240px)));
+      }
+      
+      /* En móvil, la bandera de idioma flotante debe estar oculta o moverse al menú */
+      .lang-switcher-mobile {
+         position: fixed;
+         top: 80px; /* Debajo de la hamburguesa móvil */
+         left: 15px;
+         z-index: 1000;
+         display: flex;
+         flex-direction: column;
+         gap: 10px;
+      }
+      .lang-switcher-mobile button {
+         /* Estilos iguales al lang-switcher normal, pero fijo */
+         background: var(--card-bg); color: var(--fg); border: 1px solid var(--accent-gold);
+         padding: 5px 10px; border-radius: 8px; cursor: pointer; font-size: 1.5em; 
+         width: 40px; height: 35px;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+      }
+      .lang-switcher-mobile button.active {
+          display: none;
+      }
+    }
+    
+    @media (min-width: 981px) {
+        /* Asegura que el botón de toggle móvil esté oculto en escritorio */
+        #menu-toggle-btn-mobile { display: none; }
+        /* Asegura que la bandera de idioma flotante esté oculta en escritorio */
+        .lang-switcher-mobile { display: none; }
+    }
+     
  </style>
 </head>
 <body>
@@ -814,17 +357,27 @@
   <div id="particles-js"></div>
   
   <div id="menu-overlay"></div>
-    
-  <div id="menu-toggle-btn">
+  
+  <div id="toggle-tab-container">
+    <button id="menu-toggle-btn" title="Desplegar menú">
+      <i class="fa-solid fa-bars" id="toggle-icon-bars"></i>
+      <i class="fa-solid fa-xmark" id="toggle-icon-x" style="display:none;"></i>
+    </button>
+    <div class="lang-switcher">
+      <button onclick="translatePage('es')" id="flag-es" class="active" title="Cambiar a Español">🇲🇽</button>
+      <button onclick="translatePage('en')" id="flag-en" title="Switch to English">🇺🇸</button>
+    </div>
+  </div>
+  
+  <div id="menu-toggle-btn-mobile" title="Desplegar menú">
     <i class="fa-solid fa-bars"></i>
   </div>
+  <div class="lang-switcher-mobile">
+      <button onclick="translatePage('es')" id="flag-es-mobile" class="active" title="Cambiar a Español">🇲🇽</button>
+      <button onclick="translatePage('en')" id="flag-en-mobile" title="Switch to English">🇺🇸</button>
+  </div>
   <nav class="side-navbar" id="side-navbar">
-    
-     <div class="lang-switcher">
-      <button onclick="translatePage('es')" id="flag-es" class="active">🇲🇽</button>
-      <button onclick="translatePage('en')" id="flag-en">🇺🇸</button>
-    </div>
-     <ul>
+    <ul>
       <li><a href="#perfil" class="nav-link nav-link-perfil" title="Perfil"><i class="fa-solid fa-user"></i><div class="link-text-container"><span class="link-text" data-lang="nav-profile">Perfil</span><span class="link-subtitle" data-lang="nav-profile-subtitle">Carta de Presentación</span></div></a></li>
       <li><a href="#proyectos" class="nav-link nav-link-proyectos" title="Proyectos"><i class="fa-solid fa-lightbulb"></i><div class="link-text-container"><span class="link-text" data-lang="nav-projects">Proyectos</span></div></a></li>
       <li><a href="#experiencia" class="nav-link nav-link-experiencia" title="Experiencia"><i class="fa-solid fa-briefcase"></i><div class="link-text-container"><span class="link-text" data-lang="nav-experience">Experiencia</span></div></a></li>  
@@ -1312,9 +865,11 @@
           element.setAttribute('title', isEnglish ? englishTitle : originalTitle);
       });
       
-      // 4. Actualiza botones de idioma
+      // 4. Actualiza botones de idioma (Para la pestaña fija y móvil)
       document.getElementById('flag-es')?.classList.toggle('active', lang === 'es');
       document.getElementById('flag-en')?.classList.toggle('active', lang === 'en');
+      document.getElementById('flag-es-mobile')?.classList.toggle('active', lang === 'es');
+      document.getElementById('flag-en-mobile')?.classList.toggle('active', lang === 'en');
       
       // 5. Cierra el menú si estaba abierto después de cambiar el idioma
       const sideNavbar = document.getElementById('side-navbar');
@@ -1326,29 +881,61 @@
 
     // --- NUEVA LÓGICA DE MENÚ LATERAL ---
     const menuToggleBtn = document.getElementById('menu-toggle-btn');
-    const sideNavbar = document.getElementById('side-navbar'); // ID en tu index
-    const overlay = document.getElementById('menu-overlay'); // Obtenemos el overlay
+    const menuToggleBtnMobile = document.getElementById('menu-toggle-btn-mobile');
+    const sideNavbar = document.getElementById('side-navbar'); 
+    const overlay = document.getElementById('menu-overlay'); 
     const navLinks = sideNavbar ? sideNavbar.querySelectorAll('.nav-link') : [];
 
     // Función para alternar el menú
     function toggleMenu() {
-        if (!sideNavbar || !overlay || !menuToggleBtn) return; // Salida de seguridad
+        if (!sideNavbar || !overlay) return; 
 
-        sideNavbar.classList.toggle('active'); // Usa la nueva clase 'active'
-        overlay.classList.toggle('active'); // Muestra/oculta el overlay
+        const isActive = sideNavbar.classList.contains('active');
+
+        sideNavbar.classList.toggle('active'); 
+        overlay.classList.toggle('active'); 
         
-        // Cambiar el icono (hamburguesa <-> X)
-        const icon = menuToggleBtn.querySelector('i');
-        if (sideNavbar.classList.contains('active')) {
-            icon.classList.remove('fa-bars');
-            icon.classList.add('fa-xmark'); 
-            document.body.classList.add('menu-active-no-scroll'); // Añade clase para evitar scroll del fondo
-            menuToggleBtn.setAttribute('aria-expanded', 'true');
+        // Lógica de íconos para la pestaña de ESCRITORIO
+        const iconBars = document.getElementById('toggle-icon-bars');
+        const iconX = document.getElementById('toggle-icon-x');
+
+        // Lógica de íconos para el botón MÓVIL
+        const iconMobile = menuToggleBtnMobile ? menuToggleBtnMobile.querySelector('i') : null;
+
+
+        if (!isActive) {
+            // ABRIR MENÚ
+            document.body.classList.add('menu-active-no-scroll'); 
+            
+            // Escritorio
+            if (iconBars && iconX) {
+                iconBars.style.display = 'none';
+                iconX.style.display = 'inline';
+                menuToggleBtn.setAttribute('aria-expanded', 'true');
+            }
+            // Móvil
+            if (iconMobile) {
+                iconMobile.classList.remove('fa-bars');
+                iconMobile.classList.add('fa-xmark');
+                menuToggleBtnMobile.setAttribute('aria-expanded', 'true');
+            }
+            
         } else {
-            icon.classList.remove('fa-xmark');
-            icon.classList.add('fa-bars'); 
-            document.body.classList.remove('menu-active-no-scroll'); // Permite el scroll del fondo
-            menuToggleBtn.setAttribute('aria-expanded', 'false');
+            // CERRAR MENÚ
+            document.body.classList.remove('menu-active-no-scroll'); 
+            
+            // Escritorio
+            if (iconBars && iconX) {
+                iconBars.style.display = 'inline';
+                iconX.style.display = 'none';
+                menuToggleBtn.setAttribute('aria-expanded', 'false');
+            }
+            // Móvil
+            if (iconMobile) {
+                iconMobile.classList.remove('fa-xmark');
+                iconMobile.classList.add('fa-bars');
+                menuToggleBtnMobile.setAttribute('aria-expanded', 'false');
+            }
         }
     }
     // --- FIN NUEVA LÓGICA DE MENÚ LATERAL ---
@@ -1373,24 +960,29 @@
         translatePage(currentLanguage); 
         
         
-        // --- Lógica de Eventos del Menú Lateral (Usando la nueva función) ---
+        // --- Lógica de Eventos del Menú Lateral (Pestaña Escritorio) ---
         if (menuToggleBtn && sideNavbar && overlay) {
             menuToggleBtn.addEventListener('click', toggleMenu);
             overlay.addEventListener('click', toggleMenu); 
-            
-            navLinks.forEach(link => {
-                link.addEventListener('click', function() {
-                    // Cierra el menú al hacer clic en un enlace
-                    if (sideNavbar.classList.contains('active')) {
-                       toggleMenu(); 
-                    }
-                });
-            });
-            // Establece aria-expanded inicial
             menuToggleBtn.setAttribute('aria-expanded', 'false');
         }
+
+        // --- Lógica de Eventos del Menú Lateral (Botón Móvil) ---
+        if (menuToggleBtnMobile) {
+            menuToggleBtnMobile.addEventListener('click', toggleMenu);
+            menuToggleBtnMobile.setAttribute('aria-expanded', 'false');
+        }
     
-        // --- Lógica de Animación de Tarjetas ---
+        // --- Cerrar menú al hacer clic en un enlace ---
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                if (sideNavbar && sideNavbar.classList.contains('active')) {
+                   toggleMenu(); 
+                }
+            });
+        });
+    
+        // --- Lógica de Animación de Tarjetas (Se mantiene) ---
         const animatedCards = document.querySelectorAll('.card'); 
         if (typeof IntersectionObserver !== 'undefined') { 
             const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -1407,11 +999,10 @@
               revealObserver.observe(card);
             });
         } else {
-            // Fallback para navegadores viejos: simplemente muestra las tarjetas
              animatedCards.forEach(card => card.classList.add('is-visible'));
         }
 
-        // --- Efecto Flip Cabecera ---
+        // --- Efecto Flip Cabecera (Se mantiene) ---
         const avatarContainerMain = document.getElementById('avatar-container-main');
         const avatarImgMain = document.getElementById('avatar-img-main');
         const originalSrcMain = 'profilecv.png'; 
@@ -1434,7 +1025,7 @@
           });
         }
 
-        // --- Funcionalidad Copiar Carta ---
+        // --- Funcionalidad Copiar Carta (Se mantiene) ---
         const copyBtnBottom = document.getElementById('copy-carta-btn-bottom');
         const textToCopyContainer = document.getElementById('carta-text-content'); 
         if (copyBtnBottom && textToCopyContainer) {
