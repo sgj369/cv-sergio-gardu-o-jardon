@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Sergio Garduño Jardón — CV & Portfolio (Demo Tab Menu)</title>
+  <title>Sergio Garduño Jardón — CV & Portfolio</title>
   <meta name="description" content="Ingeniero mecatrónico orientado a la sostenibilidad y sistemas inteligentes. IoT, datos, energía solar y proyectos ambientales." />
 
   <link rel="icon" href="INDEX-HAKU.png" type="image/x-icon">
@@ -12,260 +12,832 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
-    /* VARIABLES GLOBALES */
     :root{
-        --bg-uniform: #333; 
-        --fg: #eef1f0; 
-        --muted: #a3a3a3; 
-        --accent-blue: #0077b6;
-        --card-bg: rgba(0,0,0,0.88); 
-        --card-border: rgba(255,255,255,0.1); 
-        --radius: 14px;
-        --menu-width-expanded: 240px;
-        /* NUEVAS VARIABLES PARA LA PESTAÑA */
-        --tab-height: 100px;
-        --tab-width: 40px; /* Ancho de la pestaña que sobresale */
-        --tab-bg: var(--card-bg);
+    --bg-uniform: #333; /* Fondo gris oscuro */
+    --fg: #eef1f0; /* Blanco suave para texto principal */
+    --muted: #a3a3a3; /* Gris para texto secundario */
+    
+    /* Paleta de Acentos */
+    --accent-red: #ff3366; 
+    --accent-green: #63b96f; /* Verde Brillante (Contacto) */
+    --accent-blue: #0077b6; /* Azul (Perfil, Habilidades Técnicas) */
+    --accent-yellow: #ffc300; /* Amarillo (Cursos) */
+    --accent-purple: #9933cc; /* Morado (Proyectos, Formación) */
+    --accent-gold: #FFD700; /* Dorado (Logros, Habilidades Blandas) */
+    
+    --accent-emerald: #2E8B57; /* Verde Esmeralda (Experiencia) */
+    
+    --accent-guinda: #900030; /* Guinda/Borgoña para el título IPN */
+
+    --card-bg: rgba(0,0,0,0.88); /* Tarjetas muy oscuras */
+    --card-border: rgba(255,255,255,0.1); 
+    --maxw: 1100px;
+    --radius: 14px;
+    --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+
+    /* Variables para el menú (se usan más abajo) */
+    --menu-width-expanded: 240px;
+    --accent-orange: #FF5733; /* Naranja Vibrante */
+    /* Variable para el padding del menú lateral (ajustado para el nuevo sistema) */
+    --toggle-btn-height-adjusted: 70px;
+  }
+
+  /* Estilos Base */
+  html { background-color: var(--bg-uniform); scroll-behavior: smooth; }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;padding:0}
+  body{
+    font-family:var(--font-sans);
+    background: transparent;
+    color:var(--fg);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-osx-font-smoothing:grayscale;
+    line-height:1.5;
+    /* El padding lateral se deja base ya que el menú cubre */
+    padding: 28px;
+    padding-left: 28px; /* Restaura tu padding base */
+    transition: none; /* Elimina la transición de padding */
+    min-height: 100vh;
+  }
+  
+  /* Clase para evitar el scroll del fondo cuando el menú está abierto */
+  body.menu-active-no-scroll {
+      overflow: hidden;
+  }
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    position:relative; 
+    padding: 0 10px;
+  }
+
+
+    /* ESTILOS DEL SELECTOR DE IDIOMA (AHORA EN EL MENÚ) */
+  .lang-switcher {
+     /* Ahora está dentro del menú */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 0 20px 23px; /* Padding ajustado para alinear con los enlaces */
+  }
+  .lang-switcher button {
+    background: var(--card-bg); color: var(--fg); border: 1px solid var(--accent-gold);
+    padding: 5px 10px; border-radius: 8px; cursor: pointer; font-size: 1.5em; 
+    line-height: 1; transition: background-color 0.2s; opacity: 0.8;
+    width: 60px; /* Ancho fijo */
+    text-align: center;
+  }
+  .lang-switcher button:hover { opacity: 1; background: rgba(255, 215, 0, 0.1); }
+  .lang-switcher button.active { border-color: var(--accent-red); background: rgba(255, 51, 102, 0.1); }
+    /* Oculta el botón de idioma que esté activo */
+  .lang-switcher button.active {
+    display: none;
+  }
+
+  /* Ajuste responsive para móviles */
+   @media (max-width:980px){
+    body {
+        padding: 15px; /* Padding móvil general más pequeño */
+        padding-left: 15px; 
+    }
+   }
+
+  /* ESTILOS DEL ENCABEZADO PRINCIPAL (AHORA VERTICAL) */
+  .main-header-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+    border-top: 2px solid var(--fg); 
+    border-bottom: 2px solid var(--fg); 
+    border-right: 2px solid var(--fg); 
+    border-radius: var(--radius);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  
+    display: flex;
+    flex-direction: column; /* Apila verticalmente */
+    align-items: center;    /* Centra horizontalmente */
+    gap: 15px;             /* Espacio entre foto, nombre y botones */
+    padding: 25px 20px;    /* Padding ajustado */
+  }
+
+
+    /* Línea blanca para el header */
+  .main-header-card::after {
+      content: '';
+      position: absolute;
+      top: 0; 
+      right: 0; 
+      width: 5px; 
+      height: 35px; 
+      background: var(--fg); /* Color Blanco */
+      border-top-right-radius: var(--radius); 
+      z-index: 1; 
+  }
+
+  
+  header{
+    display:flex; flex-direction: row; align-items: center; 
+    gap: 15px; margin-bottom:0; flex-shrink: 0; 
+  }
+  .brand{ display:flex; align-items:center; gap:14px; flex-shrink: 0; }
+    /* Estilos del Avatar (Ahora circular y con modo QR) */
+.avatar{
+  width: 120px; /* Más grande */
+  height: 120px;
+  border-radius: 50%; /* Circular */
+  overflow:hidden;
+  border: 3px solid var(--fg); /* Borde un poco más grueso */
+  box-shadow:0 0 20px rgba(238, 241, 240, 0.6); /* Sombra más pronunciada */
+  cursor: pointer; 
+  transition: all 0.3s ease-in-out; 
+  margin-bottom: 5px; /* Pequeño espacio debajo */
+}
+    .avatar:hover {
+      transform: scale(1.05);
+    }
+    /* Estilos para el QR */
+    .avatar.qr-mode {
+      border-radius: var(--radius); /* Cuadrado para el QR */
+      border-color: var(--accent-green);
+      transform: scale(1.1);
+    }
+    .avatar.qr-mode:hover {
+      transform: scale(1.1);
+    }
+    .avatar img{
+      width:100%; height:100%; object-fit:cover; display:block;
     }
 
-    /* ESTILOS BASE */
-    html { background-color: var(--bg-uniform); scroll-behavior: smooth; }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;padding:0}
-    body{
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: transparent;
-      color:var(--fg);
-      line-height:1.5;
-      padding: 28px;
-      padding-left: 28px; 
-      transition: none; 
-      min-height: 100vh;
-    }
-    body.menu-active-no-scroll { overflow: hidden; }
-    .wrap{ max-width: 1100px; margin:0 auto; position:relative; padding: 0 10px; }
+  
+     /* Nombre contorno blanco y relleno negro */
+  .title{
+    font-weight:900;
+    font-size:36px; 
+    color: #000; /* Relleno Negro */
+    text-shadow: /* Contorno Blanco */
+        -1px -1px 0 var(--fg),  
+         1px -1px 0 var(--fg),
+        -1px  1px 0 var(--fg),
+         1px  1px 0 var(--fg); 
+    text-align: center; 
+  } 
+ 
+ 
 
-    /* ================================================= */
-    /* --- CAPA OSCURA (OVERLAY) --- */
-    /* ================================================= */
-    #menu-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.7); 
-        z-index: 990; 
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease-out;
-    }
+    /* Botón Relleno Blanco (Para Ver CV) */
+  .btn-fill-white {
+    background: var(--fg);
+    color: #333; /* Texto oscuro */
+    border: 2px solid var(--fg);
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+    box-shadow: 0 4px 15px rgba(238, 241, 240, 0.2);
+  }
+  .btn-fill-white:hover { 
+    background: #cdd1d0; /* Un gris claro al pasar el ratón */
+    border-color: #cdd1d0;
+    box-shadow: 0 6px 20px rgba(238, 241, 240, 0.4);
+    transform: translateY(-1px);
+  }
 
-    #menu-overlay.active {
-        opacity: 1;
-        visibility: visible;
-    }
+  /* Botón Contorno Blanco (Para Descargar CV) */
+  .btn-outline-white {
+    background: transparent;
+    border: 2px solid var(--fg);
+    color: var(--fg);
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    transition: background-color 0.15s;
+    flex-shrink: 0;
+  }
+  .btn-outline-white:hover { 
+    background: rgba(238, 241, 240, 0.1); /* Relleno blanco sutil */
+  }
 
-    /* ================================================= */
-    /* --- MENÚ LATERAL DESPLEGABLE (Contenedor principal) --- */
-    /* ================================================= */
+    /* Botón Azul Contorno */
+  .btn-clean-secondary {
+    background: transparent; 
+    border: 2px solid var(--accent-blue); 
+    color: var(--accent-blue);
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    transition: background-color 0.15s;
+    flex-shrink: 0;
+  }
+  .btn-clean-secondary:hover { 
+    background: rgba(0, 119, 182, 0.1); /* Relleno azul sutil */
+  }
 
-    .side-navbar {
+
+  /* Botón Naranja Contorno (para EcoGaiaSOS) */
+  .btn-outline-orange {
+    background: transparent;
+    border: 2px solid var(--accent-orange);
+    color: var(--accent-orange);
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    transition: background-color 0.15s;
+    flex-shrink: 0;
+  }
+  .btn-outline-orange:hover { 
+    background: rgba(255, 87, 51, 0.1); /* Relleno naranja sutil */
+  }
+
+  /* ESTILOS DEL CUERPO PRINCIPAL (MAIN CONTENT & ASIDE) */
+  .hero{
+    display:grid;
+    grid-template-columns:1fr 360px; /* Columna principal y barra lateral */
+    gap:28px;
+    align-items:start;
+    margin-bottom:28px;
+  }
+  
+  .hero-main { display: flex; flex-direction: column; gap: 28px; }
+  .hero-aside { position: sticky; top: 28px; display: flex; flex-direction: column; gap: 28px; }
+
+  /* Estilos base para todas las tarjetas de contenido */
+  .card{
+    position: relative; background: var(--card-bg); border:1px solid var(--card-border);
+    padding:20px; border-radius:var(--radius); box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+    color:var(--fg); overflow: hidden;
+    /* Animación (se define más abajo) */
+    border-left: 5px solid; /* Borde izquierdo base (color se aplica por ID) */
+  }
+  .card:hover { 
+    box-shadow: 0 0 15px rgba(255,255,255,0.1); 
+    transform: translateY(0); /* Evita saltos en hover */
+  }
+
+  /* Línea decorativa derecha */
+  .card::after {
+      content: ''; position: absolute; top: 0; right: 0; 
+      width: 5px; height: 35px; 
+      border-top-right-radius: var(--radius); z-index: 1; 
+  }
+    
+  /* REFACTOR DE COLORES POR SECCIÓN ID */
+  
+  /* Perfil (Azul) */
+  #perfil { border-left-color: var(--accent-blue); } 
+  #perfil::after { background: var(--accent-blue); }
+  #perfil .profile-title { color: var(--accent-blue); }
+
+    /* ESTILOS PARA LA CARTA DESPLEGABLE DENTRO DEL PERFIL */
+  .inner-details {
+    margin-top: 15px; 
+    border-top: 1px solid var(--card-border); 
+    padding-top: 15px;
+  }
+
+   /* ESTILOS PARA EL BOTÓN COPIAR DENTRO DE LA CARTA */
+  .copy-button-container {
+    text-align: right; 
+    margin-top: 15px; 
+  }
+  
+  .btn-copy-carta {
+    background-color: transparent;
+    border: 1px solid var(--accent-gold); 
+    color: var(--accent-gold); 
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-family: var(--font-sans); 
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9em; 
+  }
+  .btn-copy-carta:hover {
+    background-color: rgba(255, 215, 0, 0.1); 
+    box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
+  }
+  .btn-copy-carta:active {
+    transform: scale(0.98); 
+  }
+  
+  /* Estilo temporal al copiar (check verde) */
+  .btn-copy-carta.copied {
+    border-color: var(--accent-green);
+    background-color: rgba(99, 185, 111, 0.1);
+    color: var(--accent-green);
+  }
+  /* FIN ESTILOS BOTÓN COPIAR */
+
+  
+  .inner-summary {
+    cursor: pointer;
+    display: inline-flex; 
+    align-items: center;
+    font-weight: 700;
+    color: var(--accent-gold); 
+    margin-bottom: 10px; 
+    list-style: none; 
+    transition: opacity 0.2s ease;
+  }
+  .inner-summary:hover {
+    opacity: 0.8;
+  }
+  .inner-summary::-webkit-details-marker { 
+    display: none; 
+  }
+  
+  /* Flecha desplegable (similar a las secciones principales) */
+  .inner-summary::after {
+    content: '▼'; 
+    font-size: 0.8em;
+    color: var(--muted);
+    margin-left: 8px; 
+    transition: transform 0.2s ease-out;
+  }
+  .inner-details[open] > .inner-summary::after {
+    transform: rotate(180deg);
+  }
+  
+  .inner-content {
+    padding-left: 22px; 
+    color: var(--fg); 
+    opacity: 0.9; 
+  }
+  /* FIN ESTILOS CARTA DESPLEGABLE */
+
+
+  /* Proyectos (Morado) */
+  #proyectos > summary { color: var(--accent-purple); border-color: rgba(153, 51, 204, 0.3); }
+  #proyectos .section-content .card { border-left-color: var(--accent-purple); opacity: 1; transform: none; } 
+  #proyectos .section-content .card::after { background: var(--accent-purple); }
+  #proyectos .section-content .card strong { color: var(--fg); } 
+
+  /* Experiencia (Verde Esmeralda) */
+  #experiencia > summary { color: var(--accent-emerald); border-color: rgba(46, 139, 87, 0.3); }
+  #experiencia .section-content .card { border-left-color: var(--accent-emerald); opacity: 1; transform: none; }
+  #experiencia .section-content .card::after { background: var(--accent-emerald); }
+  #experiencia .section-content .card strong { color: var(--fg); } 
+
+  /* Logros (Dorado) */
+  #logros > summary { color: var(--accent-gold); border-color: rgba(255, 215, 0, 0.3); }
+  #logros .section-content .card { border-left-color: var(--accent-gold); opacity: 1; transform: none; }
+  #logros .section-content .card::after { background: var(--accent-gold); }
+
+
+  /* Cursos (Rojo) */
+  #cursos > summary { color: var(--accent-red); border-color: rgba(255, 51, 102, 0.3); }
+  #cursos .section-content .card { border-left-color: var(--accent-red); opacity: 1; transform: none; }
+  #cursos .section-content .card::after { background: var(--accent-red); }
+
+  /* ASIDE */
+  /* Formación (Morado) */
+  #formacion { border-left-color: var(--accent-purple); } 
+  #formacion::after { background: var(--accent-purple); } 
+  #formacion > div:first-child { color: var(--accent-purple); font-weight: 800; margin-bottom: 15px; }
+  
+  /* Contacto (blanco) */
+  #contacto { border-left-color: var(--fg); } 
+  #contacto::after { background: var(--fg); } 
+  #contacto > div:first-child { color: var(--fg); font-weight: 800; margin-bottom: 8px; }
+  
+  /* Habilidades (azul) */
+  #habilidades { border-left-color: var(--accent-blue); } 
+  #habilidades::after { background: var(--accent-blue); } 
+  #habilidades > div:first-child { color: var(--accent-blue); font-weight: 800; margin-bottom: 8px; }
+  
+  /* Habilidades Blandas (Dorado) (Sigue siendo el 4to hijo de aside) */
+  aside .card:nth-of-type(3) { border-left-color: var(--accent-gold); } 
+  aside .card:nth-of-type(3)::after { background: var(--accent-gold); } 
+  aside .card:nth-of-type(3) > div:first-child { color: var(--accent-gold); font-weight: 800; margin-bottom: 8px; }
+  
+  /* FIN REFACTOR DE COLORES */
+
+  
+  /* Títulos y Contenido */
+  h2.profile-title{font-size:18px;font-weight:800;margin-top: 0; margin-bottom:8px}
+  .profile-text{color:var(--fg);opacity:1;font-size:15px;line-height:1.6;}
+  .skill-pill { color: var(--fg); padding: 6px 10px; border-radius: 6px; margin: 4px; display: inline-block; font-size: 14px; border: 1px solid rgba(255,255,255,0.15); }
+  .skills { display: flex; flex-wrap: wrap; margin-top: 10px; }
+
+  /* Estilos de Títulos de Sección */
+  
+  /* Títulos de sección (h2 dentro de summary) */
+  h2.section{
+    font-size:18px; margin: 0; font-weight:800; 
+    flex-grow: 1; 
+  }
+  /* El color del h2 lo hereda del summary */
+  summary > h2.section { color: inherit !important; }
+
+  /* Estilo del <summary> que contiene el título */
+  details > summary {
+      /* El color de texto y borde se aplica por ID */
+      border-bottom: 2px solid; 
+      padding-bottom: 4px; margin-bottom: 15px;
+      cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+      position: relative; 
+  }
+  
+  /* Flecha desplegable (NUEVO) */
+  details > summary::after {
+    content: '▼'; /* Flecha hacia abajo */
+    font-size: 0.8em;
+    color: var(--muted);
+    margin-left: 10px; 
+    transition: transform 0.2s ease-out;
+    flex-shrink: 0; 
+  }
+  details[open] > summary::after {
+    transform: rotate(180deg); /* Flecha hacia arriba */
+  }
+  
+  /* Contenido dentro de las secciones <details> (NUEVO) */
+  .section-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px; 
+  }  
+    .clean { padding-left: 20px; margin: 0; list-style-type: none; } 
+    
+  .acad-ipn-title {
+    color: var(--accent-guinda); font-weight: 800;
+    margin-top: 0; margin-bottom: 12px;
+    font-size: 18px; text-align: center;
+  }
+  
+  /* Estilos de Contacto simplificados */
+  .contact-small { font-size: 0.9em; color: var(--muted); }
+
+
+  /* Estilos bloques IoT (Tesis) */
+  .iot-block{margin-top: 14px; padding:0; background: transparent; border: none;}
+  .iot-block h3{color:var(--accent-purple); margin:16px 0 10px 0; font-size:18px; font-weight:800; text-shadow: 0 0 2px rgba(153, 51, 204, 0.5);}
+  .iot-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px; margin-top: 14px;}
+  .btn-accent{background:var(--accent-green);color:#03120a;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(99,185,111,0.06)}
+  .btn-primary{background:var(--accent-blue);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(11,102,194,0.06)}
+  .btn-dark{background:var(--accent-purple);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;border:1px solid rgba(153, 51, 204, 0.4)}
+  .iot-actions a { color: #fff; text-decoration: none; } 
+
+    footer {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;    
+    justify-content: center;
+    gap: 10px;               
+    
+    padding: 26px 15px 10px; 
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    
+    margin-left: 0; 
+    width: 100%; 
+  }
+  
+  /* Y esta parte para el logo */
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .sello{width:40px;height:40px;border-radius:8px;overflow:hidden}
+  .sello img{width:100%;height:100%;object-fit:cover}
+
+  /* Partículas */
+  #particles-js {
+    position: fixed; width: 100%; height: 100%;
+    top: 0; left: 0; z-index: -1; 
+    background-color: var(--bg-uniform);
+  }
+
+  /* ============================================= */
+  /* 1. ESTILOS DEL MENÚ LATERAL FIJO (PESTAÑA) */
+  /* ============================================= */
+  
+  /* Habilitamos el scroll suave */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* --- CAPA OSCURA (OVERLAY) --- */
+  #menu-overlay {
       position: fixed;
       top: 0;
-      bottom: 0;
-      width: var(--menu-width-expanded); 
-      background: var(--card-bg);
-      border-right: 1px solid var(--card-border);
-      border-radius: 0 var(--radius) var(--radius) 0; 
-      overflow-y: hidden; /* Controlado internamente */
-      padding: 0; 
-      z-index: 999;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7); /* Oscurece el fondo */
+      z-index: 990; /* Detrás del menú */
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease-out;
+  }
+
+  #menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
+  }
+
+
+  /* --- BOTÓN DE TOGGLE (PESTAÑA LATERAL) --- */
+  #menu-toggle-btn {
+      position: absolute;
+      /* La clave: Posicionamos la pestaña en el borde derecho del menú (que está oculto) */
+      right: -45px; /* Ajusta este valor para el grosor deseado de la pestaña */
+      top: 20px; /* Posición vertical */
+      z-index: 1000; 
+      cursor: pointer;
       
-      /* Estado inicial: Fuera de pantalla menos el ancho de la pestaña */
-      left: calc(0px - var(--menu-width-expanded) + var(--tab-width)); 
-      transition: left 0.3s ease-out; 
-    }
+      /* Apariencia de la pestaña */
+      padding: 10px 10px 10px 15px; /* Más padding a la izquierda */
+      background-color: var(--card-bg); 
+      border: 1px solid var(--card-border);
+      border-left: none; /* Quitamos el borde izquierdo */
+      border-radius: 0 var(--radius) var(--radius) 0; /* Solo esquinas derechas redondeadas */
+      color: var(--fg);
+      font-size: 1.5em;
+      transition: all 0.3s ease;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5); /* Sombra para resaltar la pestaña */
+  }
 
-    .side-navbar.active {
-        left: 0; /* Estado activo: Totalmente visible */
-    }
+  #menu-toggle-btn:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      right: -40px; /* Se mueve ligeramente hacia la izquierda al hacer hover */
+  }
 
-    /* Contenido interno del menú (Scrollable) */
-    .side-navbar ul { 
-      list-style: none; 
-      padding: 0; 
-      margin: 0; 
-      width: 100%;
-      /* Usamos Flexbox para empujar la pestaña y el selector */
-      height: 100%; 
-      overflow-y: auto; 
-      padding-top: var(--tab-height); /* Espacio para la pestaña */
-      padding-bottom: 20px; 
-    }
+  /* Escondemos el botón de la pestaña cuando el menú está ACTIVO */
+  .side-navbar.active #menu-toggle-btn {
+      right: -45px; 
+      visibility: hidden; /* Oculta el botón de pestaña cuando el menú está abierto */
+      opacity: 0;
+      pointer-events: none; /* Importante para que no interfiera con el contenido */
+  }
+
+
+  /* --- MENÚ LATERAL DESPLEGABLE --- */
+  .side-navbar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: var(--menu-width-expanded, 240px); 
+    background: var(--card-bg);
+    border-right: 1px solid var(--card-border);
+    border-radius: 0 var(--radius) var(--radius) 0; 
+    overflow-y: auto; 
+    padding: 0; 
+    z-index: 999;
     
-    /* ================================================= */
-    /* --- PESTAÑA LATERAL (#menu-tab-btn) --- */
-    /* ================================================= */
-    
-    #menu-tab-container {
-        position: absolute;
-        top: 0; /* Pégalo al borde superior del menú */
-        right: 0; /* Pégalo al borde derecho del menú */
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end; /* Asegura que la pestaña se alinee a la derecha */
-        height: var(--tab-height);
-        background-color: transparent;
-        z-index: 100; /* Encima de los enlaces */
-    }
+    /* Estado inicial: fuera de pantalla */
+    left: calc(0px - var(--menu-width-expanded, 240px)); 
+    transition: left 0.3s ease-out; 
+  }
 
-    #menu-tab-btn {
-        height: 100%;
-        width: calc(var(--tab-width) + 1px); /* 40px visible + 1px de border */
-        position: relative; /* Para alinear los elementos internos */
+  .side-navbar.active {
+    left: 0; /* Estado activo: dentro de pantalla */
+  }
+
+  .side-navbar ul { 
+    list-style: none; 
+    padding: 0; 
+    margin: 0; 
+    width: 100%;
+    /* Eliminamos el padding top/bottom aquí para que el lang-switcher quede pegado arriba */
+    padding-top: 0; 
+    padding-bottom: 20px; 
+  }
+
+  .side-navbar .nav-link {
+    display: flex; 
+    align-items: center; 
+    padding-left: 23px;
+    color: var(--fg);
+    text-decoration: none; 
+    height: 50px; 
+    width: 100%;
+    white-space: nowrap; 
+    transition: background-color 0.2s ease;
+  }
+
+  .side-navbar .nav-link:hover { background-color: rgba(255, 255, 255, 0.05); }
+
+  .side-navbar .nav-link i {
+    font-size: 1.3em; 
+    width: 24px; 
+    text-align: center;
+    color: var(--fg);
+    transition: text-shadow 0.2s ease, transform 0.2s ease;
+    flex-shrink: 0;
+  }
+  
+  /* Colores de contorno para cada icono */
+  .nav-link-perfil i      { text-shadow: 0 0 5px var(--accent-blue), 0 0 10px var(--accent-blue); }
+  .nav-link-proyectos i   { text-shadow: 0 0 5px var(--accent-purple), 0 0 10px var(--accent-purple); }
+  .nav-link-experiencia i { text-shadow: 0 0 5px var(--accent-emerald), 0 0 10px var(--accent-emerald); }
+  .nav-link-logros i      { text-shadow: 0 0 5px var(--accent-gold), 0 0 10px var(--accent-gold); }
+  .nav-link-cursos i      { text-shadow: 0 0 5px var(--accent-red), 0 0 10px var(--accent-red); } 
+  .nav-link-formacion i   { text-shadow: 0 0 5px var(--accent-purple), 0 0 10px var(--accent-purple); }
+  .nav-link-habilidades i { text-shadow: 0 0 5px var(--accent-blue), 0 0 10px var(--accent-blue); }
+  .nav-link-contacto i    { text-shadow: 0 0 5px var(--accent-green), 0 0 10px var(--accent-green); }
+  
+
+  /* Efecto de "brillo" y crecimiento al pasar el ratón */
+  .side-navbar .nav-link:hover i { 
+    text-shadow: 0 0 12px var(--fg), 0 0 20px var(--fg); 
+    transform: scale(1.1); 
+  }
+  
+ 
+  .link-text-container {
+    margin-left: 20px; 
+    display: flex;
+    flex-direction: column; 
+  }
+  
+  .link-text {
+    font-weight: 600;
+    opacity: 1; 
+    transition: none;
+    display: block; 
+    line-height: 1.2; 
+  }
+  
+  .link-subtitle {
+    font-size: 0.75em; 
+    color: var(--muted); 
+    opacity: 1; 
+    transition: none;
+    line-height: 1.1;
+    margin-top: 2px; 
+    font-weight: 400; 
+  }
+
+
+  /* ============================================= */
+  /* 2. ESTILOS DE LA ANIMACIÓN DE TARJETAS */
+  /* ============================================= */
+  
+  .card {
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.2s ease;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  .card.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* ============================================= */
+  /* 3. NUEVOS ESTILOS PARA CONTACTO (Presionables) */
+  /* ============================================= */
+
+  #contacto .contact-list {
+    list-style: none; padding: 0; margin: 0;
+    display: grid; 
+    grid-template-columns: 1fr 1fr;
+    gap: 12px; 
+  }
+
+  #contacto .contact-list li.full-width-btn {
+    grid-column: span 2;
+   }
+    
+   #contacto .contact-list li { display: block; }
+
+  #contacto .contact-btn-pressable {
+    display: flex; align-items: center; padding: 12px 16px;
+    border-radius: 10px; text-decoration: none; font-weight: 700;
+    color: #000; 
+    transition: all 0.2s ease-out;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  }
+  #contacto .contact-btn-pressable:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  }
+  #contacto .contact-btn-pressable i {
+    font-size: 1.2em; margin-right: 12px;
+    width: 25px; text-align: center; color: inherit; 
+  }
+
+  #contacto .btn-email { background: var(--accent-yellow); color: #332400; }
+  #contacto .btn-email:hover { box-shadow: 0 8px 25px rgba(255, 195, 0, 0.3); }
+  #contacto .btn-email i { color: #332400; } 
+
+
+  #contacto .btn-email-rojo {background: var(--accent-red);color: var(--fg);}
+  #contacto .btn-email-rojo:hover {box-shadow: 0 8px 25px rgba(255, 51, 102, 0.3);}
+  #contacto .btn-email-rojo i {color: var(--fg); } 
+
+  #contacto .btn-whatsapp { background: var(--accent-green); color: #03120a; }
+  #contacto .btn-whatsapp:hover { box-shadow: 0 8px 25px rgba(99, 185, 111, 0.3); }
+  #contacto .btn-whatsapp i { color: #03120a; }
+
+  #contacto .btn-github { background: var(--accent-purple); color: var(--fg); }
+  #contacto .btn-github:hover { box-shadow: 0 8px 25px rgba(153, 51, 204, 0.3); }
+  #contacto .btn-github i { color: var(--fg); }
+
+  #contacto .btn-linkedin { background: var(--accent-blue); color: var(--fg); }
+  #contacto .btn-linkedin:hover { box-shadow: 0 8px 25px rgba(0, 119, 182, 0.3); }
+  #contacto .btn-linkedin i { color: var(--fg); }
+
+  #contacto .btn-facebook { background: #1877F2; color: var(--fg); }
+  #contacto .btn-facebook:hover { box-shadow: 0 8px 25px rgba(24, 119, 242, 0.3); }
+  #contacto .btn-facebook i { color: var(--fg); }
+
+  #contacto .btn-instagram { background: var(--accent-orange); color: var(--fg); }
+  #contacto .btn-instagram:hover { box-shadow: 0 8px 25px rgba(255, 87, 51, 0.3); }
+  #contacto .btn-instagram i { color: var(--fg); }
+
+  
+  #contacto .btn-tiktok { background: #fff; color: #000; }
+  #contacto .btn-tiktok:hover { box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3); }
+  #contacto .btn-tiktok i { color: #000; }
+  
+  
+  /* RESPONSIVE TWEAKS (PARA MÓVILES) */
+  @media (max-width: 1100px) { /* Tablet y móvil */
+      .hero { grid-template-columns: 1fr; }
+      .hero-aside { position: static; } /* Quitamos sticky */
+  }
+  
+    @media (max-width:980px){
+    body {
+        padding: 15px; /* Padding móvil general más pequeño */
+        padding-left: 15px; 
+    }
         
-        /* Estilos visuales de la pestaña */
-        background-color: var(--tab-bg);
-        border: 1px solid var(--card-border);
-        border-left: 2px solid var(--accent-blue); /* Borde de acento */
-        border-top-right-radius: var(--radius);
-        border-bottom-right-radius: var(--radius);
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-        box-shadow: 2px 0 10px rgba(0,0,0,0.5);
-        
-        cursor: pointer;
-        color: var(--fg);
-        font-size: 1.5em;
-        transition: transform 0.3s ease-out, background-color 0.2s;
-        
-        /* Contenido centrado */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        
-        /* Mueve la pestaña fuera del área desplegada para que solo se vea el 'tab' */
-        transform: translateX(calc(var(--menu-width-expanded) - var(--tab-width))); 
-    }
-    
-    /* Estado del menú desplegado */
-    .side-navbar.active #menu-tab-btn {
-        transform: translateX(0); /* La pestaña se desliza a la posición normal */
-        border-color: var(--card-border);
-        border-right-color: transparent;
-        border-left: 1px solid var(--card-border);
-        border-radius: var(--radius) 0 0 var(--radius); /* Esquinas internas redondeadas */
-    }
-    
-    #menu-tab-btn i {
-        /* Para que el icono gire de barras a flecha/X */
-        transition: transform 0.3s ease-out;
-    }
-
-    /* Icono en estado colapsado (barras) */
-    .side-navbar:not(.active) #menu-tab-btn .fa-bars {
-        display: block;
-        transform: rotate(0deg);
-    }
-    
-    /* Icono en estado desplegado (flecha hacia la izquierda, simulando una X/cerrar) */
-    .side-navbar.active #menu-tab-btn .fa-bars {
-        display: block;
-        transform: rotate(90deg); /* Gira las barras 90 grados como una forma de 'X' o 'Cerrar' */
-    }
-    
-    /* Oculta el icono de la X/Chevron si lo necesitas, aquí usamos fa-bars y lo rotamos */
-    .fa-xmark { display: none; }
-    
-    /* ================================================= */
-    /* --- Selector de Idioma (Debajo de la Pestaña) --- */
-    /* ================================================= */
-    .lang-switcher {
-      /* Le damos un poco de espacio para que no se pegue al borde */
-      padding: 15px 23px 0 23px;
-      margin-top: auto; /* Empuja al fondo del contenedor */
-      border-top: 1px solid var(--card-border);
-      display: flex;
-      flex-direction: row; /* Coloca las banderas en fila */
-      justify-content: space-around; /* Espacio entre las banderas */
-      align-items: center;
-      width: 100%;
-    }
-    
-    .lang-switcher button {
-      background: var(--card-bg); color: var(--fg); border: 1px solid var(--card-border);
-      padding: 5px 10px; border-radius: 8px; cursor: pointer; font-size: 1.5em; 
-      line-height: 1; transition: background-color 0.2s; opacity: 0.8;
-    }
-    .lang-switcher button:hover { opacity: 1; background: rgba(255, 255, 255, 0.1); }
-    .lang-switcher button.active { border-color: var(--accent-blue); background: rgba(0, 119, 182, 0.1); display: none; }
-
-    /* Estilos de los enlaces del menú (sin cambios grandes) */
-    .side-navbar .nav-link {
-        display: flex; align-items: center; height: 50px;
-        padding-left: 23px; color: var(--fg); text-decoration: none;
-        white-space: nowrap; transition: background-color 0.2s ease;
-    }
-    .link-text-container { margin-left: 20px; }
-    .link-text, .link-subtitle { opacity: 1; transition: none; }
-    
-    /* Responsive: Ocultamos la pestaña en móviles pequeños para que no estorbe */
-    @media (max-width: 480px) {
-        .side-navbar:not(.active) {
-             /* Escondemos completamente el menú cuando no está activo */
-            left: calc(0px - var(--menu-width-expanded)); 
-        }
-        #menu-tab-btn {
-            /* Ocultamos la pestaña cuando el menú está colapsado */
-            display: none; 
-        }
-        /* Restauramos el botón de toggle flotante en móviles (si lo quieres) */
-        /* Si quieres el botón de hamburguesa flotante en móviles, descomenta esto */
-        /* #menu-toggle-btn-mobile {
-            display: block; 
-            position: fixed;
-            top: 10px; left: 10px; z-index: 1000;
-            cursor: pointer; padding: 10px;
-            background-color: var(--card-bg); border-radius: 8px;
-            color: var(--fg); font-size: 1.5em;
-        } 
-        */
-    }
-
-
-    /* (El resto de tus estilos .card, .hero, etc. irían aquí sin cambios) */
-    
-    /* Ejemplo de otros estilos necesarios (simulando el index.html) */
     .main-header-card { 
-        background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.1); 
-        padding: 25px 20px; border-radius: var(--radius); 
+      flex-direction: column; 
+      align-items: center; 
+      gap: 15px;
+      padding: 15px; 
+      width: 100%; 
+      margin-left: 0;
+      margin-right: 0;
     }
-    .main-header-card .title { color: var(--fg); }
-    /* Fin de simulación de estilos */
+    header { 
+        width: 100%; 
+        flex-direction: column; 
+        align-items: flex-start; 
+        gap: 10px; 
+    }
+    .header-main-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center; 
+    margin-top: 5px;
+  }
+
     
-  </style>
+    /* Layout principal y aside */
+    .hero { grid-template-columns: 1fr; } 
+    .hero-aside { position: static; } 
+    
+  }
+
+  
+  @media (max-width: 480px) { /* Móvil pequeño */
+      .title { font-size: 28px; }
+      .avatar { width: 70px; height: 70px; }
+     }
+
+ </style>
 </head>
 <body>
   
   <div id="particles-js"></div>
-  <div id="menu-overlay"></div>
   
+  <div id="menu-overlay"></div>
   <nav class="side-navbar" id="side-navbar">
     
-    <div id="menu-tab-container">
-        
-        <button id="menu-tab-btn" title="Desplegar menú">
-            <i class="fa-solid fa-bars"></i>
-        </button>
-        
-        <div class="lang-switcher">
-            <button onclick="translatePage('es')" id="flag-es" class="active">🇲🇽</button>
-            <button onclick="translatePage('en')" id="flag-en">🇺🇸</button>
-        </div>
+    <button id="menu-toggle-btn" title="Abrir/Cerrar menú">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="lang-switcher">
+      <button onclick="translatePage('es')" id="flag-es" class="active">🇲🇽</button>
+      <button onclick="translatePage('en')" id="flag-en">🇺🇸</button>
     </div>
-    <ul>
+     <ul>
       <li><a href="#perfil" class="nav-link nav-link-perfil" title="Perfil"><i class="fa-solid fa-user"></i><div class="link-text-container"><span class="link-text" data-lang="nav-profile">Perfil</span><span class="link-subtitle" data-lang="nav-profile-subtitle">Carta de Presentación</span></div></a></li>
       <li><a href="#proyectos" class="nav-link nav-link-proyectos" title="Proyectos"><i class="fa-solid fa-lightbulb"></i><div class="link-text-container"><span class="link-text" data-lang="nav-projects">Proyectos</span></div></a></li>
       <li><a href="#experiencia" class="nav-link nav-link-experiencia" title="Experiencia"><i class="fa-solid fa-briefcase"></i><div class="link-text-container"><span class="link-text" data-lang="nav-experience">Experiencia</span></div></a></li>  
@@ -276,93 +848,661 @@
       <li><a href="#contacto" class="nav-link nav-link-contacto" title="Contacto"><i class="fa-solid fa-envelope"></i><div class="link-text-container"><span class="link-text" data-lang="nav-contact">Contacto</span></div></a></li>
     </ul>
   </nav>
-  
   <div class="wrap">
-      <div class="main-header-card card"> 
-          <div class="title">Demo: Menú Lateral con Pestaña Fija</div>
-          <p style="text-align: center; color: var(--muted);">Haz clic en la pestaña que sobresale del lado izquierdo (<i class="fa-solid fa-bars"></i>) para desplegar el menú.</p>
-          <p style="text-align: center; color: var(--muted);">Las banderas ahora están debajo de la pestaña, dentro del menú.</p>
-      </div>
-  </div>
+    <div class="hero">
+      <main class="hero-main">
+    <div class="main-header-card card"> 
 
+    <div class="avatar" title="Clic para QR" id="avatar-container-main">
+        <img id="avatar-img-main" src="profilecv.png" alt="Sergio Garduño Jardón">
+    </div>
+
+    <div>
+        <div class="title" data-lang="name">Sergio Garduño Jardón</div>
+    </div>
+
+    <div class="header-main-buttons">
+        <a class="btn-fill-white" href="cv_viewer.html" target="_blank" rel="noopener" id="btn-view-cv" title="Abrir CV en el navegador" data-lang-href-en="cv_viewer_eu.html">
+            <i class="fa-solid fa-eye"></i> <span data-lang="btn-view-cv-text">Ver CV</span>
+        </a>
+        <a class="btn-outline-white" href="cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" id="btn-download-cv" title="Descargar CV como PDF" data-lang-href-en="cv_pagina_web_eu.pdf">
+            <i class="fa-solid fa-download"></i> <span data-lang="btn-download-cv-text">Descargar CV</span>
+        </a>
+    </div>
+</div>
+
+
+         <section class="card" id="perfil">
+      
+        <div class="profile-title" data-lang="profile-title">Perfil</div>
+        
+        <div class="profile-text" style="margin-bottom: 15px;" data-lang="profile-p1">
+          Ingeniero Mecatrónico especializado en sistemas IoT, datos y soluciones sostenibles. Diseño, desarrollo y despliego sistemas de monitoreo ambiental que integran hardware (ESP32 y sensores), energía renovable y pipelines de datos (Google Sheets / SQL, dashboards).
+        </div>
+        
+        <div class="profile-text" style="margin-bottom: 20px;" data-lang="profile-p2">
+          Programacion en Python, C++/Arduino y Google Apps Script para automatizar procesos y crear modelos analíticos orientados a optimizar recursos y apoyar la toma de decisiones. Me interesa colaborar en proyectos que unan tecnología y naturaleza para generar impacto ambiental positivo.
+        </div>
+  
+        <details class="inner-details">
+          <summary class="inner-summary">
+            <i class="fa-solid fa-file-lines" style="margin-right: 8px;"></i>
+            <span data-lang="carta-title">Ver Carta de Presentación</span> 
+          </summary>
+          
+          <div class="inner-content profile-text"id="carta-text-content"> 
+            
+            <p style="margin-bottom: 15px;" data-lang="carta-p1">
+              Sergio Garduño Jardón es Ingeniero Mecatrónico por el IPN de UPIITA convencido de que la tecnología y la naturaleza pueden y deben coexistir. Su pasión por la vida y el medio ambiente lo impulsa a buscar formas innovadoras de utilizar el conocimiento para auxiliar a nuestro planeta, especializándose en el desarrollo de sistemas <strong>IoT para el monitoreo ecológico</strong>.
+            </p>
+            
+            <p style="margin-bottom: 15px;" data-lang="carta-p2">
+              Sergio diseña y desarrolla sistemas que nos permiten 'escuchar' las necesidades del entorno. Un claro ejemplo es su proyecto de tesis sobre <strong>techos verdes</strong>, donde implementó un sistema de monitoreo autónomo completo —desde el hardware con ESP32 y sensores, hasta el análisis de datos— demostrando cómo la tecnología puede validar y potenciar soluciones sostenibles. Su objetivo es seguir aplicando la mecatrónica, la programación y los datos en proyectos que generen un impacto ambiental positivo.
+            </p>
+            
+            <p data-lang="carta-p3">
+              Más allá de lo técnico, le apasiona conocer mas sobre flora y fauna, además de conectar con actores por medio del proyecto <strong>ECOGAIASOS</strong> que generan acciones en pro del planeta y participar activamente en eventos de limpieza o restauración de hábitats. Sergio cree firmemente que la acción combinada con el conocimiento adecuado siempre tendrá un mejor resultado.
+            </p>
+            <div class="copy-button-container" style="text-align: right; margin-top: 15px;">
+          <button class="btn-copy-carta" id="copy-carta-btn-bottom">
+            <i class="fa-regular fa-copy" style="margin-right: 6px;"></i>
+            <span data-lang="copy-btn-text">Copiar Texto</span>
+          </button>
+        </div>
+        </div>
+        </details>
+        </section>
+         
+        
+        <details open id="proyectos">
+          <summary>
+            <h2 class="section" data-lang="proyectos-title">Proyectos Personales</h2>
+          </summary>
+          <div class="section-content">
+              <div class="card" style="margin-bottom:12px">
+                <strong>
+                  <img src="ECOGAIASOS.png" alt="Logo EcoGaiaSOS" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+                  <span data-lang="ecogaia-role">EcoGaiaSOS — Plataforma de impacto ambiental</span>
+                </strong>
+                <div class="contact-small" data-lang="ecogaia-dates">2024 – Presente · CDMX</div>
+                <ul class="clean">
+                  <li data-lang="ecogaia-l1">Desarrollo e implementación de la plataforma web para gestión y difusión de convocatorias y proyectos ambientales.</li>
+                  <li data-lang="ecogaia-l2">Responsable de la organización de datos, visualización y soporte a actores locales.</li>
+                </ul>
+                <div class="iot-block" style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap;">
+                <a class="btn-clean-secondary" href="https://ecogaiasos.github.io/web/index.html" target="_blank" rel="noopener" data-lang="ecogaias-btn">
+                  🌐 Web EcoGaiaSOS
+                </a>
+                <a class="btn-outline-orange" href="https://www.instagram.com/ecogaiasos?igsh=Y2hrNXg4OXZpbW0w" target="_blank" rel="noopener">
+                  <i class="fa-brands fa-instagram"></i> Instagram
+                </a>
+              </div>
+              </div>
+              <div class="card" style="margin-bottom:12px">
+                <strong data-lang="iot-role">Sistema IoT para techos verdes — Proyecto de tesis</strong> <div class="contact-small" data-lang="iot-dates">2023 – 2025 · Validado en campo</div>
+                
+                <ul class="clean">
+                  <li data-lang="iot-l1">Diseño y despliegue de sistema de monitoreo térmico autónomo con ESP32, sensores y alimentación solar.</li>
+                  <li data-lang="iot-l2">Desarrollo de pipeline de datos y dashboard para la validación de reducción térmica en techos verdes.</li>
+                </ul>
+
+                <div class="iot-block">
+                  <h3 data-lang="iot-links">Enlaces del Proyecto Techo Verde</h3>
+                  <div class="iot-actions">
+                    <a class="btn-accent" href="https://hugonogueron2607.github.io/Techo_Verde/" target="_blank" rel="noopener" data-lang="iot-btn1">
+                      🌐 Dashboard (datos en tiempo real)
+                    </a>
+                    <a class="btn-primary" href="https://docs.google.com/spreadsheets/d/1Mu0mfmwoWRI_kJ8EweGpJT1g608t6EQixtfevX0z0ac/edit?usp=sharing" target="_blank" rel="noopener" data-lang="iot-btn2">
+                      📊 Hoja de datos (Google Sheets)
+                    </a>
+                    <a class="btn-dark" href="tesis_viewer.html" id="btn-view-tesis" target="_blank" rel="noopener" data-lang="iot-btn3">
+                      📘 Ver tesis (PDF)
+                    </a>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </details>
+
+        <details open id="experiencia">
+          <summary>
+            <h2 class="section" data-lang="exp-title">Experiencia Laboral</h2>
+          </summary>
+          <div class="section-content">
+              <div class="card" style="margin-bottom:12px">
+                <strong data-lang="robo-role">Robodacta — Diseño y ventas</strong> <div class="contact-small" data-lang="robo-dates">2022 – 2024</div>
+                <ul class="clean">
+                  <li data-lang="robo-l1">Diseño de kits educativos, empaques, cursos online y material audiovisual; gestión de proveedores y ventas.</li>
+                </ul>
+              </div>
+              <div class="card" style="margin-bottom:12px">
+                <strong data-lang="meta-role">METAMORFOZIZ — Publicidad y producción</strong> <div class="contact-small" data-lang="meta-dates">2021 – 2022</div>
+                <ul class="clean">
+                  <li data-lang="meta-l1">Diseño gráfico, producción de lonas y banners, gestión de materiales y procesos de impresión.</li>
+                </ul>
+              </div>
+              <div class="card" style="margin-bottom:12px">
+                <strong data-lang="ventas-role">Ventas (local) — Coyoacán</strong> <div class="contact-small" data-lang="ventas-dates">2021 – 2022</div>
+                <ul class="clean">
+                  <li data-lang="ventas-l1">Atención directa a clientes, gestión de ventas B2C y B2B, manejo de caja y control de inventario.</li>
+                </ul>
+              </div>
+              <div class="card">
+                <strong data-lang="serv-role">Servicio técnico (negocio propio)</strong> <div class="contact-small" data-lang="serv-dates">2018 – 2020</div>
+                <ul class="clean">
+                  <li data-lang="serv-l1">Reparación de dispositivos electrónicos, compra y venta de refacciones, control de inventario y atención al cliente.</li>
+                </ul>
+              </div>
+          </div>
+        </details>
+
+
+        <details data-section="achievements" id="logros">
+        <summary>
+          <h2 class="section" data-lang="logros-title">Logros</h2>
+        </summary>
+        <div class="section-content">
+          <div class="card">
+            <ul class="clean">
+              <li data-lang="logros-l1">Prototipo IoT validado en campo para monitoreo térmico y energético (Tesis).</li>
+              <li data-lang="logros-l2">Participación técnica en el Congreso Nacional de Biotecnología (Oaxaca, 2025).</li>
+              <li data-lang="logros-l3">Implementación y desarrollo de la plataforma Eco Gaia SOS.</li>
+            </ul>
+          </div>
+        </div>
+        </details>
+
+        <details data-section="courses" id="cursos">
+        <summary>
+          <h2 class="section" data-lang="cursos-title">Cursos y certificados</h2>
+        </summary>
+        <div class="section-content">
+          <div class="card">
+            <ul class="clean">
+              <li data-lang="cursos-l1">Seminario: Diseño de la automatización de la manufactura e integración de dispositivos programables.</li>
+              <li data-lang="cursos-l2">Curso/autoformación: Python para análisis de datos (pandas) — proyectos prácticos.</li>
+              <li data-lang="cursos-l3">Certificación en proceso: Inglés B2.</li>
+            </ul>
+          </div>
+        </div>
+        </details>
+      </main>
+
+      <aside class="hero-aside"> <div class="card" id="formacion">
+            <div style="font-weight:800; margin-bottom:15px; color: var(--accent-purple);" data-lang="acad-title">Formación Académica</div>
+            
+            <h3 class="acad-ipn-title" data-lang="acad-uni-title">
+                IPN Politécnico
+            </h3>
+            
+            <div style="margin-bottom: 25px;">
+                <div style="color: var(--fg); font-weight: 600; display: flex; align-items: center; gap: 8px; font-size: 16px;">
+                    <img src="upiita-logo.png" alt="Logo UPIITA" style="width: 20px; flex-shrink: 0;">
+                    <span data-lang="acad-eng-title">Ingeniería Mecatrónica (UPIITA)</span>
+                </div>
+                <div class="contact-small" style="margin-top: 5px; margin-left: 28px; font-size: 16px; line-height: 1.2;">
+                Instituto Politécnico Nacional
+                <br> <span data-lang="acad-eng-dates">2018 - 2024</span>
+            </div>
+            </div>
+            
+            <div>
+                <div style="color: var(--fg); font-weight: 600; display: flex; align-items: center; gap: 8px; font-size: 16px;">
+                <img src="cecyt13.png" alt="Logo CECyT 13" style="width: 20px; flex-shrink: 0;">
+                <span data-lang="acad-tech-title">Técnico en Administración de Empresas</span>
+                </div>
+                <div class="contact-small" style="margin-top: 5px; margin-left: 28px; font-size: 16px; line-height: 1.2;">
+                CECyT N° 13 "Ricardo Flores Magón" (IPN)
+                <br> <span data-lang="acad-tech-dates">2015 – 2018</span>
+            </div>
+            </div>
+        </div>
+
+        
+        <div class="card" id="habilidades">
+          <div style="font-weight:800;margin-bottom:8px" data-lang="tech-skills-title">Habilidades técnicas</div>
+          <div class="skills">
+            <div class="skill-pill" data-lang="skill-cpp">C++ / Arduino</div>
+            <div class="skill-pill" data-lang="skill-python">Python (pandas)</div>
+            <div class="skill-pill" data-lang="skill-esp32">ESP32 & sensores</div>
+            <div class="skill-pill" data-lang="skill-sql">SQL & Google Sheets</div>
+            <div class="skill-pill" data-lang="skill-solar">Paneles solares & baterías</div>
+            <div class="skill-pill" data-lang="skill-apps-script">Google Apps Script</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="font-weight:800;margin-bottom:8px" data-lang="soft-skills-title">Habilidades blandas</div>
+          <ul class="clean">
+            <li data-lang="soft-l1">Liderazgo</li>
+            <li data-lang="soft-l2">Creatividad e innovación</li>
+            <li data-lang="soft-l3">Planeación y gestión de proyectos</li>
+            <li data-lang="soft-l4">Trabajo en equipo</li>
+            <li data-lang="soft-l5">Adaptabilidad</li>
+            <li data-lang="soft-l6">Certificación en proceso: Inglés B2.</li>
+          </ul>
+        </div>
+        <div class="card" id="contacto">
+      <div style="font-weight:800;margin-bottom:8px" data-lang="contact-title">Contacto</div>
+        <ul class="contact-list"> 
+
+          <li class="full-width-btn">
+            <a href="mailto:sgj.cheko@gmail.com" class="contact-btn-pressable btn-email">
+              <i class="fa-regular fa-envelope"></i>
+              <span>sgj.cheko@gmail.com</span>
+            </a>
+          </li>
+
+          <li class="full-width-btn">
+            <a href="mailto:sgardunoj1400@alumno.ipn.mx" class="contact-btn-pressable btn-email btn-email-rojo">
+              <i class="fa-regular fa-envelope"></i>
+              <span>sgardunoj1400@alumno.ipn.mx</span>
+            </a>
+          </li>
+              <li>
+                <a href="https://wa.me/5215586864746" target="_blank" rel="noopener" class="contact-btn-pressable btn-whatsapp">
+                  <i class="fa-brands fa-whatsapp"></i>
+                  <span>WhatsApp</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://sgj369.github.io/cv-sergio-gardu-o-jardon/" target="_blank" rel="noopener" class="contact-btn-pressable btn-github">
+                  <i class="fa-brands fa-github"></i>
+                  <span>GitHub</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.linkedin.com/in/gardu%C3%B1o-jardon-sergio-264b582b0" target="_blank" rel="noopener" class="contact-btn-pressable btn-linkedin">
+                  <i class="fa-brands fa-linkedin"></i>
+                  <span>LinkedIn</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.facebook.com/share/19FgjAa3ai/" target="_blank" rel="noopener" class="contact-btn-pressable btn-facebook">
+                  <i class="fa-brands fa-facebook"></i>
+                  <span>Facebook</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/cheko_sgj?igsh=amV1aTVwZ3VpeTBi" target="_blank" rel="noopener" class="contact-btn-pressable btn-instagram">
+                  <i class="fa-brands fa-instagram"></i>
+                  <span>Instagram</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.tiktok.com/@chekup00" target="_blank" rel="noopener" class="contact-btn-pressable btn-tiktok">
+                  <i class="fa-brands fa-tiktok"></i>
+                  <span>TikTok</span>
+                </a>
+              </li>
+            </ul>
+        </div>
+      </aside>
+      <footer>
+      <div class="footer-brand">
+        <a href="QRHAKU.png" target="_blank" title="Ver QR en grande">
+          <div class="sello"><img src="haku-logo.png" alt="Haku"></div>
+        </a>
+        <div style="color:var(--muted);font-size:13px">© <span id="year"></span> <span data-lang="footer-name">Sergio Garduño Jardón</span> · <span data-lang="footer-source">Hecho con GitHub Pages</span></div>
+      </div>
+    </footer>
+    </div>
+  </div>
+  
+         
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-      // Simulamos la inicialización de partículas y un mínimo de traducciones
       particlesJS("particles-js", {
-        "particles": { "number": { "value": 80 }, "color": { "value": ["#FFD700", "#63b96f", "#0077b6", "#eef1f0"] }, "line_linked": { "enable": true, "distance": 150, "color": "#a3a3a3" }, "move": { "enable": true, "speed": 3 }},
-        "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" }, "resize": true }},
+        "particles": { "number": { "value": 80, "density": { "enable": true, "value_area": 800 }}, "color": { "value": ["#FFD700", "#63b96f", "#0077b6", "#eef1f0"] }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }}, "opacity": { "value": 0.6, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false }}, "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false }}, "line_linked": { "enable": true, "distance": 150, "color": "#a3a3a3", "opacity": 0.4, "width": 1 }, "move": { "enable": true, "speed": 3, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }},
+        "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" }, "resize": true }, "modes": { "grab": { "distance": 400, "line_linked": { "opacity": 1 }}, "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 }, "repulse": { "distance": 150, "duration": 0.4 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 }}},
         "retina_detect": true
       });
-      
-      const translations = { 'en': { 'nav-profile': 'Profile', 'nav-profile-subtitle': 'Introduction' }, 'es': { 'nav-profile': 'Perfil', 'nav-profile-subtitle': 'Carta de Presentación' } };
-      let currentLanguage = 'es';
-
-      function applyText(element, text) { if (element) { element.innerHTML = text; } }
-      function translatePage(lang) {
-          currentLanguage = lang;
-          // Lógica de traducción simplificada solo para el demo
-          document.getElementById('flag-es')?.classList.toggle('active', lang === 'es');
-          document.getElementById('flag-en')?.classList.toggle('active', lang === 'en');
-          
-          const sideNavbar = document.getElementById('side-navbar');
-          if (sideNavbar && sideNavbar.classList.contains('active')) {
-              toggleMenu(); // Cierra el menú al cambiar de idioma
-          }
-      }
-      
-      // --- Lógica de Menú (Adaptada para Pestaña) ---
-      const tabBtn = document.getElementById('menu-tab-btn'); // NUEVO ID
-      const sideNavbar = document.getElementById('side-navbar');
-      const overlay = document.getElementById('menu-overlay'); 
-      const navLinks = sideNavbar ? sideNavbar.querySelectorAll('.nav-link') : [];
-
-      // Función para alternar el menú (USA EL BOTÓN PESTAÑA)
-      function toggleMenu() {
-          if (!sideNavbar || !overlay || !tabBtn) return; 
-
-          sideNavbar.classList.toggle('active'); 
-          overlay.classList.toggle('active'); 
-          
-          const isActive = sideNavbar.classList.contains('active');
-          if (isActive) {
-              document.body.classList.add('menu-active-no-scroll');
-              tabBtn.setAttribute('aria-expanded', 'true');
-              tabBtn.title = "Cerrar menú";
-          } else {
-              document.body.classList.remove('menu-active-no-scroll');
-              tabBtn.setAttribute('aria-expanded', 'false');
-              tabBtn.title = "Desplegar menú";
-          }
-      }
-
-      document.addEventListener('DOMContentLoaded', () => {
-          // Inicializar traducciones (simplificado para el demo)
-          document.querySelectorAll('[data-lang]').forEach(element => {
-              if (!element.getAttribute('data-es-original')) {
-                   element.setAttribute('data-es-original', element.innerHTML); 
-              }
-          });
-          translatePage(currentLanguage); 
-          
-          // Asignar eventos al nuevo botón Pestaña
-          if (tabBtn && sideNavbar && overlay) {
-              tabBtn.addEventListener('click', toggleMenu);
-              overlay.addEventListener('click', toggleMenu); 
-              
-              // Cerrar al hacer clic en un enlace
-              navLinks.forEach(link => {
-                  link.addEventListener('click', function() {
-                      if (sideNavbar.classList.contains('active')) {
-                         toggleMenu(); 
-                      }
-                  });
-              });
-              tabBtn.setAttribute('aria-expanded', 'false');
-          }
-          
-      }); 
-      // --- Fin de Lógica de Menú ---
     </script>
+    
+        <script>
+    // Objeto de Traducciones
+    const translations = {
+        'en': { 
+          'profile-title': 'Profile',
+          'nav-profile': 'Profile',
+          'nav-profile-subtitle': 'Introduction',
+          'nav-projects': 'Projects',
+          'nav-experience': 'Experience',
+          'nav-achievements': 'Achievements',
+          'nav-courses': 'Courses',
+          'nav-education': 'Education',
+          'nav-skills': 'Skills',
+          'nav-contact': 'Contact',
+          'profile-p1': 'Mechatronics Engineer specializing in IoT systems, data, and sustainable solutions. I design, develop, and deploy environmental monitoring systems that integrate hardware (ESP32 and sensors), renewable energy, and data pipelines (Google Sheets / SQL, dashboards).', 
+          'profile-p2': 'Programming expertise in Python, C++/Arduino, and Google Apps Script to automate processes and create analytical models focused on optimizing resources and supporting decision-making. I seek to collaborate on projects that merge technology and nature to generate a positive environmental impact.', 
+          'carta-title': 'View Introduction',
+          'carta-p1': 'Introducing Sergio Garduño Jardón, a Mechatronics Engineer from IPN UPIITA convinced that technology and nature can and must coexist. His passion for life and the environment drives him to find innovative ways to use knowledge to aid our planet, specializing in the development of <strong>IoT systems for ecological monitoring</strong>.',
+          'carta-p2': 'Sergio designs and develops systems that allow us to \'listen\' to the environment\'s needs. A clear example is his thesis project on <strong>green roofs</strong>, where he implemented a complete autonomous monitoring system—from hardware with ESP32 and sensors to data analysis—demonstrating how technology can validate and enhance sustainable solutions. His goal is to continue applying mechatronics, programming, and data to projects that generate a positive environmental impact.',
+          'carta-p3': 'Beyond the technical, he is passionate about learning more about flora and fauna, connecting with actors generating pro-planet actions through the <strong>ECOGAIASOS</strong> project, and actively participating in cleanup or habitat restoration events like reforestation. Sergio firmly believes that action combined with the right knowledge always yields better results.',
+          'copy-btn-text': 'Copy Text', // Traducción del botón
+          'btn-view-cv-text': 'View CV', 
+          'btn-download-cv-text': 'Download CV', 
+          'proyectos-title': 'Personal Projects',
+          'exp-title': 'Work Experience', 
+          'ecogaia-role': 'Eco Gaia SOS — Environmental Impact Platform', 
+          'ecogaia-dates': '2024 – Present · CDMX', 
+          'ecogaia-l1': 'Development and implementation of a web platform for management and dissemination of environmental calls and projects.', 
+          'ecogaia-l2': 'Responsible for data organization, visualization, and local stakeholder support.', 
+          'ecogaia-btn': '🌐 Visit Eco Gaia SOS', 
+          'iot-role': 'IoT System for Green Roofs — Thesis Project', 
+          'iot-dates': '2023 – 2025 · Field Validated', 
+          'iot-l1': 'Design and deployment of an autonomous thermal monitoring system with ESP32, sensors, and solar power.', 
+          'iot-l2': 'Development of data pipeline and dashboard for validating thermal reduction on green roofs.', 
+          'iot-links': 'Project Green Roof Links', 
+          'iot-btn1': '🌐 Dashboard', // Acortado
+          'iot-btn2': '📊 Data Sheet (Sheets)', // Acortado
+          'iot-btn3': '📘 View Thesis', // Acortado
+          'robo-role': 'Robodacta — Design and Sales', 
+          'robo-dates': '2022 – 2024', 
+          'robo-l1': 'Design of educational kits, packaging, online courses, and audiovisual material; management of suppliers and sales.', 
+          'meta-role': 'METAMORFOZIZ — Advertising and Production', 
+          'meta-dates': '2021 – 2022', 
+          'meta-l1': 'Graphic design, production of banners and signs, management of printing materials and processes.', 
+          'ventas-role': 'Sales (Local) — Coyoacán', 
+          'ventas-dates': '2021 – 2022', 
+          'ventas-l1': 'Direct customer service, management of B2C and B2B sales, cash register operation, and inventory control.', 
+          'serv-role': 'Technical Service (Own Business)', 
+          'serv-dates': '2018 – 2020', 
+          'serv-l1': 'Repair of electronic devices, purchase and sale of spare parts, inventory control, and customer service.', 
+          'logros-title': 'Achievements', 
+          'logros-l1': 'IoT prototype validated in the field for thermal and energy monitoring (Thesis).', 
+          'logros-l2': 'Technical participation in the National Biotechnology Congress (Oaxaca, 2025).', 
+          'logros-l3': 'Implementation and development of the Eco Gaia SOS platform.', 
+          'cursos-title': 'Courses & Certificates', 
+          'cursos-l1': 'Seminar: Design of manufacturing automation and integration of programmable devices.', 
+          'cursos-l2': 'Course/Self-study: Python for data analysis (pandas) — practical projects.', 
+          'cursos-l3': 'Certification in progress: English B2.', 
+          'acad-title': 'Academic Background', 
+          'acad-uni-title': 'IPN Polytechnic',
+          'acad-eng-title': 'Mechatronics Engineering (UPIITA)', 
+          'acad-eng-dates': '2018 - 2024',
+          'acad-tech-title': 'Technician in Business Administration', 
+          'acad-tech-dates': '2015 – 2018', 
+          'contact-title': 'Contact', 
+          'tech-skills-title': 'Technical Skills', 
+          'soft-skills-title': 'Soft Skills', 
+          'skill-cpp': 'C++ / Arduino', 
+          'skill-python': 'Python (pandas)', 
+          'skill-esp32': 'ESP32 & sensors', 
+          'skill-sql': 'SQL & Google Sheets', 
+          'skill-solar': 'Solar Panels & Batteries', 
+          'skill-apps-script': 'Google Apps Script', 
+          'soft-l1': 'Leadership', 
+          'soft-l2': 'Creativity and innovation', 
+          'soft-l3': 'Project planning and management', 
+          'soft-l4': 'Teamwork', 
+          'soft-l5': 'Adaptability', 
+          'soft-l6': 'Certification in progress: English B2.', 
+          'footer-name': 'Sergio Garduño Jardón', 
+          'footer-source': 'Made with GitHub Pages', 
+          'footer-contact': 'Contact: sgj.cheko@gmail.com' 
+        },
+        'es': { 
+          'nav-profile': 'Perfil',
+          'nav-profile-subtitle': 'Carta de Presentación',
+          'nav-projects': 'Proyectos',
+          'nav-experience': 'Experiencia',
+          'nav-achievements': 'Logros',
+          'nav-courses': 'Cursos',
+          'nav-education': 'Formación',
+          'nav-skills': 'Habilidades',
+          'nav-contact': 'Contacto',
+          'proyectos-title': 'Proyectos Personales',
+          'exp-title': 'Experiencia Laboral',
+          'carta-title': 'Ver Carta de Presentación', 
+          'copy-btn-text': 'Copiar Texto', 
+          'footer-contact': 'Contacto: sgj.cheko@gmail.com' 
+        }
+    };
+
+    let currentLanguage = 'es';
+
+    // Función para aplicar texto (maneja <strong>)
+    function applyText(element, text) {
+      if (!element) return; 
+      
+      if (element.tagName === 'STRONG' && element.querySelector('img')) {
+        const textSpan = element.querySelector('span');
+        if (textSpan) { textSpan.innerHTML = text; } 
+      } else {
+        element.innerHTML = text; 
+      }
+    }
+
+    // Función principal de traducción (AJUSTADA para cerrar el menú)
+    function translatePage(lang) {
+      currentLanguage = lang; // Actualiza idioma actual
+      const t = translations[lang] || translations['es']; // Fallback a español si falta 'en'
+      const isEnglish = (lang === 'en');
+      document.documentElement.lang = lang; // Actualiza el lang del HTML
+
+      // 1. Traduce elementos con [data-lang]
+      document.querySelectorAll('[data-lang]').forEach(element => {
+          const key = element.getAttribute('data-lang');
+          
+          if (!element.getAttribute('data-es-original')) {
+               element.setAttribute('data-es-original', element.innerHTML); 
+          }
+
+          let textToApply = '';
+          if (t[key] !== undefined) {
+              textToApply = t[key]; 
+          } else if (lang === 'es') {
+              const originalText = element.getAttribute('data-es-original');
+              if (originalText) { textToApply = originalText; } 
+          } else {
+               textToApply = element.getAttribute('data-es-original') || element.innerHTML; 
+          }
+          
+          if (textToApply) {
+              applyText(element, textToApply);
+          }
+      });
+      
+      // 2. Traduce atributos href
+      document.querySelectorAll('[data-lang-href-en]').forEach(button => {
+          const originalHref = button.getAttribute('data-es-href') || button.getAttribute('href');
+           if (!button.getAttribute('data-es-href')) { button.setAttribute('data-es-href', originalHref); }
+           
+          const englishHref = button.getAttribute('data-lang-href-en');
+          button.setAttribute('href', isEnglish ? englishHref : originalHref);
+      });
+
+      // 3. Traduce atributos title
+      document.querySelectorAll('[data-lang-title-en]').forEach(element => {
+          const originalTitle = element.getAttribute('data-es-title') || element.getAttribute('title');
+          if (!element.getAttribute('data-es-title')) { element.setAttribute('data-es-title', originalTitle); }
+          
+          const englishTitleKey = element.getAttribute('data-lang-title-en'); 
+          const englishTitle = translations['en'][englishTitleKey] || originalTitle; 
+          
+          element.setAttribute('title', isEnglish ? englishTitle : originalTitle);
+      });
+      
+      // 4. Actualiza botones de idioma
+      document.getElementById('flag-es')?.classList.toggle('active', lang === 'es');
+      document.getElementById('flag-en')?.classList.toggle('active', lang === 'en');
+      
+      // 5. Cierra el menú si estaba abierto después de cambiar el idioma
+      const sideNavbar = document.getElementById('side-navbar');
+      if (sideNavbar && sideNavbar.classList.contains('active')) {
+          toggleMenu(); // Llama a la función de toggle para cerrar
+      }
+    }
+
+
+    // --- NUEVA LÓGICA DE MENÚ LATERAL (PESTAÑA) ---
+    const menuToggleBtn = document.getElementById('menu-toggle-btn');
+    const sideNavbar = document.getElementById('side-navbar'); // ID en tu index
+    const overlay = document.getElementById('menu-overlay'); // Obtenemos el overlay
+    const navLinks = sideNavbar ? sideNavbar.querySelectorAll('.nav-link') : [];
+
+    // Función para alternar el menú
+    function toggleMenu() {
+        if (!sideNavbar || !overlay || !menuToggleBtn) return; // Salida de seguridad
+
+        const isActive = sideNavbar.classList.contains('active');
+
+        // 1. Alterna las clases
+        sideNavbar.classList.toggle('active'); // Usa la nueva clase 'active'
+        overlay.classList.toggle('active'); // Muestra/oculta el overlay
+        
+        // 2. Control del scroll y accesibilidad
+        if (!isActive) {
+            // Menú se está ABRIENDO
+            document.body.classList.add('menu-active-no-scroll'); 
+            menuToggleBtn.setAttribute('aria-expanded', 'true');
+        } else {
+            // Menú se está CERRANDO
+            document.body.classList.remove('menu-active-no-scroll'); 
+            menuToggleBtn.setAttribute('aria-expanded', 'false');
+        }
+    }
+    // --- FIN NUEVA LÓGICA DE MENÚ LATERAL ---
+
+
+    // --- INICIALIZACIÓN CUANDO EL DOM ESTÁ LISTO ---
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        // --- Establece el año actual ---
+        const yearElement = document.getElementById('year');
+        if (yearElement) {
+            yearElement.textContent = new Date().getFullYear();
+        }
+
+        // --- Lógica de Traducción Inicial ---
+        document.querySelectorAll('[data-lang]').forEach(element => {
+            if (!element.getAttribute('data-es-original')) {
+                 element.setAttribute('data-es-original', element.innerHTML); 
+            }
+        });
+        // Aplica idioma inicial 
+        translatePage(currentLanguage); 
+        
+        
+        // --- Lógica de Eventos del Menú Lateral (Pestaña) ---
+        if (menuToggleBtn && sideNavbar && overlay) {
+            menuToggleBtn.addEventListener('click', toggleMenu);
+            // El overlay ahora es el principal mecanismo de cierre para el usuario
+            overlay.addEventListener('click', toggleMenu); 
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    // Cierra el menú al hacer clic en un enlace
+                    if (sideNavbar.classList.contains('active')) {
+                       toggleMenu(); 
+                    }
+                });
+            });
+            // Establece aria-expanded inicial
+            menuToggleBtn.setAttribute('aria-expanded', 'false');
+        }
+    
+        // --- Lógica de Animación de Tarjetas ---
+        const animatedCards = document.querySelectorAll('.card'); 
+        if (typeof IntersectionObserver !== 'undefined') { 
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+              entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add('is-visible');
+                  observer.unobserve(entry.target);
+                }
+              });
+            }, {
+              threshold: 0.1 
+            });
+            animatedCards.forEach(card => {
+              revealObserver.observe(card);
+            });
+        } else {
+            // Fallback para navegadores viejos: simplemente muestra las tarjetas
+             animatedCards.forEach(card => card.classList.add('is-visible'));
+        }
+
+        // --- Efecto Flip Cabecera ---
+        const avatarContainerMain = document.getElementById('avatar-container-main');
+        const avatarImgMain = document.getElementById('avatar-img-main');
+        const originalSrcMain = 'profilecv.png'; 
+        const qrSrcMain = 'QRHAKU.png'; 
+        let isQrModeMain = false;
+        if (avatarContainerMain && avatarImgMain) {
+          avatarContainerMain.addEventListener('click', () => {
+              if (isQrModeMain) {
+                  avatarImgMain.src = originalSrcMain;
+                  avatarImgMain.alt = 'Sergio Garduño Jardón';
+                  avatarContainerMain.classList.remove('qr-mode');
+                  avatarContainerMain.title = 'Clic para QR';
+              } else {
+                  avatarImgMain.src = qrSrcMain;
+                  avatarImgMain.alt = 'Código QR del Portafolio';
+                  avatarContainerMain.classList.add('qr-mode');
+                  avatarContainerMain.title = 'Clic para volver a la foto';
+              }
+              isQrModeMain = !isQrModeMain;
+          });
+        }
+
+        // --- Funcionalidad Copiar Carta ---
+        const copyBtnBottom = document.getElementById('copy-carta-btn-bottom');
+        const textToCopyContainer = document.getElementById('carta-text-content'); 
+        if (copyBtnBottom && textToCopyContainer) {
+          copyBtnBottom.addEventListener('click', () => {
+            const paragraphs = textToCopyContainer.querySelectorAll('p');
+            let fullText = '';
+            paragraphs.forEach((p, index) => {
+              let cleanText = p.textContent || p.innerText || ''; 
+              fullText += cleanText.trim(); 
+              if (index < paragraphs.length - 1) {
+                fullText += '\n\n'; 
+              }
+            });
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(fullText).then(() => {
+                  const icon = copyBtnBottom.querySelector('i');
+                  const span = copyBtnBottom.querySelector('span');
+                  const originalIconClass = 'fa-copy';
+                  const originalTextKey = 'copy-btn-text'; 
+                  const originalText = translations[currentLanguage][originalTextKey] || 'Copiar Texto'; 
+
+                  if (icon) icon.className = 'fa-solid fa-check'; 
+                  if (span) span.textContent = (currentLanguage === 'en') ? 'Copied!' : '¡Copiado!'; 
+                  copyBtnBottom.classList.add('copied'); 
+
+                  setTimeout(() => {
+                    if (icon) icon.className = `fa-regular ${originalIconClass}`; 
+                    if (span) span.textContent = originalText; 
+                    copyBtnBottom.classList.remove('copied');
+                  }, 1500);
+
+                }).catch(err => {
+                  console.error('Error al copiar texto con API: ', err);
+                  alert((currentLanguage === 'en') ? 'Could not copy text.' : 'No se pudo copiar el texto.');
+                });
+            } else {
+                try {
+                    const textArea = document.createElement('textarea');
+                    textArea.value = fullText;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                     alert((currentLanguage === 'en') ? 'Text copied (fallback).' : 'Texto copiado (alternativo).');
+                } catch (err) {
+                    console.error('Error al copiar texto con fallback: ', err);
+                     alert((currentLanguage === 'en') ? 'Could not copy text.' : 'No se pudo copiar el texto.');
+                }
+            }
+          });
+        }
+        
+    }); 
+</script>
 </body>
 </html>
