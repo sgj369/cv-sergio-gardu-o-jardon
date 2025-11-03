@@ -836,13 +836,10 @@
 .haku-img {
   width: 120px;
   height: 120px;
-  animation: spin 1s linear infinite; /* Animación de giro para el GIF */
+  /* Animación de giro eliminada para el hakuwalk.gif */
 }
 
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
+/* @keyframes spin ELIMINADO */
 
 .loading-text {
   font-size: 1.8em;
@@ -865,12 +862,11 @@
 }
 
 /* ============================================= */
-/* 2. Efecto de Pulso (Brillo) en Tarjetas y Avatar */
+/* 2. Efecto de Pulso (Brillo) en Tarjetas y Avatar (CORREGIDO) */
 /* ============================================= */
 
 /* Brillo del Avatar (Foto de Perfil) */
 .avatar {
-  /* ... (Mantén los estilos existentes) ... */
   animation: pulse-avatar-glow 2s infinite alternate ease-in-out;
 }
 
@@ -879,32 +875,38 @@
   to { box-shadow: 0 0 30px rgba(238, 241, 240, 0.8); }
 }
 
-/* Brillo Blanco (Tarjeta de Encabezado) */
-.pulse-card-white {
-  animation: pulse-shadow-white 3s infinite alternate ease-in-out;
+/* Base para el Pulso de TODAS las Tarjetas de Contenido (usa el color del borde izquierdo) */
+.card.pulse-card, 
+.card.pulse-card-blue { /* Mantengo pulse-card-blue por si quieres que pulse el contacto, pero ya no es necesario */
+    animation: pulse-shadow 3s infinite alternate ease-in-out;
+}
+
+@keyframes pulse-shadow {
+  from { 
+    box-shadow: 0 8px 30px rgba(0,0,0,0.25), 
+                0 0 2px rgba(0,0,0,0.1); 
+  }
+  to { 
+    /* Esta solución utiliza la propiedad 'currentColor' para heredar el color
+       del elemento más cercano. En las tarjetas, a menudo hereda el color del texto (white).
+       Para forzar el color del borde, es necesario CSS más avanzado, pero este da
+       un efecto de brillo blanco/gris general que funciona bien con el diseño oscuro.
+    */
+    box-shadow: 0 8px 40px rgba(0,0,0,0.5), 
+                0 0 10px var(--fg), /* Usamos el color blanco primario como brillo */
+                0 0 15px rgba(255, 255, 255, 0.1); 
+  }
+}
+
+/* Sobrescribe para el Card Blanco (Header) para asegurar el color blanco puro */
+.card.pulse-card-white {
+    animation: pulse-shadow-white 3s infinite alternate ease-in-out;
 }
 @keyframes pulse-shadow-white {
   from { box-shadow: 0 10px 30px rgba(238, 241, 240, 0.1), 0 0 5px rgba(238, 241, 240, 0.05); }
   to { box-shadow: 0 10px 30px rgba(238, 241, 240, 0.3), 0 0 15px rgba(238, 241, 240, 0.15); }
 }
 
-/* Brillo Púrpura (Tarjetas de Formación y Proyectos - Asignadas con .pulse-card) */
-.pulse-card {
-  animation: pulse-shadow-purple 3s infinite alternate ease-in-out;
-}
-@keyframes pulse-shadow-purple {
-  from { box-shadow: 0 10px 30px rgba(153, 51, 204, 0.1), 0 0 5px rgba(153, 51, 204, 0.05); }
-  to { box-shadow: 0 10px 30px rgba(153, 51, 204, 0.3), 0 0 15px rgba(153, 51, 204, 0.15); }
-}
-
-/* Brillo Azul (Tarjeta de Contacto - Asignada con .pulse-card-blue) */
-.pulse-card-blue {
-  animation: pulse-shadow-blue 3s infinite alternate ease-in-out;
-}
-@keyframes pulse-shadow-blue {
-  from { box-shadow: 0 10px 30px rgba(0, 119, 182, 0.1), 0 0 5px rgba(0, 119, 182, 0.05); }
-  to { box-shadow: 0 10px 30px rgba(0, 119, 182, 0.3), 0 0 15px rgba(0, 119, 182, 0.15); }
-}
 
 /* ============================================= */
 /* 3. Efecto de Tecleo (Typewriter) en tu Nombre */
@@ -1022,7 +1024,7 @@ footer.is-visible {
 
   <div id="preloader">
     <div class="haku-visual-container">
-      <img src="hakuball.gif" alt="Cargando..." class="haku-img"> 
+      <img src="hakuwalk.gif" alt="Cargando..." class="haku-img" id="haku-gif"> 
     </div>
     <div class="loading-text" id="loading-text-container">Cargando</div>
   </div>
@@ -1069,8 +1071,7 @@ footer.is-visible {
     </div>
 </div>
 
-
-         <section class="card" id="perfil">
+         <section class="card pulse-card" id="perfil">
       
         <div class="profile-title" data-lang="profile-title">Perfil</div>
         
@@ -1117,7 +1118,7 @@ footer.is-visible {
             <h2 class="section" data-lang="proyectos-title">Proyectos Personales</h2>
           </summary>
           <div class="section-content">
-              <div class="card" style="margin-bottom:12px">
+              <div class="card pulse-card" style="margin-bottom:12px">
                 <strong>
                   <img src="ECOGAIASOS.png" alt="Logo EcoGaiaSOS" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
                   <span data-lang="ecogaia-role">EcoGaiaSOS — Plataforma de impacto ambiental</span>
@@ -1136,7 +1137,7 @@ footer.is-visible {
                 </a>
               </div>
               </div>
-              <div class="card" style="margin-bottom:12px">
+              <div class="card pulse-card" style="margin-bottom:12px">
                 <strong data-lang="iot-role">Sistema IoT para techos verdes — Proyecto de tesis</strong> <div class="contact-small" data-lang="iot-dates">2023 – 2025 · Validado en campo</div>
                 
                 <ul class="clean">
@@ -1167,25 +1168,25 @@ footer.is-visible {
             <h2 class="section" data-lang="exp-title">Experiencia Laboral</h2>
           </summary>
           <div class="section-content">
-              <div class="card" style="margin-bottom:12px">
+              <div class="card pulse-card" style="margin-bottom:12px">
                 <strong data-lang="robo-role">Robodacta — Diseño y ventas</strong> <div class="contact-small" data-lang="robo-dates">2022 – 2024</div>
                 <ul class="clean">
                   <li data-lang="robo-l1">Diseño de kits educativos, empaques, cursos online y material audiovisual; gestión de proveedores y ventas.</li>
                 </ul>
               </div>
-              <div class="card" style="margin-bottom:12px">
+              <div class="card pulse-card" style="margin-bottom:12px">
                 <strong data-lang="meta-role">METAMORFOZIZ — Publicidad y producción</strong> <div class="contact-small" data-lang="meta-dates">2021 – 2022</div>
                 <ul class="clean">
                   <li data-lang="meta-l1">Diseño gráfico, producción de lonas y banners, gestión de materiales y procesos de impresión.</li>
                 </ul>
               </div>
-              <div class="card" style="margin-bottom:12px">
+              <div class="card pulse-card" style="margin-bottom:12px">
                 <strong data-lang="ventas-role">Ventas (local) — Coyoacán</strong> <div class="contact-small" data-lang="ventas-dates">2021 – 2022</div>
                 <ul class="clean">
                   <li data-lang="ventas-l1">Atención directa a clientes, gestión de ventas B2C y B2B, manejo de caja y control de inventario.</li>
                 </ul>
               </div>
-              <div class="card">
+              <div class="card pulse-card">
                 <strong data-lang="serv-role">Servicio técnico (negocio propio)</strong> <div class="contact-small" data-lang="serv-dates">2018 – 2020</div>
                 <ul class="clean">
                   <li data-lang="serv-l1">Reparación de dispositivos electrónicos, compra y venta de refacciones, control de inventario y atención al cliente.</li>
@@ -1200,7 +1201,7 @@ footer.is-visible {
           <h2 class="section" data-lang="logros-title">Logros</h2>
         </summary>
         <div class="section-content">
-          <div class="card">
+          <div class="card pulse-card">
             <ul class="clean">
               <li data-lang="logros-l1">Prototipo IoT validado en campo para monitoreo térmico y energético (Tesis).</li>
               <li data-lang="logros-l2">Participación técnica en el Congreso Nacional de Biotecnología (Oaxaca, 2025).</li>
@@ -1215,7 +1216,7 @@ footer.is-visible {
           <h2 class="section" data-lang="cursos-title">Cursos y certificados</h2>
         </summary>
         <div class="section-content">
-          <div class="card">
+          <div class="card pulse-card">
             <ul class="clean">
               <li data-lang="cursos-l1">Seminario: Diseño de la automatización de la manufactura e integración de dispositivos programables.</li>
               <li data-lang="cursos-l2">Curso/autoformación: Python para análisis de datos (pandas) — proyectos prácticos.</li>
@@ -1258,7 +1259,7 @@ footer.is-visible {
         </div>
 
         
-        <div class="card" id="habilidades">
+        <div class="card pulse-card" id="habilidades">
           <div style="font-weight:800;margin-bottom:8px" data-lang="tech-skills-title">Habilidades técnicas</div>
           <div class="skills">
             <div class="skill-pill" data-lang="skill-cpp">C++ / Arduino</div>
@@ -1270,7 +1271,7 @@ footer.is-visible {
           </div>
         </div>
 
-        <div class="card">
+        <div class="card pulse-card">
           <div style="font-weight:800;margin-bottom:8px" data-lang="soft-skills-title">Habilidades blandas</div>
           <ul class="clean">
             <li data-lang="soft-l1">Liderazgo</li>
@@ -1281,7 +1282,7 @@ footer.is-visible {
             <li data-lang="soft-l6">Certificación en proceso: Inglés B2.</li>
           </ul>
         </div>
-        <div class="card pulse-card-blue" id="contacto">
+        <div class="card pulse-card" id="contacto">
       <div style="font-weight:800;margin-bottom:8px" data-lang="contact-title">Contacto</div>
         <ul class="contact-list"> 
 
@@ -1413,9 +1414,9 @@ footer.is-visible {
           'logros-l2': 'Technical participation in the National Biotechnology Congress (Oaxaca, 2025).', 
           'logros-l3': 'Implementation and development of the Eco Gaia SOS platform.', 
           'cursos-title': 'Courses & Certificates', 
-          'cursos-l1': 'Seminar: Design of manufacturing automation and integration of programmable devices.', 
+          'cursos-l1': 'Seminario: Diseño de la automatización de la manufactura e integración de dispositivos programables.', 
           'cursos-l2': 'Course/Self-study: Python for data analysis (pandas) — practical projects.', 
-          'cursos-l3': 'Certification in progress: English B2.', 
+          'cursos-l3': 'Certificación en progreso: Inglés B2.', 
           'acad-title': 'Academic Background', 
           'acad-uni-title': 'IPN Polytechnic',
           'acad-eng-title': 'Mechatronics Engineering (UPIITA)', 
@@ -1436,7 +1437,7 @@ footer.is-visible {
           'soft-l3': 'Project planning and management', 
           'soft-l4': 'Teamwork', 
           'soft-l5': 'Adaptability', 
-          'soft-l6': 'Certification in progress: English B2.', 
+          'soft-l6': 'Certification in progress: Inglés B2.', 
           'footer-name': 'Sergio Garduño Jardón', 
           'footer-source': 'Made with GitHub Pages', 
           'footer-contact': 'Contact: sgj.cheko@gmail.com' 
