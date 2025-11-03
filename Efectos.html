@@ -55,18 +55,18 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        position: relative;
+        /* --- AÑADIDO: Para que el texto quede abajo del GIF --- */
+        justify-content: center; 
     }
     
-    /* --- ELIMINADO: .hanging-element, .hanging-element::before, .loading-ball y sus @keyframes --- */
-    /* Estos elementos ya no son necesarios porque el GIF los reemplaza. */
-
     .loading-text {
         font-size: 3.5em; 
         font-weight: bold;
         color: #cccccc; 
         text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
-        margin-bottom: 25px; /* Ajusta este margen si el texto está muy pegado al GIF */
+        /* --- CORREGIDO: Margen superior para separarlo del GIF --- */
+        margin-top: 25px; 
+        margin-bottom: 0; /* Aseguramos que no haya margen inferior extra */
         z-index: 10;
         display: flex; 
     }
@@ -87,6 +87,8 @@
       height: 350px; /* Ajusta esto al tamaño óptimo de tu GIF en desktop */
       object-fit: contain;
       filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+      /* --- AÑADIDO: Para que el GIF quede arriba del texto --- */
+      order: 1; 
     }
 
     /* RESPONSIVE DEL PRELOADER */
@@ -94,10 +96,11 @@
         .haku-img {
             width: 250px; /* Ajusta esto al tamaño óptimo de tu GIF en móvil */
             height: 250px; /* Ajusta esto al tamaño óptimo de tu GIF en móvil */
-            margin-top: 0; /* --- CORREGIDO: Elimina el margin-top para que se centre --- */
+            margin-top: 0; 
         }
         .loading-text {
             font-size: 2.5em;
+            margin-top: 15px; /* Ajuste para móvil si es necesario */
         }
     }
     /* --- FIN CSS PRELOADER --- */
@@ -152,11 +155,9 @@
       box-shadow:0 0 15px rgba(238, 241, 240, 0.5);
       cursor: pointer; transition: all 0.3s ease-in-out; 
       
-      /* --- ¡NUEVO! Animación de pulso para el avatar --- */
       animation: pulse-avatar-glow 2.5s infinite ease-in-out;
     }
     
-    /* --- ¡NUEVO! Keyframes para el pulso del avatar --- */
     @keyframes pulse-avatar-glow {
         0% {
             box-shadow: 0 0 15px rgba(238, 241, 240, 0.5);
@@ -173,7 +174,7 @@
     .avatar.qr-mode {
       border-radius: var(--radius); border-color: var(--accent-green);
       transform: scale(1.1); 
-      animation: none; /* Pausa la animación de pulso al voltear */
+      animation: none; 
     }
     .avatar.qr-mode:hover { transform: scale(1.1); }
     .avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
@@ -200,7 +201,6 @@
         max-width: 100%;
         width: fit-content;
         box-sizing: border-box;
-        /* --- AÑADIDO: Oculto por defecto para fade-in --- */
         opacity: 0; 
         transition: opacity 0.8s ease-out; 
     }
@@ -220,7 +220,7 @@
     }
 
     
-    /* --- ¡NUEVO! Efecto "Pulso" en Tarjeta (Blanca) --- */
+    /* --- Efecto "Pulso" en Tarjeta (Blanca) --- */
     .pulse-card-white {
         border-left-color: var(--fg); 
         animation: pulse-shadow-white 2.5s infinite ease-in-out;
@@ -297,12 +297,10 @@
     #perfil::after { background: var(--accent-blue); } 
     #perfil .profile-title { color: var(--accent-blue); font-size:18px; font-weight:800; margin-top: 0; margin-bottom:8px }
     
-    /* --- CORREGIDO: Vuelve a tener la animación de fade-in --- */
     #perfil .profile-text{ 
         font-size:15px; 
         line-height:1.6; 
         text-align: center;
-        /* --- ESTILOS PARA FADE-IN --- */
         opacity: 0;
         transform: translateY(10px);
         transition: opacity 0.8s ease-out 0.5s, transform 0.8s ease-out 0.5s; /* 0.5s de retraso */
@@ -312,7 +310,6 @@
         opacity: 1;
         transform: translateY(0);
     }
-    /* --- FIN DE LA CORRECCIÓN --- */
 
 
     /* 7. TARJETA DE CONTACTO (de TD) */
@@ -386,9 +383,9 @@
         transform: translateY(0);
     }
     
-    /* --- ¡NUEVO! FIX DE ACCESIBILIDAD (REDUCIR MOVIMIENTO) --- */
+    /* FIX DE ACCESIBILIDAD (REDUCIR MOVIMIENTO) */
     @media (prefers-reduced-motion: reduce) {
-      .pulse-card, .pulse-card-blue, .pulse-card-white, .avatar { /* Eliminado .hanging-element, .loading-ball */
+      .pulse-card, .pulse-card-blue, .pulse-card-white, .avatar {
         animation: none !important;
       }
       
@@ -412,7 +409,7 @@
     @media (max-width: 480px) {
         body { padding: 20px 20px; }
         
-        /* --- ¡NUEVO! Ajuste de fuente para que quepa en una línea --- */
+        /* Ajuste de fuente para que quepa en una línea */
         .typewriter-title { 
             font-size: 24px; 
             white-space: nowrap; 
@@ -441,10 +438,10 @@
   
   <div id="preloader">
     <div class="haku-visual-container">
+        <img src="hakuball.gif" alt="Haku Cargando" class="haku-img"> 
         
         <div class="loading-text" id="loading-text-container"></div> 
-        
-        <img src="hakuball.gif" alt="Haku Cargando" class="haku-img"> </div>
+    </div>
   </div>
   <div id="particles-js"></div>
 
@@ -544,4 +541,55 @@
 
         textToAnimate.split('').forEach((char, index) => {
             const span = document.createElement('span');
-            span
+            span.textContent = char;
+            loadingTextContainer.appendChild(span);
+            span.style.transitionDelay = `${index * 50}ms`; 
+        });
+
+        setTimeout(() => {
+            loadingTextContainer.classList.add('animate');
+        }, 100); 
+
+        setTimeout(() => {
+            repeatCount++;
+            if (repeatCount < maxRepeats) {
+                animateText();
+            } else {
+                hidePreloader();
+            }
+        }, animationDuration);
+    }
+
+    function hidePreloader() {
+        const preloader = document.getElementById('preloader');
+        const body = document.body;
+        
+        if (preloader) preloader.classList.add('hidden');
+        
+        setTimeout(() => { 
+            body.classList.add('loaded'); // Asegura que el contenido principal sea visible
+            startTypewriterNameEffect(); 
+            setupCardAnimations(); 
+        }, 500); // 500ms es el tiempo de la transición CSS del preloader
+    }
+    /* --- FIN SCRIPT PRELOADER --- */
+   
+    /* ================================== */
+    /* SCRIPT DE TYPEWRITER (NOMBRE) */
+    /* ================================== */
+    let typewriterNameElement;
+    const typewriterNameString = "Sergio Garduño Jardón";
+
+    function startTypewriterNameEffect() {
+        typewriterNameElement = document.getElementById('typewriter-name');
+        
+        if (!typewriterNameElement) return;
+
+        typewriterNameElement.textContent = ''; 
+        const textLength = typewriterNameString.length;
+        
+        typewriterNameElement.style.setProperty('--typewriter-width-name', `${textLength}ch`);
+        typewriterNameElement.classList.add('visible'); 
+
+        let charIndex = 0;
+        const typingSpeed = 75;
