@@ -864,7 +864,7 @@
 /* Responsive para móvil */
 @media (max-width: 600px) {
     .loading-text {
-        font-size: 2.5em; /* Reducción a 2.5em en móvil */
+        font-size: 1.8rem; /* Reducción a 2.5em en móvil */
     }
 }
 
@@ -1007,10 +1007,12 @@ footer.is-visible {
     display: none !important; 
   }
   
-  /* Quita el cursor del Typewriter */
   .typewriter-title {
-    border-right: none !important;
-    width: auto !important;
+  overflow: hidden; 
+  white-space: nowrap; 
+  border-right: 3px solid var(--accent-gold); /* Cursor simulado */
+  opacity: 1; /* HACEMOS EL ELEMENTO VISIBLE DESDE EL INICIO */
+  transition: opacity 0.1s ease;
   }
 }
 
