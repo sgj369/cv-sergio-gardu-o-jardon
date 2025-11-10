@@ -141,7 +141,6 @@
       display: flex; flex-direction: column; align-items: center;
       gap: 15px; padding: 25px 20px;
       border-left-color: var(--fg);
-      /* position: relative; ya está en .card */
     }
     .header-card::after { background: var(--fg); }
     
@@ -170,7 +169,7 @@
 
     
     /* ================================================= */
-    /* --- ¡NUEVO! ESTILOS DEL BOTÓN DE COPIAR ENLACE --- */
+    /* --- ESTILOS DEL BOTÓN DE COPIAR ENLACE --- */
     /* ================================================= */
     .copy-link-button {
       position: absolute;
@@ -440,8 +439,8 @@
     
     <div class="header-card card pulse-card-white">
       
-      <button id="copy-link-btn" class="copy-link-button" title="Copiar enlace del portafolio">
-        <i class="fa-solid fa-share-nodes"></i>
+      <button id="copy-link-btn" class="copy-link-button" title="Copiar datos de contacto">
+        <i class="fa-regular fa-address-card"></i>
       </button>
       <div class="avatar" title="Clic para QR" id="avatar-container">
           <img id="avatar-img" src="perfil.png" alt="Sergio Garduño Jardón">
@@ -645,30 +644,41 @@
 
 
     /* ================================== */
-    /* SCRIPT DEL BOTÓN DE COPIAR ENLACE 📋 */
+    /* SCRIPT DEL BOTÓN DE COPIAR DATOS 📋 */
     /* ================================== */
     function setupCopyLinkButton() {
         const copyBtn = document.getElementById('copy-link-btn');
         if (!copyBtn) return; 
 
         copyBtn.addEventListener('click', () => {
+            
+            // --- ¡NUEVO! Define los datos a copiar ---
+            const name = "Sergio Garduño Jardón";
+            const email = "sgj.cheko@gmail.com";
+            const whatsappNum = "+52 1 55 8686 4746"; // Formateado para legibilidad
             const pageUrl = window.location.href; 
             
-            navigator.clipboard.writeText(pageUrl).then(() => {
+            // Crea el bloque de texto (usa \n para saltos de línea)
+            const dataToCopy = `${name}\nCorreo: ${email}\nWhatsApp: ${whatsappNum}\nPortafolio: ${pageUrl}`;
+            // --- FIN DE LOS DATOS NUEVOS ---
+
+            navigator.clipboard.writeText(dataToCopy).then(() => {
+                // Éxito
                 const icon = copyBtn.querySelector('i');
                 const originalIconClass = icon.className;
                 
-                icon.className = 'fa-solid fa-check';
+                icon.className = 'fa-solid fa-check'; // Cambia a check
                 copyBtn.classList.add('copied');
                 
+                // Vuelve al icono original
                 setTimeout(() => {
                     icon.className = originalIconClass;
                     copyBtn.classList.remove('copied');
                 }, 2000);
 
             }).catch(err => {
-                console.error('Error al copiar enlace: ', err);
-                alert('No se pudo copiar el enlace.');
+                console.error('Error al copiar datos: ', err);
+                alert('No se pudo copiar el texto.');
             });
         });
     }
@@ -717,7 +727,7 @@
           "retina_detect": true
         });
 
-        // 5. ¡NUEVO! Configura el botón de copiar
+        // 5. Configura el botón de copiar
         setupCopyLinkButton(); 
 
     }); 
