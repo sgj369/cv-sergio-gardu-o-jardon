@@ -1094,29 +1094,30 @@ footer.is-visible {
   <div class="wrap">
     <div class="hero">
       <main class="hero-main">
-        <div class="main-header-card card pulse-card-white" style="--pulse-color: var(--fg);"> 
-        
-            <div class="avatar" title="Clic para QR" id="avatar-container-main">
-                <img id="avatar-img-main" src="img/profilecv.png" alt="Sergio Garduño Jardón">
-            </div>
-           
-            <div>
-            <div class="title" data-lang="name" id="typewriter-name-container"></div>
-            </div>
-        
-            <div class="header-main-buttons">
-                <a class="btn-fill-white" href="cv_viewer.html" target="_blank" rel="noopener" id="btn-view-cv" title="Abrir CV en el navegador" data-lang-href-en="cv_viewer_eu.html">
-                    <i class="fa-solid fa-eye"></i> <span data-lang="btn-view-cv-text">Ver CV</span>
-                </a>
-                <a class="btn-outline-white" href="PDF/cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" id="btn-download-cv" title="Descargar CV como PDF" data-lang-href-en="PDF/cv_pagina_web_eu.pdf">
-                    <i class="fa-solid fa-download"></i> <span data-lang="btn-download-cv-text">Descargar CV</span>
-                </a>
-                <button id="btn-share" class="btn-clean-secondary" title="Compartir Portafolio">
-                    <i class="fa-brands fa-whatsapp"></i> <span data-lang="btn-share-text">Compartir</span>
-                </button>
-            </div>
-        </div>
-        
+    <div class="main-header-card card pulse-card-white" style="--pulse-color: var(--fg);"> 
+
+    <div class="avatar" title="Clic para QR" id="avatar-container-main">
+        <img id="avatar-img-main" src="img/profilecv.png" alt="Sergio Garduño Jardón">
+    </div>
+   
+    <div>
+    <div class="title" data-lang="name" id="typewriter-name-container"></div>
+    </div>
+
+
+
+
+
+    <div class="header-main-buttons">
+        <a class="btn-fill-white" href="cv_viewer.html" target="_blank" rel="noopener" id="btn-view-cv" title="Abrir CV en el navegador" data-lang-href-en="cv_viewer_eu.html">
+            <i class="fa-solid fa-eye"></i> <span data-lang="btn-view-cv-text">Ver CV</span>
+        </a>
+        <a class="btn-outline-white" href="PDF/cv_pagina_web.pdf" download="CV_Sergio_Garduno_Jardon.pdf" id="btn-download-cv" title="Descargar CV como PDF" data-lang-href-en="PDF/cv_pagina_web_eu.pdf">
+            <i class="fa-solid fa-download"></i> <span data-lang="btn-download-cv-text">Descargar CV</span>
+        </a>
+    </div>
+</div>
+
          <section class="card pulse-card-blue" id="perfil" style="--pulse-color: var(--accent-blue);">
       
         <div class="profile-title" data-lang="profile-title">Perfil</div>
@@ -1337,6 +1338,14 @@ footer.is-visible {
             </a>
           </li>
 
+            <li class="full-width-btn">
+            <a href="https://www.linkedin.com/in/gardu%C3%B1o-jardon-sergio-264b582b0" target="_blank" rel="noopener" class="contact-btn-pressable btn-linkedin" style="background: var(--accent-blue); color: var(--fg); border: 2px solid var(--accent-gold);">
+              <i class="fa-brands fa-linkedin"></i>
+              <span data-lang="btn-linkedin-title" style="font-size: 1.1em; font-weight: 800;">Ver Perfil Completo en LinkedIn</span>
+            </a>
+          </li>
+
+          
           <li class="full-width-btn">
             <a href="mailto:sgardunoj1400@alumno.ipn.mx" class="contact-btn-pressable btn-email btn-email-rojo">
               <i class="fa-regular fa-envelope"></i>
@@ -1384,7 +1393,7 @@ footer.is-visible {
       </aside>
       <footer>
       <div class="footer-brand">
-        <a href="img/QRPD.png" target="_blank" title="Ver QR en grande">
+        <a href="img/QRPD.jpg" target="_blank" title="Ver QR en grande">
           <div class="sello"><img src="img/haku-logo.png" alt="Haku"></div>
         </a>
         <div style="color:var(--muted);font-size:13px">© <span id="year"></span> <span data-lang="footer-name">Sergio Garduño Jardón</span> · <span data-lang="footer-source">Hecho con GitHub Pages</span></div>
@@ -1474,6 +1483,7 @@ footer.is-visible {
           'acad-tech-title': 'Technician in Business Administration', 
           'acad-tech-dates': '2015 – 2018', 
           'contact-title': 'Contact', 
+          'btn-linkedin-title': 'View Full Profile on LinkedIn',
           'tech-skills-title': 'Technical Skills', 
           'soft-skills-title': 'Soft Skills', 
           'skill-cpp': 'C++ / Arduino', 
@@ -1487,7 +1497,7 @@ footer.is-visible {
           'soft-l3': 'Project planning and management', 
           'soft-l4': 'Teamwork', 
           'soft-l5': 'Adaptability', 
-          'soft-l6': 'Certification in progress: Inglés B2.', 
+          'soft-l6': 'Certification en proceso: Inglés B2.', 
           'footer-name': 'Sergio Garduño Jardón', 
           'footer-source': 'Made with GitHub Pages', 
           'footer-contact': 'Contact: sgj.cheko@gmail.com' 
@@ -1578,7 +1588,7 @@ footer.is-visible {
     }
     
     
-        /* ============================================= */
+    /* ============================================= */
     /* 1. Preloader con GIF y Texto Animado (Lógica) */
     /* ============================================= */
     
@@ -1675,6 +1685,7 @@ footer.is-visible {
     }
 
 
+
     
     
     /* ============================================= */
@@ -1763,7 +1774,7 @@ footer.is-visible {
         const avatarContainerMain = document.getElementById('avatar-container-main');
         const avatarImgMain = document.getElementById('avatar-img-main');
         const originalSrcMain = 'img/profilecv.png'; 
-        const qrSrcMain = 'img/QRPD.png'; 
+        const qrSrcMain = 'img/QRPD.jpg'; 
         let isQrModeMain = false;
         if (avatarContainerMain && avatarImgMain) {
           avatarContainerMain.addEventListener('click', () => {
@@ -1776,8 +1787,11 @@ footer.is-visible {
               }
               isQrModeMain = !isQrModeMain;
               // Actualiza el 'title' (tooltip) en función del idioma
-              const titleText = (currentLanguage === 'en') ? 'Click for QR' : 'Clic para QR';
-              avatarContainerMain.setAttribute('title', isQrModeMain ? ((currentLanguage === 'en') ? 'Click to return to photo' : 'Clic para volver a la foto') : titleText);
+              const titleKey = isQrModeMain ? 'clic-to-photo' : 'clic-to-qr';
+              avatarContainerMain.setAttribute('title', (currentLanguage === 'en') ? 'Click to return to photo' : 'Clic para volver a la foto');
+              if (!isQrModeMain) {
+                   avatarContainerMain.setAttribute('title', (currentLanguage === 'en') ? 'Click for QR' : 'Clic para QR');
+              }
           });
         }
 
@@ -1801,6 +1815,7 @@ footer.is-visible {
                 navigator.clipboard.writeText(fullText).then(() => {
                   const icon = copyBtnBottom.querySelector('i');
                   const span = copyBtnBottom.querySelector('span');
+                  const originalIconClass = 'fa-copy';
                   const originalText = translations[currentLanguage]['copy-btn-text'] || 'Copiar Texto'; 
 
                   if (icon) icon.className = 'fa-solid fa-check'; 
@@ -1808,7 +1823,7 @@ footer.is-visible {
                   copyBtnBottom.classList.add('copied'); 
 
                   setTimeout(() => {
-                    if (icon) icon.className = `fa-regular fa-copy`; 
+                    if (icon) icon.className = `fa-regular ${originalIconClass}`; 
                     if (span) span.textContent = originalText; 
                     copyBtnBottom.classList.remove('copied');
                   }, 1500);
@@ -1816,69 +1831,21 @@ footer.is-visible {
                 }).catch(err => {
                   console.error('Error al copiar texto con API: ', err);
                 });
-            } else {
-                // Fallback (solo para mantener la estructura si el navegador no soporta clipboard API)
-                try {
-                    const textArea = document.createElement('textarea');
-                    textArea.value = fullText;
-                    document.body.appendChild(textArea);
-                    textArea.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(textArea);
-                } catch (err) {
-                    console.error('Error al copiar texto con fallback: ', err);
-                }
-            }
+            } 
           });
         }
+
         
-        // 6. Listener del botón de Compartir
-        setupShareButtonListener();
-        
-        // 7. INICIO DEL PRELOADER (Se llama al final del DOMContentLoaded)
-        // 🚨 CRÍTICO: Debe llamarse aquí para asegurar que todo el DOM esté listo 🚨
+        // 1. Llama al preloader al final del DOMContentLoaded
+        // Solo inicia si el usuario NO tiene reducido movimiento
         if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            // Asegúrate de que el Preloader existe antes de intentar animar
-            if (document.getElementById('preloader')) {
-                animateText();
-            } else {
-                // Si el preloader fue eliminado del HTML, simplemente inicia el Typewriter
-                startTypewriterNameEffect(nameToType);
-            }
+            animateText();
         } else {
             // Si el movimiento está reducido, oculta el preloader inmediatamente
             hidePreloader(); 
         }
 
     }); // --- FIN DEL DOMContentLoaded ---
-    
-    /* ============================================= */
-    /* 🚨 NUEVA FUNCIÓN: Lógica de Compartir 🚨 */
-    /* ============================================= */
-    function setupShareButtonListener() {
-        const shareButton = document.getElementById('btn-share');
-        if (!shareButton) return;
-    
-        shareButton.addEventListener('click', () => {
-            const titleText = 'Sergio Garduño | Portafolio Digital';
-            
-            const shareData = {
-                title: titleText,
-                // MENSAJE PERSONALIZADO Y REQUERIDO
-                text: '¡Hola! Te invito a visitar mi Portafolio Digital y ver mis proyectos.', 
-                url: window.location.href 
-            };
-    
-            if (navigator.share) {
-                navigator.share(shareData)
-                    .catch((error) => console.error('Error al compartir:', error));
-            } else {
-                // Fallback a WhatsApp Web/App (se usa la URL de API para mejor compatibilidad)
-                const whatsappLink = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareData.text + " " + shareData.url)}`;
-                window.open(whatsappLink, '_blank');
-            }
-        });
-    }
 </script>
 </body>
 </html>
