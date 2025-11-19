@@ -52,19 +52,22 @@
   html { background-color: var(--bg-uniform); scroll-behavior: smooth; }
   *{box-sizing:border-box}
   html,body{height:100%;margin:0;padding:0}
-    body{
+  body{
     font-family:var(--font-sans);
     background: transparent;
     color:var(--fg);
     -webkit-font-smoothing:antialiased;
     -moz-osx-osx-font-smoothing:grayscale;
     line-height:1.5;
-    /* El padding se gestiona con el menú lateral */
-    padding-top: 28px; /* Aseguramos padding superior */
-    padding-bottom: 80px; /* <-- AJUSTE CLAVE: Añadir 80px de padding inferior */
-    padding-left: var(--menu-width-collapsed, 70px); /* Padding inicial para menú contraído */
+    /* --- CAMBIO CRÍTICO AQUI --- */
+    min-height: 100vh; /* Asegura que el body ocupe al menos la altura de la ventana */
+    /* --- FIN CAMBIO CRÍTICO --- */
+    padding-top: 28px; 
+    padding-bottom: 80px; /* Mantenemos el padding inferior */
+    padding-left: var(--menu-width-collapsed, 70px); 
     transition: padding-left 0.3s ease-in-out;
   }
+
 
 
   /* Clase que se añade al body cuando el menú está expandido */
@@ -315,18 +318,21 @@
     background: rgba(255, 87, 51, 0.1); /* Relleno naranja sutil */
   }
 
-  /* ESTILOS DEL CUERPO PRINCIPAL (MAIN CONTENT & ASIDE) */
   .hero{
     display:grid;
     grid-template-columns:1fr 360px; /* Columna principal y barra lateral */
     gap:28px;
     align-items:start;
     margin-bottom:28px;
+    /* --- CAMBIO CRÍTICO: Aseguramos que la grilla abarque la altura del contenido más largo --- */
+    align-items: stretch; 
+    /* --- FIN CAMBIO CRÍTICO --- */
   }
   
   /* --- CAMBIO AQUÍ (Clases añadidas) --- */
   .hero-main { display: flex; flex-direction: column; gap: 28px; }
-  .hero-aside { position: sticky; top: 28px; display: flex; flex-direction: column; gap: 28px; }
+  /* MANTENEMOS EL STICKY SOLO PARA VER SI EL CAMBIO DE ALIGN-ITEMS FUNCIONA PRIMERO */
+  .hero-aside { position: sticky; top: 28px; display: flex; flex-direction: column; gap: 28px; } 
 
   /* Estilos base para todas las tarjetas de contenido */
   .card{
