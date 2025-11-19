@@ -52,7 +52,7 @@
   html { background-color: var(--bg-uniform); scroll-behavior: smooth; }
   *{box-sizing:border-box}
   html,body{height:100%;margin:0;padding:0}
-  body{
+    body{
     font-family:var(--font-sans);
     background: transparent;
     color:var(--fg);
@@ -60,10 +60,12 @@
     -moz-osx-osx-font-smoothing:grayscale;
     line-height:1.5;
     /* El padding se gestiona con el menú lateral */
-    padding: 28px;
+    padding-top: 28px; /* Aseguramos padding superior */
+    padding-bottom: 80px; /* <-- AJUSTE CLAVE: Añadir 80px de padding inferior */
     padding-left: var(--menu-width-collapsed, 70px); /* Padding inicial para menú contraído */
     transition: padding-left 0.3s ease-in-out;
   }
+
 
   /* Clase que se añade al body cuando el menú está expandido */
   body.menu-expanded {
