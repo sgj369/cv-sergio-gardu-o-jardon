@@ -1578,7 +1578,7 @@ footer.is-visible {
     }
     
     
-    /* ============================================= */
+        /* ============================================= */
     /* 1. Preloader con GIF y Texto Animado (Lógica) */
     /* ============================================= */
     
@@ -1673,7 +1673,6 @@ footer.is-visible {
         // Inicia el tecleo después de una breve pausa
         setTimeout(typeChar, 100); 
     }
-
 
 
     
@@ -1826,7 +1825,6 @@ footer.is-visible {
                     textArea.select();
                     document.execCommand('copy');
                     document.body.removeChild(textArea);
-                    // No hay feedback visual en este fallback, solo la copia.
                 } catch (err) {
                     console.error('Error al copiar texto con fallback: ', err);
                 }
@@ -1838,15 +1836,21 @@ footer.is-visible {
         setupShareButtonListener();
         
         // 7. INICIO DEL PRELOADER (Se llama al final del DOMContentLoaded)
+        // 🚨 CRÍTICO: Debe llamarse aquí para asegurar que todo el DOM esté listo 🚨
         if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            animateText();
+            // Asegúrate de que el Preloader existe antes de intentar animar
+            if (document.getElementById('preloader')) {
+                animateText();
+            } else {
+                // Si el preloader fue eliminado del HTML, simplemente inicia el Typewriter
+                startTypewriterNameEffect(nameToType);
+            }
         } else {
+            // Si el movimiento está reducido, oculta el preloader inmediatamente
             hidePreloader(); 
         }
 
     }); // --- FIN DEL DOMContentLoaded ---
-    
-    // El resto de tu código JS original continúa aquí...
     
     /* ============================================= */
     /* 🚨 NUEVA FUNCIÓN: Lógica de Compartir 🚨 */
@@ -1869,107 +1873,11 @@ footer.is-visible {
                 navigator.share(shareData)
                     .catch((error) => console.error('Error al compartir:', error));
             } else {
-                // Fallback a WhatsApp Web/App
+                // Fallback a WhatsApp Web/App (se usa la URL de API para mejor compatibilidad)
                 const whatsappLink = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareData.text + " " + shareData.url)}`;
                 window.open(whatsappLink, '_blank');
             }
         });
-    }
-
-    
-    /* ============================================= */
-    /* 1. Preloader con GIF y Texto Animado (Lógica) */
-    /* ============================================= */
-    
-    const preloader = document.getElementById('preloader');
-    const loadingTextContainer = document.getElementById('loading-text-container');
-    const maxRepeats = 2; // Número de veces que se repite la animación de texto
-    let repeatCount = 0;
-    const nameToType = "Sergio Garduño Jardón"; // Nombre para el efecto Typewriter
-    
-    // Función de animación del texto "Cargando"
-    function animateText() {
-        if (!loadingTextContainer) return;
-        
-        // Crea los <span> para cada letra la primera vez
-        if (loadingTextContainer.children.length === 0) {
-            const text = loadingTextContainer.textContent;
-            loadingTextContainer.textContent = ''; // Limpia el texto original
-            text.split('').forEach((char, index) => {
-                const span = document.createElement('span');
-                span.textContent = char;
-                span.style.transitionDelay = `${index * 0.08}s`; // Retraso escalonado
-                loadingTextContainer.appendChild(span);
-            });
-        }
-
-        // Ejecuta la animación
-        loadingTextContainer.classList.add('animate');
-
-        // Espera a que la animación termine (depende del número de letras y el delay)
-        const totalDelay = loadingTextContainer.children.length * 80 + 300; // Total de delay + un extra
-
-        setTimeout(() => {
-            loadingTextContainer.classList.remove('animate'); // Quita la clase para reiniciar
-            
-            repeatCount++;
-            if (repeatCount < maxRepeats) {
-                // Espera un momento antes de la siguiente repetición
-                setTimeout(animateText, 500); 
-            } else {
-                // Termina y oculta el preloader
-                hidePreloader();
-            }
-        }, totalDelay);
-    }
-    
-    // Función para ocultar el preloader y empezar la página
-    function hidePreloader() {
-        if (preloader) {
-            preloader.classList.add('hidden');
-            document.body.classList.add('loaded'); // Útil si quieres más animaciones al cargar
-            startTypewriterNameEffect(nameToType); // Inicia el efecto Typewriter
-            // Limpieza después de que la transición CSS termine
-            setTimeout(() => {
-                preloader.style.display = 'none';
-            }, 500);
-        } else {
-             // Si no hay preloader, inicia directamente el typewriter
-            startTypewriterNameEffect(nameToType);
-        }
-    }
-    
-    
-    /* ============================================= */
-    /* 3. Efecto de Tecleo (Typewriter) (Lógica) - VERSIÓN POR CARÁCTER (FINAL) */
-    /* ============================================= */
-        
-    function startTypewriterNameEffect(name) {
-        // 1. Busca el elemento por el ID
-        const typewriterElement = document.getElementById('typewriter-name-container');
-        if (!typewriterElement) return;
-    
-        // CRÍTICO: Prepara el elemento
-        typewriterElement.textContent = ''; // Asegura que esté VACÍO antes de empezar
-        typewriterElement.classList.add('typewriter-title');
-        typewriterElement.classList.add('visible'); // Lo hace visible (opacity: 1)
-        
-        // 2. Lógica de tecleo
-        let charIndex = 0;
-        const typingSpeed = 75; // Velocidad en milisegundos
-    
-        function typeChar() {
-            if (charIndex < name.length) {
-                typewriterElement.textContent += name.charAt(charIndex);
-                charIndex++;
-                setTimeout(typeChar, typingSpeed);
-            } else {
-                // Cuando termina, oculta el cursor
-                typewriterElement.style.borderRight = 'none'; 
-            }
-        }      
-        // Inicia el tecleo después de una breve pausa
-        setTimeout(typeChar, 100); 
     }
 </script>
 </body>
