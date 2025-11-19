@@ -59,11 +59,16 @@
     -webkit-font-smoothing:antialiased;
     -moz-osx-osx-font-smoothing:grayscale;
     line-height:1.5;
-    /* El padding se gestiona con el menú lateral */
-    padding: 28px;
-    padding-left: var(--menu-width-collapsed, 70px); /* Padding inicial para menú contraído */
+    /* --- CAMBIO CRÍTICO AQUI --- */
+    min-height: 100vh; /* Asegura que el body ocupe al menos la altura de la ventana */
+    /* --- FIN CAMBIO CRÍTICO --- */
+    padding-top: 28px; 
+    padding-bottom: 80px; /* Mantenemos el padding inferior */
+    padding-left: var(--menu-width-collapsed, 70px); 
     transition: padding-left 0.3s ease-in-out;
   }
+
+
 
   /* Clase que se añade al body cuando el menú está expandido */
   body.menu-expanded {
@@ -218,7 +223,7 @@
   .title{
     /* ESTOS ESTILOS BASE SON PARA EL EFECTO TYPEWRITER. EL JS SE ENCARGA DEL RESTO */
     font-weight:900;
-    font-size:36px; 
+    font-size:30px; 
     color: #000; /* Relleno Negro */
     text-shadow: /* Contorno Blanco */
         -1px -1px 0 var(--fg),  
@@ -313,18 +318,21 @@
     background: rgba(255, 87, 51, 0.1); /* Relleno naranja sutil */
   }
 
-  /* ESTILOS DEL CUERPO PRINCIPAL (MAIN CONTENT & ASIDE) */
   .hero{
     display:grid;
     grid-template-columns:1fr 360px; /* Columna principal y barra lateral */
     gap:28px;
     align-items:start;
     margin-bottom:28px;
+    /* --- CAMBIO CRÍTICO: Aseguramos que la grilla abarque la altura del contenido más largo --- */
+    align-items: stretch; 
+    /* --- FIN CAMBIO CRÍTICO --- */
   }
   
   /* --- CAMBIO AQUÍ (Clases añadidas) --- */
   .hero-main { display: flex; flex-direction: column; gap: 28px; }
-  .hero-aside { position: sticky; top: 28px; display: flex; flex-direction: column; gap: 28px; }
+  /* MANTENEMOS EL STICKY SOLO PARA VER SI EL CAMBIO DE ALIGN-ITEMS FUNCIONA PRIMERO */
+  .hero-aside { position: sticky; top: 28px; display: flex; flex-direction: column; gap: 28px; } 
 
   /* Estilos base para todas las tarjetas de contenido */
   .card{
@@ -785,6 +793,12 @@
   #contacto .btn-x:hover { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5); } 
   #contacto .btn-x i { color: var(--fg); }
 
+  #contacto .btn-x span {
+    font-size: 0.85em; /* Reduce el tamaño de la fuente para que quepa en una línea */
+    white-space: nowrap; /* Asegura que el texto no se rompa */
+  }
+  
+
   
   #contacto .btn-facebook { background: #1877F2; color: var(--fg); }
   #contacto .btn-facebook:hover { box-shadow: 0 8px 25px rgba(24, 119, 242, 0.3); }
@@ -850,7 +864,7 @@
 
   
   @media (max-width: 480px) { /* Móvil pequeño */
-      .title { font-size: 28px; }
+      .title { font-size: 24px; }
       .avatar { width: 70px; height: 70px; }
      }
      
