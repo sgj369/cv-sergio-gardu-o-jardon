@@ -777,10 +777,10 @@
   #contacto .btn-github:hover { box-shadow: 0 8px 25px rgba(153, 51, 204, 0.3); }
   #contacto .btn-github i { color: var(--fg); }
 
-  #contacto .btn-linkedin { background: var(--accent-blue); color: var(--fg); }
-  #contacto .btn-linkedin:hover { box-shadow: 0 8px 25px rgba(0, 119, 182, 0.3); }
-  #contacto .btn-linkedin i { color: var(--fg); }
-
+  #contacto .btn-x { background: #000000; color: var(--fg); } /* Fondo Negro */
+  #contacto .btn-x:hover { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5); } /* Sombra Negra */
+  #contacto .btn-x i { color: var(--fg); }
+  
   #contacto .btn-facebook { background: #1877F2; color: var(--fg); }
   #contacto .btn-facebook:hover { box-shadow: 0 8px 25px rgba(24, 119, 242, 0.3); }
   #contacto .btn-facebook i { color: var(--fg); }
@@ -1377,19 +1377,18 @@ footer.is-visible {
         <ul class="contact-list"> 
 
           <li class="full-width-btn">
+            <a href="https://www.linkedin.com/in/gardu%C3%B1o-jardon-sergio-264b582b0" target="_blank" rel="noopener" class="contact-btn-pressable btn-linkedin" style="background: var(--accent-blue); color: var(--fg); border: 2px solid var(--accent-gold);">
+              <i class="fa-brands fa-linkedin"></i>
+              <span data-lang="btn-linkedin-title" style="font-size: 1.1em; font-weight: 800;">Ver Perfil de LinkedIn</span>
+            </a>
+          </li>
+          
+          <li class="full-width-btn">
             <a href="mailto:sgj.cheko@gmail.com" class="contact-btn-pressable btn-email">
               <i class="fa-regular fa-envelope"></i>
               <span>sgj.cheko@gmail.com</span>
             </a>
-          </li>
-
-            <li class="full-width-btn">
-            <a href="https://www.linkedin.com/in/gardu%C3%B1o-jardon-sergio-264b582b0" target="_blank" rel="noopener" class="contact-btn-pressable btn-linkedin" style="background: var(--accent-blue); color: var(--fg); border: 2px solid var(--accent-gold);">
-              <i class="fa-brands fa-linkedin"></i>
-              <span data-lang="btn-linkedin-title" style="font-size: 1.1em; font-weight: 800;">Ver Perfil Completo en LinkedIn</span>
-            </a>
-          </li>
-
+          </li> 
           
           <li class="full-width-btn">
             <a href="mailto:sgardunoj1400@alumno.ipn.mx" class="contact-btn-pressable btn-email btn-email-rojo">
@@ -1410,9 +1409,9 @@ footer.is-visible {
                 </a>
               </li>
               <li>
-                <a href="https://www.linkedin.com/in/gardu%C3%B1o-jardon-sergio-264b582b0" target="_blank" rel="noopener" class="contact-btn-pressable btn-linkedin">
-                  <i class="fa-brands fa-linkedin"></i>
-                  <span>LinkedIn</span>
+                <a href="#" target="_blank" rel="noopener" class="contact-btn-pressable btn-x">
+                  <i class="fa-brands fa-x-twitter"></i>
+                  <span>X (Twitter)</span>
                 </a>
               </li>
               <li>
