@@ -218,7 +218,7 @@
   .title{
     /* ESTOS ESTILOS BASE SON PARA EL EFECTO TYPEWRITER. EL JS SE ENCARGA DEL RESTO */
     font-weight:900;
-    font-size:36px; 
+    font-size:30px; 
     color: #000; /* Relleno Negro */
     text-shadow: /* Contorno Blanco */
         -1px -1px 0 var(--fg),  
@@ -785,6 +785,12 @@
   #contacto .btn-x:hover { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5); } 
   #contacto .btn-x i { color: var(--fg); }
 
+  #contacto .btn-x span {
+    font-size: 0.85em; /* Reduce el tamaño de la fuente para que quepa en una línea */
+    white-space: nowrap; /* Asegura que el texto no se rompa */
+  }
+  
+
   
   #contacto .btn-facebook { background: #1877F2; color: var(--fg); }
   #contacto .btn-facebook:hover { box-shadow: 0 8px 25px rgba(24, 119, 242, 0.3); }
@@ -850,7 +856,7 @@
 
   
   @media (max-width: 480px) { /* Móvil pequeño */
-      .title { font-size: 28px; }
+      .title { font-size: 24px; }
       .avatar { width: 70px; height: 70px; }
      }
      
