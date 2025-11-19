@@ -6,6 +6,12 @@
   <title>Sergio Garduño Jardón — CV & Portfolio</title>
   <meta name="description" content="Ingeniero mecatrónico orientado a la sostenibilidad y sistemas inteligentes. IoT, datos, energía solar y proyectos ambientales." />
 
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://sgj369.github.io/cv-sergio-gardu-o-jardon/" />
+  <meta property="og:title" content="Sergio Garduño | Portafolio Digital" />
+  <meta property="og:description" content="Ingeniero Mecatrónico. Conoce mis proyectos, trayectoria y soluciones IoT." />
+  <meta property="og:image" content="https://sgj369.github.io/cv-sergio-gardu-o-jardon/img/QRPD.jpg" />
+  
   <link rel="icon" href="img/INDEX-HAKU.png" type="image/x-icon">
   <meta name="theme-color" content="#072d16">
 
@@ -1074,7 +1080,10 @@ footer.is-visible {
       <i class="fa-solid fa-chevron-right"></i>
       <i class="fa-solid fa-chevron-left"></i>
     </button>
-     <div class="lang-switcher">
+    <button id="share-button-main" title="Compartir Portafolio" style="background: none; border: none; color: var(--fg); font-size: 1.5em; cursor: pointer; padding: 10px 23px;">
+      <i class="fa-solid fa-share-nodes"></i>
+    </button>
+      <div class="lang-switcher">
       <button onclick="translatePage('es')" id="flag-es" class="active">🇲🇽</button>
       <button onclick="translatePage('en')" id="flag-en">🇺🇸</button>
     </div>
@@ -1683,11 +1692,38 @@ footer.is-visible {
         // Inicia el tecleo después de una breve pausa
         setTimeout(typeChar, 100); 
     }
-
-
-
     
-    
+    /* ============================================= */
+    /* 5. Lógica del Botón de Compartir */
+    /* ============================================= */
+
+    function setupShareButton() {
+        const shareButton = document.getElementById('share-button-main');
+
+        if (shareButton && navigator.share) {
+            shareButton.addEventListener('click', () => {
+                let shareUrl = window.location.href.split('#')[0]; // URL limpia sin hash
+
+                // Objeto de datos para compartir
+                const shareData = {
+                    title: 'Sergio Garduño | Portafolio Digital',
+                    text: '¡Hola! Te invito a visitar mi Portafolio Digital y ver mis proyectos.',
+                    url: shareUrl,
+                };
+
+                navigator.share(shareData)
+                    .then(() => console.log('Página compartida con éxito.'))
+                    .catch((error) => console.error('Error al compartir:', error));
+            });
+        } else if (shareButton) {
+            // Si el navegador no soporta la API Share (desktop), se puede añadir una solución alternativa aquí
+            console.log('API Web Share no soportada.');
+            // Opcional: Ocultar o cambiar el botón en navegadores no compatibles
+            // shareButton.style.display = 'none';
+        }
+    }
+
+  
     /* ============================================= */
     /* 4. Animación de Entrada (Aparecer al Bajar) (Lógica) */
     /* ============================================= */
@@ -1768,7 +1804,8 @@ footer.is-visible {
     
         // 4. Inicia el observador de animaciones de scroll
         setupCardAnimations();
-
+        // 5. Inicia el botón de compartir
+        setupShareButton();
 
         // --- Efecto Flip Cabecera ---
         const avatarContainerMain = document.getElementById('avatar-container-main');
