@@ -6,11 +6,6 @@
   <title>Sergio Garduño Jardón — CV & Portfolio</title>
   <meta name="description" content="Ingeniero mecatrónico orientado a la sostenibilidad y sistemas inteligentes. IoT, datos, energía solar y proyectos ambientales." />
 
-  <meta property="og:title" content="Sergio Garduño | Portafolio Digital" />
-  <meta property="og:description" content="Ingeniero Mecatrónico. Conoce mis proyectos, trayectoria y soluciones IoT." />
-  <meta property="og:image" content="https://sgj369.github.io/cv-sergio-gardu-o-jardon/img/QRPD.jpg" />
-  <meta property="og:url" content="https://sgj369.github.io/cv-sergio-gardu-o-jardon/" />
-  <meta property="og:type" content="website" />
   <link rel="icon" href="img/INDEX-HAKU.png" type="image/x-icon">
   <meta name="theme-color" content="#072d16">
 
@@ -30,6 +25,7 @@
     --accent-purple: #9933cc; /* Morado (Proyectos, Formación) */
     --accent-gold: #FFD700; /* Dorado (Logros, Habilidades Blandas) */
     
+    /* --- CAMBIO AQUÍ --- */
     --accent-emerald: #2E8B57; /* NUEVO: Verde Esmeralda (Experiencia) */
     
     --accent-guinda: #900030; /* Guinda/Borgoña para el título IPN */
@@ -62,11 +58,6 @@
     padding-left: var(--menu-width-collapsed, 70px); /* Padding inicial para menú contraído */
     transition: padding-left 0.3s ease-in-out;
   }
-  
-  /* Clase que se añade al body cuando el preloader termina (para mantener padding inicial) */
-  body.loaded {
-    padding-left: var(--menu-width-collapsed); 
-  }
 
   /* Clase que se añade al body cuando el menú está expandido */
   body.menu-expanded {
@@ -76,29 +67,25 @@
   .wrap{
     max-width:var(--maxw);
     margin:0 auto;
-    position:relative; 
+    position:relative; /* Mantenemos relative para futuras alineaciones */
     padding: 0 10px;
   }
 
 
-    /* ESTILOS DEL SELECTOR DE IDIOMA (DENTRO DEL MENÚ LATERAL) */
+    /* ESTILOS DEL SELECTOR DE IDIOMA (FIJO EN PANTALLA) */
   .lang-switcher {
-     /* Posicionado en el menú lateral */
-    bottom: 20px; 
-    left: 0;
+     /* FIJO en la pantalla */
+    top: 40px; 
+    right: 60px; /* Más separado del borde */
     z-index: 1000;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding-left: 23px;
-    width: 100%;
-    position: absolute; /* Ajuste para que se mantenga fijo al fondo del menú */
   }
   .lang-switcher button {
     background: var(--card-bg); color: var(--fg); border: 1px solid var(--accent-gold);
     padding: 5px 10px; border-radius: 8px; cursor: pointer; font-size: 1.5em; 
     line-height: 1; transition: background-color 0.2s; opacity: 0.8;
-    width: fit-content;
   }
   .lang-switcher button:hover { opacity: 1; background: rgba(255, 215, 0, 0.1); }
   .lang-switcher button.active { border-color: var(--accent-red); background: rgba(255, 51, 102, 0.1); }
@@ -106,17 +93,12 @@
   .lang-switcher button.active {
     display: none;
   }
-  .side-navbar.expanded .lang-switcher button { width: auto; }
-
 
   /* Ajuste responsive para móviles */
    @media (max-width:600px){
      .lang-switcher { 
-       top: auto;
-       bottom: 15px;
-       right: auto;
-       left: 10px;
-       flex-direction: row; /* Horizontal en móvil */
+       top: 300px; 
+       right: 300px; 
      }
    }
 
@@ -130,15 +112,16 @@
     border-radius: var(--radius);
     box-shadow: 0 10px 30px rgba(0,0,0,0.4);
   
+    /* --- CAMBIOS AQUÍ --- */
     display: flex;
-    flex-direction: column; 
-    align-items: center;    
-    gap: 15px;             
-    padding: 25px 20px;    
+    flex-direction: column; /* Apila verticalmente */
+    align-items: center;    /* Centra horizontalmente */
+    gap: 15px;             /* Espacio entre foto, nombre y botones */
+    padding: 25px 20px;    /* Padding ajustado */
   }
 
 
-    /* Línea blanca para el header */
+    /* --- CAMBIO AQUÍ: Línea blanca para el header --- */
   .main-header-card::after {
       content: '';
       position: absolute;
@@ -159,22 +142,22 @@
   .brand{ display:flex; align-items:center; gap:14px; flex-shrink: 0; }
     /* Estilos del Avatar (Ahora circular y con modo QR) */
 .avatar{
-  width: 120px; 
+  width: 120px; /* Más grande */
   height: 120px;
-  border-radius: 50%; 
+  border-radius: 50%; /* Circular */
   overflow:hidden;
-  border: 3px solid var(--fg); 
-  box-shadow:0 0 20px rgba(238, 241, 240, 0.6); 
+  border: 3px solid var(--fg); /* Borde un poco más grueso */
+  box-shadow:0 0 20px rgba(238, 241, 240, 0.6); /* Sombra más pronunciada */
   cursor: pointer; 
   transition: all 0.3s ease-in-out; 
-  margin-bottom: 5px; 
+  margin-bottom: 5px; /* Pequeño espacio debajo */
 }
     .avatar:hover {
       transform: scale(1.05);
     }
     /* Estilos para el QR */
     .avatar.qr-mode {
-      border-radius: var(--radius); 
+      border-radius: var(--radius); /* Cuadrado para el QR */
       border-color: var(--accent-green);
       transform: scale(1.1);
     }
@@ -186,12 +169,13 @@
     }
 
   
-     /* Nombre contorno blanco y relleno negro */
+     /* --- CAMBIO AQUÍ: Nombre contorno blanco y relleno negro --- */
   .title{
+    /* ESTOS ESTILOS BASE SON PARA EL EFECTO TYPEWRITER. EL JS SE ENCARGA DEL RESTO */
     font-weight:900;
     font-size:36px; 
-    color: #000; 
-    text-shadow: 
+    color: #000; /* Relleno Negro */
+    text-shadow: /* Contorno Blanco */
         -1px -1px 0 var(--fg),  
          1px -1px 0 var(--fg),
         -1px  1px 0 var(--fg),
@@ -201,10 +185,12 @@
  
  
 
-    /* Botón Relleno Blanco (Para Ver CV) */
+    /* --- CAMBIO AQUÍ: Reemplazamos .btn-clean-gold por estos dos --- */
+
+  /* Botón Relleno Blanco (Para Ver CV) */
   .btn-fill-white {
     background: var(--fg);
-    color: #333; 
+    color: #333; /* Texto oscuro */
     border: 2px solid var(--fg);
     padding: 8px 12px;
     border-radius: 10px;
@@ -218,7 +204,7 @@
     box-shadow: 0 4px 15px rgba(238, 241, 240, 0.2);
   }
   .btn-fill-white:hover { 
-    background: #cdd1d0; 
+    background: #cdd1d0; /* Un gris claro al pasar el ratón */
     border-color: #cdd1d0;
     box-shadow: 0 6px 20px rgba(238, 241, 240, 0.4);
     transform: translateY(-1px);
@@ -240,10 +226,10 @@
     flex-shrink: 0;
   }
   .btn-outline-white:hover { 
-    background: rgba(238, 241, 240, 0.1); 
+    background: rgba(238, 241, 240, 0.1); /* Relleno blanco sutil */
   }
 
-    /* Botón Azul Contorno */
+    /* --- AÑADE ESTO (Botón Azul Contorno) --- */
   .btn-clean-secondary {
     background: transparent; 
     border: 2px solid var(--accent-blue); 
@@ -259,7 +245,7 @@
     flex-shrink: 0;
   }
   .btn-clean-secondary:hover { 
-    background: rgba(0, 119, 182, 0.1); 
+    background: rgba(0, 119, 182, 0.1); /* Relleno azul sutil */
   }
 
 
@@ -279,7 +265,7 @@
     flex-shrink: 0;
   }
   .btn-outline-orange:hover { 
-    background: rgba(255, 87, 51, 0.1); 
+    background: rgba(255, 87, 51, 0.1); /* Relleno naranja sutil */
   }
 
   /* ESTILOS DEL CUERPO PRINCIPAL (MAIN CONTENT & ASIDE) */
@@ -291,6 +277,7 @@
     margin-bottom:28px;
   }
   
+  /* --- CAMBIO AQUÍ (Clases añadidas) --- */
   .hero-main { display: flex; flex-direction: column; gap: 28px; }
   .hero-aside { position: sticky; top: 28px; display: flex; flex-direction: column; gap: 28px; }
 
@@ -303,7 +290,8 @@
     border-left: 5px solid; /* Borde izquierdo base (color se aplica por ID) */
   }
   .card:hover { 
-    transform: translateY(0); 
+    /*box-shadow: 0 0 15px rgba(255,255,255,0.1); */ /* Eliminado para no interferir con el pulso */
+    transform: translateY(0); /* Evita saltos en hover */
   }
 
   /* Línea decorativa derecha */
@@ -313,7 +301,8 @@
       border-top-right-radius: var(--radius); z-index: 1; 
   }
     
-  /* --- REFACTOR DE COLORES POR SECCIÓN ID --- */
+  /* --- CAMBIO AQUÍ (REFACTOR DE COLORES POR SECCIÓN ID) --- */
+  /* Todas las reglas nth-of-type fueron eliminadas */
   
   /* Perfil (Azul) */
   #perfil { border-left-color: var(--accent-blue); } 
@@ -322,35 +311,35 @@
 
     /* --- ESTILOS PARA LA CARTA DESPLEGABLE DENTRO DEL PERFIL --- */
   .inner-details {
-    margin-top: 15px; 
-    border-top: 1px solid var(--card-border); 
+    margin-top: 15px; /* Espacio extra arriba */
+    border-top: 1px solid var(--card-border); /* Línea separadora sutil */
     padding-top: 15px;
   }
 
    /* --- ESTILOS PARA EL BOTÓN COPIAR DENTRO DE LA CARTA --- */
   .copy-button-container {
-    text-align: right; 
-    margin-top: 15px; 
+    text-align: right; /* Alinea el botón a la derecha */
+    margin-top: 15px; /* Espacio arriba del botón */
   }
   
   .btn-copy-carta {
     background-color: transparent;
-    border: 1px solid var(--accent-gold); 
-    color: var(--accent-gold); 
+    border: 1px solid var(--accent-gold); /* Borde dorado */
+    color: var(--accent-gold); /* Texto dorado */
     padding: 6px 12px;
     border-radius: 8px;
     font-weight: 600;
-    font-family: var(--font-sans); 
+    font-family: var(--font-sans); /* Asegura la misma fuente */
     cursor: pointer;
     transition: all 0.2s ease;
-    font-size: 0.9em; 
+    font-size: 0.9em; /* Un poco más pequeño */
   }
   .btn-copy-carta:hover {
-    background-color: rgba(255, 215, 0, 0.1); 
+    background-color: rgba(255, 215, 0, 0.1); /* Relleno dorado sutil */
     box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
   }
   .btn-copy-carta:active {
-    transform: scale(0.98); 
+    transform: scale(0.98); /* Efecto al presionar */
   }
   
   /* Estilo temporal al copiar (check verde) */
@@ -364,19 +353,19 @@
   
   .inner-summary {
     cursor: pointer;
-    display: inline-flex; 
+    display: inline-flex; /* Para alinear icono y texto */
     align-items: center;
     font-weight: 700;
-    color: var(--accent-gold); 
-    margin-bottom: 10px; 
-    list-style: none; 
+    color: var(--accent-gold); /* Color dorado */
+    margin-bottom: 10px; /* Espacio antes del contenido si está abierto */
+    list-style: none; /* Quita el marcador de <details> */
     transition: opacity 0.2s ease;
   }
   .inner-summary:hover {
     opacity: 0.8;
   }
   .inner-summary::-webkit-details-marker { 
-    display: none; 
+    display: none; /* Quita el marcador en Chrome/Safari */
   }
   
   /* Flecha desplegable (similar a las secciones principales) */
@@ -392,24 +381,24 @@
   }
   
   .inner-content {
-    padding-left: 22px; 
-    color: var(--fg); 
-    opacity: 0.9; 
+    padding-left: 22px; /* Indentación ligera para el texto */
+    color: var(--fg); /* Asegura color de texto principal */
+    opacity: 0.9; /* Un poco más suave que el texto principal */
   }
   /* --- FIN ESTILOS CARTA DESPLEGABLE --- */
 
 
   /* Proyectos (Morado) */
   #proyectos > summary { color: var(--accent-purple); border-color: rgba(153, 51, 204, 0.3); }
-  #proyectos .section-content .card { border-left-color: var(--accent-purple); opacity: 1; transform: none; } 
+  #proyectos .section-content .card { border-left-color: var(--accent-purple); opacity: 1; transform: none; } /*Hijos no se animan*/
   #proyectos .section-content .card::after { background: var(--accent-purple); }
-  #proyectos .section-content .card strong { color: var(--fg); } 
+  #proyectos .section-content .card strong { color: var(--fg); } /* Títulos internos blancos */
 
   /* Experiencia (Verde Esmeralda) */
   #experiencia > summary { color: var(--accent-emerald); border-color: rgba(46, 139, 87, 0.3); }
   #experiencia .section-content .card { border-left-color: var(--accent-emerald); opacity: 1; transform: none; }
   #experiencia .section-content .card::after { background: var(--accent-emerald); }
-  #experiencia .section-content .card strong { color: var(--fg); } 
+  #experiencia .section-content .card strong { color: var(--fg); } /* Títulos internos blancos */
 
   /* Logros (Dorado) */
   #logros > summary { color: var(--accent-gold); border-color: rgba(255, 215, 0, 0.3); }
@@ -452,6 +441,8 @@
   .skill-pill { color: var(--fg); padding: 6px 10px; border-radius: 6px; margin: 4px; display: inline-block; font-size: 14px; border: 1px solid rgba(255,255,255,0.15); }
   .skills { display: flex; flex-wrap: wrap; margin-top: 10px; }
 
+  /* --- CAMBIO AQUÍ (Estilos de Títulos de Sección) --- */
+  
   /* Títulos de sección (h2 dentro de summary) */
   h2.section{
     font-size:18px; margin: 0; font-weight:800; 
@@ -1436,6 +1427,9 @@ footer.is-visible {
           'carta-p3': 'Beyond the technical, he is passionate about learning more about flora and fauna, connecting with actors generating pro-planet actions through the <strong>ECOGAIASOS</strong> project, and actively participating in cleanup or habitat restoration events like reforestation. Sergio firmly believes that action combined with the right knowledge always yields better results.',
           'copy-btn-text': 'Copy Text', 
           'btn-download-carta-text': 'Download PDF', 
+          'carta-p1': 'Introducing Sergio Garduño Jardón, a Mechatronics Engineer from IPN UPIITA convinced that technology and nature can and must coexist. His passion for life and the environment drives him to find innovative ways to use knowledge to aid our planet, specializing in the development of <strong>IoT systems for ecological monitoring</strong>.',
+          'carta-p2': 'Sergio designs and develops systems that allow us to \'listen\' to the environment\'s needs. A clear example is his thesis project on <strong>green roofs</strong>, where he implemented a complete autonomous monitoring system—from hardware with ESP32 and sensors to data analysis—demonstrating how technology can validate and enhance sustainable solutions. His goal is to continue applying mechatronics, programming, and data to projects that generate a positive environmental impact.',
+          'carta-p3': 'Beyond the technical, he is passionate about learning more about flora and fauna, connecting with actors generating pro-planet actions through the <strong>ECOGAIASOS</strong> project, and actively participating in cleanup or habitat restoration events like reforestation. Sergio firmly believes that action combined with the right knowledge always yields better results.',
           'btn-view-cv-text': 'View CV', 
           'btn-download-cv-text': 'Download CV', 
           'proyectos-title': 'Personal Projects',
@@ -1496,8 +1490,7 @@ footer.is-visible {
           'soft-l6': 'Certification in progress: Inglés B2.', 
           'footer-name': 'Sergio Garduño Jardón', 
           'footer-source': 'Made with GitHub Pages', 
-          'footer-contact': 'Contact: sgj.cheko@gmail.com',
-          'btn-share-text': 'Share', 
+          'footer-contact': 'Contact: sgj.cheko@gmail.com' 
         },
         'es': { 
           'nav-profile': 'Perfil',
@@ -1520,7 +1513,6 @@ footer.is-visible {
           'carta-p1': 'Sergio Garduño Jardón es Ingeniero Mecatrónico por el IPN de UPIITA convencido de que que la tecnología y la naturaleza pueden y deben coexistir. Su pasión por la vida y el medio ambiente lo impulsa a buscar formas innovadoras de utilizar el conocimiento para auxiliar a nuestro planeta, especializándose en el desarrollo de sistemas <strong>IoT para el monitoreo ecológico</strong>.',
           'carta-p2': 'Sergio diseña y desarrolla sistemas que nos permiten \'escuchar\' las necesidades del entorno. Un claro ejemplo es su proyecto de tesis sobre <strong>techos verdes</strong>, donde implementó un sistema de monitoreo autónomo completo —desde el hardware con ESP32 y sensores, hasta el análisis de datos— demostrando cómo la tecnología puede validar y potenciar soluciones sostenibles. Su objetivo es seguir aplicando la mecatrónica, la programación y los datos en proyectos que generen un impacto ambiental positivo.',
           'carta-p3': 'Más allá de lo técnico, le apasiona conocer mas sobre flora y fauna, además de conectar con actores por medio del proyecto <strong>ECOGAIASOS</strong> que generan acciones en pro del planeta y participar activamente en eventos de limpieza o restauración de hábitats. Sergio cree firmemente que la acción combinada con el conocimiento adecuado siempre tendrá un mejor resultado.',
-          'btn-share-text': 'Compartir',
         }
     };
 
