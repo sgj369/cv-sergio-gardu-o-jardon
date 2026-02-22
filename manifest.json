@@ -1,42 +1,52 @@
 {
-  "name": "Sergio Garduño Jardón — Portafolio",
-  "short_name": "Sergio SGJ",
-  "description": "Portafolio digital de Sergio Garduño Jardón, Ingeniero Mecatrónico especializado en IoT y sostenibilidad.",
-  "start_url": "/cv-sergio-gardu-o-jardon/",
-  "scope": "/cv-sergio-gardu-o-jardon/",
-  "display": "standalone",
-  "background_color": "#333333",
-  "theme_color": "#072d16",
-  "lang": "es",
-  "orientation": "portrait-primary",
-  "icons": [
-    {
-      "src": "img/INDEX-HAKU.webp",
-      "sizes": "192x192",
-      "type": "image/webp",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "img/INDEX-HAKU.webp",
-      "sizes": "512x512",
-      "type": "image/webp",
-      "purpose": "any"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "Tarjeta Digital",
-      "short_name": "TD",
-      "description": "Abre la tarjeta digital de contacto",
-      "url": "/cv-sergio-gardu-o-jardon/TD.html",
-      "icons": [{ "src": "img/DT-HAKU.webp", "sizes": "96x96" }]
-    },
-    {
-      "name": "Ver CV",
-      "short_name": "CV",
-      "description": "Abre el visor del CV en PDF",
-      "url": "/cv-sergio-gardu-o-jardon/cv_viewer.html",
-      "icons": [{ "src": "img/profilecv.webp", "sizes": "96x96" }]
-    }
-  ]
+    "name": "Sergio Garduño — Tarjeta Digital",
+    "short_name": "Sergio SGJ",
+    "description": "Tarjeta digital de contacto de Sergio Garduño Jardón, Ingeniero Mecatrónico.",
+    "start_url": "/cv-sergio-gardu-o-jardon/TD.html",
+    "scope": "/cv-sergio-gardu-o-jardon/",
+    "display": "standalone",
+    "background_color": "#333333",
+    "theme_color": "#072d16",
+    "lang": "es",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "img/INDEX-HAKU.webp",
+            "sizes": "192x192",
+            "type": "image/webp",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "img/INDEX-HAKU.webp",
+            "sizes": "512x512",
+            "type": "image/webp",
+            "purpose": "any"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Tarjeta Digital",
+            "short_name": "TD",
+            "description": "Abre la tarjeta digital de contacto",
+            "url": "/cv-sergio-gardu-o-jardon/TD.html",
+            "icons": [
+                {
+                    "src": "img/DT-HAKU.webp",
+                    "sizes": "96x96"
+                }
+            ]
+        },
+        {
+            "name": "Ver CV",
+            "short_name": "CV",
+            "description": "Abre el visor del CV en PDF",
+            "url": "/cv-sergio-gardu-o-jardon/cv_viewer.html",
+            "icons": [
+                {
+                    "src": "img/profilecv.webp",
+                    "sizes": "96x96"
+                }
+            ]
+        }
+    ]
 }

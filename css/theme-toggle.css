@@ -1,103 +1,81 @@
 /* ================================================================
-   dark-light-toggle.css — Toggle Dark/Light mode
-   Importado desde index.css al final
+   fixes-light-mode.css — Correcciones de contraste en modo claro
+   Se importa al final de index.css via index.html
    ================================================================ */
 
-/* ── Variables modo claro ── */
-:root[data-theme="light"] {
-    --bg-uniform: #f0f0f0;
-    --fg: #1a1a2e;
-    --muted: #555;
-    --card-bg: rgba(255, 255, 255, 0.92);
-    --card-border: rgba(0, 0, 0, 0.12);
-
-    /* Acentos se mantienen igual pero ligeramente más oscuros */
-    --accent-blue: #005f99;
-    --accent-purple: #7a1fa8;
-    --accent-green: #2e7d32;
-    --accent-gold: #c8a200;
-    --accent-red: #c62a47;
-    --accent-emerald: #1b5e20;
-    --accent-orange: #c84b1f;
-}
-
-/* ── Partículas en modo claro ── */
-:root[data-theme="light"] #particles-js {
-    background-color: var(--bg-uniform);
-}
-
-/* ── Texto en modo claro ── */
-:root[data-theme="light"] body {
-    background: transparent;
+/* ── Nombre / Typewriter en modo claro: quitar text-shadow negro ── */
+:root[data-theme="light"] .title,
+:root[data-theme="light"] .typewriter-title,
+:root[data-theme="light"] #typewriter-name-container {
     color: var(--fg);
-}
-
-/* ── Tarjetas en modo claro ── */
-:root[data-theme="light"] .card {
-    background: var(--card-bg);
-    border-color: var(--card-border);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-    color: var(--fg);
-}
-
-:root[data-theme="light"] .side-navbar {
-    background: rgba(255, 255, 255, 0.95);
-    border-right-color: var(--card-border);
-}
-
-:root[data-theme="light"] .side-navbar .nav-link {
-    color: var(--fg);
-}
-
-:root[data-theme="light"] .side-navbar .nav-link i {
-    color: var(--fg);
-}
-
-:root[data-theme="light"] .main-header-card {
-    background: rgba(255, 255, 255, 0.95);
-    border-color: var(--card-border);
-}
-
-:root[data-theme="light"] .loading-text {
-    color: #1a1a2e;
     text-shadow: none;
 }
 
-:root[data-theme="light"] #preloader {
-    background-color: #f0f0f0;
+/* ── Botón X (Twitter): siempre texto blanco sobre negro ── */
+#contacto .btn-x {
+    background: #1a1a1a;
+    color: #ffffff !important;
+    border: 2px solid #ffffff;
 }
 
-/* ── Botón toggle de tema ── */
-#theme-toggle-btn {
-    background: none;
-    border: none;
-    color: var(--fg);
-    font-size: 1.3em;
+#contacto .btn-x i,
+#contacto .btn-x span {
+    color: #ffffff !important;
+}
+
+#contacto .btn-x:hover {
+    background: #2d2d2d;
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.15);
+}
+
+/* ── Botón TikTok: siempre texto negro sobre blanco ── */
+#contacto .btn-tiktok {
+    background: #ffffff;
+    color: #000000 !important;
+    border: 2px solid #000000;
+}
+
+#contacto .btn-tiktok i,
+#contacto .btn-tiktok span {
+    color: #000000 !important;
+}
+
+/* ── Banderas en el selector de idioma ── */
+.lang-switcher {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px 0;
+}
+
+.lang-switcher button {
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: 8px;
     cursor: pointer;
-    padding: 10px 23px;
-    transition: transform 0.3s ease;
-    width: 100%;
+    padding: 4px 6px;
+    transition: border-color 0.2s, background 0.2s;
     display: flex;
     align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 36px;
+    margin-left: 13px;
 }
 
-#theme-toggle-btn:hover {
-    transform: rotate(20deg) scale(1.1);
+.lang-switcher button:hover {
+    border-color: var(--accent-gold);
+    background: rgba(255, 215, 0, 0.1);
 }
 
-/* Ícono sol (modo claro activo) */
-#theme-toggle-btn .icon-moon {
-    display: inline;
-}
-
-#theme-toggle-btn .icon-sun {
+.lang-switcher button.active {
     display: none;
 }
 
-:root[data-theme="light"] #theme-toggle-btn .icon-moon {
-    display: none;
-}
-
-:root[data-theme="light"] #theme-toggle-btn .icon-sun {
-    display: inline;
+.lang-switcher button img {
+    width: 28px;
+    height: 20px;
+    border-radius: 3px;
+    object-fit: cover;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
 }
