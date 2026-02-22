@@ -26,6 +26,10 @@
 
   <!-- Estilos externos -->
   <link rel="stylesheet" href="css/index.css" />
+  <link rel="stylesheet" href="css/theme-toggle.css" />
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="manifest.json" />
 </head>
 
 <body>
@@ -36,7 +40,11 @@
   <!-- Preloader -->
   <div id="preloader">
     <div class="haku-visual-container">
-      <img src="Gif/hakuwalk.gif" alt="Cargando..." class="haku-img" id="haku-gif" width="300" height="300" />
+      <picture>
+        <source srcset="Gif/hakuwalk.webp" type="image/webp" />
+        <img src="Gif/hakuwalk.gif" alt="Cargando..." class="haku-img" id="haku-gif" width="300" height="300"
+          loading="eager" />
+      </picture>
     </div>
     <div class="loading-text" id="loading-text-container">Cargando</div>
   </div>
@@ -46,6 +54,12 @@
     <button id="menu-toggle-btn" title="Expandir menú" aria-expanded="false">
       <i class="fa-solid fa-chevron-right"></i>
       <i class="fa-solid fa-chevron-left"></i>
+    </button>
+
+    <!-- Botón Dark/Light mode -->
+    <button id="theme-toggle-btn" title="Cambiar tema">
+      <i class="fa-solid fa-moon icon-moon"></i>
+      <i class="fa-solid fa-sun icon-sun"></i>
     </button>
 
     <!-- Selector de idioma -->
@@ -536,6 +550,8 @@
 
   <!-- particles.js -->
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <!-- Tema dark/light (carga primero para evitar flash) -->
+  <script src="js/theme.js"></script>
   <!-- Inicializa particles desde index.js -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {

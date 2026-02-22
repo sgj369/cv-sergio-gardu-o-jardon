@@ -1,0 +1,103 @@
+/* ================================================================
+   dark-light-toggle.css — Toggle Dark/Light mode
+   Importado desde index.css al final
+   ================================================================ */
+
+/* ── Variables modo claro ── */
+:root[data-theme="light"] {
+    --bg-uniform: #f0f0f0;
+    --fg: #1a1a2e;
+    --muted: #555;
+    --card-bg: rgba(255, 255, 255, 0.92);
+    --card-border: rgba(0, 0, 0, 0.12);
+
+    /* Acentos se mantienen igual pero ligeramente más oscuros */
+    --accent-blue: #005f99;
+    --accent-purple: #7a1fa8;
+    --accent-green: #2e7d32;
+    --accent-gold: #c8a200;
+    --accent-red: #c62a47;
+    --accent-emerald: #1b5e20;
+    --accent-orange: #c84b1f;
+}
+
+/* ── Partículas en modo claro ── */
+:root[data-theme="light"] #particles-js {
+    background-color: var(--bg-uniform);
+}
+
+/* ── Texto en modo claro ── */
+:root[data-theme="light"] body {
+    background: transparent;
+    color: var(--fg);
+}
+
+/* ── Tarjetas en modo claro ── */
+:root[data-theme="light"] .card {
+    background: var(--card-bg);
+    border-color: var(--card-border);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    color: var(--fg);
+}
+
+:root[data-theme="light"] .side-navbar {
+    background: rgba(255, 255, 255, 0.95);
+    border-right-color: var(--card-border);
+}
+
+:root[data-theme="light"] .side-navbar .nav-link {
+    color: var(--fg);
+}
+
+:root[data-theme="light"] .side-navbar .nav-link i {
+    color: var(--fg);
+}
+
+:root[data-theme="light"] .main-header-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: var(--card-border);
+}
+
+:root[data-theme="light"] .loading-text {
+    color: #1a1a2e;
+    text-shadow: none;
+}
+
+:root[data-theme="light"] #preloader {
+    background-color: #f0f0f0;
+}
+
+/* ── Botón toggle de tema ── */
+#theme-toggle-btn {
+    background: none;
+    border: none;
+    color: var(--fg);
+    font-size: 1.3em;
+    cursor: pointer;
+    padding: 10px 23px;
+    transition: transform 0.3s ease;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+#theme-toggle-btn:hover {
+    transform: rotate(20deg) scale(1.1);
+}
+
+/* Ícono sol (modo claro activo) */
+#theme-toggle-btn .icon-moon {
+    display: inline;
+}
+
+#theme-toggle-btn .icon-sun {
+    display: none;
+}
+
+:root[data-theme="light"] #theme-toggle-btn .icon-moon {
+    display: none;
+}
+
+:root[data-theme="light"] #theme-toggle-btn .icon-sun {
+    display: inline;
+}
