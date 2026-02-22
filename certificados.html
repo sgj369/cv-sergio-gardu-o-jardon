@@ -1,22 +1,297 @@
 <!doctype html>
 <html lang="es">
+
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Certificados — Sergio Garduño Jardón</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <style>body{font-family:Arial;margin:20px;background:#f4f5f4;color:#072d16} .card{background:#fff;padding:12px;margin-bottom:12px;border-radius:8px;box-shadow:0 4px 10px rgba(0,0,0,0.06)}</style>
+  <meta name="description" content="Certificados y cursos de Sergio Garduño Jardón, Ingeniero Mecatrónico." />
+
+  <link rel="icon" href="img/INDEX-HAKU.webp" type="image/webp" />
+  <meta name="theme-color" content="#072d16" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    /* ── Variables ── */
+    :root {
+      --bg: #333;
+      --fg: #eef1f0;
+      --muted: #a3a3a3;
+      --card-bg: rgba(0, 0, 0, 0.88);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --radius: 14px;
+      --accent-purple: #9933cc;
+      --accent-gold: #FFD700;
+      --accent-red: #ff3366;
+      --accent-blue: #0077b6;
+      --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+    }
+
+    /* ── Reset ── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: var(--bg);
+      scroll-behavior: smooth;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      color: var(--fg);
+      padding: 30px 20px 60px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* ── Partículas ── */
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: var(--bg);
+    }
+
+    /* ── Cabecera ── */
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .page-header h1 {
+      font-size: 24px;
+      font-weight: 900;
+      margin: 0;
+      color: var(--accent-purple);
+    }
+
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      border: 2px solid var(--fg);
+      color: var(--fg);
+      padding: 8px 14px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+
+    .btn-back:hover {
+      background: rgba(238, 241, 240, 0.1);
+    }
+
+    /* ── Tarjeta certificado ── */
+    .cert-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-left: 5px solid var(--accent-purple);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .cert-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 35px rgba(153, 51, 204, 0.2);
+    }
+
+    .cert-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 5px;
+      height: 35px;
+      background: var(--accent-purple);
+      border-top-right-radius: var(--radius);
+    }
+
+    .cert-card {
+      position: relative;
+    }
+
+    .cert-icon {
+      font-size: 2em;
+      width: 50px;
+      text-align: center;
+      flex-shrink: 0;
+      color: var(--accent-gold);
+    }
+
+    .cert-info {
+      flex: 1;
+    }
+
+    .cert-info strong {
+      display: block;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--fg);
+      margin-bottom: 4px;
+    }
+
+    .cert-info .cert-meta {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    /* Placeholder (aún sin PDF) */
+    .cert-placeholder {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--muted);
+      border: 1px dashed var(--card-border);
+      padding: 5px 10px;
+      border-radius: 8px;
+    }
+
+    /* Botón PDF real */
+    .btn-pdf {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      border: 2px solid var(--accent-red);
+      color: var(--accent-red);
+      padding: 6px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 13px;
+      transition: background 0.15s;
+    }
+
+    .btn-pdf:hover {
+      background: rgba(255, 51, 102, 0.1);
+    }
+
+    /* Sección vacía */
+    .empty-note {
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 40px;
+      opacity: 0.7;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Certificados y cursos</h1>
-  <div class="card">
-    <strong>Certificado 1</strong><br>
-    (Sube el archivo `certificate1.pdf` y enlázalo aquí)
+
+  <div id="particles-js"></div>
+
+  <div class="page-header">
+    <h1><i class="fa-solid fa-certificate" style="margin-right: 10px;"></i>Certificados y Cursos</h1>
+    <a href="index.html" class="btn-back">
+      <i class="fa-solid fa-arrow-left"></i> Volver al Portafolio
+    </a>
   </div>
-  <div class="card">
-    <strong>Certificado 2</strong><br>
-    (Sube `certificate2.pdf` y enlázalo)
+
+  <!-- ── Certificados (agrega PDF real en href cuando lo tengas) ── -->
+
+  <div class="cert-card">
+    <div class="cert-icon"><i class="fa-solid fa-microchip"></i></div>
+    <div class="cert-info">
+      <strong>Diseño de la automatización de la manufactura e integración de dispositivos programables</strong>
+      <div class="cert-meta">Seminario · Instituto Politécnico Nacional</div>
+      <span class="cert-placeholder">
+        <i class="fa-regular fa-clock"></i> PDF próximamente
+      </span>
+    </div>
   </div>
-  <p>En esta página podrás ver tus certificados. Sube los PDFs al repositorio y enlázalos aquí.</p>
-  <p><a href="Index.html">← Volver</a></p>
+
+  <div class="cert-card">
+    <div class="cert-icon"><i class="fa-brands fa-python"></i></div>
+    <div class="cert-info">
+      <strong>Python para análisis de datos (pandas)</strong>
+      <div class="cert-meta">Autoformación · Proyectos prácticos aplicados</div>
+      <span class="cert-placeholder">
+        <i class="fa-regular fa-clock"></i> PDF próximamente
+      </span>
+    </div>
+  </div>
+
+  <div class="cert-card" style="border-left-color: var(--accent-blue);">
+    <div class="cert-icon" style="color: var(--accent-blue);"><i class="fa-solid fa-language"></i></div>
+    <div class="cert-info">
+      <strong>Inglés B2</strong>
+      <div class="cert-meta">Certificación en proceso</div>
+      <span class="cert-placeholder">
+        <i class="fa-solid fa-spinner fa-spin"></i> En progreso
+      </span>
+    </div>
+  </div>
+
+  <p class="empty-note">
+    <i class="fa-solid fa-info-circle"></i>
+    Sube los PDFs de tus certificados a la carpeta <code>PDF/</code> y enlázalos con el botón de abajo.
+  </p>
+
+  <footer>
+    © <span id="year"></span> Sergio Garduño Jardón
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    if (typeof particlesJS !== 'undefined') {
+      particlesJS('particles-js', {
+        particles: {
+          number: { value: 50, density: { enable: true, value_area: 800 } },
+          color: { value: ['#FFD700', '#9933cc', '#eef1f0'] },
+          shape: { type: 'circle' },
+          opacity: { value: 0.4 },
+          size: { value: 2, random: true },
+          line_linked: { enable: true, distance: 130, color: '#a3a3a3', opacity: 0.3, width: 1 },
+          move: { enable: true, speed: 2, out_mode: 'out' },
+        },
+        interactivity: {
+          events: { onhover: { enable: true, mode: 'repulse' }, resize: true },
+          modes: { repulse: { distance: 100 } },
+        },
+        retina_detect: true,
+      });
+    }
+  </script>
+
 </body>
+
 </html>

@@ -280,7 +280,7 @@ function setupCardAnimations() {
   targets.forEach(el => {
     // Evita animar los hijos de secciones desplegables (ya están visibles por defecto)
     if (!el.closest('#proyectos') && !el.closest('#experiencia') &&
-        !el.closest('#logros')    && !el.closest('#cursos')) {
+      !el.closest('#logros') && !el.closest('#cursos')) {
       observer.observe(el);
     }
   });
@@ -310,11 +310,11 @@ function setupShareButton() {
    --------------------------------------------------------------- */
 function setupAvatarFlip() {
   const container = document.getElementById('avatar-container-main');
-  const img       = document.getElementById('avatar-img-main');
+  const img = document.getElementById('avatar-img-main');
   if (!container || !img) return;
 
-  const SRC_PHOTO = 'img/profilecv.png';
-  const SRC_QR    = 'img/QRPD.png';
+  const SRC_PHOTO = 'img/profilecv.webp';
+  const SRC_QR = 'img/QRPD.png';
   let isQr = false;
 
   container.addEventListener('click', () => {
@@ -324,7 +324,7 @@ function setupAvatarFlip() {
     container.classList.toggle('qr-mode', isQr);
     container.title = isQr
       ? (currentLanguage === 'en' ? 'Click to return to photo' : 'Clic para volver a la foto')
-      : (currentLanguage === 'en' ? 'Click for QR'            : 'Clic para QR');
+      : (currentLanguage === 'en' ? 'Click for QR' : 'Clic para QR');
   });
 }
 
@@ -367,7 +367,7 @@ function setupCopyCarta() {
    --------------------------------------------------------------- */
 function setupMenu() {
   const toggleBtn = document.getElementById('menu-toggle-btn');
-  const navbar    = document.getElementById('side-navbar');
+  const navbar = document.getElementById('side-navbar');
   if (!toggleBtn || !navbar) return;
 
   toggleBtn.addEventListener('click', () => {
