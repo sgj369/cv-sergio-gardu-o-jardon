@@ -1,0 +1,950 @@
+/* ================================================================
+   index.css — Portafolio CV · Sergio Garduño Jardón
+   ================================================================ */
+
+/* ---------------------------------------------------------------
+   1. VARIABLES GLOBALES
+   --------------------------------------------------------------- */
+:root {
+  --bg-uniform:       #333;
+  --fg:               #eef1f0;
+  --muted:            #a3a3a3;
+
+  /* Acentos */
+  --accent-red:       #ff3366;
+  --accent-green:     #63b96f;
+  --accent-blue:      #0077b6;
+  --accent-yellow:    #ffc300;
+  --accent-purple:    #9933cc;
+  --accent-gold:      #FFD700;
+  --accent-emerald:   #2E8B57;
+  --accent-guinda:    #900030;
+  --accent-orange:    #FF5733;
+
+  /* Tarjetas */
+  --card-bg:          rgba(0, 0, 0, 0.88);
+  --card-border:      rgba(255, 255, 255, 0.1);
+
+  /* Layout */
+  --maxw:             1100px;
+  --radius:           14px;
+  --font-sans:        Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  --menu-width-collapsed: 70px;
+  --menu-width-expanded:  240px;
+}
+
+/* ---------------------------------------------------------------
+   2. RESET Y BASE
+   --------------------------------------------------------------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  background-color: var(--bg-uniform);
+  scroll-behavior: smooth;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: transparent;
+  color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+  min-height: 100vh;
+  padding-top: 28px;
+  padding-bottom: 80px;
+  padding-left: var(--menu-width-collapsed);
+  transition: padding-left 0.3s ease-in-out;
+}
+
+body.menu-expanded {
+  padding-left: var(--menu-width-expanded);
+}
+
+/* ---------------------------------------------------------------
+   3. LAYOUT PRINCIPAL
+   --------------------------------------------------------------- */
+.wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  position: relative;
+  padding: 0 10px;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 28px;
+  margin-bottom: 28px;
+  align-items: stretch;
+}
+
+.hero-main  { display: flex; flex-direction: column; gap: 28px; }
+.hero-aside { position: sticky; top: 28px; display: flex; flex-direction: column; gap: 28px; }
+
+/* ---------------------------------------------------------------
+   4. TARJETAS
+   --------------------------------------------------------------- */
+.card {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 20px;
+  border-radius: var(--radius);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  color: var(--fg);
+  overflow: hidden;
+  border-left: 5px solid;
+  /* Animación de entrada */
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.2s ease;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card:hover { transform: translateY(0); }
+
+/* Franja decorativa superior-derecha */
+.card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 5px;
+  height: 35px;
+  border-top-right-radius: var(--radius);
+  z-index: 1;
+}
+
+/* ---------------------------------------------------------------
+   5. COLORES POR SECCIÓN
+   --------------------------------------------------------------- */
+/* Perfil */
+#perfil            { border-left-color: var(--accent-blue); }
+#perfil::after     { background: var(--accent-blue); }
+#perfil .profile-title { color: var(--accent-blue); }
+
+/* Proyectos */
+#proyectos > summary                          { color: var(--accent-purple); border-color: rgba(153, 51, 204, 0.3); }
+#proyectos .section-content .card            { border-left-color: var(--accent-purple); opacity: 1; transform: none; }
+#proyectos .section-content .card::after     { background: var(--accent-purple); }
+#proyectos .section-content .card strong     { color: var(--fg); }
+
+/* Experiencia */
+#experiencia > summary                        { color: var(--accent-emerald); border-color: rgba(46, 139, 87, 0.3); }
+#experiencia .section-content .card          { border-left-color: var(--accent-emerald); opacity: 1; transform: none; }
+#experiencia .section-content .card::after   { background: var(--accent-emerald); }
+#experiencia .section-content .card strong   { color: var(--fg); }
+
+/* Logros */
+#logros > summary                             { color: var(--accent-gold); border-color: rgba(255, 215, 0, 0.3); }
+#logros .section-content .card               { border-left-color: var(--accent-gold); opacity: 1; transform: none; }
+#logros .section-content .card::after        { background: var(--accent-gold); }
+
+/* Cursos */
+#cursos > summary                             { color: var(--accent-red); border-color: rgba(255, 51, 102, 0.3); }
+#cursos .section-content .card               { border-left-color: var(--accent-red); opacity: 1; transform: none; }
+#cursos .section-content .card::after        { background: var(--accent-red); }
+
+/* Formación */
+#formacion                                     { border-left-color: var(--accent-purple); }
+#formacion::after                              { background: var(--accent-purple); }
+#formacion > div:first-child                   { color: var(--accent-purple); font-weight: 800; margin-bottom: 15px; }
+
+/* Contacto */
+#contacto                                      { border-left-color: var(--fg); }
+#contacto::after                               { background: var(--fg); }
+#contacto > div:first-child                    { color: var(--fg); font-weight: 800; margin-bottom: 8px; }
+
+/* Habilidades */
+#habilidades                                   { border-left-color: var(--accent-blue); }
+#habilidades::after                            { background: var(--accent-blue); }
+#habilidades > div:first-child                 { color: var(--accent-blue); font-weight: 800; margin-bottom: 8px; }
+
+/* Habilidades Blandas (3er card del aside) */
+aside .card:nth-of-type(3)                     { border-left-color: var(--accent-gold); }
+aside .card:nth-of-type(3)::after              { background: var(--accent-gold); }
+aside .card:nth-of-type(3) > div:first-child   { color: var(--accent-gold); font-weight: 800; margin-bottom: 8px; }
+
+/* ---------------------------------------------------------------
+   6. ENCABEZADO PRINCIPAL
+   --------------------------------------------------------------- */
+.main-header-card {
+  background: var(--card-bg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 2px solid var(--fg);
+  border-bottom: 2px solid var(--fg);
+  border-right: 2px solid var(--fg);
+  border-radius: var(--radius);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  padding: 25px 20px;
+}
+
+.main-header-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 5px;
+  height: 35px;
+  background: var(--fg);
+  border-top-right-radius: var(--radius);
+  z-index: 1;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+/* ---------------------------------------------------------------
+   7. AVATAR
+   --------------------------------------------------------------- */
+.avatar {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--fg);
+  box-shadow: 0 0 20px rgba(238, 241, 240, 0.6);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  margin-bottom: 5px;
+  animation: pulse-avatar-glow 1.5s infinite alternate ease-in-out;
+}
+
+.avatar:hover        { transform: scale(1.05); }
+.avatar.qr-mode      { border-radius: var(--radius); border-color: var(--accent-green); transform: scale(1.1); }
+.avatar.qr-mode:hover { transform: scale(1.1); }
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ---------------------------------------------------------------
+   8. TÍTULO / TYPEWRITER
+   --------------------------------------------------------------- */
+.title {
+  font-weight: 900;
+  font-size: 30px;
+  color: #000;
+  text-shadow:
+    -1px -1px 0 var(--fg),
+     1px -1px 0 var(--fg),
+    -1px  1px 0 var(--fg),
+     1px  1px 0 var(--fg);
+  text-align: center;
+}
+
+.typewriter-title {
+  font-size: 36px;
+  font-weight: 900;
+  color: #000;
+  text-shadow:
+    -1px -1px 0 var(--fg),
+     1px -1px 0 var(--fg),
+    -1px  1px 0 var(--fg),
+     1px  1px 0 var(--fg);
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid var(--accent-gold);
+  width: 100%;
+  opacity: 1;
+}
+
+.typewriter-title.visible { opacity: 1; }
+
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50%      { border-color: var(--accent-gold); }
+}
+
+@media (max-width: 480px) {
+  .typewriter-title { font-size: 28px; }
+}
+
+@media (max-width: 600px) {
+  #typewriter-name-container { font-size: 1.5rem !important; }
+}
+
+/* ---------------------------------------------------------------
+   9. BOTONES
+   --------------------------------------------------------------- */
+.btn-fill-white {
+  background: var(--fg);
+  color: #333;
+  border: 2px solid var(--fg);
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+  box-shadow: 0 4px 15px rgba(238, 241, 240, 0.2);
+}
+.btn-fill-white:hover {
+  background: #cdd1d0;
+  border-color: #cdd1d0;
+  box-shadow: 0 6px 20px rgba(238, 241, 240, 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-outline-white {
+  background: transparent;
+  border: 2px solid var(--fg);
+  color: var(--fg);
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  transition: background-color 0.15s;
+  flex-shrink: 0;
+}
+.btn-outline-white:hover { background: rgba(238, 241, 240, 0.1); }
+
+.btn-clean-secondary {
+  background: transparent;
+  border: 2px solid var(--accent-blue);
+  color: var(--accent-blue);
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  transition: background-color 0.15s;
+  flex-shrink: 0;
+}
+.btn-clean-secondary:hover { background: rgba(0, 119, 182, 0.1); }
+
+.btn-outline-orange {
+  background: transparent;
+  border: 2px solid var(--accent-orange);
+  color: var(--accent-orange);
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  transition: background-color 0.15s;
+  flex-shrink: 0;
+}
+.btn-outline-orange:hover { background: rgba(255, 87, 51, 0.1); }
+
+.btn-accent   { background: var(--accent-green);  color: #03120a; padding: 10px 14px; border-radius: 10px; text-decoration: none; font-weight: 700; }
+.btn-primary  { background: var(--accent-blue);   color: #fff;    padding: 10px 14px; border-radius: 10px; text-decoration: none; font-weight: 700; }
+.btn-dark     { background: var(--accent-purple);  color: #fff;    padding: 10px 14px; border-radius: 10px; text-decoration: none; font-weight: 700; border: 1px solid rgba(153, 51, 204, 0.4); }
+.iot-actions a { color: #fff; text-decoration: none; }
+
+/* ---------------------------------------------------------------
+   10. BOTÓN COMPARTIR
+   --------------------------------------------------------------- */
+.share-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: var(--card-bg);
+  color: var(--fg);
+  border: 1px solid var(--card-border);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+.share-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 600px) {
+  .share-button { top: 15px; right: 15px; width: 35px; height: 35px; font-size: 1.1em; }
+}
+
+/* ---------------------------------------------------------------
+   11. SECCIONES DESPLEGABLES (details/summary)
+   --------------------------------------------------------------- */
+details > summary {
+  border-bottom: 2px solid;
+  padding-bottom: 4px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+details > summary::after {
+  content: '▼';
+  font-size: 0.8em;
+  color: var(--muted);
+  margin-left: 10px;
+  transition: transform 0.2s ease-out;
+  flex-shrink: 0;
+}
+
+details[open] > summary::after { transform: rotate(180deg); }
+
+.section-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+h2.section {
+  font-size: 18px;
+  margin: 0;
+  font-weight: 800;
+  flex-grow: 1;
+}
+
+summary > h2.section { color: inherit !important; }
+
+/* ---------------------------------------------------------------
+   12. PERFIL – CARTA DE PRESENTACIÓN DESPLEGABLE
+   --------------------------------------------------------------- */
+.inner-details {
+  margin-top: 15px;
+  border-top: 1px solid var(--card-border);
+  padding-top: 15px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease-out 0.5s, transform 0.5s ease-out 0.5s;
+}
+
+.inner-details.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.inner-summary {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  font-weight: 700;
+  color: var(--accent-gold);
+  margin-bottom: 10px;
+  list-style: none;
+  transition: opacity 0.2s ease;
+}
+.inner-summary:hover          { opacity: 0.8; }
+.inner-summary::-webkit-details-marker { display: none; }
+.inner-summary::after {
+  content: '▼';
+  font-size: 0.8em;
+  color: var(--muted);
+  margin-left: 8px;
+  transition: transform 0.2s ease-out;
+}
+.inner-details[open] > .inner-summary::after { transform: rotate(180deg); }
+
+.inner-content {
+  padding-left: 22px;
+  color: var(--fg);
+  opacity: 0.9;
+}
+
+/* Botón copiar carta */
+.copy-button-container { text-align: right; margin-top: 15px; }
+
+.btn-copy-carta {
+  background-color: transparent;
+  border: 1px solid var(--accent-gold);
+  color: var(--accent-gold);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9em;
+}
+.btn-copy-carta:hover  { background-color: rgba(255, 215, 0, 0.1); box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2); }
+.btn-copy-carta:active { transform: scale(0.98); }
+.btn-copy-carta.copied { border-color: var(--accent-green); background-color: rgba(99, 185, 111, 0.1); color: var(--accent-green); }
+
+/* ---------------------------------------------------------------
+   13. TIPOGRAFÍA Y ELEMENTOS GENERALES
+   --------------------------------------------------------------- */
+h2.profile-title  { font-size: 18px; font-weight: 800; margin-top: 0; margin-bottom: 8px; }
+.profile-text     {
+  color: var(--fg);
+  font-size: 15px;
+  line-height: 1.6;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  transition-delay: 0.5s;
+}
+.profile-text.visible { opacity: 1; transform: translateY(0); }
+
+.skill-pill {
+  color: var(--fg);
+  padding: 6px 10px;
+  border-radius: 6px;
+  margin: 4px;
+  display: inline-block;
+  font-size: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.skills { display: flex; flex-wrap: wrap; margin-top: 10px; }
+
+.clean        { padding-left: 20px; margin: 0; list-style-type: none; }
+.contact-small { font-size: 0.9em; color: var(--muted); }
+
+.acad-ipn-title {
+  color: var(--accent-guinda);
+  font-weight: 800;
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.iot-block       { margin-top: 14px; padding: 0; background: transparent; border: none; }
+.iot-block h3    { color: var(--accent-purple); margin: 16px 0 10px; font-size: 18px; font-weight: 800; text-shadow: 0 0 2px rgba(153, 51, 204, 0.5); }
+.iot-actions     { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; margin-top: 14px; }
+
+/* ---------------------------------------------------------------
+   14. SELECTOR DE IDIOMA
+   --------------------------------------------------------------- */
+.lang-switcher {
+  top: 40px;
+  right: 60px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lang-switcher button {
+  background: var(--card-bg);
+  color: var(--fg);
+  border: 1px solid var(--accent-gold);
+  padding: 5px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.5em;
+  line-height: 1;
+  transition: background-color 0.2s;
+  opacity: 0.8;
+}
+.lang-switcher button:hover        { opacity: 1; background: rgba(255, 215, 0, 0.1); }
+.lang-switcher button.active       { display: none; }
+
+/* ---------------------------------------------------------------
+   15. MENÚ LATERAL
+   --------------------------------------------------------------- */
+.side-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background: var(--card-bg);
+  border-right: 1px solid var(--card-border);
+  width: var(--menu-width-collapsed);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  z-index: 1000;
+  overflow: hidden;
+  transition: width 0.3s ease-in-out;
+}
+
+.side-navbar.expanded {
+  width: var(--menu-width-expanded);
+  align-items: flex-start;
+}
+
+.side-navbar ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0;
+  width: 100%;
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.side-navbar .nav-link {
+  display: flex;
+  align-items: flex-start;
+  padding: 10px 0 10px 23px;
+  color: var(--fg);
+  text-decoration: none;
+  height: auto;
+  min-height: 50px;
+  width: 100%;
+  white-space: nowrap;
+  transition: background-color 0.2s ease;
+}
+.side-navbar .nav-link:hover { background-color: rgba(255, 255, 255, 0.1); }
+
+.side-navbar .nav-link i {
+  font-size: 1.3em;
+  width: 24px;
+  text-align: center;
+  color: var(--fg);
+  transition: text-shadow 0.2s ease, transform 0.2s ease;
+  transform: scale(1);
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+/* Colores de neón por sección */
+.nav-link-perfil      i { text-shadow: 0 0 5px var(--accent-blue),    0 0 10px var(--accent-blue); }
+.nav-link-proyectos   i { text-shadow: 0 0 5px var(--accent-purple),  0 0 10px var(--accent-purple); }
+.nav-link-experiencia i { text-shadow: 0 0 5px var(--accent-emerald), 0 0 10px var(--accent-emerald); }
+.nav-link-logros      i { text-shadow: 0 0 5px var(--accent-gold),    0 0 10px var(--accent-gold); }
+.nav-link-cursos      i { text-shadow: 0 0 5px var(--accent-red),     0 0 10px var(--accent-red); }
+.nav-link-formacion   i { text-shadow: 0 0 5px var(--accent-purple),  0 0 10px var(--accent-purple); }
+.nav-link-habilidades i { text-shadow: 0 0 5px var(--accent-blue),    0 0 10px var(--accent-blue); }
+.nav-link-contacto    i { text-shadow: 0 0 5px var(--accent-green),   0 0 10px var(--accent-green); }
+.nav-link-td          i { text-shadow: 0 0 5px var(--accent-purple),  0 0 10px var(--accent-purple); }
+
+.side-navbar .nav-link:hover i { text-shadow: 0 0 12px var(--fg), 0 0 20px var(--fg); transform: scale(1.1); }
+
+.link-text-container {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.side-navbar .link-text {
+  margin-left: 0;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  display: block;
+  line-height: 1.2;
+}
+
+.link-subtitle {
+  font-size: 0.75em;
+  color: var(--muted);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  line-height: 1.1;
+  margin-top: 2px;
+  font-weight: 400;
+}
+
+.side-navbar.expanded .link-text,
+.side-navbar.expanded .link-subtitle { opacity: 1; }
+
+#menu-toggle-btn {
+  background: none;
+  border: none;
+  color: var(--fg);
+  font-size: 1.5em;
+  cursor: pointer;
+  padding: 10px 23px;
+}
+
+#menu-toggle-btn .fa-chevron-left          { display: none; }
+.side-navbar.expanded #menu-toggle-btn .fa-chevron-left  { display: inline; }
+.side-navbar.expanded #menu-toggle-btn .fa-chevron-right { display: none; }
+
+/* ---------------------------------------------------------------
+   16. CONTACTO – BOTONES PRESIONABLES
+   --------------------------------------------------------------- */
+#contacto .contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+#contacto .contact-list li.full-width-btn { grid-column: span 2; }
+#contacto .contact-list li { display: block; }
+
+#contacto .contact-btn-pressable {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 700;
+  color: #000;
+  transition: all 0.2s ease-out;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+#contacto .contact-btn-pressable:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+#contacto .contact-btn-pressable i {
+  font-size: 1.2em;
+  margin-right: 12px;
+  width: 25px;
+  text-align: center;
+  color: inherit;
+}
+
+#contacto .btn-email          { background: var(--accent-yellow); color: #332400; }
+#contacto .btn-email:hover    { box-shadow: 0 8px 25px rgba(255, 195, 0, 0.3); }
+#contacto .btn-email i        { color: #332400; }
+
+#contacto .btn-email-rojo         { background: var(--accent-red); color: var(--fg); }
+#contacto .btn-email-rojo:hover   { box-shadow: 0 8px 25px rgba(255, 51, 102, 0.3); }
+#contacto .btn-email-rojo i       { color: var(--fg); }
+#contacto .btn-email-rojo span    { font-size: 0.85em; white-space: nowrap; }
+
+#contacto .btn-whatsapp         { background: var(--accent-green); color: #03120a; }
+#contacto .btn-whatsapp:hover   { box-shadow: 0 8px 25px rgba(99, 185, 111, 0.3); }
+#contacto .btn-whatsapp i       { color: #03120a; }
+
+#contacto .btn-github         { background: var(--accent-purple); color: var(--fg); }
+#contacto .btn-github:hover   { box-shadow: 0 8px 25px rgba(153, 51, 204, 0.3); }
+#contacto .btn-github i       { color: var(--fg); }
+
+#contacto .btn-x              { background: #000; color: var(--fg); border: 2px solid var(--fg); }
+#contacto .btn-x:hover        { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5); }
+#contacto .btn-x i            { color: var(--fg); }
+
+#contacto .btn-facebook         { background: #1877F2; color: var(--fg); }
+#contacto .btn-facebook:hover   { box-shadow: 0 8px 25px rgba(24, 119, 242, 0.3); }
+#contacto .btn-facebook i       { color: var(--fg); }
+
+#contacto .btn-instagram         { background: var(--accent-orange); color: var(--fg); }
+#contacto .btn-instagram:hover   { box-shadow: 0 8px 25px rgba(255, 87, 51, 0.3); }
+#contacto .btn-instagram i       { color: var(--fg); }
+
+#contacto .btn-tiktok         { background: #fff; color: #000; }
+#contacto .btn-tiktok:hover   { box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3); }
+#contacto .btn-tiktok i       { color: #000; }
+
+/* ---------------------------------------------------------------
+   17. FOOTER
+   --------------------------------------------------------------- */
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 26px 15px 10px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  margin-left: 0;
+  width: 100%;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+footer.is-visible { opacity: 1; transform: translateY(0); }
+
+.footer-brand { display: flex; align-items: center; gap: 8px; }
+.sello       { width: 40px; height: 40px; border-radius: 8px; overflow: hidden; }
+.sello img   { width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------------------------------------------------------------
+   18. PARTÍCULAS
+   --------------------------------------------------------------- */
+#particles-js {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  background-color: var(--bg-uniform);
+}
+
+/* ---------------------------------------------------------------
+   19. PRELOADER
+   --------------------------------------------------------------- */
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-uniform);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+}
+
+#preloader.hidden { opacity: 0; pointer-events: none; }
+
+.haku-visual-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.haku-img  { width: 300px; height: 300px; }
+
+.loading-text {
+  font-size: 3.5em;
+  font-weight: bold;
+  color: var(--fg);
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+  white-space: nowrap;
+}
+
+.loading-text span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.loading-text.animate span { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 600px) {
+  .loading-text { font-size: 1.8rem; }
+}
+
+/* ---------------------------------------------------------------
+   20. ANIMACIONES GLOBALES
+   --------------------------------------------------------------- */
+@keyframes pulse-avatar-glow {
+  from { box-shadow: 0 0 20px rgba(238, 241, 240, 0.4); }
+  to   { box-shadow: 0 0 30px rgba(238, 241, 240, 0.8); }
+}
+
+/* Pulso genérico por color de variable */
+.card.pulse-card-white,
+.card.pulse-card-purple,
+.card.pulse-card-emerald,
+.card.pulse-card-gold,
+.card.pulse-card-red,
+.card.pulse-card-blue {
+  animation: pulse-color-shadow 1.5s infinite alternate ease-in-out;
+}
+
+@keyframes pulse-color-shadow {
+  from { box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25); }
+  to   {
+    box-shadow:
+      0 8px 40px rgba(0, 0, 0, 0.5),
+      0 0 10px var(--pulse-color),
+      0 0 15px rgba(255, 255, 255, 0.05);
+  }
+}
+
+.card.pulse-card-white { animation: pulse-shadow-white 1.5s infinite alternate ease-in-out; }
+
+@keyframes pulse-shadow-white {
+  from { box-shadow: 0 10px 30px rgba(238, 241, 240, 0.1), 0 0 5px rgba(238, 241, 240, 0.05); }
+  to   { box-shadow: 0 10px 30px rgba(238, 241, 240, 0.3), 0 0 15px rgba(238, 241, 240, 0.15); }
+}
+
+/* ---------------------------------------------------------------
+   21. RESPONSIVE
+   --------------------------------------------------------------- */
+@media (max-width: 1100px) {
+  .hero            { grid-template-columns: 1fr; }
+  .hero-aside      { position: static; }
+}
+
+@media (max-width: 980px) {
+  body {
+    padding: 28px 15px;
+    padding-left: calc(var(--menu-width-collapsed) + 15px);
+  }
+  body.menu-expanded {
+    padding-left: calc(var(--menu-width-expanded) + 15px);
+  }
+  .main-header-card { flex-direction: column; align-items: center; gap: 15px; padding: 15px; width: 100%; }
+  header            { width: 100%; flex-direction: column; align-items: flex-start; gap: 10px; }
+  .header-main-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+  }
+  .hero        { grid-template-columns: 1fr; }
+  .hero-aside  { position: static; }
+}
+
+@media (max-width: 480px) {
+  .title  { font-size: 24px; }
+  .avatar { width: 70px; height: 70px; }
+}
+
+/* ---------------------------------------------------------------
+   22. ACCESIBILIDAD (prefers-reduced-motion)
+   --------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .card, footer {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .typewriter-title,
+  #perfil .profile-text,
+  #perfil .inner-details {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  #preloader { display: none !important; }
+}

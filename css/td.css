@@ -1,0 +1,707 @@
+/* ================================================================
+   td.css — Tarjeta Digital · Sergio Garduño Jardón
+   ================================================================ */
+
+/* ---------------------------------------------------------------
+   1. VARIABLES GLOBALES
+   --------------------------------------------------------------- */
+:root {
+    --bg-uniform: #333;
+    --fg: #eef1f0;
+    --muted: #a3a3a3;
+    --accent-red: #ff3366;
+    --accent-green: #63b96f;
+    --accent-blue: #0077b6;
+    --accent-yellow: #ffc300;
+    --accent-purple: #9933cc;
+    --accent-gold: #FFD700;
+    --accent-emerald: #2E8B57;
+    --card-bg: rgba(0, 0, 0, 0.88);
+    --card-border: rgba(255, 255, 255, 0.1);
+    --radius: 14px;
+    --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* ---------------------------------------------------------------
+   2. RESET Y BASE
+   --------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    background-color: var(--bg-uniform);
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-sans);
+    background: transparent;
+    color: var(--fg);
+    line-height: 1.5;
+    padding: 28px 25px;
+    overflow: hidden;
+}
+
+body.loaded {
+    overflow-y: auto;
+}
+
+/* ---------------------------------------------------------------
+   3. LAYOUT
+   --------------------------------------------------------------- */
+.wrap {
+    max-width: 420px;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+/* ---------------------------------------------------------------
+   4. TARJETAS
+   --------------------------------------------------------------- */
+.card {
+    position: relative;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    padding: 20px;
+    border-radius: var(--radius);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+    color: var(--fg);
+    border-left: 5px solid;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5px;
+    height: 35px;
+    border-top-right-radius: var(--radius);
+    z-index: 1;
+}
+
+.card.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ---------------------------------------------------------------
+   5. HEADER CARD
+   --------------------------------------------------------------- */
+.header-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 25px 20px;
+    border-left-color: var(--fg);
+}
+
+.header-card::after {
+    background: var(--fg);
+}
+
+/* ---------------------------------------------------------------
+   6. AVATAR
+   --------------------------------------------------------------- */
+.avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--fg);
+    box-shadow: 0 0 15px rgba(238, 241, 240, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    animation: pulse-avatar-glow 2.5s infinite ease-in-out;
+}
+
+@keyframes pulse-avatar-glow {
+    0% {
+        box-shadow: 0 0 15px rgba(238, 241, 240, 0.5);
+    }
+
+    50% {
+        box-shadow: 0 0 30px rgba(238, 241, 240, 0.8);
+    }
+
+    100% {
+        box-shadow: 0 0 15px rgba(238, 241, 240, 0.5);
+    }
+}
+
+.avatar:hover {
+    transform: scale(1.05);
+}
+
+.avatar.qr-mode {
+    border-radius: var(--radius);
+    border-color: var(--accent-green);
+    transform: scale(1.1);
+    animation: none;
+}
+
+.avatar.qr-mode:hover {
+    transform: scale(1.1);
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* ---------------------------------------------------------------
+   7. BOTÓN COPIAR (IZQUIERDA) Y COMPARTIR (DERECHA)
+   --------------------------------------------------------------- */
+.copy-link-button,
+.share-button {
+    position: absolute;
+    top: 15px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--card-border);
+    color: var(--fg);
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease-out;
+}
+
+.copy-link-button {
+    left: 15px;
+}
+
+.share-button {
+    right: 15px;
+}
+
+.copy-link-button:hover,
+.share-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.copy-link-button.copied {
+    background: var(--accent-green);
+    color: #03120a;
+    transform: scale(1.1);
+}
+
+/* ---------------------------------------------------------------
+   8. TYPEWRITER / NOMBRE
+   --------------------------------------------------------------- */
+.typewriter-title {
+    font-size: 32px;
+    font-weight: 900;
+    color: #eef1f0;
+    text-shadow: 0 0 10px rgba(238, 241, 240, 0.7);
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 0.15em solid var(--accent-gold);
+    margin: 0 auto;
+    max-width: 100%;
+    width: fit-content;
+    box-sizing: border-box;
+    opacity: 0;
+    transition: opacity 0.8s ease-out;
+}
+
+.typewriter-title.visible {
+    opacity: 1;
+}
+
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent;
+    }
+
+    50% {
+        border-color: var(--accent-gold);
+    }
+}
+
+/* ---------------------------------------------------------------
+   9. PULSOS DE TARJETAS
+   --------------------------------------------------------------- */
+.pulse-card-white {
+    border-left-color: var(--fg);
+    animation: pulse-shadow-white 2.5s infinite ease-in-out;
+}
+
+@keyframes pulse-shadow-white {
+
+    0%,
+    100% {
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    50% {
+        box-shadow: 0 10px 40px rgba(238, 241, 240, 0.3);
+    }
+}
+
+.pulse-card {
+    border-left: 5px solid var(--accent-purple);
+    animation: pulse-shadow-purple 2.5s infinite ease-in-out;
+}
+
+@keyframes pulse-shadow-purple {
+
+    0%,
+    100% {
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    50% {
+        box-shadow: 0 10px 40px rgba(153, 51, 204, 0.4);
+    }
+}
+
+.pulse-card-blue {
+    border-left: 5px solid var(--accent-blue);
+    animation: pulse-shadow-blue 2.5s infinite ease-in-out;
+}
+
+@keyframes pulse-shadow-blue {
+
+    0%,
+    100% {
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    50% {
+        box-shadow: 0 10px 40px rgba(0, 119, 182, 0.4);
+    }
+}
+
+/* ---------------------------------------------------------------
+   10. BOTÓN PORTAFOLIO
+   --------------------------------------------------------------- */
+.btn-fill-white {
+    background: var(--fg);
+    color: #333;
+    border: 2px solid var(--fg);
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    transition: all 0.2s;
+    box-shadow: 0 4px 15px rgba(238, 241, 240, 0.2);
+}
+
+.btn-fill-white:hover {
+    background: #cdd1d0;
+    border-color: #cdd1d0;
+    box-shadow: 0 6px 20px rgba(238, 241, 240, 0.4);
+    transform: translateY(-1px);
+}
+
+.header-button-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* ---------------------------------------------------------------
+   11. SECCIONES
+   --------------------------------------------------------------- */
+#perfil::after {
+    background: var(--accent-blue);
+}
+
+#perfil .profile-title {
+    color: var(--accent-blue);
+    font-size: 18px;
+    font-weight: 800;
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+#perfil .profile-text {
+    font-size: 15px;
+    line-height: 1.6;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.8s ease-out 0.5s, transform 0.8s ease-out 0.5s;
+}
+
+#perfil .profile-text.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#contacto::after {
+    background: var(--fg);
+}
+
+#contacto>div:first-child {
+    color: var(--fg);
+    font-weight: 800;
+    margin-bottom: 12px;
+    font-size: 18px;
+}
+
+/* ---------------------------------------------------------------
+   12. CONTACTO – BOTONES PRESIONABLES
+   --------------------------------------------------------------- */
+#contacto .contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+#contacto .contact-list li.full-width-btn {
+    grid-column: span 2;
+}
+
+#contacto .contact-list li {
+    display: block;
+}
+
+#contacto .contact-btn-pressable {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+    color: #000;
+    transition: all 0.2s ease-out;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+#contacto .contact-btn-pressable:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* BUG FIX: faltaba ";" después de "width: 25px" en el original */
+#contacto .contact-btn-pressable i {
+    font-size: 1.2em;
+    margin-right: 12px;
+    width: 25px;
+    text-align: center;
+    color: inherit;
+}
+
+#contacto .btn-linkedin {
+    background: var(--accent-blue);
+    color: var(--fg);
+}
+
+#contacto .btn-linkedin:hover {
+    box-shadow: 0 8px 25px rgba(0, 119, 182, 0.4);
+}
+
+#contacto .btn-email {
+    background: var(--accent-yellow);
+    color: #332400;
+}
+
+#contacto .btn-email:hover {
+    box-shadow: 0 8px 25px rgba(255, 195, 0, 0.3);
+}
+
+#contacto .btn-email i {
+    color: #332400;
+}
+
+#contacto .btn-email-rojo {
+    background: var(--accent-red);
+    color: var(--fg);
+}
+
+#contacto .btn-email-rojo span {
+    font-size: 0.85em;
+}
+
+#contacto .btn-email-rojo:hover {
+    box-shadow: 0 8px 25px rgba(255, 51, 102, 0.3);
+}
+
+#contacto .btn-email-rojo i {
+    color: var(--fg);
+}
+
+#contacto .btn-whatsapp {
+    background: var(--accent-green);
+    color: #03120a;
+}
+
+#contacto .btn-eco {
+    background: var(--accent-purple);
+    color: var(--fg);
+}
+
+#contacto .btn-twitter {
+    background: #000;
+    color: var(--fg);
+    border: 2px solid var(--fg);
+}
+
+#contacto .btn-twitter:hover {
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+}
+
+#contacto .btn-twitter i {
+    color: var(--fg);
+}
+
+#contacto .btn-facebook {
+    background: #1877F2;
+    color: var(--fg);
+}
+
+#contacto .btn-instagram {
+    background: #FF5733;
+    color: var(--fg);
+}
+
+#contacto .btn-instagram:hover {
+    box-shadow: 0 8px 25px rgba(255, 87, 51, 0.3);
+}
+
+#contacto .btn-instagram i {
+    color: var(--fg);
+}
+
+#contacto .btn-tiktok {
+    background: #fff;
+    color: #000;
+}
+
+/* ---------------------------------------------------------------
+   13. FOOTER
+   --------------------------------------------------------------- */
+footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    padding: 26px 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+footer.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sello {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+}
+
+.sello:hover {
+    transform: scale(1.1);
+}
+
+.sello img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ---------------------------------------------------------------
+   14. PARTÍCULAS
+   --------------------------------------------------------------- */
+#particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background-color: var(--bg-uniform);
+}
+
+/* ---------------------------------------------------------------
+   15. PRELOADER
+   --------------------------------------------------------------- */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #2c2c2c;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+}
+
+#preloader.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.haku-visual-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.loading-text {
+    font-size: 3.5em;
+    font-weight: bold;
+    color: #cccccc;
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+    margin-top: 0;
+    margin-bottom: 0;
+    z-index: 10;
+    display: flex;
+}
+
+.loading-text span {
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+
+.loading-text.animate span {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.haku-img {
+    width: 350px;
+    height: 350px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+}
+
+/* ---------------------------------------------------------------
+   16. ACCESIBILIDAD Y RESPONSIVE
+   --------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+
+    .pulse-card,
+    .pulse-card-blue,
+    .pulse-card-white,
+    .avatar {
+        animation: none !important;
+    }
+
+    .card,
+    footer,
+    .typewriter-title,
+    #perfil .profile-text {
+        transition: none !important;
+        opacity: 1;
+        transform: none;
+    }
+
+    .typewriter-title {
+        border-right: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .haku-img {
+        width: 250px;
+        height: 250px;
+        margin-top: 0;
+    }
+
+    .loading-text {
+        font-size: 2.5em;
+        margin-top: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 20px;
+    }
+
+    .typewriter-title {
+        font-size: 24px;
+        white-space: nowrap;
+        word-break: normal;
+        width: fit-content;
+    }
+
+    #perfil .profile-title {
+        text-align: center;
+    }
+
+    .avatar {
+        width: 100px;
+        height: 100px;
+    }
+
+    footer {
+        flex-direction: column;
+        gap: 15px;
+        justify-content: center;
+    }
+
+    #contacto .contact-list {
+        gap: 8px;
+    }
+
+    #contacto .contact-btn-pressable {
+        padding: 12px 10px;
+    }
+
+    #contacto .btn-email-rojo span {
+        overflow-wrap: break-word;
+        word-break: break-all;
+        min-width: 0;
+    }
+}
