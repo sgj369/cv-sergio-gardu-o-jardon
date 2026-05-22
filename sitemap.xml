@@ -3,7 +3,7 @@
 
   <!-- Portafolio Principal -->
   <url>
-    <loc>https://sgj369.github.io/cv-sergio-gardu-o-jardon/</loc>
+    <loc>https://sergiogj.uk/</loc>
     <lastmod>2026-02-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
@@ -11,7 +11,7 @@
 
   <!-- Tarjeta Digital -->
   <url>
-    <loc>https://sgj369.github.io/cv-sergio-gardu-o-jardon/TD.html</loc>
+    <loc>https://sergiogj.uk/TD</loc>
     <lastmod>2026-02-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -19,7 +19,7 @@
 
   <!-- Ver CV (visor de PDF) -->
   <url>
-    <loc>https://sgj369.github.io/cv-sergio-gardu-o-jardon/cv_viewer.html</loc>
+    <loc>https://sergiogj.uk/cv_viewer</loc>
     <lastmod>2026-02-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -27,7 +27,7 @@
 
   <!-- Ver CV en inglés -->
   <url>
-    <loc>https://sgj369.github.io/cv-sergio-gardu-o-jardon/cv_viewer_eu.html</loc>
+    <loc>https://sergiogj.uk/cv_viewer_eu</loc>
     <lastmod>2026-02-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -35,7 +35,7 @@
 
   <!-- Certificados -->
   <url>
-    <loc>https://sgj369.github.io/cv-sergio-gardu-o-jardon/certificados.html</loc>
+    <loc>https://sergiogj.uk/certificados</loc>
     <lastmod>2026-02-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -43,7 +43,7 @@
 
   <!-- Tesis (visor PDF) -->
   <url>
-    <loc>https://sgj369.github.io/cv-sergio-gardu-o-jardon/tesis_viewer.html</loc>
+    <loc>https://sergiogj.uk/tesis_viewer</loc>
     <lastmod>2026-02-22</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>

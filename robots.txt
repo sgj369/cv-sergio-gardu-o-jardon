@@ -2,16 +2,16 @@ User-agent: *
 Allow: /
 
 # Páginas principales
-Allow: /index.html
-Allow: /TD.html
-Allow: /cv_viewer.html
-Allow: /cv_viewer_eu.html
-Allow: /certificados.html
-Allow: /tesis_viewer.html
+Allow: /
+Allow: /TD
+Allow: /cv_viewer
+Allow: /cv_viewer_eu
+Allow: /certificados
+Allow: /tesis_viewer
 
 # Archivos de respaldo (no indexar)
 Disallow: /_backup/
 Disallow: /dev/
 
 # Sitemap
-Sitemap: https://sgj369.github.io/cv-sergio-gardu-o-jardon/sitemap.xml
+Sitemap: https://sergiogj.uk/sitemap.xml
