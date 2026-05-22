@@ -401,6 +401,7 @@ body.loaded {
     color: #000;
     transition: all 0.2s ease-out;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border: 2px solid transparent;
 }
 
 #contacto .contact-btn-pressable:hover {
@@ -466,17 +467,17 @@ body.loaded {
     color: var(--fg);
 }
 
-#contacto .btn-twitter {
+#contacto .btn-x {
     background: #000;
     color: var(--fg);
     border: 2px solid var(--fg);
 }
 
-#contacto .btn-twitter:hover {
+#contacto .btn-x:hover {
     box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
 }
 
-#contacto .btn-twitter i {
+#contacto .btn-x i {
     color: var(--fg);
 }
 

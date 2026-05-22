@@ -719,6 +719,7 @@ h2.profile-title  { font-size: 18px; font-weight: 800; margin-top: 0; margin-bot
   color: #000;
   transition: all 0.2s ease-out;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border: 2px solid transparent;
 }
 #contacto .contact-btn-pressable:hover {
   transform: translateY(-2px);
