@@ -667,14 +667,25 @@ footer.is-visible {
 
 @media (max-width: 480px) {
     body {
-        padding: 20px;
+        padding: 16px 12px;
+    }
+
+    .wrap {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .card {
+        padding: 16px 12px;
     }
 
     .typewriter-title {
-        font-size: 24px;
-        white-space: nowrap;
-        word-break: normal;
-        width: fit-content;
+        font-size: 22px;
+        white-space: normal;
+        word-break: break-word;
+        text-align: center;
+        width: 100%;
     }
 
     #perfil .profile-title {
@@ -688,21 +699,79 @@ footer.is-visible {
 
     footer {
         flex-direction: column;
-        gap: 15px;
+        gap: 12px;
         justify-content: center;
     }
 
     #contacto .contact-list {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
         gap: 8px;
+        width: 100%;
+    }
+
+    #contacto .contact-list li.full-width-btn {
+        grid-column: span 1;
+    }
+
+    #contacto .contact-list li {
+        width: 100%;
+        min-width: 0;
     }
 
     #contacto .contact-btn-pressable {
-        padding: 12px 10px;
+        padding: 12px 12px;
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        overflow-wrap: anywhere;
     }
 
-    #contacto .btn-email-rojo span {
-        overflow-wrap: break-word;
-        word-break: break-all;
+    #contacto .contact-btn-pressable span {
         min-width: 0;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+        line-height: 1.3;
+    }
+
+    #contacto .btn-email span,
+    #contacto .btn-email-rojo span {
+        overflow-wrap: anywhere;
+        word-break: break-word;
+        min-width: 0;
+    }
+}
+
+@media (max-width: 350px) {
+    body {
+        padding: 12px 8px;
+    }
+
+    .card {
+        padding: 14px 10px;
+    }
+
+    .typewriter-title {
+        font-size: 19px;
+    }
+
+    .avatar {
+        width: 90px;
+        height: 90px;
+    }
+
+    .btn-fill-white {
+        padding: 8px 12px;
+        font-size: 0.9em;
+    }
+
+    #contacto .contact-btn-pressable {
+        padding: 10px 8px;
+        font-size: 0.9em;
+    }
+
+    #contacto .contact-btn-pressable i {
+        margin-right: 8px;
+        width: 20px;
     }
 }

@@ -47,7 +47,321 @@
 }
 
 /* ---------------------------------------------------------------
-   4. MENÚ LATERAL EN MODO CLARO
+   4. BOTONES DEL ENCABEZADO EN MODO CLARO
+   --------------------------------------------------------------- */
+:root[data-theme="light"] .btn-fill-white {
+    background: #1a1a2e;
+    color: #ffffff;
+    border: 2px solid #1a1a2e;
+    box-shadow: 0 4px 15px rgba(26, 26, 46, 0.25);
+}
+
+:root[data-theme="light"] .btn-fill-white i,
+:root[data-theme="light"] .btn-fill-white span {
+    color: #ffffff !important;
+}
+
+:root[data-theme="light"] .btn-fill-white:hover {
+    background: #30304d;
+    border-color: #30304d;
+    box-shadow: 0 6px 20px rgba(26, 26, 46, 0.4);
+}
+
+:root[data-theme="light"] .btn-fill-white:hover i,
+:root[data-theme="light"] .btn-fill-white:hover span,
+:root[data-theme="light"] .btn-fill-white:focus i,
+:root[data-theme="light"] .btn-fill-white:focus span,
+:root[data-theme="light"] .btn-fill-white:active i,
+:root[data-theme="light"] .btn-fill-white:active span {
+    color: #ffffff !important;
+}
+
+:root[data-theme="light"] .btn-outline-white {
+    background: transparent;
+    color: #1a1a2e;
+    border: 2px solid #1a1a2e;
+}
+
+:root[data-theme="light"] .btn-outline-white i,
+:root[data-theme="light"] .btn-outline-white span {
+    color: #1a1a2e !important;
+}
+
+:root[data-theme="light"] .btn-outline-white:hover {
+    background: rgba(26, 26, 46, 0.08);
+}
+
+:root[data-theme="light"] .btn-outline-white:hover i,
+:root[data-theme="light"] .btn-outline-white:hover span,
+:root[data-theme="light"] .btn-outline-white:focus i,
+:root[data-theme="light"] .btn-outline-white:focus span,
+:root[data-theme="light"] .btn-outline-white:active i,
+:root[data-theme="light"] .btn-outline-white:active span {
+    color: #1a1a2e !important;
+}
+
+/* ---------------------------------------------------------------
+   5. BOTONES DE PROYECTOS EN MODO CLARO
+   --------------------------------------------------------------- */
+
+/* Botones Principales en Modo Claro */
+:root[data-theme="light"] .btn-proj-primary {
+    color: #ffffff !important;
+}
+
+:root[data-theme="light"] .btn-proj-primary i,
+:root[data-theme="light"] .btn-proj-primary span {
+    color: #ffffff !important;
+}
+
+:root[data-theme="light"] .btn-proj-ecogaia {
+    background: linear-gradient(135deg, #005f99, #0875a8, #1b5e20);
+    border-color: rgba(0, 95, 153, 0.4);
+    --btn-glow: rgba(0, 95, 153, 0.35);
+}
+
+:root[data-theme="light"] .btn-proj-tv-dash {
+    background: linear-gradient(135deg, #14532d, #18733d, #0f766e);
+    border-color: rgba(20, 83, 45, 0.4);
+    --btn-glow: rgba(20, 83, 45, 0.35);
+}
+
+/* Botones Secundarios en Modo Claro */
+:root[data-theme="light"] .btn-proj-secondary {
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Instagram */
+:root[data-theme="light"] .btn-proj-instagram {
+    background: rgba(255, 255, 255, 0.85);
+    border: 1.5px solid var(--accent-orange);
+    color: var(--accent-orange) !important;
+}
+
+:root[data-theme="light"] .btn-proj-instagram i,
+:root[data-theme="light"] .btn-proj-instagram span {
+    color: var(--accent-orange) !important;
+}
+
+:root[data-theme="light"] .btn-proj-instagram:hover,
+:root[data-theme="light"] .btn-proj-instagram:focus-visible {
+    background: rgba(200, 75, 31, 0.12);
+    border-color: var(--accent-orange);
+    color: var(--accent-orange) !important;
+    box-shadow: 0 6px 18px rgba(200, 75, 31, 0.2);
+}
+
+:root[data-theme="light"] .btn-proj-instagram:hover i,
+:root[data-theme="light"] .btn-proj-instagram:hover span,
+:root[data-theme="light"] .btn-proj-instagram:focus-visible i,
+:root[data-theme="light"] .btn-proj-instagram:focus-visible span {
+    color: var(--accent-orange) !important;
+}
+
+/* Ver tesis */
+:root[data-theme="light"] .btn-proj-tv-tesis {
+    background: rgba(255, 255, 255, 0.88);
+    border: 1.5px solid var(--accent-purple);
+    color: var(--accent-purple) !important;
+}
+
+:root[data-theme="light"] .btn-proj-tv-tesis i,
+:root[data-theme="light"] .btn-proj-tv-tesis span {
+    color: var(--accent-purple) !important;
+}
+
+:root[data-theme="light"] .btn-proj-tv-tesis:hover,
+:root[data-theme="light"] .btn-proj-tv-tesis:focus-visible {
+    background: rgba(122, 31, 168, 0.12);
+    border-color: var(--accent-purple);
+    color: var(--accent-purple) !important;
+    box-shadow: 0 6px 18px rgba(122, 31, 168, 0.2);
+}
+
+:root[data-theme="light"] .btn-proj-tv-tesis:hover i,
+:root[data-theme="light"] .btn-proj-tv-tesis:hover span,
+:root[data-theme="light"] .btn-proj-tv-tesis:focus-visible i,
+:root[data-theme="light"] .btn-proj-tv-tesis:focus-visible span {
+    color: var(--accent-purple) !important;
+}
+
+/* Botón Consultar Datos (Hoja de datos) */
+:root[data-theme="light"] .btn-proj-tv-sheets,
+:root[data-theme="light"] .btn-proj-subtle {
+    background: rgba(255, 255, 255, 0.75);
+    border: 1.5px dashed rgba(27, 94, 32, 0.55);
+    color: #374151 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+:root[data-theme="light"] .btn-proj-tv-sheets i,
+:root[data-theme="light"] .btn-proj-tv-sheets span,
+:root[data-theme="light"] .btn-proj-subtle i,
+:root[data-theme="light"] .btn-proj-subtle span {
+    color: #374151 !important;
+}
+
+:root[data-theme="light"] .btn-proj-tv-sheets:hover,
+:root[data-theme="light"] .btn-proj-tv-sheets:focus-visible,
+:root[data-theme="light"] .btn-proj-subtle:hover,
+:root[data-theme="light"] .btn-proj-subtle:focus-visible {
+    background: rgba(27, 94, 32, 0.10);
+    border-color: #14532d;
+    color: #14532d !important;
+    box-shadow: 0 4px 14px rgba(27, 94, 32, 0.18);
+}
+
+:root[data-theme="light"] .btn-proj-tv-sheets:hover i,
+:root[data-theme="light"] .btn-proj-tv-sheets:hover span,
+:root[data-theme="light"] .btn-proj-tv-sheets:focus-visible i,
+:root[data-theme="light"] .btn-proj-tv-sheets:focus-visible span,
+:root[data-theme="light"] .btn-proj-subtle:hover i,
+:root[data-theme="light"] .btn-proj-subtle:hover span,
+:root[data-theme="light"] .btn-proj-subtle:focus-visible i,
+:root[data-theme="light"] .btn-proj-subtle:focus-visible span {
+    color: #14532d !important;
+}
+
+/* ---------------------------------------------------------------
+   6. BOTONES DE CONTACTO EN MODO CLARO
+   --------------------------------------------------------------- */
+:root[data-theme="light"] #contacto .contact-btn-pressable {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+:root[data-theme="light"] #contacto .contact-btn-pressable i,
+:root[data-theme="light"] #contacto .contact-btn-pressable span {
+    color: inherit;
+}
+
+/* LinkedIn: fondo #005f99 y texto blanco */
+:root[data-theme="light"] #contacto .btn-linkedin {
+    background: #005f99 !important;
+    color: #ffffff !important;
+    border: 2px solid #005f99;
+}
+:root[data-theme="light"] #contacto .btn-linkedin i,
+:root[data-theme="light"] #contacto .btn-linkedin span {
+    color: #ffffff !important;
+}
+:root[data-theme="light"] #contacto .btn-linkedin:hover {
+    background: #004d7d !important;
+    box-shadow: 0 8px 25px rgba(0, 95, 153, 0.35);
+}
+
+/* Correo personal: fondo #ffc300 y texto #332400 */
+:root[data-theme="light"] #contacto .btn-email:not(.btn-email-rojo) {
+    background: #ffc300 !important;
+    color: #332400 !important;
+    border: 2px solid #e6b000;
+}
+:root[data-theme="light"] #contacto .btn-email:not(.btn-email-rojo) i,
+:root[data-theme="light"] #contacto .btn-email:not(.btn-email-rojo) span {
+    color: #332400 !important;
+}
+:root[data-theme="light"] #contacto .btn-email:not(.btn-email-rojo):hover {
+    background: #e6b000 !important;
+    box-shadow: 0 8px 25px rgba(255, 195, 0, 0.4);
+}
+
+/* Correo institucional: fondo #b42342 y texto blanco */
+:root[data-theme="light"] #contacto .btn-email-rojo {
+    background: #b42342 !important;
+    color: #ffffff !important;
+    border: 2px solid #991b35;
+}
+:root[data-theme="light"] #contacto .btn-email-rojo i,
+:root[data-theme="light"] #contacto .btn-email-rojo span {
+    color: #ffffff !important;
+}
+:root[data-theme="light"] #contacto .btn-email-rojo:hover {
+    background: #991b35 !important;
+    box-shadow: 0 8px 25px rgba(180, 35, 66, 0.35);
+}
+
+/* WhatsApp: fondo #1f7a3e y texto blanco */
+:root[data-theme="light"] #contacto .btn-whatsapp {
+    background: #1f7a3e !important;
+    color: #ffffff !important;
+    border: 2px solid #1f7a3e;
+}
+:root[data-theme="light"] #contacto .btn-whatsapp i,
+:root[data-theme="light"] #contacto .btn-whatsapp span {
+    color: #ffffff !important;
+}
+:root[data-theme="light"] #contacto .btn-whatsapp:hover {
+    background: #186332 !important;
+    box-shadow: 0 8px 25px rgba(31, 122, 62, 0.35);
+}
+
+/* GitHub: fondo #5b1a8a y texto blanco */
+:root[data-theme="light"] #contacto .btn-github {
+    background: #5b1a8a !important;
+    color: #ffffff !important;
+    border: 2px solid #5b1a8a;
+}
+:root[data-theme="light"] #contacto .btn-github i,
+:root[data-theme="light"] #contacto .btn-github span {
+    color: #ffffff !important;
+}
+:root[data-theme="light"] #contacto .btn-github:hover {
+    background: #491370 !important;
+    box-shadow: 0 8px 25px rgba(91, 26, 138, 0.35);
+}
+
+/* Facebook: fondo #0d5db8 y texto blanco */
+:root[data-theme="light"] #contacto .btn-facebook {
+    background: #0d5db8 !important;
+    color: #ffffff !important;
+    border: 2px solid #0d5db8;
+}
+:root[data-theme="light"] #contacto .btn-facebook i,
+:root[data-theme="light"] #contacto .btn-facebook span {
+    color: #ffffff !important;
+}
+:root[data-theme="light"] #contacto .btn-facebook:hover {
+    background: #0a4c97 !important;
+    box-shadow: 0 8px 25px rgba(13, 93, 184, 0.35);
+}
+
+/* Instagram: fondo #a63d14 y texto blanco */
+:root[data-theme="light"] #contacto .btn-instagram {
+    background: #a63d14 !important;
+    color: #ffffff !important;
+    border: 2px solid #a63d14;
+}
+:root[data-theme="light"] #contacto .btn-instagram i,
+:root[data-theme="light"] #contacto .btn-instagram span {
+    color: #ffffff !important;
+}
+:root[data-theme="light"] #contacto .btn-instagram:hover {
+    background: #873110 !important;
+    box-shadow: 0 8px 25px rgba(166, 61, 20, 0.35);
+}
+
+/* EcoGuiaSOS (TD): fondo #1b5e20 y texto blanco */
+:root[data-theme="light"] #contacto .btn-eco {
+    background: #1b5e20 !important;
+    color: #ffffff !important;
+    border: 2px solid #1b5e20;
+}
+:root[data-theme="light"] #contacto .btn-eco i,
+:root[data-theme="light"] #contacto .btn-eco span {
+    color: #ffffff !important;
+}
+:root[data-theme="light"] #contacto .btn-eco:hover {
+    background: #144918 !important;
+    box-shadow: 0 8px 25px rgba(27, 94, 32, 0.35);
+}
+
+/* Focus visible accesible para todos los botones de contacto en modo claro */
+:root[data-theme="light"] #contacto .contact-btn-pressable:focus-visible {
+    outline: 3px solid #1a1a2e;
+    outline-offset: 3px;
+}
+
+/* ---------------------------------------------------------------
+   7. MENÚ LATERAL EN MODO CLARO
    --------------------------------------------------------------- */
 :root[data-theme="light"] .side-navbar {
     background: rgba(255, 255, 255, 0.97);
@@ -67,7 +381,7 @@
 }
 
 /* ---------------------------------------------------------------
-   5. PRELOADER EN MODO CLARO
+   8. PRELOADER EN MODO CLARO
    --------------------------------------------------------------- */
 :root[data-theme="light"] #preloader {
     background-color: var(--bg-uniform);
@@ -79,7 +393,7 @@
 }
 
 /* ---------------------------------------------------------------
-   6. NOMBRE / TYPEWRITER EN MODO CLARO (fix text-shadow negro)
+   9. NOMBRE / TYPEWRITER EN MODO CLARO (fix text-shadow negro)
    --------------------------------------------------------------- */
 :root[data-theme="light"] .title,
 :root[data-theme="light"] .typewriter-title,
@@ -89,12 +403,12 @@
 }
 
 /* ---------------------------------------------------------------
-   7. BOTÓN X (Twitter) — SIEMPRE BLANCO sobre negro
+   10. BOTÓN X (Twitter) — SIEMPRE BLANCO sobre negro
    --------------------------------------------------------------- */
 #contacto .btn-x {
-    background: #1a1a1a;
+    background: #1a1a1a !important;
     color: #ffffff !important;
-    border: 2px solid #cccccc;
+    border: 2px solid #444444;
 }
 
 #contacto .btn-x i,
@@ -103,15 +417,15 @@
 }
 
 #contacto .btn-x:hover {
-    background: #2d2d2d;
-    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.15);
+    background: #2d2d2d !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
 }
 
 /* ---------------------------------------------------------------
-   8. BOTÓN TikTok — SIEMPRE NEGRO sobre blanco
+   11. BOTÓN TikTok — SIEMPRE NEGRO sobre blanco
    --------------------------------------------------------------- */
 #contacto .btn-tiktok {
-    background: #ffffff;
+    background: #ffffff !important;
     color: #000000 !important;
     border: 2px solid #000000;
 }
@@ -121,8 +435,13 @@
     color: #000000 !important;
 }
 
+#contacto .btn-tiktok:hover {
+    background: #f0f0f0 !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
 /* ---------------------------------------------------------------
-   9. BOTÓN TOGGLE DE TEMA (luna / sol)
+   12. BOTÓN TOGGLE DE TEMA (luna / sol)
    --------------------------------------------------------------- */
 #theme-toggle-btn {
     background: none;
@@ -197,4 +516,17 @@
     border-radius: 3px;
     object-fit: cover;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 600px) {
+    #theme-toggle-btn {
+        align-self: flex-start;
+        box-sizing: border-box;
+        width: calc(100% - 1px);
+        min-width: 0;
+        margin: 0;
+        padding-left: 0;
+        padding-right: 0;
+        justify-content: center;
+    }
 }

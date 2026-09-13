@@ -8,7 +8,7 @@
    PRELOADER
    --------------------------------------------------------------- */
 const TEXT_TO_ANIMATE = 'Cargando';
-const MAX_REPEATS = 2;
+const MAX_REPEATS = 1;
 let repeatCount = 0;
 let loadingTextEl;
 
@@ -70,6 +70,7 @@ function startTypewriterEffect() {
             setTimeout(typeChar, SPEED);
         } else {
             el.style.borderRight = 'none';
+            el.style.whiteSpace = 'normal';
         }
     })();
 }
@@ -110,7 +111,7 @@ function setupAvatarFlip() {
     const img = document.getElementById('avatar-img');
     if (!container || !img) return;
 
-    const SRC_PHOTO = 'img/perfil.png';
+    const SRC_PHOTO = 'img/perfil.webp';
     const SRC_QR = 'img/QRTD.png';
     let isQr = false;
 
